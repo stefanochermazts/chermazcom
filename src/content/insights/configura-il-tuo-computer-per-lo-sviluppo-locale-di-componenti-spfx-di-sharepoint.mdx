@@ -63,7 +63,8 @@ Segui le istruzioni dell&#8217;installatore per completare l&#8217;installazione
 Verifica l&#8217;installazione aprendo il terminale e digitando:
 
 
-sh node -v
+```sh
+node -v
 
 
 Dovresti vedere la versione installata, confermando che Node.js è stato installato correttamente.
@@ -77,12 +78,14 @@ Con Node.js installato, passiamo alla preparazione dell&#8217;ambiente:
 
 **Installa Gulp:**
 Gulp è uno strumento essenziale per automatizzare le attività nel flusso di lavoro di sviluppo. Installa Gulp globalmente utilizzando npm (Node Package Manager), incluso con Node.js:
-sh npm install -g gulp-cli
+```sh
+npm install -g gulp-cli
 **Configura Visual Studio Code:**
 Scarica e installa Visual Studio Code. Questo editor offre numerosi plugin utili per migliorare la tua esperienza di sviluppo con SPFx.
 **Installa Yeoman e il generatore SPFx:**
 Yeoman è un generatore scaffolding che ti aiuta a creare progetti rapidamente. Installa Yeoman e il generatore SharePoint Framework utilizzando npm:
-sh npm install -g yo @microsoft/generator-sharepoint
+```sh
+npm install -g yo @microsoft/generator-sharepoint
 
 Questi passaggi ti metteranno sulla buona strada per creare componenti SPFx in modo efficiente sul tuo ambiente locale.
 
@@ -222,7 +225,8 @@ Adottando queste pratiche, è possibile minimizzare gli ostacoli e mantenere un 
 Prima di distribuire il tuo **Pacchetto SPFx**, è essenziale assicurarsi che il progetto sia stato compilato correttamente. Utilizza il comando gulp bundle --ship per creare un pacchetto ottimizzato per la produzione. Successivamente, esegui gulp package-solution --ship per generare il file .sppkg, che sarà utilizzato per la distribuzione.
 
 
-bash gulp bundle &#8211;ship gulp package-solution &#8211;ship
+```bash
+gulp bundle &#8211;ship gulp package-solution &#8211;ship
 
 
 Il file .sppkg risultante sarà disponibile nella cartella sharepoint/solution del tuo progetto SPFx.

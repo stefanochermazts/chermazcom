@@ -266,39 +266,35 @@ L&#8217;integrazione delle API di OpenAI in Azure richiede familiarità con dive
 
 Per sfruttare le API di OpenAI in Python, utilizzo il SDK ufficiale. Innanzitutto, installo la libreria con pip:
 
-
+```bash
 pip install openai
+```Poi, configuro l&#8217;autenticazione:
 
-Poi, configuro l&#8217;autenticazione:
-
-
+```python
 import openai
 openai.api_key = "LA_MIA_CHIAVE_API"
 openai.api_base = "https://mio-endpoint-azure.openai.azure.com/"
+```Per generare testo, uso questo codice:
 
-Per generare testo, uso questo codice:
-
-
+```python
 risposta = openai.Completion.create(
     engine="davinci",
     prompt="Traduci in italiano: Hello, world!",
     max_tokens=50
 )
 print(risposta.choices[0].text)
-
-Questo esempio mostra come effettuare una semplice richiesta di completamento del testo.
+```Questo esempio mostra come effettuare una semplice richiesta di completamento del testo.
 
 
 ### Integrazione con .NET Core e la Libreria Client OpenAI
 
 Per integrare le API in un&#8217;applicazione .NET Core, uso la libreria client ufficiale. La installo tramite NuGet:
 
-
+```bash
 dotnet add package Azure.AI.OpenAI
+```Ecco un esempio di codice per l&#8217;autenticazione e una richiesta di completamento:
 
-Ecco un esempio di codice per l&#8217;autenticazione e una richiesta di completamento:
-
-
+```csharp
 using Azure;
 using Azure.AI.OpenAI;
 
@@ -313,15 +309,14 @@ var completions = await client.GetCompletionsAsync(
 );
 
 Console.WriteLine(completions.Choices[0].Text);
-
-Questo codice dimostra come effettuare una richiesta di completamento usando .NET Core.
+```Questo codice dimostra come effettuare una richiesta di completamento usando .NET Core.
 
 
 ### Esempi di codice per l&#8217;utilizzo delle API REST
 
 Per interagire direttamente con le API REST, posso usare richieste HTTP. Ecco un esempio in Python utilizzando la libreria requests:
 
-
+```python
 import requests
 
 headers = {
@@ -341,8 +336,7 @@ response = requests.post(
 )
 
 print(response.json()["choices"][0]["text"])
-
-Questo codice mostra come effettuare una richiesta REST diretta all&#8217;endpoint di Azure per le API di OpenAI.
+```Questo codice mostra come effettuare una richiesta REST diretta all&#8217;endpoint di Azure per le API di OpenAI.
 
 
 ## Interazione con le API di OpenAI
@@ -360,14 +354,13 @@ Per generare testo con le API di OpenAI, utilizzo i completamenti. Inizio fornen
 
 La modalità stream mi permette di ricevere il testo generato in tempo reale, ideale per applicazioni interattive. Ecco un esempio di richiesta di completamento in Python:
 
-
+```python
 response = openai.Completion.create(
   engine="text-davinci-002",
   prompt="Scrivi un'introduzione su l'intelligenza artificiale",
   max_tokens=100
 )
-
-Questo approccio è versatile e può essere utilizzato per varie applicazioni come scrittura creativa, riassunti e risposte a domande.
+```Questo approccio è versatile e può essere utilizzato per varie applicazioni come scrittura creativa, riassunti e risposte a domande.
 
 
 ### Creazione di embedding semantici
@@ -377,14 +370,13 @@ Gli embedding sono rappresentazioni numeriche del significato semantico di parol
 
 Ecco come genero un embedding per una frase:
 
-
+```python
 response = openai.Embedding.create(
   input="L'intelligenza artificiale sta rivoluzionando molti settori",
   engine="text-embedding-ada-002"
 )
 embedding = response['data'][0]['embedding']
-
-Questi vettori sono utili per:
+```Questi vettori sono utili per:
 
 
 
@@ -402,7 +394,7 @@ Per creare chatbot avanzati, sfrutto il modello ChatGPT tramite l&#8217;API. Uti
 
 Il processo prevede l&#8217;invio di messaggi in un formato specifico:
 
-
+```python
 response = openai.ChatCompletion.create(
   model="gpt-3.5-turbo",
   messages=[
@@ -410,8 +402,7 @@ response = openai.ChatCompletion.create(
     {"role": "user", "content": "Come posso migliorare la mia produttività?"}
   ]
 )
-
-Gestisco lo storico della conversazione per mantenere il contesto. Posso anche incorporare conoscenze specifiche nel prompt di sistema per personalizzare il comportamento del chatbot.
+```Gestisco lo storico della conversazione per mantenere il contesto. Posso anche incorporare conoscenze specifiche nel prompt di sistema per personalizzare il comportamento del chatbot.
 
 
 ### Elaborazione di immagini con DALL-E
@@ -421,15 +412,14 @@ L&#8217;API DALL-E mi consente di generare e modificare immagini basate su descr
 
 Per generare un&#8217;immagine:
 
-
+```python
 response = openai.Image.create(
   prompt="Un gatto che suona il pianoforte in stile cartoon",
   n=1,
   size="1024x1024"
 )
 image_url = response['data'][0]['url']
-
-DALL-E è versatile e può essere utilizzato per:
+```DALL-E è versatile e può essere utilizzato per:
 
 
 
