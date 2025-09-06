@@ -18,7 +18,7 @@ const insights = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/insights' }),
   schema: z.object({
     title: z.string(),
-    date: z.string().optional(),
+    date: z.string().or(z.date()).optional(),
     excerpt: z.string().optional(),
     status: z.string().optional(),
     categories: z.array(z.any()).optional(),
@@ -31,7 +31,7 @@ const pages = defineCollection({
   schema: z.object({
     title: z.string(),
     slug: z.string().optional(),
-    date: z.string().optional(),
+    date: z.string().or(z.date()).optional(),
     excerpt: z.string().optional(),
   }),
 })
