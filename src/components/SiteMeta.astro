@@ -37,6 +37,18 @@ let subtitle = 'Accessible Astro Starter'
 <meta name="description" content={description} />
 <meta name="author" content={author} />
 
+<!-- canonical -->
+{
+  const langs = ['it','en','sl']
+  const urlObj = new URL(Astro.url)
+  const segments = urlObj.pathname.split('/').filter(Boolean)
+  const hasPrefix = langs.includes(segments[0])
+  const rest = hasPrefix ? segments.slice(1).join('/') : segments.join('/')
+  const current = hasPrefix ? segments[0] : 'it'
+  const canonical = `${Astro.site}${current}/${rest ? rest + '/' : ''}`
+}
+<link rel="canonical" href={canonical} />
+
 <!-- open graph -->
 <meta property="og:title" content={`${title} - ${subtitle}`} />
 <meta property="og:description" content={description} />
@@ -48,3 +60,17 @@ let subtitle = 'Accessible Astro Starter'
 
 <!-- page title -->
 <title>{title} - {subtitle}</title>
+
+<!-- hreflang -->
+{
+  const langs = ['it','en','sl']
+  const url = new URL(Astro.url)
+  const segments = url.pathname.split('/').filter(Boolean)
+  const hasPrefix = langs.includes(segments[0])
+  const rest = hasPrefix ? segments.slice(1).join('/') : segments.join('/')
+  const makeUrl = (l) => `${Astro.site}${l}/${rest ? rest + '/' : ''}`
+}
+<link rel="alternate" hreflang="x-default" href={`${Astro.site}`} />
+<link rel="alternate" hreflang="it" href={makeUrl('it')} />
+<link rel="alternate" hreflang="en" href={makeUrl('en')} />
+<link rel="alternate" hreflang="sl" href={makeUrl('sl')} />

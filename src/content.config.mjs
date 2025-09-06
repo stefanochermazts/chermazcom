@@ -14,5 +14,27 @@ const projects = defineCollection({
   }),
 })
 
+const insights = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/insights' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string().optional(),
+    excerpt: z.string().optional(),
+    status: z.string().optional(),
+    categories: z.array(z.any()).optional(),
+    tags: z.array(z.any()).optional(),
+  }),
+})
+
+const pages = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string().optional(),
+    date: z.string().optional(),
+    excerpt: z.string().optional(),
+  }),
+})
+
 // 4. Export a single `collections` object to register you collection(s)
-export const collections = { projects }
+export const collections = { projects, insights, pages }

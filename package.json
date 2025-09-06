@@ -10,7 +10,12 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "wp:export": "node scripts/wp-export-to-md.mjs",
+    "fix:links": "node scripts/fix-internal-links.mjs",
+    "sitemap": "SITE=https://www.chermaz.com node scripts/generate-sitemap.mjs",
+    "fm:normalize": "node scripts/normalize-frontmatter.mjs",
+    "redirects:wp": "node scripts/generate-redirects-from-wp.mjs"
   },
   "keywords": [
     "astro",
@@ -56,10 +61,14 @@
     "sanitize-html": "^2.17.0",
     "sass": "^1.89.0",
     "svgo": "^3.3.2",
-    "tailwindcss": "^4.1.7"
+    "tailwindcss": "^4.1.7",
+    "jsdom": "^24.0.0",
+    "node-fetch": "^3.3.2"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.7",
-    "accessible-astro-components": "^4.1.2"
+    "accessible-astro-components": "^4.1.2",
+    "@fontsource-inter": "^5.0.0",
+    "@fontsource-sora": "^5.0.0"
   }
 }

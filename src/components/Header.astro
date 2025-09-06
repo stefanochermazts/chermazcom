@@ -1,6 +1,7 @@
 ---
 import Navigation from '../components/Navigation.astro'
 import { DarkMode, SkipLink } from 'accessible-astro-components'
+import LanguageSwitcher from './LanguageSwitcher.astro'
 import { Icon } from 'astro-icon/components'
 
 /**
@@ -14,13 +15,16 @@ import { Icon } from 'astro-icon/components'
   <SkipLink />
   <Navigation>
     <li class="menu-item">
-      <a href="/">Home</a>
+      <a href="/it/">Home</a>
     </li>
     <li class="menu-item">
-      <a href="/blog/">Blog</a>
+      <a href="/it/insights/">Insights</a>
     </li>
     <li class="menu-item">
-      <a href="/portfolio/">Portfolio</a>
+      <a href="/it/chi-sono/">Chi sono</a>
+    </li>
+    <li class="menu-item">
+      <a href="/it/contact/">Contatti</a>
     </li>
     <li class="menu-item has-dropdown">
       <button aria-haspopup="true" aria-expanded="false">
@@ -48,20 +52,15 @@ import { Icon } from 'astro-icon/components'
         </li>
       </ul>
     </li>
-    <li class="menu-item highlight">
-      <a href="https://accessible-astro.incluud.dev/">Docs </a>
-    </li>
-    <li class="menu-item type-icon animate-rotate">
-      <a href="https://github.com/incluud/accessible-astro-starter">
-        <Icon name="lucide:github" />
-        <span class="sr-only">Go to the GitHub page</span>
-      </a>
-    </li>
+    
     <li class="menu-item type-icon animate-rotate">
       <DarkMode>
         <Icon name="lucide:moon" slot="light" />
         <Icon name="lucide:sun" slot="dark" />
       </DarkMode>
+    </li>
+    <li class="menu-item">
+      <LanguageSwitcher />
     </li>
   </Navigation>
 </header>

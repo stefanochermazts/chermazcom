@@ -1,0 +1,16 @@
+---
+import DefaultLayout from '../../../layouts/DefaultLayout.astro'
+import { getEntry } from 'astro:content'
+
+const { slug } = Astro.params
+const entry = await getEntry('insights', slug)
+if (!entry) throw new Error('Not found')
+---
+<DefaultLayout title={entry.data.title}>
+  <article class="container my-16 prose">
+    <h1>{entry.data.title}</h1>
+    <entry.Content />
+  </article>
+</DefaultLayout>
+
+

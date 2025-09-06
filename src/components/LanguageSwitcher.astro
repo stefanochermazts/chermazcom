@@ -1,0 +1,103 @@
+---
+const langs = ['it', 'en', 'sl'] as const
+const currentPath = Astro.url.pathname || '/'
+const segments = currentPath.split('/').filter(Boolean)
+const hasPrefix = langs.includes(segments[0] as any)
+const rest = hasPrefix ? segments.slice(1).join('/') : segments.join('/')
+function hrefFor(l: string) {
+  const path = rest ? `/${rest}/` : '/'
+  return l === 'it' ? `/it${path}` : `/${l}${path}`
+}
+const currentLang = hasPrefix ? (segments[0] as typeof langs[number]) : 'it'
+const labelByLang = { it: 'Italiano', en: 'English', sl: 'Slovenščina' }
+const menuId = 'lang-menu'
+---
+
+<div class="language-switcher">
+  <button
+    class="button"
+    type="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls={menuId}
+  >
+    {labelByLang[currentLang]}
+  </button>
+  <ul id={menuId} class="dropdown-menu" hidden role="menu">
+    {langs.map((l) => (
+      <li role="none">
+        <a href={hrefFor(l)} role="menuitem" data-lang={l} aria-current={currentLang === l ? 'true' : undefined}>
+          {labelByLang[l]}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<script>
+  const root = document.currentScript?.parentElement
+  if (root) {
+    const button = root.querySelector('button')
+    const menu = root.querySelector('ul')
+    const items = () => Array.from(menu.querySelectorAll('a'))
+    function openMenu() {
+      menu.hidden = false
+      button.setAttribute('aria-expanded', 'true')
+    }
+    function closeMenu() {
+      menu.hidden = true
+      button.setAttribute('aria-expanded', 'false')
+    }
+    button.addEventListener('click', () => {
+      if (menu.hidden) openMenu(); else closeMenu()
+    })
+    button.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault(); openMenu(); items()[0]?.focus()
+      }
+    })
+    menu.addEventListener('keydown', (e) => {
+      const list = items()
+      const index = list.indexOf(document.activeElement)
+      if (e.key === 'Escape') { e.preventDefault(); closeMenu(); button.focus() }
+      if (e.key === 'ArrowDown') { e.preventDefault(); list[(index + 1) % list.length]?.focus() }
+      if (e.key === 'ArrowUp') { e.preventDefault(); list[(index - 1 + list.length) % list.length]?.focus() }
+      if (e.key === 'Home') { e.preventDefault(); list[0]?.focus() }
+      if (e.key === 'End') { e.preventDefault(); list[list.length - 1]?.focus() }
+    })
+    menu.addEventListener('click', (e) => {
+      const link = e.target.closest('a[data-lang]')
+      if (link) {
+        const chosen = link.getAttribute('data-lang')
+        try { localStorage.setItem('lang', chosen) } catch {}
+      }
+    })
+    document.addEventListener('click', (e) => {
+      if (!root.contains(e.target)) closeMenu()
+    })
+  }
+  
+</script>
+
+<style lang="scss">
+  .language-switcher {
+    position: relative;
+    .button { display: inline-flex; align-items: center; gap: 0.25rem; }
+    .dropdown-menu {
+      position: absolute;
+      inset-inline-start: 0;
+      margin-top: 0.5rem;
+      background: var(--background-color);
+      border: 1px solid var(--border-color-subtle);
+      border-radius: var(--radius-s);
+      padding: var(--space-2xs);
+      min-inline-size: 12rem;
+      z-index: var(--z-index-4);
+      li { list-style: none; }
+      a { display: block; padding: 0.5rem 0.75rem; }
+      a[aria-current="true"] { font-weight: 600; }
+    }
+  }
+</style>
+
+

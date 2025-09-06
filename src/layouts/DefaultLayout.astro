@@ -15,7 +15,7 @@ const {
 } = Astro.props
 ---
 
-<html lang="en" dir="ltr">
+<html lang={Astro.params?.lang ?? 'en'} dir="ltr">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,6 +30,20 @@ const {
     <ClientRouter />
   </head>
   <body>
+    <script>
+      try {
+        const saved = localStorage.getItem('lang')
+        const path = location.pathname
+        const parts = path.split('/').filter(Boolean)
+        const langs = ['it','en','sl']
+        const hasPrefix = langs.includes(parts[0])
+        if (saved && (!hasPrefix || parts[0] !== saved)) {
+          const rest = hasPrefix ? parts.slice(1).join('/') : parts.join('/')
+          const target = `/${saved}/${rest ? rest + '/' : ''}`
+          location.replace(target)
+        }
+      } catch {}
+    </script>
     <Header />
     <main id="main-content" transition:animate="fade">
       <slot />

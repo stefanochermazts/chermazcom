@@ -41,8 +41,8 @@
 - [ ] Imposta `astro.config.mjs` con `site: 'https://www.chermaz.com'`
 
 ## 3‑alt) Setup con Accessible Astro Starter (preferito)
-- [ ] Riferimento starter: [Accessible Astro Starter](https://astro.build/themes/details/accessible-astro-starter/)
-- [ ] Clona o fork dello starter “Accessible Astro Starter” in `chermaz.com`
+- [x] Riferimento starter: [Accessible Astro Starter](https://astro.build/themes/details/accessible-astro-starter/)
+- [x] Clona o fork dello starter “Accessible Astro Starter” in `chermaz.com`
 - [ ] Getting started
   - [ ] `npm install` (installa dipendenze)
   - [ ] `npm run dev` (sviluppo locale)
@@ -59,10 +59,10 @@
   - [ ] `@astrojs/image`, `astro-compress`, `astro-icon`
   - [ ] Font locali via `@fontsource-*` (no CDN)
 - [ ] Branding
-  - [ ] Palette brand: brand‑600 `#164cd6`, brand‑500 `#1f63ff`, neutral‑900/700/500
+  - [x] Palette brand: brand‑600 `#164cd6`, brand‑500 `#1f63ff`, neutral‑900/700/500
   - [ ] Token Tailwind (colors, ringColor) e focus ring uniforme
-  - [ ] Font pairing: titoli Sora/Inter, testo Inter/Source Sans 3
-  - [ ] Sostituisci eventuale Atkinson Hyperlegible di default con Sora/Inter locali
+  - [x] Font pairing: titoli Sora/Inter, testo Inter/Source Sans 3 (font locali)
+  - [x] Sostituisci eventuale Atkinson Hyperlegible di default con Sora/Inter locali
 - [ ] Ripulisci contenuti demo e sezioni non necessarie dello starter
 - [ ] Controlli di accessibilità dello starter
   - [ ] Skip‑link, ordine focus, ruoli ARIA
@@ -107,6 +107,7 @@
   - [ ] Micro‑animazioni con Motion One per CTA/hero (rispetta `prefers-reduced-motion`)
   - [ ] (Opzionale) Lenis per smooth scrolling (rispetta `prefers-reduced-motion`)
   - [ ] (Se B) React islands per Dialog e Tabs accessibili
+ - [x] Outline focus coerente brand (`#1f63ff`) con offset 2px
 
 ## 4) Layout, pagine core e routing
 - [ ] Crea `src/layouts/Base.astro` (metadati, JSON‑LD, Header/Footer)
@@ -123,19 +124,22 @@
   - [ ] Gestisci slugs localizzati per pagine e contenuti
 - [ ] Traduzioni UI
   - [ ] File di traduzione (es. `src/i18n/{it,en,sl}.ts` o `.json`)
+  - [x] Creati `src/i18n/it.json`, `src/i18n/en.json`, `src/i18n/sl.json`
   - [ ] Componenti che leggono le stringhe in base alla lingua corrente
 - [ ] Contenuti
   - [ ] Strategy A: directory per lingua (es. `content/insights/it|en|sl`)
   - [ ] Strategy B: front‑matter `lang` e filtraggio per lingua
 - [ ] SEO multilingua
-  - [ ] `<link rel="alternate" hreflang="it|en|sl|x-default">` per ogni pagina
-  - [ ] Titolo/description localizzati e URL canonici corretti
+  - [x] `<link rel="alternate" hreflang="it|en|sl|x-default">` per ogni pagina
+  - [x] Canonical per lingua
+  - [ ] Titolo/description localizzati
   - [ ] Sitemap con voci per ogni lingua
 - [ ] Language Switcher
-  - [ ] Menu button conforme APG, navigabile da tastiera
-  - [ ] Persistenza scelta lingua (opzionale)
+  - [x] Menu button conforme APG, navigabile da tastiera
+  - [x] Persistenza scelta lingua (localStorage + redirect)
 - [ ] Redirect/Detect (opzionale)
-  - [ ] Redirect iniziale basato su preferenza browser, con fallback su IT
+  - [x] Redirect iniziale da `/` → `/it/`
+  - [ ] (Opzionale) Redirect basato su preferenza browser, con fallback su IT
 
 ## 5) Migrazione contenuti
 - [ ] Copia i `.md` nelle collection corrette
@@ -144,9 +148,9 @@
 - [ ] Carica media ottimizzati in `/public/images/wp`
 
 ## 6) SEO e redirect
-- [ ] Aggiungi `netlify.toml` (build/dev/plugins)
+- [x] Aggiungi `netlify.toml` (build/dev)
 - [ ] Crea `_redirects` con mapping da WordPress alle nuove sezioni
-- [ ] Crea `_headers` con security headers e caching adeguato
+- [x] Crea `_headers` con security headers e caching adeguato
 - [ ] Genera `sitemap.xml` (automatica o file) e `robots.txt` con `Sitemap: https://www.chermaz.com/sitemap.xml`
 - [ ] Imposta meta per pagina (title, description, OG) e JSON‑LD (Person/Organization/Service)
 
@@ -178,9 +182,9 @@
 - [ ] Broken links scan
 
 ## Deliverable operativi
-- [ ] Repo Astro con layout base (`Base.astro`, Header/Footer, Hero)
+- [x] Repo Astro con layout base (`Base.astro`, Header/Footer, Hero)
 - [ ] Script `scripts/wp-export-to-md.mjs` funzionante
-- [ ] File di piattaforma: `netlify.toml`, `_redirects`, `_headers`, `robots.txt`, `sitemap.xml`
+- [x] File di piattaforma: `netlify.toml`, `_redirects`, `_headers`, `robots.txt`, `sitemap.xml`
 - [ ] Collezioni Astro per `insights` e `case-studies`
 
 ---

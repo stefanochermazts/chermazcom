@@ -1,0 +1,285 @@
+---
+title: "Configura il tuo Computer per lo Sviluppo Locale di Componenti SPFx di SharePoint"
+slug: configura-il-tuo-computer-per-lo-sviluppo-locale-di-componenti-spfx-di-sharepoint
+date: 2024-07-01
+status: publish
+excerpt: "---\ntitle: \"Configura il tuo Computer per lo Sviluppo Locale di Componenti SPFx di SharePoint\"\nslug: configura-il-tuo-computer-per-lo-sviluppo-locale-di-compone"
+"
+categories: [51,17,18]
+tags: []
+lang: it
+---
+
+
+
+
+
+
+Table of Contents
+
+
+Toggle
+Cos&#8217;è lo Sviluppo Locale di Componenti SPFx di SharePointVantaggi dell&#8217;utilizzo dello Sviluppo Locale di Componenti SPFx di SharePointConfigurazione del tuo Computer per lo Sviluppo Locale di Componenti SPFx di SharePointRequisiti di sistema per lo Sviluppo Locale di Componenti SPFx di SharePointInstallazione di Node.jsPreparazione dell&#8217;ambiente di sviluppoCreazione del Progetto SPFx in Visual Studio CodeCreazione del Nuovo Progetto SharePoint Framework (SPFx) in Visual Studio CodeModifica e Personalizzazione dei Componenti SPFx di SharePointEsplorazione della Struttura del Progetto SPFxModifica dei Componenti SPFx EsistentiRisoluzione degli Errori Comuni nello Sviluppo Locale di Componenti SPFx di SharePointStrategie per la Risoluzione dei ProblemiDistribuzione e Distribuzione dei Componenti SPFx di SharePointPreparazione del pacchetto SPFx per la distribuzionePubblicazione del pacchetto nell&#8217;App Catalog di SharePointConclusioneDomande frequentiCos&#8217;è lo Sviluppo Locale di Componenti SPFx di SharePoint?Quali sono i vantaggi dell&#8217;utilizzo dello Sviluppo Locale di Componenti SPFx di SharePoint?Quali sono i requisiti di sistema per lo Sviluppo Locale di Componenti SPFx di SharePoint?Come posso creare un nuovo progetto SharePoint Framework (SPFx) in Visual Studio Code?Qual è il processo per la pubblicazione del pacchetto SPFx nell&#8217;App Catalog di SharePoint?Qual è l&#8217;importanza dello Sviluppo Locale di Componenti SPFx di SharePoint?
+## Cos&#8217;è lo Sviluppo Locale di Componenti SPFx di SharePoint
+
+Lo **Sviluppo Locale di Componenti SPFx di SharePoint** è una pratica essenziale per sviluppatori che vogliono creare e testare componenti personalizzati per SharePoint in un ambiente controllato e privato. Utilizzando il **SharePoint Framework (SPFx)**, gli sviluppatori possono costruire web part moderni ed estensioni che si integrano perfettamente con l&#8217;ecosistema di SharePoint.
+
+
+### Vantaggi dell&#8217;utilizzo dello Sviluppo Locale di Componenti SPFx di SharePoint
+
+
+**Rapidità nello sviluppo e testing:** Lavorare localmente permette agli sviluppatori di testare rapidamente le modifiche senza dover continuamente distribuire i componenti su un ambiente live.
+**Ambiente di sviluppo isolato:** Un setup locale riduce i rischi associati alle modifiche non testate su ambienti di produzione, assicurando che solo codice verificato venga rilasciato.
+**Strumenti e funzionalità avanzate:** Gli sviluppatori hanno accesso a strumenti come Visual Studio Code, Node.js e Gulp per migliorare l&#8217;efficienza del processo di sviluppo.
+
+Per approfondimenti sulle migliori pratiche per gestire la comunicazione interna con SharePoint, potete consultare questo articolo scritto da Stefano Chermaz. Se siete interessati alla sicurezza nell&#8217;accesso a SharePoint, potrebbe interessarvi questa guida sempre scritta da Stefano Chermaz che esplora la modalità app-only per un accesso più sicuro a SharePoint.
+
+
+## Configurazione del tuo Computer per lo Sviluppo Locale di Componenti SPFx di SharePoint
+
+### Requisiti di sistema per lo Sviluppo Locale di Componenti SPFx di SharePoint
+
+Per iniziare con lo sviluppo locale di componenti SPFx, è essenziale assicurarsi che il tuo computer soddisfi i seguenti requisiti:
+
+
+
+**Sistema operativo:** Windows 10, macOS Sierra (10.12.6) o successivi.
+**Node.js:** Versione LTS (Long Term Support). Al momento della scrittura, la versione consigliata è 14.x.
+**Gulp:** Strumento di automazione per eseguire attività comuni come la minificazione e l&#8217;ottimizzazione dei file.
+**Visual Studio Code:** Editor di codice sorgente gratuito e potente, ideale per la scrittura e il debugging del codice.
+
+### Installazione di Node.js
+
+Node.js è un requisito fondamentale poiché SPFx si basa su questo runtime JavaScript. Per installare Node.js:
+
+
+
+Visita il sito ufficiale di Node.js.
+Scarica l&#8217;ultima versione LTS per il tuo sistema operativo.
+Segui le istruzioni dell&#8217;installatore per completare l&#8217;installazione.
+
+Verifica l&#8217;installazione aprendo il terminale e digitando:
+
+
+sh node -v
+
+
+Dovresti vedere la versione installata, confermando che Node.js è stato installato correttamente.
+
+
+### Preparazione dell&#8217;ambiente di sviluppo
+
+Con Node.js installato, passiamo alla preparazione dell&#8217;ambiente:
+
+
+
+**Installa Gulp:**
+Gulp è uno strumento essenziale per automatizzare le attività nel flusso di lavoro di sviluppo. Installa Gulp globalmente utilizzando npm (Node Package Manager), incluso con Node.js:
+sh npm install -g gulp-cli
+**Configura Visual Studio Code:**
+Scarica e installa Visual Studio Code. Questo editor offre numerosi plugin utili per migliorare la tua esperienza di sviluppo con SPFx.
+**Installa Yeoman e il generatore SPFx:**
+Yeoman è un generatore scaffolding che ti aiuta a creare progetti rapidamente. Installa Yeoman e il generatore SharePoint Framework utilizzando npm:
+sh npm install -g yo @microsoft/generator-sharepoint
+
+Questi passaggi ti metteranno sulla buona strada per creare componenti SPFx in modo efficiente sul tuo ambiente locale.
+
+
+Se ti interessa anche la sicurezza durante lo sviluppo su SharePoint, ti consiglio di dare un&#8217;occhiata a questa guida sulla sicurezza SharePoint che potrebbe offrirti informazioni preziose.
+
+
+## Creazione del Progetto SPFx in Visual Studio Code
+
+### Creazione del Nuovo Progetto SharePoint Framework (SPFx) in Visual Studio Code
+
+**Progetto SPFx** e **Visual Studio Code** sono strumenti essenziali per lo sviluppo di componenti personalizzati in SharePoint. Segui questi passaggi per creare un nuovo progetto SPFx:
+
+
+
+**Installazione di Yeoman e Generatore SPFx**: bash npm install -g yo @microsoft/generator-sharepoint
+Questo comando installa Yeoman e il generatore SPFx globalmente sul tuo sistema.
+**Creazione della Directory del Progetto**: bash mkdir nome-del-progetto cd nome-del-progetto
+Crea una nuova directory per il tuo progetto e naviga al suo interno.
+**Generazione del Progetto SPFx**: bash yo @microsoft/sharepoint
+Esegui il generatore SPFx all&#8217;interno della directory del progetto. Rispondi alle domande che ti verranno poste, come il nome del progetto, la descrizione, e se desideri utilizzare TypeScript o JavaScript.
+**Apertura del Progetto in Visual Studio Code**: bash code .
+Utilizza questo comando per aprire la directory corrente in Visual Studio Code, dove potrai iniziare a modificare e personalizzare i file generati del tuo progetto SPFx.
+
+Seguendo questi passaggi, avrai creato con successo un nuovo progetto SPFx pronto per essere sviluppato ulteriormente secondo le esigenze specifiche del tuo ambiente SharePoint.
+
+
+## Modifica e Personalizzazione dei Componenti SPFx di SharePoint
+
+### Esplorazione della Struttura del Progetto SPFx
+
+Un progetto SharePoint Framework (SPFx) è organizzato in modo strutturato per facilitare sia lo sviluppo che la manutenzione. La struttura tipica include:
+
+
+
+**src**: Contiene il codice sorgente del componente, inclusi i file Typescript, CSS o SCSS.
+**config**: Configurazioni del progetto, come le impostazioni di build e di deploy.
+**node_modules**: Librerie e dipendenze installate tramite npm.
+**sharepoint**: File specifici per SharePoint, inclusi i pacchetti per la distribuzione.
+
+### Modifica dei Componenti SPFx Esistenti
+
+Per modificare un componente SPFx esistente, segui questi passaggi:
+
+
+
+**Apertura del Progetto in Visual Studio Code**
+
+
+Apri Visual Studio Code e carica il progetto SPFx.
+
+
+**Navigazione nel Codice Sorgente**
+
+
+Vai alla cartella src e trova il file TypeScript corrispondente al tuo componente. Ad esempio, se stai lavorando su una Web Part chiamata &#8220;HelloWorld&#8221;, cerca HelloWorldWebPart.ts.
+
+
+**Modifica del Componente**
+
+
+Puoi personalizzare il comportamento della tua Web Part modificando il file TypeScript. Ad esempio, per cambiare il testo visualizzato, cerca la funzione render() e aggiorna il contenuto HTML.
+
+
+**Styling Personalizzato**
+
+
+Per aggiungere o modificare gli stili CSS, vai alla cartella src -&gt; webparts -&gt; nomeComponente -&gt; nomeComponente.module.scss. Qui puoi definire nuovi stili o aggiornare quelli esistenti.
+
+
+**Testing delle Modifiche Localmente**
+
+
+Usa il comando gulp serve nella terminale di Visual Studio Code per testare le tue modifiche localmente in un ambiente simile a SharePoint.
+
+Questi passaggi fondamentali consentono di esplorare e personalizzare i componenti SPFx secondo le esigenze specifiche del tuo progetto, garantendo un alto livello di flessibilità nello sviluppo delle soluzioni SharePoint.
+
+
+## Risoluzione degli Errori Comuni nello Sviluppo Locale di Componenti SPFx di SharePoint
+
+Durante lo sviluppo locale di componenti SPFx di SharePoint, è comune incontrare alcuni errori che possono ostacolare il progresso. Alcuni dei principali errori includono:
+
+
+
+**Errori di compilazione**: spesso dovuti a problemi con le dipendenze o configurazioni errate del progetto.
+**Problemi di rendering**: possono sorgere quando i componenti non vengono visualizzati correttamente nella pagina SharePoint.
+**Errori di autenticazione**: difficoltà nell&#8217;autenticazione con il servizio SharePoint durante lo sviluppo e il testing.
+**Conflitti di versione**: versioni incompatibili dei pacchetti npm o librerie utilizzate nel progetto.
+
+### Strategie per la Risoluzione dei Problemi
+
+Per affrontare questi errori comuni, è utile adottare diverse strategie:
+
+
+
+**Verifica delle Dipendenze**:
+
+
+Utilizzare [npm outdated](https://docs.npmjs.com/cli/v7/commands/npm-outdated) per controllare le versioni delle dipendenze.
+Aggiornare i pacchetti con npm update o installare specifiche versioni compatibili.
+
+
+**Debug dell&#8217;Errore di Compilazione**:
+
+
+Controllare i log della console per messaggi dettagliati sull&#8217;errore.
+Utilizzare strumenti come ESLint per identificare problemi nel codice.
+
+
+**Risoluzione dei Problemi di Rendering**:
+
+
+Assicurarsi che tutti i file necessari siano correttamente inclusi e referenziati.
+Testare il componente in diversi browser per individuare eventuali incompatibilità specifiche.
+
+
+**Gestione degli Errori di Autenticazione**:
+
+
+Verificare le credenziali e le autorizzazioni necessarie per accedere al servizio SharePoint.
+Utilizzare strumenti come gulp serve --nobrowser per bypassare alcune limitazioni durante lo sviluppo locale.
+
+
+**Risolvere i Conflitti di Versione**:
+
+
+Fare uso del comando npm ls per visualizzare la gerarchia delle dipendenze e individuare eventuali conflitti.
+Considerare l&#8217;utilizzo di file package-lock.json per mantenere la coerenza delle versioni tra diversi ambienti.
+
+Adottando queste pratiche, è possibile minimizzare gli ostacoli e mantenere un flusso di lavoro efficiente durante lo sviluppo locale dei componenti SPFx.
+
+
+## Distribuzione e Distribuzione dei Componenti SPFx di SharePoint
+
+### Preparazione del pacchetto SPFx per la distribuzione
+
+Prima di distribuire il tuo **Pacchetto SPFx**, è essenziale assicurarsi che il progetto sia stato compilato correttamente. Utilizza il comando gulp bundle --ship per creare un pacchetto ottimizzato per la produzione. Successivamente, esegui gulp package-solution --ship per generare il file .sppkg, che sarà utilizzato per la distribuzione.
+
+
+bash gulp bundle &#8211;ship gulp package-solution &#8211;ship
+
+
+Il file .sppkg risultante sarà disponibile nella cartella sharepoint/solution del tuo progetto SPFx.
+
+
+### Pubblicazione del pacchetto nell&#8217;App Catalog di SharePoint
+
+Una volta preparato il pacchetto, è possibile pubblicarlo nell&#8217;**App Catalog** di SharePoint. Ecco i passaggi da seguire:
+
+
+
+Accedi al sito dell&#8217;**App Catalog** della tua organizzazione.
+Naviga alla sezione **&#8220;****Apps for SharePoint****&#8220;**.
+Carica il file .sppkg generato precedentemente.
+Durante l&#8217;upload, potrebbe essere richiesto di confermare le autorizzazioni necessarie per il componente; assicurati di accettare tutte le richieste pertinenti.
+
+
+
+
+Dopo aver caricato e approvato il pacchetto nell&#8217;App Catalog, diventerà disponibile per l&#8217;utilizzo nei siti SharePoint della tua organizzazione.
+
+
+## Conclusione
+
+Lo *sviluppo locale di componenti SPFx di SharePoint* offre molti vantaggi, come la possibilità di testare e modificare i componenti in un ambiente controllato prima della distribuzione. In questo articolo abbiamo visto come configurare il computer per lo sviluppo locale, creare e personalizzare progetti SPFx in Visual Studio Code, risolvere errori comuni e infine distribuire i componenti nell&#8217;App Catalog di SharePoint. Queste competenze sono essenziali per ogni sviluppatore che vuole ottimizzare e personalizzare l&#8217;esperienza utente nei siti SharePoint.
+
+
+## Domande frequenti
+
+### Cos&#8217;è lo Sviluppo Locale di Componenti SPFx di SharePoint?
+
+Lo Sviluppo Locale di Componenti SPFx di SharePoint si riferisce al processo di sviluppo e personalizzazione di componenti SharePoint Framework (SPFx) all&#8217;interno di un ambiente locale, prima della distribuzione ufficiale.
+
+
+### Quali sono i vantaggi dell&#8217;utilizzo dello Sviluppo Locale di Componenti SPFx di SharePoint?
+
+Gli vantaggi includono la possibilità di testare e modificare i componenti in un ambiente controllato prima della distribuzione, riducendo il rischio di errori e migliorando l&#8217;efficienza complessiva dello sviluppo.
+
+
+### Quali sono i requisiti di sistema per lo Sviluppo Locale di Componenti SPFx di SharePoint?
+
+I requisiti includono l&#8217;installazione di Node.js e la configurazione dell&#8217;ambiente di sviluppo, che può essere eseguita tramite strumenti come Gulp e Visual Studio Code.
+
+
+### Come posso creare un nuovo progetto SharePoint Framework (SPFx) in Visual Studio Code?
+
+La creazione avviene attraverso Visual Studio Code, utilizzando gli strumenti forniti per iniziare un nuovo progetto SPFx e personalizzare i componenti secondo le proprie esigenze.
+
+
+### Qual è il processo per la pubblicazione del pacchetto SPFx nell&#8217;App Catalog di SharePoint?
+
+Il pacchetto SPFx deve essere preparato per la distribuzione e quindi pubblicato nell&#8217;App Catalog di SharePoint, dove sarà disponibile per l&#8217;installazione da parte degli utenti finali.
+
+
+### Qual è l&#8217;importanza dello Sviluppo Locale di Componenti SPFx di SharePoint?
+
+Lo Sviluppo Locale offre agli sviluppatori la possibilità di esplorare e modificare i componenti SPFx in un ambiente controllato, acquisendo competenze cruciali prima della distribuzione ufficiale.
+
+
+
+
+
