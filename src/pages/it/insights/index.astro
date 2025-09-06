@@ -9,7 +9,7 @@ const posts = (await getCollection('insights')).sort((a,b)=> (a.data.date||'') <
     <ul class="grid grid-cols-1 gap-6">
       {posts.map(p => (
         <li>
-          <a href={`/it/insights/${p.slug}/`}>{p.data.title}</a>
+          <a href={`/it/insights/${(p.slug ?? p.id.replace(/\.mdx?$/, ''))}/`}>{p.data.title}</a>
         </li>
       ))}
     </ul>

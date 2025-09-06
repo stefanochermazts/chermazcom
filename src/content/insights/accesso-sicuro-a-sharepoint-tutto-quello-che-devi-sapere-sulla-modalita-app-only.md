@@ -3,7 +3,8 @@ title: "Accesso sicuro a SharePoint: tutto quello che devi sapere sulla modalit�
 slug: accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-sulla-modalita-app-only
 date: 2024-05-07
 status: publish
-excerpt: "---\ntitle: \"Accesso sicuro a SharePoint: tutto quello che devi sapere sulla modalità app-only\"\nslug: accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-su"
+excerpt: "Table of Contents Toggle Accesso sicuro a SharePoint: tutto quello che devi sapere sulla modalità app onlyCos& 8217;è la modalità app only di SharePoint?Vantagg"
+---\ntitle: \"Accesso sicuro a SharePoint: tutto quello che devi sapere sulla modalità app-only\"\nslug: accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-su"
 categories: [51,17]
 tags: []
 lang: it

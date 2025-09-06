@@ -3,7 +3,8 @@ title: "Qual è la differenza tra i due tipi di chatbot attualmente in circolazi
 slug: qual-e-la-differenza-tra-i-due-tipi-di-chatbot-attualmente-in-circolazione
 date: 2024-04-29
 status: publish
-excerpt: "---\ntitle: \"Qual è la differenza tra i due tipi di chatbot attualmente in circolazione?\"\nslug: qual-e-la-differenza-tra-i-due-tipi-di-chatbot-attualmente-in-cir"
+excerpt: "Table of Contents Toggle Qual è la differenza tra i due tipi di chatbot attualmente in circolazione?Introduzione ai chatbotChatbot basati su regole& 8211; Descr"
+---\ntitle: \"Qual è la differenza tra i due tipi di chatbot attualmente in circolazione?\"\nslug: qual-e-la-differenza-tra-i-due-tipi-di-chatbot-attualmente-in-cir"
 categories: [16]
 tags: []
 lang: it

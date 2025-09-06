@@ -3,7 +3,8 @@ title: "Storia e curiosità sul Sudoku: dalle origini ai giorni nostri"
 slug: storia-e-curiosita-sul-sudoku-dalle-origini-ai-giorni-nostri
 date: 2025-01-03
 status: publish
-excerpt: "---\ntitle: \"Storia e curiosità sul Sudoku: dalle origini ai giorni nostri\"\nslug: storia-e-curiosita-sul-sudoku-dalle-origini-ai-giorni-nostri\ndate: 2025-01-03\ns"
+excerpt: "Il Sudoku è uno dei passatempi più amati al mondo, un rompicapo che stimola la mente e appassiona milioni di persone. Ma qual è la sua storia? Come è nato e com"
+---\ntitle: \"Storia e curiosità sul Sudoku: dalle origini ai giorni nostri\"\nslug: storia-e-curiosita-sul-sudoku-dalle-origini-ai-giorni-nostri\ndate: 2025-01-03\ns"
 categories: [54]
 tags: []
 lang: it

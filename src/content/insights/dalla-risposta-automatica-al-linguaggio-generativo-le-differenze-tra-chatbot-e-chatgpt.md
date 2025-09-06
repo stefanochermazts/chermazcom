@@ -3,7 +3,8 @@ title: "Dalla Risposta Automatica al Linguaggio Generativo: Le Differenze tra Ch
 slug: dalla-risposta-automatica-al-linguaggio-generativo-le-differenze-tra-chatbot-e-chatgpt
 date: 2024-05-30
 status: publish
-excerpt: "---\ntitle: \"Dalla Risposta Automatica al Linguaggio Generativo: Le Differenze tra Chatbot e ChatGPT\"\nslug: dalla-risposta-automatica-al-linguaggio-generativo-le"
+excerpt: "&nbsp; Table of Contents Toggle IntroduzionePanoramica dei Chatbot e di ChatGPTImportanza dell& 8217;Interazione con i Clienti nel Mondo DigitaleCome i Chatbot "
+---\ntitle: \"Dalla Risposta Automatica al Linguaggio Generativo: Le Differenze tra Chatbot e ChatGPT\"\nslug: dalla-risposta-automatica-al-linguaggio-generativo-le"
 "
 categories: [16]
 tags: [47,45,49,48]

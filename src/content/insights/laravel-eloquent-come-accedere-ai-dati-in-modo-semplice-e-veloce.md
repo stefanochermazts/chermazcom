@@ -3,7 +3,8 @@ title: "Laravel Eloquent: Come Accedere ai Dati in Modo Semplice e Veloce"
 slug: laravel-eloquent-come-accedere-ai-dati-in-modo-semplice-e-veloce
 date: 2024-06-18
 status: publish
-excerpt: "---\ntitle: \"Laravel Eloquent: Come Accedere ai Dati in Modo Semplice e Veloce\"\nslug: laravel-eloquent-come-accedere-ai-dati-in-modo-semplice-e-veloce\ndate: 2024"
+excerpt: "Table of Contents Toggle IntroduzionePanoramica di Laravel EloquentSignificato di ORM (Object Relational Mapping)Utilizzo del modello Eloquent per accedere ai d"
+---\ntitle: \"Laravel Eloquent: Come Accedere ai Dati in Modo Semplice e Veloce\"\nslug: laravel-eloquent-come-accedere-ai-dati-in-modo-semplice-e-veloce\ndate: 2024"
 "
 categories: [18]
 tags: []

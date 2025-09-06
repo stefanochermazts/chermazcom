@@ -3,7 +3,8 @@ title: "Gioco Sudoku!"
 slug: gioco-sudoku
 date: 2025-01-03
 status: publish
-excerpt: "---\ntitle: \"Gioco Sudoku!\"\nslug: gioco-sudoku\ndate: 2025-01-03\nstatus: publish\nexcerpt: \"Scopri il divertimento del gioco sudoku gratuito direttamente online! S"
+excerpt: "Scopri il divertimento del gioco sudoku gratuito direttamente online! Semplice da usare, il nostro sito ti offre puzzle per tutti i livelli di abilità. Allenati"
+---\ntitle: \"Gioco Sudoku!\"\nslug: gioco-sudoku\ndate: 2025-01-03\nstatus: publish\nexcerpt: \"Scopri il divertimento del gioco sudoku gratuito direttamente online! S"
 categories: [54]
 tags: []
 lang: it

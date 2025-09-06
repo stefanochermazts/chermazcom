@@ -3,7 +3,8 @@ title: "Come usare le API di OpenAI in Azure: Guida pratica per sviluppatori"
 slug: come-usare-le-api-di-openai-in-azure
 date: 2024-07-26
 status: publish
-excerpt: "---\ntitle: \"Come usare le API di OpenAI in Azure: Guida pratica per sviluppatori\"\nslug: come-usare-le-api-di-openai-in-azure\ndate: 2024-07-26\nstatus: publish\nex"
+excerpt: "L& 8217;integrazione delle API di OpenAI in Azure offre potenti strumenti per sviluppare applicazioni di intelligenza artificiale avanzate. Con Azure OpenAI Ser"
+---\ntitle: \"Come usare le API di OpenAI in Azure: Guida pratica per sviluppatori\"\nslug: come-usare-le-api-di-openai-in-azure\ndate: 2024-07-26\nstatus: publish\nex"
 categories: [55,16]
 tags: []
 lang: it

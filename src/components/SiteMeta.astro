@@ -30,6 +30,15 @@ interface Props {
 const { title, description, url, image, author = 'Mark Teekman' } = Astro.props
 
 let subtitle = 'Accessible Astro Starter'
+// Compute canonical and hreflang URLs in frontmatter to avoid inline const in template
+const supportedLangs = ['it', 'en', 'sl']
+const currentUrl = new URL(Astro.url)
+const urlSegments = currentUrl.pathname.split('/').filter(Boolean)
+const hasLangPrefix = supportedLangs.includes(urlSegments[0])
+const remainingPath = hasLangPrefix ? urlSegments.slice(1).join('/') : urlSegments.join('/')
+const currentLang = hasLangPrefix ? urlSegments[0] : 'it'
+const canonical = `${Astro.site}${currentLang}/${remainingPath ? remainingPath + '/' : ''}`
+const makeUrl = (l) => `${Astro.site}${l}/${remainingPath ? remainingPath + '/' : ''}`
 ---
 
 <!-- general meta -->
@@ -38,15 +47,6 @@ let subtitle = 'Accessible Astro Starter'
 <meta name="author" content={author} />
 
 <!-- canonical -->
-{
-  const langs = ['it','en','sl']
-  const urlObj = new URL(Astro.url)
-  const segments = urlObj.pathname.split('/').filter(Boolean)
-  const hasPrefix = langs.includes(segments[0])
-  const rest = hasPrefix ? segments.slice(1).join('/') : segments.join('/')
-  const current = hasPrefix ? segments[0] : 'it'
-  const canonical = `${Astro.site}${current}/${rest ? rest + '/' : ''}`
-}
 <link rel="canonical" href={canonical} />
 
 <!-- open graph -->
@@ -62,14 +62,6 @@ let subtitle = 'Accessible Astro Starter'
 <title>{title} - {subtitle}</title>
 
 <!-- hreflang -->
-{
-  const langs = ['it','en','sl']
-  const url = new URL(Astro.url)
-  const segments = url.pathname.split('/').filter(Boolean)
-  const hasPrefix = langs.includes(segments[0])
-  const rest = hasPrefix ? segments.slice(1).join('/') : segments.join('/')
-  const makeUrl = (l) => `${Astro.site}${l}/${rest ? rest + '/' : ''}`
-}
 <link rel="alternate" hreflang="x-default" href={`${Astro.site}`} />
 <link rel="alternate" hreflang="it" href={makeUrl('it')} />
 <link rel="alternate" hreflang="en" href={makeUrl('en')} />

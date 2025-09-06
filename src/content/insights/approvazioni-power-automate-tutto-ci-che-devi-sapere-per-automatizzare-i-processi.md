@@ -3,7 +3,8 @@ title: "Approvazioni Power Automate: Tutto ciò che Devi Sapere per Automatizzar
 slug: approvazioni-power-automate-tutto-ci-che-devi-sapere-per-automatizzare-i-processi
 date: 2024-05-28
 status: publish
-excerpt: "---\ntitle: \"Approvazioni Power Automate: Tutto ciò che Devi Sapere per Automatizzare i Processi\"\nslug: approvazioni-power-automate-tutto-ci-che-devi-sapere-per-"
+excerpt: "&nbsp; Table of Contents Toggle Introduzione alle Approvazioni Power AutomateVantaggi delle Approvazioni Power Automate nell& 8217;Automazione dei Processi Deci"
+---\ntitle: \"Approvazioni Power Automate: Tutto ciò che Devi Sapere per Automatizzare i Processi\"\nslug: approvazioni-power-automate-tutto-ci-che-devi-sapere-per-"
 "
 categories: [51,17]
 tags: []

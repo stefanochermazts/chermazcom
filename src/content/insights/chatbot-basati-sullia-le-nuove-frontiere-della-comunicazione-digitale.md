@@ -3,7 +3,8 @@ title: "Chatbot basati sull&#8217;IA: le nuove frontiere della comunicazione dig
 slug: chatbot-basati-sullia-le-nuove-frontiere-della-comunicazione-digitale
 date: 2024-04-29
 status: publish
-excerpt: "---\ntitle: \"Chatbot basati sull&8217;IA: le nuove frontiere della comunicazione digitale\"\nslug: chatbot-basati-sullia-le-nuove-frontiere-della-comunicazione-dig"
+excerpt: "Table of Contents Toggle Chatbot basati sull& 8217;IA: le nuove frontiere della comunicazione digitaleCos& 8217;è un Chatbot basato sull& 8217;IA?Vantaggi dei C"
+---\ntitle: \"Chatbot basati sull&8217;IA: le nuove frontiere della comunicazione digitale\"\nslug: chatbot-basati-sullia-le-nuove-frontiere-della-comunicazione-dig"
 categories: [16]
 tags: []
 lang: it

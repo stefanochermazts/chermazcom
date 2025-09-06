@@ -3,7 +3,8 @@ title: "Candidati Sudoku: Come Utilizzarli per Risolvere Ogni Griglia"
 slug: candidati-sudoku-come-utilizzarli-per-risolvere-ogni-griglia
 date: 2024-06-28
 status: publish
-excerpt: "---\ntitle: \"Candidati Sudoku: Come Utilizzarli per Risolvere Ogni Griglia\"\nslug: candidati-sudoku-come-utilizzarli-per-risolvere-ogni-griglia\ndate: 2024-06-28\ns"
+excerpt: "&nbsp; Table of Contents Toggle Introduzione al Gioco SudokuRegole di Base del GiocoImportanza dei Candidati nel Processo di Risoluzione del SudokuCome i Candid"
+---\ntitle: \"Candidati Sudoku: Come Utilizzarli per Risolvere Ogni Griglia\"\nslug: candidati-sudoku-come-utilizzarli-per-risolvere-ogni-griglia\ndate: 2024-06-28\ns"
 "
 categories: [54]
 tags: []

@@ -3,17 +3,17 @@
 // Local font faces (Sora/Inter via @fontsource); fallback a Atkinson presenti
 @supports (font-variation-settings: normal) {
   @font-face {
-    font-family: 'SoraVariable';
+    font-family: 'Sora Variable';
     font-style: normal;
     font-weight: 100 900;
-    src: local('SoraVariable'), url('../node_modules/@fontsource/sora/files/sora-latin-wght-normal.woff2') format('woff2');
+    src: local('Sora Variable');
     font-display: swap;
   }
   @font-face {
-    font-family: 'InterVariable';
+    font-family: 'Inter Variable';
     font-style: normal;
     font-weight: 100 900;
-    src: local('InterVariable'), url('../node_modules/@fontsource/inter/files/inter-latin-wght-normal.woff2') format('woff2');
+    src: local('Inter Variable');
     font-display: swap;
   }
 }

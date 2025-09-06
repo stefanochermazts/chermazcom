@@ -3,7 +3,8 @@ title: "Scopri tutte le funzionalità di Viva Engage: il nuovo strumento per la 
 slug: scopri-tutte-le-funzionalita-di-viva-engage-il-nuovo-strumento-per-la-collaborazione-aziendale
 date: 2024-05-06
 status: publish
-excerpt: "---\ntitle: \"Scopri tutte le funzionalità di Viva Engage: il nuovo strumento per la collaborazione aziendale\"\nslug: scopri-tutte-le-funzionalita-di-viva-engage-i"
+excerpt: "Table of Contents Toggle Scopri tutte le funzionalità di Viva Engage: il nuovo strumento per la collaborazione aziendaleIntroduzione a Viva Engage e la sua impo"
+---\ntitle: \"Scopri tutte le funzionalità di Viva Engage: il nuovo strumento per la collaborazione aziendale\"\nslug: scopri-tutte-le-funzionalita-di-viva-engage-i"
 categories: [51]
 tags: []
 lang: it

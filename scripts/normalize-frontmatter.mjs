@@ -11,9 +11,20 @@ async function* mdFiles(dir) {
   }
 }
 
+function removeFrontMatter(md) {
+  const fmMatch = md.match(/^---[\s\S]*?---\r?\n/)
+  if (fmMatch) return md.slice(fmMatch[0].length)
+  return md
+}
+
 function ensureExcerpt(md) {
-  const body = md.split('\n---\n').slice(2).join('\n---\n') || md
-  const text = body.replace(/<[^>]+>/g,'').replace(/\*|\#/g,'').trim()
+  const body = removeFrontMatter(md)
+  const text = body
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/<[^>]+>/g,'')
+    .replace(/[\*#>_`~\-]+/g,' ')
+    .replace(/\s+/g,' ')
+    .trim()
   return text.slice(0, 160)
 }
 

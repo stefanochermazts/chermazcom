@@ -3,7 +3,8 @@ title: "Le migliori pratiche per gestire la comunicazione interna con SharePoint
 slug: le-migliori-pratiche-per-gestire-la-comunicazione-interna-con-sharepoint
 date: 2024-05-02
 status: publish
-excerpt: "---\ntitle: \"Le migliori pratiche per gestire la comunicazione interna con SharePoint\"\nslug: le-migliori-pratiche-per-gestire-la-comunicazione-interna-con-sharep"
+excerpt: "Table of Contents Toggle Le migliori pratiche per gestire la comunicazione interna con SharePointCos& 8217;è Sharepoint e perché è importante per la comunicazio"
+---\ntitle: \"Le migliori pratiche per gestire la comunicazione interna con SharePoint\"\nslug: le-migliori-pratiche-per-gestire-la-comunicazione-interna-con-sharep"
 categories: [51,17]
 tags: []
 lang: it

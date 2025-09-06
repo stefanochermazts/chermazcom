@@ -3,7 +3,8 @@ title: "Riassunti documenti RAG: Ottimizzazione dell&#8217;analisi dei testi con
 slug: riassunti-documenti-rag
 date: 2024-09-02
 status: publish
-excerpt: "---\ntitle: \"Riassunti documenti RAG: Ottimizzazione dell&8217;analisi dei testi con l&8217;intelligenza artificiale\"\nslug: riassunti-documenti-rag\ndate: 2024-09"
+excerpt: "I riassunti automatici dei documenti stanno rivoluzionando il modo in cui gestiamo le informazioni. Questa tecnologia, nota come RAG (Retrieval Augmented Genera"
+---\ntitle: \"Riassunti documenti RAG: Ottimizzazione dell&8217;analisi dei testi con l&8217;intelligenza artificiale\"\nslug: riassunti-documenti-rag\ndate: 2024-09"
 categories: [16]
 tags: []
 lang: it

@@ -3,7 +3,8 @@ title: "Token LLM: Innovazione nel Processo di Elaborazione del Linguaggio Natur
 slug: token-llm
 date: 2024-10-08
 status: publish
-excerpt: "---\ntitle: \"Token LLM: Innovazione nel Processo di Elaborazione del Linguaggio Naturale\"\nslug: token-llm\ndate: 2024-10-08\nstatus: publish\nexcerpt: \"I token LLM "
+excerpt: "I token LLM sono un concetto fondamentale nel campo dell& 8217;intelligenza artificiale e del linguaggio naturale. Rappresentano l& 8217;unità di base che i mod"
+---\ntitle: \"Token LLM: Innovazione nel Processo di Elaborazione del Linguaggio Naturale\"\nslug: token-llm\ndate: 2024-10-08\nstatus: publish\nexcerpt: \"I token LLM "
 categories: [57,16]
 tags: []
 lang: it

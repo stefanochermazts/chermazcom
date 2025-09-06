@@ -1,14 +1,15 @@
 ---
 import DefaultLayout from '../../layouts/DefaultLayout.astro'
-import { getEntry } from 'astro:content'
+import { getEntry, render } from 'astro:content'
 
 const entry = await getEntry('pages', 'chi-sono')
 if (!entry) throw new Error('Pagina "chi-sono" non trovata')
+const { Content } = await render(entry)
 ---
 <DefaultLayout title={entry.data.title}>
   <article class="container my-16 prose">
     <h1>{entry.data.title}</h1>
-    <entry.Content />
+    <Content />
   </article>
 </DefaultLayout>
 

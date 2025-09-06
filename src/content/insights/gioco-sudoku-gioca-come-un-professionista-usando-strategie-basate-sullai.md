@@ -3,7 +3,8 @@ title: "Gioco sudoku: gioca come un professionista usando strategie basate sull&
 slug: gioco-sudoku-gioca-come-un-professionista-usando-strategie-basate-sullai
 date: 2024-06-03
 status: publish
-excerpt: "---\ntitle: \"Gioco sudoku: gioca come un professionista usando strategie basate sull&8217;AI\"\nslug: gioco-sudoku-gioca-come-un-professionista-usando-strategie-ba"
+excerpt: "Table of Contents Toggle IntroduzioneCome giocare a SudokuDescrizione delle regole del SudokuObiettivo del giocoCome riempire la griglia seguendo le regoleMetod"
+---\ntitle: \"Gioco sudoku: gioca come un professionista usando strategie basate sull&8217;AI\"\nslug: gioco-sudoku-gioca-come-un-professionista-usando-strategie-ba"
 categories: [18,54]
 tags: []
 lang: it

@@ -3,7 +3,8 @@ title: "Database MySQL e Siti WordPress ad alto traffico: come ottimizzarlo per 
 slug: database-mysql-e-siti-wordpress-ad-alto-traffico-come-ottimizzarlo-per-massimizzare-le-performance
 date: 2024-05-03
 status: publish
-excerpt: "---\ntitle: \"Database MySQL e Siti WordPress ad alto traffico: come ottimizzarlo per massimizzare le performance\"\nslug: database-mysql-e-siti-wordpress-ad-alto-t"
+excerpt: "Table of Contents Toggle Siti WordPress ad alto traffico: come ottimizzare il database MySQL per massimizzare le performanceCos& 8217;è MySQL e perché è importa"
+---\ntitle: \"Database MySQL e Siti WordPress ad alto traffico: come ottimizzarlo per massimizzare le performance\"\nslug: database-mysql-e-siti-wordpress-ad-alto-t"
 categories: [40]
 tags: []
 lang: it

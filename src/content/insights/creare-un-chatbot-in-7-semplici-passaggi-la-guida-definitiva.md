@@ -3,7 +3,8 @@ title: "Creare un Chatbot in 7 Semplici Passaggi: La Guida Definitiva"
 slug: creare-un-chatbot-in-7-semplici-passaggi-la-guida-definitiva
 date: 2024-05-31
 status: publish
-excerpt: "---\ntitle: \"Creare un Chatbot in 7 Semplici Passaggi: La Guida Definitiva\"\nslug: creare-un-chatbot-in-7-semplici-passaggi-la-guida-definitiva\ndate: 2024-05-31\ns"
+excerpt: "Table of Contents Toggle IntroduzioneCos& 8217;è un ChatbotDefinizione di ChatbotRuolo dei Chatbot nell& 8217;Intelligenza ArtificialeGPT 4o e i ChatbotSpiegazi"
+---\ntitle: \"Creare un Chatbot in 7 Semplici Passaggi: La Guida Definitiva\"\nslug: creare-un-chatbot-in-7-semplici-passaggi-la-guida-definitiva\ndate: 2024-05-31\ns"
 categories: [16]
 tags: []
 lang: it
