@@ -1,0 +1,14 @@
+{
+  "lang": "en",
+  "site": {
+    "title": "chermaz.com",
+    "description": "IT consulting, M365, AI, Compliance"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "caseStudies": "Case Studies",
+    "insights": "Insights",
+    "contact": "Contact"
+  }
+}

@@ -2,9 +2,9 @@
   color-scheme: light;
   interpolate-size: allow-keywords;
 
-  // brand colors (change these to your own brand colors)
-  --brand-primary: #d648ff;
-  --brand-secondary: #00d1b7;
+  // brand colors (custom)
+  --brand-primary: #1f63ff; // brand-500
+  --brand-secondary: #164cd6; // brand-600
   --brand-neutral: #b9bec4;
 
   // pallet brand
@@ -46,8 +46,8 @@
   --radius-large: 6px;
   --gap-default: 2rem;
   --font-measure: 70ch;
-  --font-family-default: 'Atkinson Hyperlegible', sans-serif;
-  --font-family-special: 'Atkinson Hyperlegible', sans-serif;
+  --font-family-default: 'Sora', 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-family-special: 'Sora', 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 
   // font families
   --font-heading: var(--font-family-special);

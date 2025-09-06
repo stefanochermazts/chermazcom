@@ -1,0 +1,14 @@
+{
+  "lang": "sl",
+  "site": {
+    "title": "chermaz.com",
+    "description": "IT svetovanje, M365, AI, skladnost"
+  },
+  "nav": {
+    "home": "Domov",
+    "services": "Storitve",
+    "caseStudies": "Primeri",
+    "insights": "Vpogledi",
+    "contact": "Kontakt"
+  }
+}
