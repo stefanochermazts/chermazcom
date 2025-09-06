@@ -15,7 +15,7 @@ const projects = defineCollection({
 })
 
 const insights = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/insights' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/insights' }),
   schema: z.object({
     title: z.string(),
     date: z.string().or(z.date()).optional(),

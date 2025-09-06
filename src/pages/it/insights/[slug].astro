@@ -19,7 +19,9 @@ export async function getStaticPaths() {
 <DefaultLayout title={entry.data.title}>
   <article class="container my-16 prose">
     <h1>{entry.data.title}</h1>
-    <Content />
+    <div class="content-large">
+      <Content />
+    </div>
   </article>
 </DefaultLayout>
 
