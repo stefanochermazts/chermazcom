@@ -1,13 +1,20 @@
 ---
-title: "Riassunti documenti RAG: Ottimizzazione dell&#8217;analisi dei testi con l&#8217;intelligenza artificiale"
+title: "Riassunti documenti RAG: Ottimizzazione dell&#8217;analisi dei testi con
+  l&#8217;intelligenza artificiale"
 slug: riassunti-documenti-rag
 date: 2024-09-02
 status: publish
-excerpt: "I riassunti automatici dei documenti stanno rivoluzionando il modo in cui gestiamo le informazioni. Questa tecnologia, nota come RAG (Retrieval Augmented Genera"
----\ntitle: \"Riassunti documenti RAG: Ottimizzazione dell&8217;analisi dei testi con l&8217;intelligenza artificiale\"\nslug: riassunti-documenti-rag\ndate: 2024-09"
-categories: [16]
-tags: []
-lang: it
+excerpt: I riassunti automatici dei documenti stanno rivoluzionando il modo in
+  cui gestiamo le informazioni. Questa tecnologia, nota come RAG (Retrieval
+  Augmented Genera
+categories:
+  - chatbot
+tags:
+  - chatbot
+  - ai
+  - chatgpt
+  - dialogflow
+  - rag
 ---
 
 I riassunti automatici dei documenti stanno rivoluzionando il modo in cui gestiamo le informazioni. Questa tecnologia, nota come RAG (Retrieval-Augmented Generation), combina l&#8217;intelligenza artificiale con l&#8217;accesso a fonti esterne per creare sintesi accurate e pertinenti. **La RAG permette di generare riassunti di testi più ricchi e precisi, superando i limiti dei modelli linguistici tradizionali.**

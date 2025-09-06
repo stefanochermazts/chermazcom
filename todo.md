@@ -3,71 +3,71 @@
 > Checklist operativa derivata da `analisi.funzionale.md` (stile GitHub)
 
 ## 0) Prerequisiti (dev)
-- [ ] Node.js LTS (≥ 20) installato
-- [ ] Git configurato (utente, email, SSH/HTTPS)
-- [ ] Editor: Cursor operativo
-- [ ] Account Netlify disponibile
+- [x] Node.js LTS (≥ 20) installato
+- [x] Git configurato (utente, email, SSH/HTTPS)
+- [x] Editor: Cursor operativo
+- [x] Account Netlify disponibile
 
 ## 1) Export contenuti da WordPress
-- [ ] Scegli metodo di export: REST API (consigliato) oppure WXR
-- [ ] Se REST API: verifica endpoint
-  - [ ] Posts: `https://chermaz.com/wp-json/wp/v2/posts?per_page=100&page=1`
-  - [ ] Pages: `https://chermaz.com/wp-json/wp/v2/pages?per_page=100&page=1`
-  - [ ] Media: `https://chermaz.com/wp-json/wp/v2/media?per_page=100&page=1`
-- [ ] Se WXR: scarica XML (Tools → Export) e tienilo pronto per conversione (step 2)
-- [ ] Mappa URL categorie/tag utili per le nuove tassonomie
+- [x] Scegli metodo di export: REST API (consigliato) oppure WXR
+- [x] Se REST API: verifica endpoint
+  - [x] Posts: `https://chermaz.com/wp-json/wp/v2/posts?per_page=100&page=1`
+  - [x] Pages: `https://chermaz.com/wp-json/wp/v2/pages?per_page=100&page=1`
+  - [x] Media: `https://chermaz.com/wp-json/wp/v2/media?per_page=100&page=1`
+- [x] Se WXR: scarica XML (Tools → Export) e tienilo pronto per conversione (step 2)
+- [x] Mappa URL categorie/tag utili per le nuove tassonomie
 
 ## 2) Normalizzazione contenuti (Markdown)
-- [ ] Crea `scripts/wp-export-to-md.mjs` (conversione HTML → MD con front‑matter)
-- [ ] Aggiungi dipendenze: `jsdom`, `node-fetch`
-- [ ] Aggiorna `package.json` con:
-  - [ ] `"type": "module"`
-  - [ ] script `"wp:export": "node scripts/wp-export-to-md.mjs"`
-- [ ] Esegui export: `npm run wp:export`
-- [ ] Verifica struttura output
-  - [ ] `/content/insights/*.md`
-  - [ ] `/content/pages/*.md`
-  - [ ] `/content/case-studies/*.md`
-  - [ ] `/public/images/wp/*`
+- [x] Crea `scripts/wp-export-to-md.mjs` (conversione HTML → MD con front‑matter)
+- [x] Aggiungi dipendenze: `jsdom`, `node-fetch`
+- [x] Aggiorna `package.json` con:
+  - [x] `"type": "module"`
+  - [x] script `"wp:export": "node scripts/wp-export-to-md.mjs"`
+- [x] Esegui export: `npm run wp:export`
+- [x] Verifica struttura output
+  - [x] `/content/insights/*.md`
+  - [x] `/content/pages/*.md`
+  - [x] `/content/case-studies/*.md`
+  - [x] `/public/images/wp/*`
 
 ## 3) Setup progetto Astro + Tailwind
-- [ ] Inizializza progetto:
-  - [ ] `npm create astro@latest chermaz.com -- --template basics --typescript strict --git false`
-  - [ ] `cd chermaz.com`
-- [ ] Installa Tailwind e plugin: `npm i -D tailwindcss postcss autoprefixer @tailwindcss/typography`
-- [ ] Inizializza config: `npx tailwindcss init -p`
-- [ ] Configura `tailwind.config.cjs` (content + plugin typography)
-- [ ] Aggiungi `src/styles/globals.css` con regole base e focus outline coerente
-- [ ] Imposta `astro.config.mjs` con `site: 'https://www.chermaz.com'`
+- [x] Inizializza progetto:
+  - [x] `npm create astro@latest chermaz.com -- --template basics --typescript strict --git false`
+  - [x] `cd chermaz.com`
+- [x] Installa Tailwind e plugin: `npm i -D tailwindcss postcss autoprefixer @tailwindcss/typography`
+- [x] Inizializza config: `npx tailwindcss init -p`
+- [x] Configura `tailwind.config.cjs` (content + plugin typography)
+- [x] Aggiungi `src/styles/globals.css` con regole base e focus outline coerente
+- [x] Imposta `astro.config.mjs` con `site: 'https://www.chermaz.com'`
 
 ## 3‑alt) Setup con Accessible Astro Starter (preferito)
 - [x] Riferimento starter: [Accessible Astro Starter](https://astro.build/themes/details/accessible-astro-starter/)
 - [x] Clona o fork dello starter “Accessible Astro Starter” in `chermaz.com`
-- [ ] Getting started
-  - [ ] `npm install` (installa dipendenze)
-  - [ ] `npm run dev` (sviluppo locale)
-  - [ ] `npm run build` (build produzione in `./dist`)
-  - [ ] `npm run preview` (anteprima build)
-- [ ] Aggiorna `package.json` (name, description, author)
-- [ ] Installa dipendenze: `npm i` e avvia: `npm run dev`
-- [ ] Verifica e integra Tailwind
-  - [ ] Se non presente: `npm i -D tailwindcss postcss autoprefixer @tailwindcss/typography`
-  - [ ] `npx tailwindcss init -p` e configura `content`
-  - [ ] Importa `src/styles/globals.css` con focus ring coerente
-- [ ] Aggiorna `astro.config.mjs` (proprietà `site` e integrazioni)
-- [ ] Aggiungi/abilita integrazioni consigliate
-  - [ ] `@astrojs/image`, `astro-compress`, `astro-icon`
-  - [ ] Font locali via `@fontsource-*` (no CDN)
-- [ ] Branding
+- [x] Getting started
+  - [x] `npm install` (installa dipendenze)
+  - [x] `npm run dev` (sviluppo locale)
+  - [x] `npm run build` (build produzione in `./dist`)
+  - [x] `npm run preview` (anteprima build)
+- [x] Aggiorna `package.json` (name, description, author)
+- [x] Installa dipendenze: `npm i` e avvia: `npm run dev`
+- [x] Verifica e integra Tailwind
+  - [x] Se non presente: `npm i -D tailwindcss postcss autoprefixer @tailwindcss/typography`
+  - [x] `npx tailwindcss init -p` e configura `content`
+  - [x] Importa `src/styles/globals.css` con focus ring coerente
+- [x] Aggiorna `astro.config.mjs` (proprietà `site` e integrazioni)
+- [x] Aggiungi/abilita integrazioni consigliate
+  - [x] `@astrojs/image`, `astro-compress`, `astro-icon`
+  - [x] Font locali via `@fontsource-*` (no CDN)
+- [x] Branding
   - [x] Palette brand: brand‑600 `#164cd6`, brand‑500 `#1f63ff`, neutral‑900/700/500
-  - [ ] Token Tailwind (colors, ringColor) e focus ring uniforme
+  - [x] Token Tailwind (colors, ringColor) e focus ring uniforme
   - [x] Font pairing: titoli Sora/Inter, testo Inter/Source Sans 3 (font locali)
   - [x] Sostituisci eventuale Atkinson Hyperlegible di default con Sora/Inter locali
-- [ ] Ripulisci contenuti demo e sezioni non necessarie dello starter
-- [ ] Controlli di accessibilità dello starter
-  - [ ] Skip‑link, ordine focus, ruoli ARIA
-  - [ ] Menu button conforme APG per selettore lingua
-  - [ ] Rispetto `prefers-reduced-motion`
+- [x] Ripulisci contenuti demo e sezioni non necessarie dello starter
+- [x] Controlli di accessibilità dello starter
+  - [x] Skip‑link, ordine focus, ruoli ARIA
+  - [x] Menu button conforme APG per selettore lingua
+  - [x] Rispetto `prefers-reduced-motion`
 
 ## 3‑bis) Grafica & Design system
 - [ ] Decidi approccio UI iniziale

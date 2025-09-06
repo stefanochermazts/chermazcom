@@ -3,11 +3,17 @@ title: "Token LLM: Innovazione nel Processo di Elaborazione del Linguaggio Natur
 slug: token-llm
 date: 2024-10-08
 status: publish
-excerpt: "I token LLM sono un concetto fondamentale nel campo dell& 8217;intelligenza artificiale e del linguaggio naturale. Rappresentano l& 8217;unità di base che i mod"
----\ntitle: \"Token LLM: Innovazione nel Processo di Elaborazione del Linguaggio Naturale\"\nslug: token-llm\ndate: 2024-10-08\nstatus: publish\nexcerpt: \"I token LLM "
-categories: [57,16]
-tags: []
-lang: it
+excerpt: I token LLM sono un concetto fondamentale nel campo dell&
+  8217;intelligenza artificiale e del linguaggio naturale. Rappresentano l&
+  8217;unità di base che i mod
+categories:
+  - chatbot
+tags:
+  - chatbot
+  - ai
+  - chatgpt
+  - dialogflow
+  - rag
 ---
 
 I token LLM sono un concetto fondamentale nel campo dell&#8217;intelligenza artificiale e del linguaggio naturale. **Rappresentano l&#8217;unità di base che i modelli linguistici utilizzano per elaborare e comprendere il testo**. Questi frammenti di linguaggio possono essere parole intere, parti di parole o persino singoli caratteri, a seconda del processo di tokenizzazione utilizzato.

@@ -1,21 +1,22 @@
 ---
-title: "Scopri tutte le funzionalità di Viva Engage: il nuovo strumento per la collaborazione aziendale"
+title: "Scopri tutte le funzionalità di Viva Engage: il nuovo strumento per la
+  collaborazione aziendale"
 slug: scopri-tutte-le-funzionalita-di-viva-engage-il-nuovo-strumento-per-la-collaborazione-aziendale
 date: 2024-05-06
 status: publish
-excerpt: "Table of Contents Toggle Scopri tutte le funzionalità di Viva Engage: il nuovo strumento per la collaborazione aziendaleIntroduzione a Viva Engage e la sua impo"
----\ntitle: \"Scopri tutte le funzionalità di Viva Engage: il nuovo strumento per la collaborazione aziendale\"\nslug: scopri-tutte-le-funzionalita-di-viva-engage-i"
-categories: [51]
-tags: []
-lang: it
+excerpt: "Table of Contents Toggle Scopri tutte le funzionalità di Viva Engage:
+  il nuovo strumento per la collaborazione aziendaleIntroduzione a Viva Engage e
+  la sua impo"
+categories:
+  - office365
+tags:
+  - microsoft 365
+  - office 365
+  - copilot
+  - word
+  - teams
 ---
 
-
-
-Table of Contents
-
-
-Toggle
 Scopri tutte le funzionalità di Viva Engage: il nuovo strumento per la collaborazione aziendaleIntroduzione a Viva Engage e la sua importanza nella collaborazione aziendaleFunzionalità principali di Viva Engage:&#8211; Comunicazione in tempo reale attraverso le chat&#8211; Condivisione e gestione dei documenti&#8211; Spazi di lavoro e gruppi per organizzare i progetti&#8211; Strumenti di analisi e monitoraggio delle attivitàCome utilizzare al meglio Viva Engage
 # Scopri tutte le funzionalità di Viva Engage: il nuovo strumento per la collaborazione aziendale
 

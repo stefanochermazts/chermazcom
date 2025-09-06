@@ -3,11 +3,17 @@ title: "Come usare le API di OpenAI in Azure: Guida pratica per sviluppatori"
 slug: come-usare-le-api-di-openai-in-azure
 date: 2024-07-26
 status: publish
-excerpt: "L& 8217;integrazione delle API di OpenAI in Azure offre potenti strumenti per sviluppare applicazioni di intelligenza artificiale avanzate. Con Azure OpenAI Ser"
----\ntitle: \"Come usare le API di OpenAI in Azure: Guida pratica per sviluppatori\"\nslug: come-usare-le-api-di-openai-in-azure\ndate: 2024-07-26\nstatus: publish\nex"
-categories: [55,16]
-tags: []
-lang: it
+excerpt: L& 8217;integrazione delle API di OpenAI in Azure offre potenti
+  strumenti per sviluppare applicazioni di intelligenza artificiale avanzate.
+  Con Azure OpenAI Ser
+categories:
+  - chatbot
+tags:
+  - chatbot
+  - ai
+  - chatgpt
+  - dialogflow
+  - rag
 ---
 
 L&#8217;integrazione delle API di OpenAI in Azure offre potenti strumenti per sviluppare applicazioni di intelligenza artificiale avanzate. **Con Azure OpenAI Service, posso accedere a modelli linguistici all&#8217;avanguardia come GPT-4 e DALL-E 3 direttamente nella piattaforma cloud di Microsoft.** Questo mi permette di sfruttare le capacità di elaborazione del linguaggio naturale e generazione di immagini per creare soluzioni innovative.

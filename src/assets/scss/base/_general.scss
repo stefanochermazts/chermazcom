@@ -50,6 +50,27 @@ footer a {
   }
 }
 
+// Tipografia ampia per pagine pillar (es. Chi sono)
+.content-large {
+  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
+  line-height: 1.9;
+
+  h2 {
+    font-size: clamp(2rem, 1.5rem + 1.8vw, 3rem);
+    line-height: 1.2;
+    margin-block: 1.2em 0.6em;
+  }
+
+  p + p {
+    margin-block-start: 1em;
+  }
+
+  img,
+  figure {
+    margin-block: 2rem;
+  }
+}
+
 *:focus,
 *:focus-visible {
   @include outline;

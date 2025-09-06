@@ -1,13 +1,18 @@
 ---
-title: "Massimizza le prestazioni di WP-Rocket su WordPress"
+title: Massimizza le prestazioni di WP-Rocket su WordPress
 slug: massimizza-le-prestazioni-di-wp-rocket-su-wordpress
 date: 2024-04-29
 status: publish
-excerpt: "Massimizza le prestazioni di WP Rocket su WordPress Quali sono i motivi per utilizzare WP Rocket in WordPress? WP Rocket è uno dei migliori plugin di cache per "
----\ntitle: \"Massimizza le prestazioni di WP-Rocket su WordPress\"\nslug: massimizza-le-prestazioni-di-wp-rocket-su-wordpress\ndate: 2024-04-29\nstatus: publish\nexce"
-categories: [40]
-tags: []
-lang: it
+excerpt: "Massimizza le prestazioni di WP Rocket su WordPress Quali sono i
+  motivi per utilizzare WP Rocket in WordPress? WP Rocket è uno dei migliori
+  plugin di cache per "
+categories:
+  - wordpress
+tags:
+  - wordpress
+  - wp rocket
+  - performance
+  - ottimizzazione
 ---
 
 Massimizza le prestazioni di WP-Rocket su WordPress

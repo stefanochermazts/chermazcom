@@ -1,21 +1,21 @@
 ---
-title: "Qual è la differenza tra i due tipi di chatbot attualmente in circolazione?"
+title: Qual è la differenza tra i due tipi di chatbot attualmente in circolazione?
 slug: qual-e-la-differenza-tra-i-due-tipi-di-chatbot-attualmente-in-circolazione
 date: 2024-04-29
 status: publish
-excerpt: "Table of Contents Toggle Qual è la differenza tra i due tipi di chatbot attualmente in circolazione?Introduzione ai chatbotChatbot basati su regole& 8211; Descr"
----\ntitle: \"Qual è la differenza tra i due tipi di chatbot attualmente in circolazione?\"\nslug: qual-e-la-differenza-tra-i-due-tipi-di-chatbot-attualmente-in-cir"
-categories: [16]
-tags: []
-lang: it
+excerpt: Table of Contents Toggle Qual è la differenza tra i due tipi di chatbot
+  attualmente in circolazione?Introduzione ai chatbotChatbot basati su regole&
+  8211; Descr
+categories:
+  - chatbot
+tags:
+  - chatbot
+  - ai
+  - chatgpt
+  - dialogflow
+  - rag
 ---
 
-
-
-Table of Contents
-
-
-Toggle
 Qual è la differenza tra i due tipi di chatbot attualmente in circolazione?Introduzione ai chatbotChatbot basati su regole&#8211; Descrizione e funzionamento&#8211; Vantaggi e svantaggi&#8211; Esempi di chatbot basati su regoleChatbot basati su intelligenza artificiale (AI)&#8211; Descrizione e funzionamento&#8211; Vantaggi e svantaggi&#8211; Esempi di chatbot basati su AI
 # Qual è la differenza tra i due tipi di chatbot attualmente in circolazione?
 

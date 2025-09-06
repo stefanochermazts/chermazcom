@@ -27,7 +27,7 @@ const insights = defineCollection({
 })
 
 const pages = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/pages' }),
   schema: z.object({
     title: z.string(),
     slug: z.string().optional(),

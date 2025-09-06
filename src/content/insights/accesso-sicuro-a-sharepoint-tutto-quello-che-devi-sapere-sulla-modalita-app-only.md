@@ -1,21 +1,22 @@
 ---
-title: "Accesso sicuro a SharePoint: tutto quello che devi sapere sulla modalità app-only"
+title: "Accesso sicuro a SharePoint: tutto quello che devi sapere sulla modalità
+  app-only"
 slug: accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-sulla-modalita-app-only
 date: 2024-05-07
 status: publish
-excerpt: "Table of Contents Toggle Accesso sicuro a SharePoint: tutto quello che devi sapere sulla modalità app onlyCos& 8217;è la modalità app only di SharePoint?Vantagg"
----\ntitle: \"Accesso sicuro a SharePoint: tutto quello che devi sapere sulla modalità app-only\"\nslug: accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-su"
-categories: [51,17]
-tags: []
-lang: it
+excerpt: "Table of Contents Toggle Accesso sicuro a SharePoint: tutto quello che
+  devi sapere sulla modalità app onlyCos& 8217;è la modalità app only di
+  SharePoint?Vantagg"
+categories:
+  - sharepoint
+tags:
+  - sharepoint
+  - liste
+  - intranet
+  - microsoft 365
+  - sicurezza
 ---
 
-
-
-Table of Contents
-
-
-Toggle
 Accesso sicuro a SharePoint: tutto quello che devi sapere sulla modalità app-onlyCos&#8217;è la modalità app-only di SharePoint?Vantaggi e svantaggi della modalità app-onlyCome configurare l&#8217;accesso in modalità app-only su SharePointPassaggi per concedere l&#8217;accesso ad un sito SharePoint tramite app-onlyCome gestire e revocare l&#8217;accesso in modalità app-onlyEsempi di casi d&#8217;uso per la modalità app-only in SharePointConclusioni
 # Accesso sicuro a SharePoint: tutto quello che devi sapere sulla modalità app-only
 

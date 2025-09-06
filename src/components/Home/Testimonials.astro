@@ -1,0 +1,20 @@
+---
+const { items = [] } = Astro.props
+---
+<section class="py-24">
+	<div class="container">
+		<h2 class="text-5xl mb-12">Testimonianze</h2>
+		<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+			{(items.length ? items : [
+				{ author: 'CTO, PMI', quote: 'Impatto immediato su delivery e qualità.' },
+				{ author: 'Marketing Lead', quote: 'Chatbot efficaci e on-brand.' },
+				{ author: 'IT Manager', quote: 'Intranet M365 adottata dal 100% del team.' },
+			]).map((t) => (
+				<blockquote class="p-6 rounded-2xl border">
+					<p class="text-lg mb-3">“{t.quote}”</p>
+					<cite class="opacity-80">{t.author}</cite>
+				</blockquote>
+			))}
+		</div>
+	</div>
+</section>

@@ -2,17 +2,34 @@
 import DefaultLayout from '../../../layouts/DefaultLayout.astro'
 import { getCollection } from 'astro:content'
 const posts = (await getCollection('insights')).sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
+const categories = ['sudoku','sharepoint','office365','chatbot','wordpress']
+const normalize = (s) => s.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+const postsByCategory = (cat) => posts.filter(p => (p.data.categories ?? []).some(c => normalize(c) === cat))
 ---
 <DefaultLayout title="Insights — IT">
   <section class="container my-32">
     <h1 class="text-6xl mb-8">Insights</h1>
-    <ul class="grid grid-cols-1 gap-6">
-      {posts.map(p => (
-        <li>
-          <a href={`/it/insights/${(p.slug ?? p.id.replace(/\.mdx?$/, ''))}/`}>{p.data.title}</a>
-        </li>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+      {categories.map(cat => (
+        <article class="border rounded-2xl p-6">
+          <h2 class="text-2xl mb-2 capitalize">{cat}</h2>
+          <p class="opacity-80 mb-4">Articoli per categoria</p>
+          <a class="button" href={`/it/insights/categoria/${cat}/`}>Vai agli articoli</a>
+        </article>
       ))}
-    </ul>
+    </div>
+
+    <h2 class="text-4xl mb-6">Tutti gli articoli</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {posts.map(p => (
+        <article class="border rounded-2xl p-6">
+          <h3 class="text-xl mb-2">
+            <a href={`/it/insights/${(p.slug ?? p.id.replace(/\.mdx?$/, ''))}/`}>{p.data.title}</a>
+          </h3>
+          <p class="opacity-80 text-base">{p.data.excerpt ?? ''}</p>
+        </article>
+      ))}
+    </div>
   </section>
 </DefaultLayout>
 

@@ -3,26 +3,19 @@ title: "Storia e curiosità sul Sudoku: dalle origini ai giorni nostri"
 slug: storia-e-curiosita-sul-sudoku-dalle-origini-ai-giorni-nostri
 date: 2025-01-03
 status: publish
-excerpt: "Il Sudoku è uno dei passatempi più amati al mondo, un rompicapo che stimola la mente e appassiona milioni di persone. Ma qual è la sua storia? Come è nato e com"
----\ntitle: \"Storia e curiosità sul Sudoku: dalle origini ai giorni nostri\"\nslug: storia-e-curiosita-sul-sudoku-dalle-origini-ai-giorni-nostri\ndate: 2025-01-03\ns"
-categories: [54]
-tags: []
-lang: it
+excerpt: Il Sudoku è uno dei passatempi più amati al mondo, un rompicapo che
+  stimola la mente e appassiona milioni di persone. Ma qual è la sua storia?
+  Come è nato e com
+categories:
+  - sudoku
+tags:
+  - sudoku
+  - strategie
+  - logica
+  - tecniche
+  - puzzle
 ---
 
-Il Sudoku è uno dei passatempi più amati al mondo, un rompicapo che stimola la mente e appassiona milioni di persone. Ma qual è la sua storia? Come è nato e come è riuscito a conquistare un pubblico così vasto? In questo articolo, esploreremo la storia del Sudoku, curiosità legate al gioco e le sue origini sorprendenti.
-
-
-
-
-
-
-
-Table of Contents
-
-
-Toggle
-Le origini del Sudoku: un viaggio nel passatoL&#8217;ascesa globale del SudokuCuriosità sul Sudoku: fatti sorprendentiIl futuro del Sudoku: innovazione e sfide digitaliConclusione
 ### Le origini del Sudoku: un viaggio nel passato
 
 Contrariamente a quanto molti pensano, il Sudoku non nasce in Giappone. Le sue [origini del Sudoku] risalgono al XVIII secolo, quando il matematico svizzero Leonhard Euler ideò un gioco chiamato &#8220;quadrato latino&#8221;, in cui numeri o simboli dovevano essere disposti in modo tale da non ripetersi né in riga né in colonna.
