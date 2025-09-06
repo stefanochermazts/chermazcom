@@ -1,0 +1,4 @@
+# WordPress -> nuove sezioni (placeholder, aggiorna quando migri contenuti)
+/wp-admin/*              / 301!
+# Esempi slug vecchi -> nuovi (aggiorna con mapping reali)
+#/2024/03/old-post/       /insights/old-post/ 301
