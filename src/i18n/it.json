@@ -6,9 +6,41 @@
   },
   "nav": {
     "home": "Home",
+    "about": "Chi sono",
     "services": "Servizi",
     "caseStudies": "Case Studies",
     "insights": "Insights",
-    "contact": "Contatti"
+    "contact": "Contatti",
+    "privacy": "Privacy"
+  },
+  "pages": {
+    "home": {
+      "title": "Stefano Chermaz - Consulenza IT",
+      "description": "Consulenza IT specializzata in Microsoft 365, AI e Compliance. Soluzioni digitali per aziende moderne."
+    },
+    "about": {
+      "title": "Chi sono - Stefano Chermaz",
+      "description": "Consulente IT con esperienza in Microsoft 365, intelligenza artificiale e compliance aziendale."
+    },
+    "services": {
+      "title": "Servizi - Consulenza IT",
+      "description": "Servizi di consulenza IT: Microsoft 365, AI, automazione processi e compliance aziendale."
+    },
+    "caseStudies": {
+      "title": "Case Studies - Progetti realizzati",
+      "description": "Selezione di progetti con KPI sintetici e impatto concreto per i clienti."
+    },
+    "insights": {
+      "title": "Insights - Blog tecnico",
+      "description": "Articoli e guide su tecnologie Microsoft, AI e best practices aziendali."
+    },
+    "contact": {
+      "title": "Contatti - Stefano Chermaz",
+      "description": "Contatta Stefano Chermaz per consulenze IT, progetti Microsoft 365 e soluzioni AI."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "Informativa sulla privacy e trattamento dei dati personali."
+    }
   }
 }

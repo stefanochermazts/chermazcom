@@ -1,0 +1,90 @@
+---
+import Base from '../../layouts/Base.astro'
+---
+
+<Base useLocalizedMeta={true} pageKey="privacy">
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold mb-8">Pravilnik o zasebnosti</h1>
+      
+      <div class="prose max-w-none">
+        <p class="text-lg mb-6">
+          Ta pravilnik o zasebnosti opisuje, kako Stefano Chermaz ("mi", "nas", "naš") 
+          zbira, uporablja in varuje vaše osebne podatke, ko obiščete našo spletno stran.
+        </p>
+        
+        <h2>Zbiranje podatkov</h2>
+        <p>
+          Zbiramo informacije, ki nam jih posredujete neposredno, na primer ko nas kontaktirate 
+          preko e-pošte ali kontaktnih obrazcev. To lahko vključuje:
+        </p>
+        <ul>
+          <li>Ime in kontaktne informacije</li>
+          <li>E-poštni naslov</li>
+          <li>Vsebina sporočila</li>
+          <li>Profesionalne informacije, relevantne za naše storitve</li>
+        </ul>
+        
+        <h2>Uporaba informacij</h2>
+        <p>Zbrane informacije uporabljamo za:</p>
+        <ul>
+          <li>Odgovarjanje na vaše povpraševanja in zagotavljanje naših storitev</li>
+          <li>Komunikacijo z vami o naših storitvah</li>
+          <li>Izboljšanje naše spletne strani in storitev</li>
+          <li>Izpolnjevanje zakonskih obveznosti</li>
+        </ul>
+        
+        <h2>Deljenje podatkov</h2>
+        <p>
+          Vaših osebnih podatkov ne prodajamo, ne trgujemo ali jih kako drugače ne prenašamo 
+          tretjim osebam brez vaše privolitve, razen kot je opisano v tem pravilniku ali 
+          kot zahteva zakon.
+        </p>
+        
+        <h2>Varnost podatkov</h2>
+        <p>
+          Izvajamo ustrezne varnostne ukrepe za zaščito vaših osebnih podatkov pred 
+          nepooblaščenim dostopom, spreminjanjem, razkritjem ali uničenjem.
+        </p>
+        
+        <h2>Piškotki</h2>
+        <p>
+          Naša spletna stran lahko uporablja piškotke za izboljšanje vaše izkušnje. 
+          Piškotke lahko onemogočite v nastavitvah svojega brskalnika.
+        </p>
+        
+        <h2>GDPR pravice</h2>
+        <p>Če se nahajate v Evropski uniji, imate pravico do:</p>
+        <ul>
+          <li>Dostopa do svojih osebnih podatkov</li>
+          <li>Popravka netočnih podatkov</li>
+          <li>Izbrisa svojih podatkov (pravica do pozabe)</li>
+          <li>Omejitve obdelave svojih podatkov</li>
+          <li>Prenosljivosti podatkov</li>
+          <li>Ugovora obdelavi</li>
+        </ul>
+        
+        <h2>Kontaktne informacije</h2>
+        <p>
+          Če imate kakršna koli vprašanja o tem pravilniku o zasebnosti ali naših 
+          podatkovnih praksah, nas prosimo kontaktirajte na: 
+          <a href="mailto:stefano@chermaz.com">stefano@chermaz.com</a>
+        </p>
+        
+        <h2>Spremembe tega pravilnika</h2>
+        <p>
+          Ta pravilnik o zasebnosti lahko občasno posodobimo. O vseh spremembah vas 
+          bomo obvestili z objavo novega pravilnika na tej strani.
+        </p>
+        
+        <p class="text-sm text-gray-600 dark:text-gray-400 mt-8">
+          Zadnja posodobitev: {new Date().toLocaleDateString('sl-SI', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          })}
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

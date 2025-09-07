@@ -1,0 +1,63 @@
+---
+import Base from '../../../layouts/Base.astro'
+import CaseStudyCard from '../../../components/CaseStudyCard.astro'
+import { getCollection } from 'astro:content'
+const studies = (await getCollection('caseStudies')).sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
+---
+
+<Base useLocalizedMeta={true} pageKey="caseStudies">
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold mb-8">Case Studies</h1>
+      <p class="text-xl mb-12 text-gray-600 dark:text-gray-400">
+        A selection of projects with measurable impact and concrete results for our clients.
+      </p>
+      
+      <div id="cs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {studies.map((s, i) => (
+          <div data-cs-card class:list={{'': true, 'hidden': i >= 6}}>
+            <CaseStudyCard caseStudy={s} baseUrl="/en/case-studies" />
+          </div>
+        ))}
+      </div>
+      <div id="cs-sentinel" aria-hidden="true" class="h-8"></div>
+      <div class="mt-6 flex justify-center">
+        <button id="cs-load-more" class="button hidden">Load More</button>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  try {
+    const grid = document.querySelector('#cs-grid')
+    const cards = Array.from(grid?.querySelectorAll('[data-cs-card]') ?? [])
+    const sentinel = document.querySelector('#cs-sentinel')
+    const btn = document.querySelector('#cs-load-more')
+    const batchSize = 6
+    let shown = Math.min(batchSize, cards.length)
+
+    const revealNext = () => {
+      const start = shown
+      const end = Math.min(shown + batchSize, cards.length)
+      for (let i = start; i < end; i++) cards[i]?.classList.remove('hidden')
+      shown = end
+      if (shown >= cards.length) {
+        observer?.disconnect?.()
+        btn?.classList.add('hidden')
+      }
+    }
+
+    let observer
+    if ('IntersectionObserver' in window && sentinel) {
+      observer = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) revealNext()
+      }, { rootMargin: '200px 0px' })
+      observer.observe(sentinel)
+    } else if (btn) {
+      btn.classList.remove('hidden')
+    }
+
+    btn?.addEventListener('click', () => revealNext())
+  } catch {}
+</script>

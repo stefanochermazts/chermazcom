@@ -1,18 +1,29 @@
 ---
-import DefaultLayout from '../../layouts/DefaultLayout.astro'
-import { getCollection } from 'astro:content'
-const posts = (await getCollection('insights')).sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
 ---
-<DefaultLayout title="Insights">
-  <section class="container my-32">
-    <h1 class="text-6xl mb-8">Insights</h1>
-    <ul class="grid grid-cols-1 gap-6">
-      {posts.map(p => (
-        <li>
-          <a href={`/insights/${(p.slug ?? p.id.replace(/\.mdx?$/, ''))}/`}>{p.data.title}</a>
-        </li>
-      ))}
-    </ul>
-  </section>
-</DefaultLayout>
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redirect…</title>
+    <meta http-equiv="refresh" content="0; url=/it/insights/" />
+  </head>
+  <body>
+    <script>
+      (function(){
+        try{
+          var langs=['it','en','sl']
+          var saved=localStorage.getItem('lang')||'it'
+          if(langs.indexOf(saved)===-1) saved='it'
+          var target='/' + saved + '/insights/'
+          location.replace(target)
+        }catch(e){ location.replace('/it/insights/') }
+      })()
+    </script>
+    <noscript>
+      <a href="/it/insights/">Vai a /it/insights/</a>
+    </noscript>
+  </body>
+  </html>
+
 

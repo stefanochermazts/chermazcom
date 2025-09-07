@@ -24,7 +24,7 @@ const finalSrc = (typeof imgSrc === 'string' && imgSrc.trim().length > 0) ? imgS
 ---
 
 <section class="my-64">
-  <div class="container">
+  <div class="container" style="max-width:1366px;margin-inline:auto;padding-inline:1rem;">
     <div class="grid grid-cols-1 gap-24 md:grid-cols-2">
       {!reverseImg ? <img class="rounded-lg h-auto w-full object-cover" src={finalSrc} alt="" loading="lazy" /> : ''}
       <div class="space-content flex flex-col justify-center">

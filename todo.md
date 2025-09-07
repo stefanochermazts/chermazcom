@@ -110,10 +110,12 @@
  - [x] Outline focus coerente brand (`#1f63ff`) con offset 2px
 
 ## 4) Layout, pagine core e routing
-- [ ] Crea `src/layouts/Base.astro` (metadati, JSON‑LD, Header/Footer)
-- [ ] Pagine principali: `/`, `/about`, `/services/*`, `/case-studies/*`, `/insights`, `/contact`, `/privacy`
-- [ ] Content Collections per `insights` e `case-studies` (schema + slug)
-- [ ] Listing `src/pages/insights/index.astro` con ordinamento per data desc
+- [x] Crea `src/layouts/Base.astro` (metadati, JSON‑LD, Header/Footer)
+- [x] Pagine principali: `/` (home)
+- [x] Pagine principali: `/about`, `/services`, `/case-studies`, `/insights`, `/contact`, `/privacy` (scheletri minimi)
+- [x] Content Collections per `insights` e `case-studies` (schema + slug)
+- [x] Listing `src/pages/it/insights/index.astro` con ordinamento per data desc
+- [x] Listing per categoria `src/pages/it/insights/categoria/[categoria].astro`
  - [ ] Aggiungi selettore lingua come menu button conforme APG (keyboard + ARIA)
 
 ## 4‑bis) Internazionalizzazione (IT / EN / SL)
@@ -146,6 +148,13 @@
 - [ ] Rivedi front‑matter (title, date, excerpt)
 - [ ] Correggi URL interni e riferimenti a media
 - [ ] Carica media ottimizzati in `/public/images/wp`
+- [x] Risolto errore import componente Accordion in file MDX insights
+- [x] Risolto conflitto routing pagina contatti (contact.astro → contact/index.astro)
+- [x] Aggiunto redirect /it/contatti/ → /it/contact/ per URL più naturale in italiano
+- [x] Creato sistema URL italiani: /it/contatti/, /it/servizi/, /it/chi-sono/
+- [x] Aggiornato sistema di navigazione per usare URL localizzati per lingua
+- [x] Configurato redirect automatico da URL inglesi a italiani in produzione
+- [x] Risolto contenuto duplicato nella homepage italiana (rimosso codice duplicato)
 
 ## 6) SEO e redirect
 - [x] Aggiungi `netlify.toml` (build/dev)

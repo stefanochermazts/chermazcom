@@ -6,9 +6,41 @@
   },
   "nav": {
     "home": "Home",
+    "about": "About",
     "services": "Services",
     "caseStudies": "Case Studies",
     "insights": "Insights",
-    "contact": "Contact"
+    "contact": "Contact",
+    "privacy": "Privacy"
+  },
+  "pages": {
+    "home": {
+      "title": "Stefano Chermaz - IT Consulting",
+      "description": "Specialized IT consulting in Microsoft 365, AI and Compliance. Digital solutions for modern businesses."
+    },
+    "about": {
+      "title": "About - Stefano Chermaz",
+      "description": "IT consultant with expertise in Microsoft 365, artificial intelligence and business compliance."
+    },
+    "services": {
+      "title": "Services - IT Consulting",
+      "description": "IT consulting services: Microsoft 365, AI, process automation and business compliance."
+    },
+    "caseStudies": {
+      "title": "Case Studies - Completed Projects",
+      "description": "Selection of projects with synthetic KPIs and concrete impact for clients."
+    },
+    "insights": {
+      "title": "Insights - Technical Blog",
+      "description": "Articles and guides on Microsoft technologies, AI and business best practices."
+    },
+    "contact": {
+      "title": "Contact - Stefano Chermaz",
+      "description": "Contact Stefano Chermaz for IT consulting, Microsoft 365 projects and AI solutions."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "Privacy policy and personal data processing information."
+    }
   }
 }

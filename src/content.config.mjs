@@ -23,6 +23,12 @@ const insights = defineCollection({
     status: z.string().optional(),
     categories: z.array(z.any()).optional(),
     tags: z.array(z.any()).optional(),
+    // campi immagine opzionali usati nelle card e nei metadati
+    image: z.string().optional(),
+    ogImage: z.string().optional(),
+    featuredImage: z.string().optional(),
+    slug: z.string().optional(),
+    lang: z.string().optional(),
   }),
 })
 
@@ -36,5 +42,20 @@ const pages = defineCollection({
   }),
 })
 
+const caseStudies = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/case-studies' }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string().optional(),
+    date: z.string().or(z.date()).optional(),
+    excerpt: z.string().optional(),
+    kpi: z.string().or(z.array(z.string())).optional(),
+    sector: z.string().optional(),
+    image: z.string().optional(),
+    ogImage: z.string().optional(),
+    tags: z.array(z.any()).optional(),
+  }),
+})
+
 // 4. Export a single `collections` object to register you collection(s)
-export const collections = { projects, insights, pages }
+export const collections = { projects, insights, pages, caseStudies }

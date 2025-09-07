@@ -3,6 +3,7 @@ import '../styles/tailwind.css'
 import '../assets/scss/index.scss'
 import SiteMeta from '../components/SiteMeta.astro'
 import Header from '../components/Header.astro'
+import Breadcrumbs from '../components/Breadcrumbs.astro'
 import Footer from '../components/Footer.astro'
 import { ClientRouter } from 'astro:transitions'
 
@@ -51,6 +52,9 @@ const {
     </script>
     
     <Header />
+    <div class="container">
+      <Breadcrumbs currentLabel={title} />
+    </div>
     <main id="main-content" transition:animate="fade">
       <slot />
     </main>

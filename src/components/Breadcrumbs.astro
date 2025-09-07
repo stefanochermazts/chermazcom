@@ -1,0 +1,139 @@
+---
+interface Props {
+  currentLabel?: string
+}
+
+const { currentLabel }: Props = Astro.props
+
+const pathname = Astro.url.pathname
+const segments = pathname.split('/').filter(Boolean)
+const languages = ['it', 'en', 'sl']
+const lang = languages.includes(segments[0]) ? segments[0] : 'it'
+const startIdx = languages.includes(segments[0]) ? 1 : 0
+const parts = segments.slice(startIdx)
+
+// Label mapping per lingua
+const LABELS: Record<string, Record<string, string>> = {
+  it: {
+    insights: 'Insights',
+    'case-studies': 'Case studies',
+    services: 'Servizi',
+    'chi-sono': 'Chi sono',
+    about: 'Chi sono',
+    contact: 'Contatti',
+    contatti: 'Contatti',
+    privacy: 'Privacy',
+    categoria: 'Categoria',
+    portfolio: 'Portfolio',
+  },
+  en: {
+    insights: 'Insights',
+    'case-studies': 'Case studies',
+    services: 'Services',
+    about: 'About',
+    contact: 'Contact',
+    privacy: 'Privacy',
+    category: 'Category',
+    portfolio: 'Portfolio',
+  },
+  sl: {},
+}
+
+const toWords = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase())
+
+// Build crumb list
+type Crumb = { href: string; label: string }
+const crumbs: Crumb[] = []
+
+// Root home
+crumbs.push({ href: `/${lang}/`, label: 'Home' })
+
+let acc = `/${lang}`
+for (let i = 0; i < parts.length; i++) {
+  const seg = parts[i]
+  acc += `/${seg}`
+  const isLast = i === parts.length - 1
+  let label = LABELS[lang]?.[seg] || toWords(seg)
+
+  // Categoria: mostra label "Categoria" per il segmento, e per l'ultimo (slug categoria) formatta lo slug
+  if (!isLast && (seg === 'categoria' || seg === 'category')) {
+    label = LABELS[lang]?.['categoria'] || LABELS[lang]?.['category'] || 'Categoria'
+  }
+  if (isLast) {
+    // usa titolo passato se disponibile (es. pagine dettaglio)
+    label = currentLabel || label
+  }
+
+  crumbs.push({ href: `${acc}/`, label })
+}
+
+// Non mostrare breadcrumbs se siamo solo alla home
+const show = crumbs.length > 1
+---
+{show && (
+  <nav aria-label="breadcrumb" class="breadcrumb-nav">
+    <ol class="breadcrumb-list">
+      {crumbs.map((c, idx) => (
+        idx < crumbs.length - 1 ? (
+          <li class="breadcrumb-item">
+            <a href={c.href}>{c.label}</a>
+          </li>
+        ) : (
+          <li class="breadcrumb-item" aria-current="page">{c.label}</li>
+        )
+      ))}
+    </ol>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: crumbs.map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: c.label,
+        item: new URL(c.href, Astro.site).href,
+      })),
+    })} />
+  </nav>
+)}
+
+<style lang="scss">
+  .breadcrumb-nav {
+    margin-block: var(--space-s);
+  }
+  .breadcrumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: var(--foreground-color);
+    font-size: 0.9375rem;
+  }
+  .breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+  }
+  .breadcrumb-item + .breadcrumb-item:before {
+    content: '/';
+    opacity: 0.5;
+    margin-inline: var(--space-3xs);
+  }
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+  }
+  a:where(:hover, :focus-visible) {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .breadcrumb-item[aria-current='page'] {
+    font-weight: 600;
+  }
+  .breadcrumb-item a:focus-visible {
+    outline: 2px solid var(--brand-500, #1f63ff);
+    outline-offset: 2px;
+  }
+ 
+
+

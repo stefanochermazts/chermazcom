@@ -6,9 +6,41 @@
   },
   "nav": {
     "home": "Domov",
+    "about": "O meni",
     "services": "Storitve",
-    "caseStudies": "Primeri",
+    "caseStudies": "Študije primerov",
     "insights": "Vpogledi",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "privacy": "Zasebnost"
+  },
+  "pages": {
+    "home": {
+      "title": "Stefano Chermaz - IT svetovanje",
+      "description": "Specializirano IT svetovanje za Microsoft 365, AI in skladnost. Digitalne rešitve za sodobna podjetja."
+    },
+    "about": {
+      "title": "O meni - Stefano Chermaz",
+      "description": "IT svetovalec z izkušnjami na področju Microsoft 365, umetne inteligence in poslovne skladnosti."
+    },
+    "services": {
+      "title": "Storitve - IT svetovanje",
+      "description": "Storitve IT svetovanja: Microsoft 365, AI, avtomatizacija procesov in poslovna skladnost."
+    },
+    "caseStudies": {
+      "title": "Študije primerov - Realizirani projekti",
+      "description": "Izbor projektov s sintetičnimi KPI in konkretnim vplivom za stranke."
+    },
+    "insights": {
+      "title": "Vpogledi - Tehnični blog",
+      "description": "Članki in vodniki o Microsoft tehnologijah, AI in najboljših poslovnih praksah."
+    },
+    "contact": {
+      "title": "Kontakt - Stefano Chermaz",
+      "description": "Kontaktirajte Stefana Chermaza za IT svetovanje, Microsoft 365 projekte in AI rešitve."
+    },
+    "privacy": {
+      "title": "Pravilnik o zasebnosti",
+      "description": "Pravilnik o zasebnosti in obdelavi osebnih podatkov."
+    }
   }
 }

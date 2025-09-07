@@ -11,13 +11,23 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "images:covers": "node scripts/generate-covers.mjs",
     "wp:export": "node scripts/wp-export-to-md.mjs",
     "fix:links": "node scripts/fix-internal-links.mjs",
     "sitemap": "SITE=https://www.chermaz.com node scripts/generate-sitemap.mjs",
     "fm:normalize": "node scripts/normalize-frontmatter.mjs",
     "redirects:wp": "node scripts/generate-redirects-from-wp.mjs",
     "fm:validate": "node scripts/validate-frontmatter.mjs",
-    "fm:fix": "node scripts/fix-frontmatter-colons.mjs"
+    "fm:fix": "node scripts/fix-frontmatter-colons.mjs",
+    "i18n:translate:file": "node scripts/translate-file.mjs",
+    "i18n:translate:all": "node scripts/translate-content.mjs",
+    "content:inject-cover": "node scripts/inject-cover-image.mjs",
+    "content:heroify": "node scripts/convert-first-image-to-hero.mjs",
+    "content:heroify:fix-imports": "node scripts/fix-breakout-imports.mjs",
+    "content:force-fix-breakout": "node scripts/force-fix-breakout.mjs",
+    "content:fix-malformed": "node scripts/fix-malformed-frontmatter.mjs",
+    "content:generate-covers": "node scripts/generate-covers.mjs",
+    "content:generate-case-covers": "node scripts/generate-case-study-covers.mjs"
   },
   "keywords": [
     "astro",
@@ -76,7 +86,11 @@
     "@studio-freight/lenis": "^1.0.42",
     "@tailwindcss/vite": "^4.1.7",
     "accessible-astro-components": "^4.1.2",
+    "gray-matter": "^4.0.3",
     "lenis": "^1.3.11",
-    "motion": "^12.23.12"
+    "motion": "^12.23.12",
+    "openai": "^5.19.1",
+    "sharp": "^0.34.3",
+    "slugify": "^1.6.6"
   }
 }

@@ -1,0 +1,78 @@
+---
+import '../styles/tailwind.css'
+import '../assets/scss/index.scss'
+import SiteMeta from '../components/SiteMeta.astro'
+import LocalizedMeta from '../components/LocalizedMeta.astro'
+import Header from '../components/Header.astro'
+import Breadcrumbs from '../components/Breadcrumbs.astro'
+import Footer from '../components/Footer.astro'
+import { getLocaleFromUrl } from '../utils/i18n'
+
+interface Props {
+  title?: string
+  description?: string
+  url?: string
+  image?: string
+  author?: string
+  jsonLd?: any
+  pageKey?: string
+  useLocalizedMeta?: boolean
+}
+
+const {
+  title = 'Stefano Chermaz — Consulenza IT (M365, AI, DORA/GDPR)',
+  description = 'Progetti affidabili e scalabili su Microsoft 365 e AI. Modern Workplace, automazioni, chatbot e governance.',
+  url = Astro.site,
+  image = 'social-preview-image.png',
+  author = 'Stefano Chermaz',
+  jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Stefano Chermaz — Consulenza IT',
+    url: Astro.site,
+    sameAs: ['https://www.linkedin.com/in/stefanochermaz/'],
+  },
+  pageKey,
+  useLocalizedMeta = false
+} = Astro.props as Props
+
+const locale = getLocaleFromUrl(Astro.url)
+---
+
+<html lang={locale} dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1f63ff" />
+
+    {useLocalizedMeta ? (
+      <LocalizedMeta title={title} description={description} pageKey={pageKey} ogImage={image} />
+    ) : (
+      <SiteMeta title={title} description={description.substring(0, 150)} url={url} image={image} author={author} />
+    )}
+
+    <slot name="head" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+  </head>
+  <body>
+    <Header />
+    <div class="container">
+      <Breadcrumbs currentLabel={title} />
+    </div>
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+  
+</html>
+
+

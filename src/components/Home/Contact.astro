@@ -5,7 +5,7 @@ const { action = '/contact', privacy = 'I tuoi dati saranno trattati secondo la 
 <section class="py-16 sm:py-20">
   <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
     <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">Contatti</h2>
-    <form class="mt-8 grid gap-4" method="post" action={action} data-netlify="true" netlify-honeypot="bot-field">
+    <form data-contact class="mt-8 grid gap-4" method="post" action={action} data-netlify="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="contact" />
       <p class="hidden">
         <label>Don’t fill this out: <input name="bot-field" /></label>
@@ -29,5 +29,20 @@ const { action = '/contact', privacy = 'I tuoi dati saranno trattati secondo la 
     </form>
   </div>
 </section>
+
+<style>
+  /* Stile locale e isolato per il pulsante submit del form contatti */
+  form[data-contact] button[type='submit'] {
+    background-color: var(--brand-secondary, #164cd6);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+  }
+
+  form[data-contact] button[type='submit']:hover {
+    background-color: var(--brand-primary, #1f63ff);
+  }
+</style>
 
 

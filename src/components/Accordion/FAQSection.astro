@@ -7,36 +7,52 @@ const { class: className = '' } = Astro.props
 
 <script>
   if (typeof document !== 'undefined') {
-    try {
-      const root = document.currentScript && document.currentScript.previousElementSibling
-        ? document.currentScript.previousElementSibling
-        : null
-      if (root) {
-        const container = root
-        // raccogli blocchi fino al prossimo H2 o fine
-        const children = Array.from(container.childNodes)
-        for (let i = 0; i < children.length; i++) {
-          const node = children[i]
-          if (node.nodeType === 1 && node.tagName === 'H3') {
-            const h3 = node
-            const details = document.createElement('details')
-            details.className = 'faq-item'
-            const summary = document.createElement('summary')
-            summary.className = 'faq-summary'
-            summary.textContent = h3.textContent || ''
-            details.appendChild(summary)
+    const enhance = (container) => {
+      if (!container || container.__faqEnhanced) return
+      container.__faqEnhanced = true
 
-            // sposta contenuto fino al prossimo H2/H3 o fine
-            let sib = h3.nextSibling
-            while (sib && !(sib.nodeType === 1 && (sib.tagName === 'H2' || sib.tagName === 'H3'))) {
-              const next = sib.nextSibling
-              details.appendChild(sib)
-              sib = next
-            }
-            h3.replaceWith(details)
+      const children = Array.from(container.childNodes)
+      for (let i = 0; i < children.length; i++) {
+        const node = children[i]
+        if (node.nodeType === 1 && node.tagName === 'H3') {
+          const h3 = node
+          const details = document.createElement('details')
+          details.className = 'faq-item'
+          const summary = document.createElement('summary')
+          summary.className = 'faq-summary'
+          summary.textContent = h3.textContent || ''
+          details.appendChild(summary)
+
+          let sib = h3.nextSibling
+          while (sib && !(sib.nodeType === 1 && (sib.tagName === 'H2' || sib.tagName === 'H3'))) {
+            const next = sib.nextSibling
+            details.appendChild(sib)
+            sib = next
           }
+          h3.replaceWith(details)
         }
       }
+    }
+
+    try {
+      // Primo tentativo: elemento immediatamente precedente allo script
+      const prev = document.currentScript?.previousElementSibling
+      if (prev && prev.classList?.contains('faq-section')) {
+        enhance(prev)
+      } else {
+        // Fallback: cerca l'ultimo .faq-section più vicino nello stesso livello
+        const parent = document.currentScript?.parentElement
+        const candidate = parent?.querySelector(':scope > .faq-section:last-of-type') || document.querySelector('.faq-section:last-of-type')
+        if (candidate) enhance(candidate)
+      }
+
+      // Ulteriore sicurezza: se il DOM non è ancora pronto
+      document.addEventListener('astro:page-load', () => {
+        document.querySelectorAll('.faq-section').forEach(enhance)
+      })
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.faq-section').forEach(enhance)
+      })
     } catch {}
   }
 </script>

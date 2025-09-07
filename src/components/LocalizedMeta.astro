@@ -1,0 +1,65 @@
+---
+import { getLocaleFromUrl, t, getAlternateUrls, type Locale } from '../utils/i18n'
+
+interface Props {
+  title?: string
+  description?: string
+  pageKey?: string
+  ogImage?: string
+}
+
+const { title, description, pageKey, ogImage } = Astro.props
+const locale = getLocaleFromUrl(Astro.url) as Locale
+const currentPath = Astro.url.pathname
+
+// Get localized title and description
+const localizedTitle = title || (pageKey ? t(`pages.${pageKey}.title`, locale) : t('site.title', locale))
+const localizedDescription = description || (pageKey ? t(`pages.${pageKey}.description`, locale) : t('site.description', locale))
+
+// Get alternate URLs for all languages
+const alternateUrls = getAlternateUrls(currentPath)
+
+// Default OG image
+const defaultOgImage = '/images/og-default.jpg'
+const finalOgImage = ogImage || defaultOgImage
+---
+
+<!-- Basic Meta Tags -->
+<title>{localizedTitle}</title>
+<meta name="description" content={localizedDescription} />
+<meta name="language" content={locale} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={localizedTitle} />
+<meta property="og:description" content={localizedDescription} />
+<meta property="og:image" content={new URL(finalOgImage, Astro.site).toString()} />
+<meta property="og:url" content={Astro.url.toString()} />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content={locale === 'it' ? 'it_IT' : locale === 'en' ? 'en_US' : 'sl_SI'} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={localizedTitle} />
+<meta name="twitter:description" content={localizedDescription} />
+<meta name="twitter:image" content={new URL(finalOgImage, Astro.site).toString()} />
+
+<!-- Canonical and Alternate Links -->
+<link rel="canonical" href={Astro.url.toString()} />
+{Object.entries(alternateUrls).map(([lang, url]) => (
+  <link rel="alternate" hreflang={lang} href={url} />
+))}
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": localizedTitle,
+  "description": localizedDescription,
+  "url": Astro.url.toString(),
+  "inLanguage": locale,
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": t('site.title', locale),
+    "url": alternateUrls[locale]
+  }
+})} />

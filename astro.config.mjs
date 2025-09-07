@@ -9,6 +9,13 @@ import { fileURLToPath } from 'url'
 export default defineConfig({
   compressHTML: true,
   site: 'https://www.chermaz.com',
+  i18n: {
+    defaultLocale: 'it',
+    locales: ['it', 'en', 'sl'],
+    routing: {
+      prefixDefaultLocale: true
+    }
+  },
   integrations: [mdx(), icon(), compress()],
   vite: {
     css: {

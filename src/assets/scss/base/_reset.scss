@@ -76,7 +76,7 @@
     border: 1px solid gray;
   }
 
-  button {
+  button:not([class]) {
     border: none;
     border-radius: 0;
     background-color: transparent;

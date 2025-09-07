@@ -1,0 +1,88 @@
+---
+import Base from '../../layouts/Base.astro'
+---
+
+<Base useLocalizedMeta={true} pageKey="privacy">
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold mb-8">Privacy Policy</h1>
+      
+      <div class="prose max-w-none">
+        <p class="text-lg mb-6">
+          This privacy policy describes how Stefano Chermaz ("we", "us", "our") collects, 
+          uses, and protects your personal information when you visit our website.
+        </p>
+        
+        <h2>Data Collection</h2>
+        <p>
+          We collect information you provide directly to us, such as when you contact us 
+          via email or through our contact forms. This may include:
+        </p>
+        <ul>
+          <li>Name and contact information</li>
+          <li>Email address</li>
+          <li>Message content</li>
+          <li>Professional information relevant to our services</li>
+        </ul>
+        
+        <h2>Use of Information</h2>
+        <p>We use the information we collect to:</p>
+        <ul>
+          <li>Respond to your inquiries and provide our services</li>
+          <li>Communicate with you about our services</li>
+          <li>Improve our website and services</li>
+          <li>Comply with legal obligations</li>
+        </ul>
+        
+        <h2>Data Sharing</h2>
+        <p>
+          We do not sell, trade, or otherwise transfer your personal information to third parties 
+          without your consent, except as described in this policy or as required by law.
+        </p>
+        
+        <h2>Data Security</h2>
+        <p>
+          We implement appropriate security measures to protect your personal information 
+          against unauthorized access, alteration, disclosure, or destruction.
+        </p>
+        
+        <h2>Cookies</h2>
+        <p>
+          Our website may use cookies to enhance your experience. You can choose to 
+          disable cookies through your browser settings.
+        </p>
+        
+        <h2>GDPR Rights</h2>
+        <p>If you are located in the European Union, you have the right to:</p>
+        <ul>
+          <li>Access your personal data</li>
+          <li>Rectify inaccurate data</li>
+          <li>Erase your data (right to be forgotten)</li>
+          <li>Restrict processing of your data</li>
+          <li>Data portability</li>
+          <li>Object to processing</li>
+        </ul>
+        
+        <h2>Contact Information</h2>
+        <p>
+          If you have any questions about this privacy policy or our data practices, 
+          please contact us at: <a href="mailto:stefano@chermaz.com">stefano@chermaz.com</a>
+        </p>
+        
+        <h2>Changes to This Policy</h2>
+        <p>
+          We may update this privacy policy from time to time. We will notify you of 
+          any changes by posting the new privacy policy on this page.
+        </p>
+        
+        <p class="text-sm text-gray-600 dark:text-gray-400 mt-8">
+          Last updated: {new Date().toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          })}
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

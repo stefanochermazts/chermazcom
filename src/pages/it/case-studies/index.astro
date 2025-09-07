@@ -1,0 +1,109 @@
+---
+import Base from '../../../layouts/Base.astro'
+import CaseStudyCard from '../../../components/CaseStudyCard.astro'
+import { getCollection } from 'astro:content'
+const studies = (await getCollection('caseStudies')).sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
+---
+
+<Base title="Case studies" description="Selezione di progetti con KPI sintetici e impatto">
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold mb-8">Case studies</h1>
+      <div id="cs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {studies.map((s, i) => (
+          <div data-cs-card class:list={{'': true, 'hidden': i >= 6}}>
+            <CaseStudyCard caseStudy={s} />
+          </div>
+        ))}
+      </div>
+      <div id="cs-sentinel" aria-hidden="true" class="h-8"></div>
+      <div class="mt-6 flex justify-center">
+        <button id="cs-load-more" class="button hidden">Mostra altri</button>
+      </div>
+
+      <!-- Sezione descrittiva rimossa su richiesta -->
+      <!--
+      <h2>FishtideLog</h2>
+      <p><strong>Descrizione</strong>: Web app per registrare, consultare e analizzare dati operativi. Interfaccia leggera, accessibile e ottimizzata per mobile.</p>
+      <p><strong>Come abbiamo lavorato</strong>:</p>
+      <ul>
+        <li><strong>Workshop di discovery</strong> per mappare attori, flussi e KPI; definizione backlog e milestone.</li>
+        <li><strong>Componenti accessibili</strong> (focus ring uniforme, semantica corretta, navigazione da tastiera) e design system minimale.</li>
+        <li><strong>Regole di lavoro in Cursor</strong>: task atomici, "status update" ad ogni change, edit mirati ai file, naming esplicito, niente refactor non correlati.</li>
+      </ul>
+      <p><strong>Test continuo</strong>:</p>
+      <ul>
+        <li>Lighthouse e Web Vitals ad ogni build locale; budget prestazionale su LCP/CLS.</li>
+        <li>Validazione a11y su landmark, heading, contrasti e focus visibile.</li>
+      </ul>
+      <p><strong>Risultato</strong>: time‑to‑interaction rapido, curva di apprendimento bassa e riduzione errori di inserimento.</p>
+
+      <h2>CatFriends</h2>
+      <p><strong>Descrizione</strong>: Sito/community editoriale con gestione media e post tematici, pensato per crescita organica e condivisione social.</p>
+      <p><strong>Come abbiamo lavorato</strong>:</p>
+      <ul>
+        <li><strong>Information architecture</strong> e tassonomie chiare (categorie e tag), URL stabili e breadcrumb.</li>
+        <li><strong>Publishing flow</strong> con frontmatter normalizzato, immagini di copertina uniformi e template OG.</li>
+        <li><strong>Cursor rules</strong>: checklist per ogni PR (accessibilità, copy, link interni, immagini ottimizzate), commit granulari e descrittivi.</li>
+      </ul>
+      <p><strong>Test continuo</strong>:</p>
+      <ul>
+        <li>Verifiche SEO tecniche (metadati, sitemap, robots, canonical) e audit best‑practices.</li>
+        <li>Controllo contrasto e focus order; test manuale con tastiera.</li>
+      </ul>
+      <p><strong>Risultato</strong>: incremento della leggibilità e consistenza visiva; base solida per content marketing.</p>
+
+      <h2>PlaySudoku</h2>
+      <p><strong>Descrizione</strong>: Portale Sudoku con articoli, tecniche e immagini coerenti generate via script (OpenAI + Sharp) per cover, OG e card.</p>
+      <p><strong>Come abbiamo lavorato</strong>:</p>
+      <ul>
+        <li><strong>Automazione media</strong>: script che scansiona gli insights e genera <code>cover.webp</code>, <code>og.webp</code> e <code>card.webp</code> con aggiornamento del frontmatter.</li>
+        <li><strong>UI consistente</strong>: componenti Tailwind con token colore brand e focus ring uniforme.</li>
+        <li><strong>Cursor rules</strong>: tutto tracciato con micro‑update, TODO a step, edizioni minimali ai file per zero regressioni.</li>
+      </ul>
+      <p><strong>Test continuo</strong>:</p>
+      <ul>
+        <li>Audit performance e lazy‑loading immagini; verifica responsive su breakpoints principali.</li>
+        <li>Controlli automatici sui frontmatter per evitare link e campi mancanti.</li>
+      </ul>
+      <p><strong>Risultato</strong>: coerenza visiva delle card in listing, migliore CTR social grazie a OG uniformi e caricamento veloce.</p>
+      -->
+    </div>
+  </section>
+</Base>
+
+<script>
+  try {
+    const grid = document.querySelector('#cs-grid')
+    const cards = Array.from(grid?.querySelectorAll('[data-cs-card]') ?? [])
+    const sentinel = document.querySelector('#cs-sentinel')
+    const btn = document.querySelector('#cs-load-more')
+    const batchSize = 6
+    let shown = Math.min(batchSize, cards.length)
+
+    const revealNext = () => {
+      const start = shown
+      const end = Math.min(shown + batchSize, cards.length)
+      for (let i = start; i < end; i++) cards[i]?.classList.remove('hidden')
+      shown = end
+      if (shown >= cards.length) {
+        observer?.disconnect?.()
+        btn?.classList.add('hidden')
+      }
+    }
+
+    let observer
+    if ('IntersectionObserver' in window && sentinel) {
+      observer = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) revealNext()
+      }, { rootMargin: '200px 0px' })
+      observer.observe(sentinel)
+    } else if (btn) {
+      btn.classList.remove('hidden')
+    }
+
+    btn?.addEventListener('click', () => revealNext())
+  } catch {}
+</script>
+
+

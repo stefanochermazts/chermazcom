@@ -1,0 +1,29 @@
+---
+---
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redirect…</title>
+    <meta http-equiv="refresh" content="0; url=/it/portfolio/" />
+  </head>
+  <body>
+    <script>
+      (function(){
+        try{
+          var langs=['it','en','sl']
+          var saved=localStorage.getItem('lang')||'it'
+          if(langs.indexOf(saved)===-1) saved='it'
+          var target='/' + saved + '/portfolio/'
+          location.replace(target)
+        }catch(e){ location.replace('/it/portfolio/') }
+      })()
+    </script>
+    <noscript>
+      <a href="/it/portfolio/">Vai a /it/portfolio/</a>
+    </noscript>
+  </body>
+  </html>
+
+

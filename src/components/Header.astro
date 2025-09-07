@@ -3,29 +3,46 @@ import Navigation from '../components/Navigation.astro'
 import { DarkMode, SkipLink } from 'accessible-astro-components'
 import LanguageSwitcher from './LanguageSwitcher.astro'
 import { Icon } from 'astro-icon/components'
+import { getLocaleFromUrl, t, getLocalizedRoute, type Locale } from '../utils/i18n'
 
 /**
  * Header Component
  *
  * @description A component that displays the header of the website
  */
+const pathname = Astro.url.pathname
+const locale = getLocaleFromUrl(Astro.url) as Locale
+const isActive = (href: string) => pathname.startsWith(href)
+
+// Generate localized navigation links
+const navItems = [
+  { key: 'home', path: '/' },
+  { key: 'insights', path: '/insights' },
+  { key: 'services', path: locale === 'it' ? '/servizi' : '/services' },
+  { key: 'caseStudies', path: '/case-studies' },
+  { key: 'about', path: locale === 'it' ? '/chi-sono' : '/about' },
+  { key: 'contact', path: locale === 'it' ? '/contatti' : '/contact' },
+  { key: 'privacy', path: '/privacy' }
+]
 ---
 
 <header>
   <SkipLink />
   <Navigation>
-    <li class="menu-item">
-      <a href="/it/">Home</a>
-    </li>
-    <li class="menu-item">
-      <a href="/it/insights/">Insights</a>
-    </li>
-    <li class="menu-item">
-      <a href="/it/chi-sono/">Chi sono</a>
-    </li>
-    <li class="menu-item">
-      <a href="/it/contact/">Contatti</a>
-    </li>
+    {navItems.map(item => {
+      const localizedHref = getLocalizedRoute(item.path, locale)
+      return (
+        <li class="menu-item">
+          <a 
+            href={localizedHref} 
+            aria-current={isActive(localizedHref) ? 'page' : undefined} 
+            class:list={{'is-active': isActive(localizedHref)}}
+          >
+            {t(`nav.${item.key}`, locale)}
+          </a>
+        </li>
+      )
+    })}
     
     
     <li class="menu-item type-icon animate-rotate">
@@ -42,6 +59,10 @@ import { Icon } from 'astro-icon/components'
 
 <style lang="scss" is:global>
   header {
+    .menu-item a.is-active {
+      color: #1f63ff;
+      font-weight: 600;
+    }
     .type-icon {
       display: block;
       margin-inline: -7px;

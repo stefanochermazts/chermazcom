@@ -1,0 +1,51 @@
+---
+import DefaultLayout from '../../../../layouts/DefaultLayout.astro'
+import ArticleCard from '../../../../components/ArticleCard.astro'
+import { getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('insights')
+  const cats = new Set<string>()
+  const normalizeLocal = (s: string) =>
+    s
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+  for (const p of posts) {
+    for (const c of (p.data.categories ?? [])) {
+      cats.add(normalizeLocal(c))
+    }
+  }
+  return [...cats].map((categoria) => ({ params: { categoria } }))
+}
+
+const { categoria } = Astro.params
+const normalize = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '')
+const posts = (await getCollection('insights'))
+  .filter((p) => (p.data.categories ?? []).some((c: string) => normalize(c) === categoria))
+  .sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
+---
+<DefaultLayout title={`Categoria: ${categoria}`}>
+  <section class="my-16" style="max-width:1366px;margin-inline:auto;padding-inline:1rem;">
+    <h1 class="text-5xl mb-6 capitalize">{categoria?.replace(/-/g,' ')}</h1>
+    {posts.length === 0 ? (
+      <p class="opacity-80">Nessun articolo in questa categoria.</p>
+    ) : (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map(p => (
+          <ArticleCard post={p} />
+        ))}
+      </div>
+    )}
+  </section>
+</DefaultLayout>
+
+
