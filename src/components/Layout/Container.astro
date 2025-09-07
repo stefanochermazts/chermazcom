@@ -1,0 +1,15 @@
+---
+const { as = 'div', class: className = '', padded = true } = Astro.props as {
+  as?: string
+  class?: string
+  padded?: boolean
+}
+
+const Tag = as as any
+---
+
+<Tag class={`mx-auto max-w-6xl ${padded ? 'px-4 sm:px-6 lg:px-8' : ''} ${className}`}>
+  <slot />
+</Tag>
+
+

@@ -1,0 +1,33 @@
+---
+const { action = '/contact', privacy = 'I tuoi dati saranno trattati secondo la nostra Privacy Policy.' } = Astro.props
+---
+
+<section class="py-16 sm:py-20">
+  <div class="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">Contatti</h2>
+    <form class="mt-8 grid gap-4" method="post" action={action} data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact" />
+      <p class="hidden">
+        <label>Don’t fill this out: <input name="bot-field" /></label>
+      </p>
+      <label class="block">
+        <span class="block text-sm font-medium text-zinc-900 dark:text-zinc-50">Nome</span>
+        <input name="name" required class="mt-1 w-full rounded-lg ring-1 ring-zinc-300 dark:bg-zinc-900 px-3 py-2 focus:outline-2 focus:outline-offset-2 focus:outline-brand-500" />
+      </label>
+      <label class="block">
+        <span class="block text-sm font-medium text-zinc-900 dark:text-zinc-50">Email</span>
+        <input type="email" name="email" required class="mt-1 w-full rounded-lg ring-1 ring-zinc-300 dark:bg-zinc-900 px-3 py-2 focus:outline-2 focus:outline-offset-2 focus:outline-brand-500" />
+      </label>
+      <label class="block">
+        <span class="block text-sm font-medium text-zinc-900 dark:text-zinc-50">Messaggio</span>
+        <textarea name="message" rows="5" required class="mt-1 w-full rounded-lg ring-1 ring-zinc-300 dark:bg-zinc-900 px-3 py-2 focus:outline-2 focus:outline-offset-2 focus:outline-brand-500"></textarea>
+      </label>
+      <p class="text-sm text-zinc-700 dark:text-zinc-300">{privacy}</p>
+      <div>
+        <button type="submit" class="inline-flex items-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-500 focus:outline-2 focus:outline-offset-2 focus:outline-brand-500">Invia</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+

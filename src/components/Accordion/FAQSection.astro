@@ -1,0 +1,65 @@
+---
+const { class: className = '' } = Astro.props
+---
+<div class:list={[className, 'faq-section']}>
+  <slot />
+</div>
+
+<script>
+  if (typeof document !== 'undefined') {
+    try {
+      const root = document.currentScript && document.currentScript.previousElementSibling
+        ? document.currentScript.previousElementSibling
+        : null
+      if (root) {
+        const container = root
+        // raccogli blocchi fino al prossimo H2 o fine
+        const children = Array.from(container.childNodes)
+        for (let i = 0; i < children.length; i++) {
+          const node = children[i]
+          if (node.nodeType === 1 && node.tagName === 'H3') {
+            const h3 = node
+            const details = document.createElement('details')
+            details.className = 'faq-item'
+            const summary = document.createElement('summary')
+            summary.className = 'faq-summary'
+            summary.textContent = h3.textContent || ''
+            details.appendChild(summary)
+
+            // sposta contenuto fino al prossimo H2/H3 o fine
+            let sib = h3.nextSibling
+            while (sib && !(sib.nodeType === 1 && (sib.tagName === 'H2' || sib.tagName === 'H3'))) {
+              const next = sib.nextSibling
+              details.appendChild(sib)
+              sib = next
+            }
+            h3.replaceWith(details)
+          }
+        }
+      }
+    } catch {}
+  }
+</script>
+
+<style>
+  .faq-section {
+    display: grid;
+    gap: 0.75rem;
+  }
+  details.faq-item {
+    border: 1px solid light-dark(var(--color-neutral-300), var(--color-neutral-700));
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+  details.faq-item + details.faq-item { margin-top: 0.5rem; }
+  summary.faq-summary {
+    cursor: pointer;
+    font-weight: 600;
+    outline-offset: 2px;
+  }
+  summary.faq-summary:focus-visible {
+    outline: 2px solid var(--brand-500, #1f63ff);
+  }
+</style>
+
+

@@ -1,5 +1,5 @@
 ---
-import { Media } from 'accessible-astro-components'
+// no astro:assets here per evitare errori con src vuoto
 
 /**
  * ContentMedia Component
@@ -10,7 +10,7 @@ interface Props {
   /**
    * The source URL for the image
    */
-  imgSrc: string
+  imgSrc?: string
   /**
    * Whether to display the image on the right side instead of the left
    * @default false
@@ -18,17 +18,19 @@ interface Props {
   reverseImg?: boolean
 }
 
-const { imgSrc, reverseImg = false }: Props = Astro.props
+const { imgSrc = '', reverseImg = false }: Props = Astro.props
+const fallbackSrc = '/images/logo_stefano_chermaz.png'
+const finalSrc = (typeof imgSrc === 'string' && imgSrc.trim().length > 0) ? imgSrc : fallbackSrc
 ---
 
 <section class="my-64">
   <div class="container">
     <div class="grid grid-cols-1 gap-24 md:grid-cols-2">
-      {!reverseImg ? <Media class="rounded-lg" src={imgSrc} /> : ''}
+      {!reverseImg ? <img class="rounded-lg h-auto w-full object-cover" src={finalSrc} alt="" loading="lazy" /> : ''}
       <div class="space-content flex flex-col justify-center">
         <slot />
       </div>
-      {reverseImg ? <Media class="rounded-lg" src={imgSrc} /> : ''}
+      {reverseImg ? <img class="rounded-lg h-auto w-full object-cover" src={finalSrc} alt="" loading="lazy" /> : ''}
     </div>
   </div>
 </section>

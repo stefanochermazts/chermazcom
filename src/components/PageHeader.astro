@@ -1,6 +1,6 @@
 ---
 import { Avatar, Breadcrumbs, BreadcrumbsItem } from 'accessible-astro-components'
-import { Image } from 'astro:assets'
+// Evitiamo astro:assets per gestire featuredImage mancante
 import sanitizeHtml from 'sanitize-html'
 
 /**
@@ -92,19 +92,16 @@ const sanitizedSubtitle: string = subtitle
   </div>
   <div class:list={['py-16', bgType && `bg-${bgType}`]}>
     <div class="space-content container">
-      {
-        featuredImage && (
+      {(() => {
+        const src = (typeof featuredImage === 'string' && featuredImage.trim().length > 0)
+          ? featuredImage
+          : '/images/logo_stefano_chermaz.png'
+        return (
           <div class="featured-image-container mb-8">
-            <Image
-              src={featuredImage}
-              alt=""
-              width={1200}
-              height={250}
-              class="h-[250px] w-full rounded-lg object-cover"
-            />
+            <img src={src} alt="" class="h-[250px] w-full rounded-lg object-cover" loading="lazy" />
           </div>
         )
-      }
+      })()}
       <h1>{title}</h1>
       {sanitizedSubtitle && <p class="text-2xl" set:html={sanitizedSubtitle} />}
       {

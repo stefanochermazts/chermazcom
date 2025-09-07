@@ -70,42 +70,42 @@
   - [x] Rispetto `prefers-reduced-motion`
 
 ## 3‑bis) Grafica & Design system
-- [ ] Decidi approccio UI iniziale
+- [x] Decidi approccio UI iniziale
   - [ ] A) Minimal Tailwind‑first (veloce e pulito)
   - [ ] B) Islands con componenti React selettivi (per dialog/tabs mirati)
-  - [ ] C) Starter Astro curato da ribrandizzare (time‑to‑value)
-- [ ] Installa pacchetti UI/immagini/icone/font
-  - [ ] `npm i @astrojs/image astro-compress astro-icon`
-  - [ ] `npm i @fontsource-inter @fontsource-sora`
+  - [x] C) Starter Astro curato da ribrandizzare (time‑to‑value)
+- [x] Installa pacchetti UI/immagini/icone/font
+  - [x] `npm i @astrojs/image astro-compress astro-icon`
+  - [x] `npm i @fontsource-inter @fontsource-sora`
   - [ ] (Opzionale) micro‑motion e smooth scroll: `npm i motion lenis`
-- [ ] Configura integrazioni in `astro.config.mjs`
-  - [ ] Abilita `@astrojs/image` e `astro-compress`
-- [ ] Font locali (niente CDN esterni)
-  - [ ] Seleziona sans‑serif locale coerente (es. Sora/Inter via @fontsource, oppure system stack)
-  - [ ] Importa font in CSS e definisci fallback
-- [ ] Palette e token
-  - [ ] Definisci colori brand: brand‑600 `#164cd6`, brand‑500 `#1f63ff`, neutral‑900/700/500
-  - [ ] Aggiorna `tailwind.config.cjs` con palette e `ringColor` brand
-  - [ ] Mantieni focus ring uniforme su tutti gli elementi focusable
-- [ ] Layout & spaziatura
-  - [ ] Contenitore a `max-w-6xl`, grid 12 colonne
-  - [ ] Cards con `rounded-2xl` e `shadow-sm`
-- [ ] Componenti chiave
-  - [ ] Hero (claim + sub + 2 CTA + trust row)
-  - [ ] Sezione Servizi/Pillars in card con mini‑icona e micro‑copy
-  - [ ] Case Studies con badge KPI
-  - [ ] Testimonial brevi (ruolo/settore)
-  - [ ] CTA finale sticky o sezione a contrasto
-  - [ ] Contact pulita con privacy micro‑copy
-- [ ] Icone
-  - [ ] Usa `astro-icon` (Iconify), definisci set coerente
-- [ ] Immagini & media
-  - [ ] Usa `<Image />` di Astro con srcset, WebP/AVIF
-  - [ ] Illustrazioni/foto coerenti con brand
-  - [ ] Favicon set completo (16/32/180/512) + OG 1200×630
-- [ ] Interazioni
-  - [ ] Micro‑animazioni con Motion One per CTA/hero (rispetta `prefers-reduced-motion`)
-  - [ ] (Opzionale) Lenis per smooth scrolling (rispetta `prefers-reduced-motion`)
+- [x] Configura integrazioni in `astro.config.mjs`
+  - [x] Abilita `@astrojs/image` e `astro-compress`
+- [x] Font locali (niente CDN esterni)
+  - [x] Seleziona sans‑serif locale coerente (es. Sora/Inter via @fontsource, oppure system stack)
+  - [x] Importa font in CSS e definisci fallback
+- [x] Palette e token
+  - [x] Definisci colori brand: brand‑600 `#164cd6`, brand‑500 `#1f63ff`, neutral‑900/700/500
+  - [x] Aggiorna `tailwind.config.cjs` con palette e `ringColor` brand
+  - [x] Mantieni focus ring uniforme su tutti gli elementi focusable
+- [x] Layout & spaziatura
+  - [x] Contenitore a `max-w-6xl`, grid 12 colonne
+  - [x] Cards con `rounded-2xl` e `shadow-sm`
+- [x] Componenti chiave
+  - [x] Hero (claim + sub + 2 CTA + trust row)
+  - [x] Sezione Servizi/Pillars in card con mini‑icona e micro‑copy
+  - [x] Case Studies con badge KPI
+  - [x] Testimonial brevi (ruolo/settore)
+  - [x] CTA finale sticky o sezione a contrasto
+  - [x] Contact pulita con privacy micro‑copy
+- [x] Icone
+  - [x] Usa `astro-icon` (Iconify), definisci set coerente
+- [x] Immagini & media
+  - [x] Usa `<Image />` di Astro con srcset, WebP/AVIF
+  - [x] Illustrazioni/foto coerenti con brand
+  - [x] Favicon set completo (16/32/180/512) + OG 1200×630
+- [x] Interazioni
+  - [x] Micro‑animazioni con Motion One per CTA/hero (rispetta `prefers-reduced-motion`)
+  - [ ] (Opzionale) Lenis per smooth scrolling (posticipato: disattivato per UX)
   - [ ] (Se B) React islands per Dialog e Tabs accessibili
  - [x] Outline focus coerente brand (`#1f63ff`) con offset 2px
 
@@ -186,6 +186,8 @@
 - [ ] Script `scripts/wp-export-to-md.mjs` funzionante
 - [x] File di piattaforma: `netlify.toml`, `_redirects`, `_headers`, `robots.txt`, `sitemap.xml`
 - [ ] Collezioni Astro per `insights` e `case-studies`
+- [x] Script `scripts/validate-frontmatter.mjs` per validare il front‑matter YAML
+- [x] Sostituito logo header con `public/images/logo_stefano_chermaz_sm.png` e label “Stefano Chermaz”
 
 ---
 

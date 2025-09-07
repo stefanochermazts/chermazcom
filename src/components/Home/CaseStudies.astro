@@ -1,18 +1,18 @@
 ---
 const { items = [] } = Astro.props
 ---
-<section class="py-24">
-	<div class="container">
-		<h2 class="text-5xl mb-12">Case studies</h2>
-		<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+<section class="py-16 sm:py-20">
+	<div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+		<h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">Case studies</h2>
+		<div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
 			{(items.length ? items : [
 				{ title: 'Intranet enterprise', kpi: 'ROI +35%' },
 				{ title: 'Chatbot supporto', kpi: '-40% ticket' },
 				{ title: 'Ottimizzazione WP', kpi: 'LCP < 2s' },
 			]).map((c) => (
-				<article class="p-6 rounded-2xl border">
-					<h3 class="text-2xl mb-2">{c.title}</h3>
-					<p class="text-lg opacity-80">{c.kpi}</p>
+				<article class="rounded-2xl shadow-sm ring-1 ring-black/5 bg-white dark:bg-zinc-900 p-6">
+					<h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-1">{c.title}</h3>
+					<p class="text-zinc-700 dark:text-zinc-300">{c.kpi}</p>
 				</article>
 			))}
 		</div>

@@ -1,0 +1,60 @@
+---
+interface FAQItem {
+  question: string
+  answer: string
+}
+
+interface Props {
+  items?: FAQItem[]
+  single?: boolean
+  class?: string
+}
+
+const { items = [], single = true, class: className = '' } = Astro.props as Props
+const accordionId = `acc-${Math.random().toString(36).slice(2)}`
+---
+
+<div class:list={[className, 'rounded-2xl border border-zinc-200 dark:border-zinc-700']}
+     data-accordion-id={accordionId}
+     data-single={single ? 'true' : 'false'}>
+  {items.map((it) => (
+    <details class="p-4 border-b last:border-b-0 border-zinc-200 dark:border-zinc-700" data-accordion-item>
+      <summary class="flex cursor-pointer list-none items-center justify-between gap-3 text-left text-zinc-900 dark:text-zinc-50 focus:outline-2 focus:outline-offset-2 focus:outline-brand-500">
+        <span class="text-lg font-medium">{it.question}</span>
+        <svg class="size-5 shrink-0 opacity-70 transition-transform group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.4a.75.75 0 01-1.08 0l-4.25-4.4a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </summary>
+      <div class="pt-3 text-zinc-700 dark:text-zinc-300">
+        <p>{it.answer}</p>
+      </div>
+    </details>
+  ))}
+</div>
+
+<script>
+  if (typeof document !== 'undefined') {
+    try {
+      const root = document.currentScript && document.currentScript.previousElementSibling
+        ? document.currentScript.previousElementSibling
+        : null
+      if (root) {
+        const single = root.getAttribute('data-single') === 'true'
+        if (single) {
+          const items = root.querySelectorAll('details[data-accordion-item]')
+          items.forEach((d) => {
+            d.addEventListener('toggle', () => {
+              if (d.open) {
+                items.forEach((other) => {
+                  if (other !== d) other.open = false
+                })
+              }
+            })
+          })
+        }
+      }
+    } catch {}
+  }
+</script>
+
+

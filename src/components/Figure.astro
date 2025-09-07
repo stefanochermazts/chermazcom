@@ -1,17 +1,19 @@
 ---
 interface Props {
-  src: string
+  src?: string
   alt: string
   width?: number | string
   height?: number | string
   caption?: string
 }
 
-const { src, alt, width, height, caption } = Astro.props as Props
+const { src = '', alt, width, height, caption } = Astro.props as Props
+const fallbackSrc = '/images/logo_stefano_chermaz.png'
+const finalSrc = (typeof src === 'string' && src.trim().length > 0) ? src : fallbackSrc
 ---
 
 <figure class="figure">
-  <img src={src} alt={alt} loading="lazy" decoding="async" width={width} height={height} />
+  <img src={finalSrc} alt={alt} loading="lazy" decoding="async" width={width} height={height} />
   {caption && <figcaption class="caption">{caption}</figcaption>}
   
   <style>

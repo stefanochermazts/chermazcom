@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets'
+// Rimuoviamo astro:assets per fallback robusto
 
 /**
  * BreakoutImage Component
@@ -10,17 +10,19 @@ interface Props {
   /**
    * The image source
    */
-  src: string
+  src?: string
   /**
    * The image alt text
    */
   alt: string
 }
 
-const { src, alt = '' } = Astro.props
+const { src = '', alt = '' } = Astro.props
+const fallbackSrc = '/images/logo_stefano_chermaz.png'
+const finalSrc = (typeof src === 'string' && src.trim().length > 0) ? src : fallbackSrc
 ---
 
 <div class="relative -mx-4 my-8 md:-mx-8 lg:-mx-[120px]">
-  <Image src={src} alt={alt} width={1400} height={700} class="h-auto w-full rounded-lg object-cover" loading="lazy" />
+  <img src={finalSrc} alt={alt} class="h-auto w-full rounded-lg object-cover" loading="lazy" />
   <div class="absolute inset-0 rounded-lg shadow-inner"></div>
 </div>

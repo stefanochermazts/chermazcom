@@ -1,27 +1,27 @@
 ---
-title: "Come usare le API di OpenAI in Azure: Guida pratica per sviluppatori"
+title: "API OpenAI in Azure: guida pratica per sviluppatori"
 slug: come-usare-le-api-di-openai-in-azure
 date: 2024-07-26
 status: publish
-excerpt: L& 8217;integrazione delle API di OpenAI in Azure offre potenti
-  strumenti per sviluppare applicazioni di intelligenza artificiale avanzate.
-  Con Azure OpenAI Ser
+description: "API OpenAI in Azure: come iniziare, autenticarsi e integrare i modelli con SDK ed esempi, sicurezza e costi. Guida pratica con link a Microsoft Learn."
+excerpt: "API OpenAI in Azure: integrazione, autenticazione, sicurezza ed esempi con SDK."
 categories:
   - chatbot
 tags:
-  - chatbot
-  - ai
-  - chatgpt
-  - dialogflow
-  - rag
+  - azure openai
+  - api openai
+  - gpt-4
+  - sdk
+  - sicurezza
 ---
 import TwoCol from '../../components/TwoCol.astro'
+import FAQSection from '../../components/Accordion/FAQSection.astro'
 
-<TwoCol src="" alt="" width={1200} height={800} caption="">
+<TwoCol src="" alt="Panoramica di Azure OpenAI Service e API" width={1200} height={800} caption="API OpenAI su Azure: integrazione e sicurezza">
 
 </TwoCol>
 
-L&#8217;integrazione delle API di OpenAI in Azure offre potenti strumenti per sviluppare applicazioni di intelligenza artificiale avanzate. **Con Azure OpenAI Service, posso accedere a modelli linguistici all&#8217;avanguardia come GPT-4 e DALL-E 3 direttamente nella piattaforma cloud di Microsoft.** Questo mi permette di sfruttare le capacità di elaborazione del linguaggio naturale e generazione di immagini per creare soluzioni innovative.
+L&#8217;integrazione delle **API OpenAI in Azure** offre strumenti per sviluppare applicazioni di intelligenza artificiale avanzate. **Con Azure OpenAI Service, puoi accedere a modelli come GPT-4 e DALL-E 3 direttamente nella piattaforma cloud di Microsoft.**
 
 
 
@@ -35,11 +35,7 @@ L&#8217;uso delle API di OpenAI in Azure mi consente di beneficiare della scalab
 
 
 
-Table of Contents
-
-
-Toggle
-Punti chiaveFondamenti di OpenAI e AzureCos&#8217;è OpenAI?Cenni su Azure e i servizi CloudIl rapporto tra OpenAI e Microsoft AzureComprendere le API di OpenAIOverview delle API OpenAII modelli di OpenAI: da GPT-3 a CodexSecurity ed Endpoint delle APIAccesso e Autenticazione in Azure OpenAICreazione dell&#8217;Account e Sottoscrizione di AzureOttenere la Chiave API e i TokensSicurezza e gestione dell&#8217;accessoConfigurare un Ambiente per Azure OpenAIPreparazione dell&#8217;ambiente di lavoroUtilizzo dell&#8217;Azure OpenAI Studio e AI StudioDeployment e gestione delle risorseImplementazione delle API con esempi di codiciUtilizzo del Python SDK per le APIIntegrazione con .NET Core e la Libreria Client OpenAIEsempi di codice per l&#8217;utilizzo delle API RESTInterazione con le API di OpenAIGenerazione di testo con CompletamentiCreazione di embedding semanticiSviluppo di chatbot mediante ChatGPTElaborazione di immagini con DALL-EGestire la scalabilità e la performanceOttimizzazione del DeploymentGestione della scalabilitàMonitoraggio e logAnalisi dei risultati e qualità del modelloComprendere le metriche del modelloRaffinare le richieste per output di qualitàDocumentazione e continuo apprendimentoAmministrazione e ConformitàPrivacy e gestione dei datiEliminazione sicura delle informazioniConformità alla normativaApplicazioni pratiche e casi d&#8217;usoGenerazione di contenuti automaticiRiassumere testi e reportSviluppo di app Cognitive ServicesTraduzione e supporto multilinguePricing e Gestione dei costiCapire il Pricing di Azure OpenAIStrategie per ottimizzare i costiDomande frequentiCome posso integrare le API di OpenAI con i servizi di Azure?Quali sono i passaggi per autenticarsi nell&#8217;utilizzo delle API di OpenAI su Azure?Quali modelli di OpenAI sono disponibili su Azure?Come si gestiscono i costi utilizzando le API di OpenAI in Azure?Qual è il processo per avviare un nuovo progetto con OpenAI Studio su Azure?Come posso accedere alla documentazione delle API di OpenAI per Azure?
+In questo articolo troverai: punti chiave, fondamenti di OpenAI e Azure, sicurezza e autenticazione, setup ambiente, implementazioni con SDK, casi d&#8217;uso, costi.
 ### Punti chiave
 
 
@@ -120,7 +116,7 @@ I principali endpoint includono Completions, per generare testo in base a un pro
 L&#8217;accesso avviene tramite richieste HTTP, con parametri come il modello da usare e la temperatura per controllare la creatività dell&#8217;output.
 
 
-### I modelli di OpenAI: da GPT-3 a Codex
+### I modelli di OpenAI: da GPT-3 a GPT-4 e Codex
 
 OpenAI offre diversi modelli con capacità specifiche:
 
@@ -135,7 +131,7 @@ Ada, Babbage, Curie: Modelli più leggeri per task specifici
 Posso scegliere il modello più adatto in base alle esigenze del mio progetto, considerando costi e prestazioni.
 
 
-### Security ed Endpoint delle API
+### Sicurezza ed endpoint delle API
 
 La sicurezza è fondamentale nell&#8217;uso delle API OpenAI. L&#8217;autenticazione avviene tramite chiavi API o Microsoft Entra ID.
 
@@ -657,6 +653,10 @@ Implementando queste strategie, posso massimizzare il valore ottenuto dal serviz
 
 
 ## Domande frequenti
+<FAQSection>
+## Conclusioni e prossimi passi
+
+Per una guida ufficiale e aggiornata, consulta Microsoft Learn: [Azure OpenAI Service](https://learn.microsoft.com/azure/ai-services/openai/overview). Se vuoi valutare l&#8217;adozione di Azure OpenAI in azienda, scopri i miei [servizi](/services/) o contattami direttamente dalla pagina [contatti](/contatti/).
 
 
 
@@ -710,5 +710,7 @@ La documentazione completa delle API è disponibile sul sito di Microsoft Learn.
 
 
 Posso anche consultare il repository GitHub ufficiale di Azure OpenAI per ulteriori risorse e esempi pratici.
+</FAQSection>
+
 
 
