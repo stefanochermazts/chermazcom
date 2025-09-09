@@ -15,7 +15,10 @@ const { src, alt, width, height, caption, reverse = false } = Astro.props as Pro
 
 <section class="two-col content-large">
 	<div class:list={["media", reverse && "order-2"]}>
-		<Figure src={src} alt={alt} width={width} height={height} caption={caption} />
+		<div class="media-wrap">
+			<Figure src={src} alt={alt} width={width} height={height} caption={caption} />
+			<slot name="badge" />
+		</div>
 	</div>
 	<div class:list={["content", reverse && "order-1"]}>
 		<slot />
@@ -35,9 +38,20 @@ const { src, alt, width, height, caption, reverse = false } = Astro.props as Pro
 			}
 		}
 
+		.media-wrap {
+			position: relative;
+		}
+
 		.media :global(img) {
 			inline-size: 100%;
 			block-size: auto;
+		}
+
+		/* Lo slot badge viene posizionato dall'utente; forniamo default in alto a destra */
+		:where([slot="badge"]) {
+			position: absolute;
+			top: -0.5rem;
+			right: -0.5rem;
 		}
 	</style>
 </section>
