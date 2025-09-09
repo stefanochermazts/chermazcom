@@ -1,0 +1,151 @@
+# Chermaz.com - Cursor Rules
+
+## Architettura Internazionalizzazione (i18n)
+
+### Overview
+Il sito usa un sistema i18n custom per Astro con 3 lingue: IT (default), EN, SL.
+**IMPORTANTE**: Non usare mai sottocartelle per i contenuti - Astro non le rileva correttamente.
+
+### Struttura Contenuti
+
+#### 🗂️ Content Collections
+
+```
+src/content/
+├── insights/           # Articoli blog
+│   ├── article-slug.mdx          # 🇮🇹 Italiano (root, default)
+│   ├── en-article-slug.mdx       # 🇬🇧 Inglese (prefisso en-)
+│   └── sl-article-slug.mdx       # 🇸🇮 Sloveno (prefisso sl-)
+├── case-studies/       # Case study
+│   ├── case-slug.mdx             # 🇮🇹 Italiano (root, default) 
+│   ├── en-case-slug.mdx          # 🇬🇧 Inglese (prefisso en-)
+│   └── sl-case-slug.mdx          # 🇸🇮 Sloveno (prefisso sl-)
+└── pages/              # Pagine statiche
+    ├── servizi.mdx               # 🇮🇹 Italiano (root, default)
+    ├── chi-sono.mdx              # 🇮🇹 Italiano (root, default)
+    ├── privacy.mdx               # 🇮🇹 Italiano (root, default)
+    ├── en-services.mdx           # 🇬🇧 Inglese (prefisso en-)
+    ├── en-about.mdx              # 🇬🇧 Inglese (prefisso en-)
+    ├── en-privacy.mdx            # 🇬🇧 Inglese (prefisso en-)
+    ├── sl-services.mdx           # 🇸🇮 Sloveno (prefisso sl-)
+    ├── sl-about.mdx              # 🇸🇮 Sloveno (prefisso sl-)
+    └── sl-privacy.mdx            # 🇸🇮 Sloveno (prefisso sl-)
+```
+
+### ⚠️ REGOLE CRITICHE
+
+#### 1. **MAI usare sottocartelle per lingua**
+```
+❌ SBAGLIATO:
+src/content/insights/en/article.mdx
+src/content/insights/it/article.mdx
+
+✅ CORRETTO:
+src/content/insights/article.mdx       # IT default
+src/content/insights/en-article.mdx    # EN
+```
+
+#### 2. **Filtri getCollection per Lingua**
+```typescript
+// 🇮🇹 Contenuti italiani (default, root)
+const italianPosts = await getCollection('insights', ({ id }) => 
+  !id.startsWith('en-') && !id.startsWith('sl-')
+)
+
+// 🇬🇧 Contenuti inglesi 
+const englishPosts = await getCollection('insights', ({ id }) => 
+  id.startsWith('en-')
+)
+
+// 🇸🇮 Contenuti sloveni
+const slovenePosts = await getCollection('insights', ({ id }) => 
+  id.startsWith('sl-')
+)
+```
+
+#### 3. **Frontmatter obbligatorio**
+```yaml
+---
+title: "Titolo articolo"
+slug: article-slug           # IT: no prefisso
+# slug: en-article-slug     # EN: prefisso en-
+# slug: sl-article-slug     # SL: prefisso sl-
+lang: it                    # it | en | sl
+status: publish             # publish | draft
+excerpt: "Descrizione breve"
+date: 2024-01-01
+categories: ["Cat1", "Cat2"]
+tags: ["tag1", "tag2"]
+---
+```
+
+#### 4. **URL Structure**
+```
+🇮🇹 IT: /it/insights/article-slug/
+🇬🇧 EN: /en/insights/article-slug/        # NOTA: slug senza prefisso en-
+🇸🇮 SL: /sl/insights/article-slug/        # NOTA: slug senza prefisso sl-
+```
+
+#### 5. **Component ArticleCard**
+```astro
+<!-- Sempre passare baseUrl per links corretti -->
+<ArticleCard post={post} baseUrl="/it/insights" />    <!-- IT -->
+<ArticleCard post={post} baseUrl="/en/insights" />    <!-- EN -->
+<ArticleCard post={post} baseUrl="/sl/insights" />    <!-- SL -->
+```
+
+### 🔧 Routine di Creazione Contenuti
+
+#### Per creare contenuto EN da IT:
+```bash
+# 1. Copia file IT → EN con prefisso
+cp src/content/insights/article.mdx src/content/insights/en-article.mdx
+
+# 2. Update frontmatter
+# slug: article-slug → slug: en-article-slug  
+# lang: it → lang: en
+
+# 3. Traduci contenuto (mantenere stessa struttura)
+```
+
+#### Per aggiornare route dopo nuovi contenuti:
+1. Verificare filtri `getCollection` in tutte le route correlate
+2. Testare URL generation in `ArticleCard`/`CaseStudyCard`
+3. Verificare `getStaticPaths` genera slug corretti (senza prefisso linguistico)
+
+### 🧪 Testing Checklist
+
+#### Ogni lingua deve avere:
+- [ ] `/[lang]/insights/` → Lista con categorie + articoli
+- [ ] `/[lang]/insights/categoria/[cat]/` → Filtro categoria
+- [ ] `/[lang]/insights/[slug]/` → Articolo singolo  
+- [ ] `/[lang]/case-studies/` → Lista case studies
+- [ ] `/[lang]/case-studies/[slug]/` → Case study singolo
+- [ ] `/[lang]/services` `/[lang]/about` `/[lang]/privacy` → Pagine statiche
+
+#### Link devono puntare alla lingua corretta:
+- [ ] Links da `/it/insights/` → `/it/insights/[slug]/`
+- [ ] Links da `/en/insights/` → `/en/insights/[slug]/` 
+- [ ] Links da `/sl/insights/` → `/sl/insights/[slug]/`
+
+### 📝 Note Implementazione
+
+- **Node.js Scripts**: Usa script `.mjs` per batch operations (copia, rename, update frontmatter)
+- **Imports MDX**: Path relativi da content root: `import Component from '../../components/Component.astro'`
+- **Comments MDX**: Usa `{/* comment */}` non `<!-- comment -->`
+- **Layout consistency**: `max-w-[1366px] mx-auto px-4 sm:px-6 lg:px-8` per tutte le pagine
+
+### 🚨 Errori Comuni da Evitare
+
+1. **Non usare mai cartelle `/it/`, `/en/`, `/sl/` in content**
+2. **Non dimenticare `baseUrl` in ArticleCard components**  
+3. **Non mischiare slug con/senza prefisso linguistico**
+4. **Non usare HTML comments in MDX** (causa errori di parsing)
+5. **Non dimenticare di aggiornare `lang` nel frontmatter**
+
+### 🎯 Performance Notes
+
+- Default language (IT) carica più velocemente (no prefisso)
+- EN/SL hanno overhead minimo del prefisso nel filename
+- Filtri `getCollection` sono efficienti con `startsWith()`
+- Cache Astro funziona correttamente con questa struttura

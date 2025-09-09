@@ -1,0 +1,18 @@
+---
+import Base from '../../../layouts/Base.astro'
+import Contact from '../../../components/Home/Contact.astro'
+---
+
+<Base title="Kontakt" description="Pogovorimo se o vašem projektu: M365, AI, upravljanje, performanse">
+  <Contact 
+    action="/sl/kontakt/success" 
+    privacy="Vaši podatki bodo obravnavani v skladu z našo Politiko zasebnosti."
+    title="Kontakt"
+    nameLabel="Ime"
+    emailLabel="E-pošta"
+    messageLabel="Sporočilo"
+    privacyText="Prebral sem in se strinjam z"
+    privacyLink="/sl/zasebnost"
+    submitText="Pošlji"
+  />
+</Base>

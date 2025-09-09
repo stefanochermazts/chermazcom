@@ -7,7 +7,7 @@ try {
 
   if (!reduce) {
     ;(async () => {
-      const { default: Lenis } = await import('@studio-freight/lenis')
+      const { default: Lenis } = await import('lenis')
       let lenis: any = new Lenis({
         duration: 0.6,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

@@ -36,9 +36,22 @@ const caseStudies = defineCollection({
   slug: ({ data, defaultSlug }) => (data.slug ? data.slug : defaultSlug),
 })
 
+const pages = defineCollection({
+  type: 'content',
+  schema: z.object({
+    ...baseFields,
+    description: z.string().optional(),
+    image: z.string().optional(),
+    ogImage: z.string().optional(),
+    featuredImage: z.string().optional(),
+  }),
+  slug: ({ data, defaultSlug }) => (data.slug ? data.slug : defaultSlug),
+})
+
 export const collections = {
   insights,
   'case-studies': caseStudies,
+  pages,
 }
 
 

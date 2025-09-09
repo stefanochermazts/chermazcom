@@ -1,66 +1,18 @@
 ---
 import Base from '../../layouts/Base.astro'
+import { getEntry, render } from 'astro:content'
+
+const entry = await getEntry('pages', 'sl-servizi')
+const Content = entry ? (await render(entry)).Content : null
 ---
 
 <Base useLocalizedMeta={true} pageKey="services">
-  
-  <section class="py-16 sm:py-20">
-    <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold mb-8">Storitve IT svetovanja</h1>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="border rounded-lg p-6">
-          <h2 class="text-2xl font-semibold mb-4">Microsoft 365 svetovanje</h2>
-          <p class="mb-4">
-            Popolna implementacija in optimizacija Microsoft 365 ekosistema za vaše podjetje.
-          </p>
-          <ul class="list-disc list-inside space-y-2">
-            <li>Načrtovanje in izvedba migracije</li>
-            <li>Konfiguracija varnosti in skladnosti</li>
-            <li>Usposabljanje uporabnikov in sprejetje</li>
-            <li>Optimizacija zmogljivosti</li>
-          </ul>
-        </div>
-        
-        <div class="border rounded-lg p-6">
-          <h2 class="text-2xl font-semibold mb-4">Integracija AI</h2>
-          <p class="mb-4">
-            Integracija rešitev umetne inteligence za avtomatizacijo procesov in izboljšanje učinkovitosti.
-          </p>
-          <ul class="list-disc list-inside space-y-2">
-            <li>AI strategija in načrtovanje</li>
-            <li>Razvoj chatbotov po meri</li>
-            <li>Avtomatizacija procesov z AI</li>
-            <li>Analiza podatkov in vpogledi</li>
-          </ul>
-        </div>
-        
-        <div class="border rounded-lg p-6">
-          <h2 class="text-2xl font-semibold mb-4">Skladnost in varnost</h2>
-          <p class="mb-4">
-            Zagotovite, da vaše podjetje izpolnjuje vse regulativne zahteve in varnostne standarde.
-          </p>
-          <ul class="list-disc list-inside space-y-2">
-            <li>Ocena skladnosti z GDPR</li>
-            <li>Razvoj varnostnih politik</li>
-            <li>Ocena in zmanjšanje tveganj</li>
-            <li>Priprava in podpora pri revizijah</li>
-          </ul>
-        </div>
-        
-        <div class="border rounded-lg p-6">
-          <h2 class="text-2xl font-semibold mb-4">Avtomatizacija procesov</h2>
-          <p class="mb-4">
-            Poenostavite svoje delovne tokove s Power Platform in rešitvami avtomatizacije po meri.
-          </p>
-          <ul class="list-disc list-inside space-y-2">
-            <li>Analiza in optimizacija delovnih tokov</li>
-            <li>Implementacija Power Automate</li>
-            <li>Razvoj aplikacij po meri</li>
-            <li>Integracija z obstoječimi sistemi</li>
-          </ul>
-        </div>
+
+  {Content && (
+    <section class="py-16 sm:py-20">
+      <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+        <Content />
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 </Base>

@@ -2,7 +2,7 @@
 import Base from '../../../layouts/Base.astro'
 import CaseStudyCard from '../../../components/CaseStudyCard.astro'
 import { getCollection } from 'astro:content'
-const studies = (await getCollection('caseStudies')).sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
+const studies = (await getCollection('caseStudies')).filter(s=> s.id.startsWith('en-')).sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
 ---
 
 <Base useLocalizedMeta={true} pageKey="caseStudies">
@@ -16,7 +16,7 @@ const studies = (await getCollection('caseStudies')).sort((a,b)=> (a.data.date||
       <div id="cs-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {studies.map((s, i) => (
           <div data-cs-card class:list={{'': true, 'hidden': i >= 6}}>
-            <CaseStudyCard caseStudy={s} baseUrl="/en/case-studies" />
+            <CaseStudyCard caseStudy={{...s, slug: (s.slug ?? s.id.replace(/\.mdx?$/, '')).replace(/^en-/,'')}} baseUrl="/en/case-studies" />
           </div>
         ))}
       </div>

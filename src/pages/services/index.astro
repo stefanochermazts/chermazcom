@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Redirect…</title>
-    <meta http-equiv="refresh" content="0; url=/it/services/" />
+    <meta http-equiv="refresh" content="0; url=/it/servizi/" />
   </head>
   <body>
     <script>
@@ -15,13 +15,13 @@
           var langs=['it','en','sl']
           var saved=localStorage.getItem('lang')||'it'
           if(langs.indexOf(saved)===-1) saved='it'
-          var target='/' + saved + '/services/'
+          var target='/' + saved + (saved === 'it' ? '/servizi/' : saved === 'sl' ? '/storitve/' : '/services/')
           location.replace(target)
-        }catch(e){ location.replace('/it/services/') }
+        }catch(e){ location.replace('/it/servizi/') }
       })()
     </script>
     <noscript>
-      <a href="/it/services/">Vai a /it/services/</a>
+      <a href="/it/servizi/">Vai a /it/servizi/</a>
     </noscript>
   </body>
   </html>

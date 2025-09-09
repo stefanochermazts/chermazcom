@@ -10,7 +10,7 @@ const { items = [] } = Astro.props
 				{ author: 'Marketing Lead', quote: 'Chatbot efficaci e on-brand.' },
 				{ author: 'IT Manager', quote: 'Intranet M365 adottata dal 100% del team.' },
 			]).map((t) => (
-				<blockquote class="rounded-2xl shadow-sm ring-1 ring-black/5 bg-white dark:bg-zinc-900 p-6">
+				<blockquote class="rounded-2xl shadow-sm ring-1 ring-black/5 dark:ring-white/10 bg-white dark:bg-zinc-900 p-6">
 					<p class="text-zinc-900 dark:text-zinc-50 mb-3">“{t.quote}”</p>
 					<cite class="text-zinc-700 dark:text-zinc-300">{t.author}</cite>
 				</blockquote>

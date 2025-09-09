@@ -4,15 +4,16 @@ import BreakoutImage from '../../../components/BreakoutImage.astro'
 import { getCollection, getEntry, render } from 'astro:content'
 
 export async function getStaticPaths() {
-  const collection = await getCollection('caseStudies')
+  const collection = (await getCollection('caseStudies')).filter(e=> e.id.startsWith('en-'))
   return collection.map((e) => {
-    const slug = e.slug ?? e.id.replace(/\.mdx?$/, '')
-    return { params: { slug } }
+    const full = e.slug ?? e.id.replace(/\.mdx?$/, '')
+    const local = full.replace(/^en-/,'')
+    return { params: { slug: local } }
   })
 }
 
 const { slug } = Astro.params
-const entry = await getEntry('caseStudies', slug)
+const entry = await getEntry('caseStudies', `en-${slug}`)
 if (!entry) throw new Error('Not found')
 const { Content } = await render(entry)
 

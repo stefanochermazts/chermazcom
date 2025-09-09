@@ -2,6 +2,7 @@
 import DefaultLayout from '../../layouts/DefaultLayout.astro'
 import { getEntry, render } from 'astro:content'
 
+// I file italiani sono nella root della collection pages
 const entry = await getEntry('pages', 'chi-sono')
 if (!entry) throw new Error('Pagina "chi-sono" non trovata')
 const { Content } = await render(entry)

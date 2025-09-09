@@ -1,7 +1,39 @@
 ---
 import DefaultLayout from '../../layouts/DefaultLayout.astro'
-import Hero from '../../components/Hero.astro'
+import Hero from '../../components/Home/Hero.astro'
+import About from '../../components/Home/About.astro'
+import Services from '../../components/Home/Services.astro'
+import Expertise from '../../components/Home/Expertise.astro'
+import CaseStudies from '../../components/Home/CaseStudies.astro'
+import LatestInsights from '../../components/Home/LatestInsights.astro'
+import Testimonials from '../../components/Home/Testimonials.astro'
+import Contact from '../../components/Home/Contact.astro'
+import { getCollection } from 'astro:content'
+
+// Dati per la pillar page - contenuti sloveni
+const latestInsights = await getCollection('insights', ({ id }) => 
+  id.startsWith('sl-')
+)
+const recentInsights = latestInsights
+  .filter(post => post.data.status === 'publish')
+  .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
+  .slice(0, 3)
+
+const featuredCaseStudies = await getCollection('caseStudies', ({ id }) => 
+  id.startsWith('sl-')
+)
+const recentCaseStudies = featuredCaseStudies
+  .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
+  .slice(0, 3)
 ---
-<DefaultLayout title="Domov">
-  <Hero />
+
+<DefaultLayout title="Stefano Chermaz - IT Svetovanje, Microsoft 365, AI in Skladnost" description="IT svetovanje specializirano za Microsoft 365, umetno inteligenco in skladnost. Preoblikujem podjetja s sodobnimi in varnimi digitalnimi rešitvami.">
+  <Hero primary={{ href: '/sl/storitve/', label: 'Storitve' }} secondary={{ href: '/sl/case-studies/', label: 'Case studies' }} />
+  <About />
+  <Services />
+  <Expertise />
+  <CaseStudies items={recentCaseStudies} baseUrl="/sl/case-studies" />
+  <LatestInsights items={recentInsights} baseUrl="/sl/insights" />
+  <Testimonials />
+  <Contact />
 </DefaultLayout>

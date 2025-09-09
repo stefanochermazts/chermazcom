@@ -12,11 +12,11 @@
 
   *:focus,
   *:focus-visible {
-    outline: 2px dashed black;
-    outline-color: black;
+    outline: 2px dashed light-dark(black, white);
+    outline-color: light-dark(black, white);
     outline-offset: 0;
-    -webkit-box-shadow: 0 0 0 2px white;
-    box-shadow: 0 0 0 2px white;
+    -webkit-box-shadow: 0 0 0 2px light-dark(white, black);
+    box-shadow: 0 0 0 2px light-dark(white, black);
   }
 
   *:focus:not(:focus-visible) {
@@ -73,7 +73,7 @@
 
   input,
   textarea {
-    border: 1px solid gray;
+    border: 1px solid light-dark(gray, #64748b);
   }
 
   button:not([class]) {

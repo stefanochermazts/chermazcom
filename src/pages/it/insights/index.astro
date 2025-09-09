@@ -3,8 +3,15 @@ import DefaultLayout from '../../../layouts/DefaultLayout.astro'
 import ArticleCard from '../../../components/ArticleCard.astro'
 import { getCollection } from 'astro:content'
 
-const posts = (await getCollection('insights')).sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
-const categories = ['sudoku','sharepoint','office365','chatbot','wordpress']
+const all = await getCollection('insights', ({ id }) => {
+  const normalizedId = id.replace(/\\/g, '/')
+  // I file italiani sono ora nella root (senza prefisso di lingua)
+  return !normalizedId.includes('/')
+})
+const posts = all.sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
+
+const categories = Array.from(new Set(posts.flatMap(p => (p.data.categories ?? [])
+  .map((s:string)=> s.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')))))
 const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 const postsByCategory = (cat: string) => posts.filter(p => (p.data.categories ?? []).some((c: string) => normalize(c) === cat))
 ---

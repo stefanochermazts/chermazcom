@@ -1,38 +1,17 @@
 ---
 import Base from '../../layouts/Base.astro'
+import { getEntry, render } from 'astro:content'
+const entry = await getEntry('pages', 'en-about')
+const Content = entry ? (await render(entry)).Content : null
 ---
 
 <Base useLocalizedMeta={true} pageKey="about">
   
-  <section class="py-16 sm:py-20">
-    <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold mb-8">About Stefano Chermaz</h1>
-      
-      <div class="prose max-w-none">
-        <p class="text-xl mb-6">
-          IT consultant specialized in Microsoft 365, artificial intelligence, and business compliance.
-        </p>
-        
-        <p>
-          With years of experience in digital transformation, I help companies optimize their technological processes 
-          and implement innovative solutions that improve productivity and ensure regulatory compliance.
-        </p>
-        
-        <h2>Areas of Expertise</h2>
-        <ul>
-          <li><strong>Microsoft 365</strong>: Implementation, configuration, and optimization</li>
-          <li><strong>Artificial Intelligence</strong>: Integration of AI solutions in business processes</li>
-          <li><strong>Compliance</strong>: GDPR, data security, and regulatory compliance</li>
-          <li><strong>Process Automation</strong>: Workflow optimization with Power Platform</li>
-        </ul>
-        
-        <h2>Approach</h2>
-        <p>
-          I believe in a collaborative approach that puts the client's specific needs at the center. 
-          Every project starts with a thorough analysis of existing processes and business objectives, 
-          to then design tailor-made solutions that generate concrete and measurable value.
-        </p>
+  {Content && (
+    <section class="py-16 sm:py-20">
+      <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+        <Content />
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 </Base>

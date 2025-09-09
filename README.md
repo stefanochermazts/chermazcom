@@ -1,3 +1,36 @@
+## Modulo contatti (Netlify Forms + Email)
+
+Il form contatti usa Netlify Forms. Alla submission, una Function invia email a te e di conferma all'utente via Resend.
+
+Setup variabili d'ambiente (Netlify → Site settings → Environment variables):
+
+- `RESEND_API_KEY` (chiave API Resend)
+- `CONTACT_TO` (la tua email di destinazione)
+- `FROM_EMAIL` (mittente no-reply, es. `no-reply@chermaz.com`)
+- `ADMIN_TOKEN` (token per proteggere la rotta admin)
+- `NETLIFY_AUTH_TOKEN` (per interrogare l'API di Netlify in `admin-submissions`)
+
+Rotte:
+
+- Form: `/it/contatti/` → invia a Netlify Form `contact`
+- Success: `/it/success` (pagina di ringraziamento)
+- Admin submissions (protetta): `/.netlify/functions/admin-submissions` con header `x-admin-token: <ADMIN_TOKEN>`
+
+Test locale/in produzione:
+
+```bash
+curl -X POST https://<tuo-sito>.netlify.app/ \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  --data "form-name=contact&name=Mario Rossi&email=m.rossi%40example.com&message=Prova&privacyConsent=true"
+
+curl -s https://<tuo-sito>.netlify.app/.netlify/functions/admin-submissions \
+  -H "x-admin-token: <ADMIN_TOKEN>"
+```
+
+Note:
+
+- Assicurati che il form contenga `name="contact"` e il campo hidden `form-name=contact`.
+- Le submission sono visibili anche in Netlify → Forms.
 # Accessible Astro Starter
 
 [![Built with Astro](https://astro.badg.es/v2/built-with-astro/small.svg)](https://astro.build)

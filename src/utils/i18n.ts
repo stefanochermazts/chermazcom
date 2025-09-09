@@ -107,10 +107,10 @@ export const routeMappings: Record<Locale, Record<string, string>> = {
   it: {
     '/': '/',
     '/chi-sono': '/about',
-    '/servizi': '/servizi',
+    '/servizi': '/services',
     '/case-studies': '/case-studies',
     '/insights': '/insights',
-    '/contatti': '/contatti',
+    '/contatti': '/contact',
     '/privacy': '/privacy'
   },
   en: {
@@ -126,8 +126,8 @@ export const routeMappings: Record<Locale, Record<string, string>> = {
     '/': '/',
     '/o-meni': '/about',
     '/storitve': '/services',
-    '/studije-primerov': '/case-studies',
-    '/vpogledi': '/insights',
+    '/case-studies': '/case-studies',
+    '/insights': '/insights',
     '/kontakt': '/contact',
     '/zasebnost': '/privacy'
   }

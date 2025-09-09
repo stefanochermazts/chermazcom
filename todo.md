@@ -119,23 +119,24 @@
  - [ ] Aggiungi selettore lingua come menu button conforme APG (keyboard + ARIA)
 
 ## 4‑bis) Internazionalizzazione (IT / EN / SL)
-- [ ] Definisci lingue del sito: italiano (predefinita), inglese, sloveno
-- [ ] Struttura URL con prefissi di lingua: `/it/*`, `/en/*`, `/sl/*`
-- [ ] Routing i18n in Astro
-  - [ ] Configura mapping rotte per lingua e redirect da `/` → `/it/`
-  - [ ] Gestisci slugs localizzati per pagine e contenuti
+- [x] Definisci lingue del sito: italiano (predefinita), inglese, sloveno
+- [x] Struttura URL con prefissi di lingua: `/it/*`, `/en/*`, `/sl/*`
+- [x] Routing i18n in Astro
+  - [x] Configura mapping rotte per lingua e redirect da `/` → `/it/`
+  - [x] Gestisci slugs localizzati per pagine
+  - [ ] Gestisci slugs localizzati per contenuti (insights/case-studies)
 - [ ] Traduzioni UI
   - [ ] File di traduzione (es. `src/i18n/{it,en,sl}.ts` o `.json`)
   - [x] Creati `src/i18n/it.json`, `src/i18n/en.json`, `src/i18n/sl.json`
   - [ ] Componenti che leggono le stringhe in base alla lingua corrente
 - [ ] Contenuti
   - [ ] Strategy A: directory per lingua (es. `content/insights/it|en|sl`)
-  - [ ] Strategy B: front‑matter `lang` e filtraggio per lingua
+  - [x] Strategy B: front‑matter `lang` e filtraggio per lingua (lang già in uso; filtraggio da implementare)
 - [ ] SEO multilingua
   - [x] `<link rel="alternate" hreflang="it|en|sl|x-default">` per ogni pagina
   - [x] Canonical per lingua
-  - [ ] Titolo/description localizzati
-  - [ ] Sitemap con voci per ogni lingua
+  - [ ] Titolo/description localizzati (verifica copertura e uniforma)
+  - [ ] Sitemap con voci per ogni lingua (aggiorna generator)
 - [ ] Language Switcher
   - [x] Menu button conforme APG, navigabile da tastiera
   - [x] Persistenza scelta lingua (localStorage + redirect)

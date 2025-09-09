@@ -1,0 +1,123 @@
+---
+/**
+ * Expertise Component - Competenze e certificazioni
+ */
+
+const expertiseAreas = [
+  {
+    icon: 'microsoft',
+    title: 'Microsoft 365 & SharePoint',
+    description: 'Modern Workplace, intranet aziendali, governance e sicurezza',
+    highlights: ['SharePoint Online', 'Power Platform', 'Teams', 'Viva Suite']
+  },
+  {
+    icon: 'ai',
+    title: 'Intelligenza Artificiale',
+    description: 'Chatbot, automazioni intelligenti e integrazione AI nei processi',
+    highlights: ['OpenAI Azure', 'Copilot M365', 'Custom GPT', 'RAG Systems']
+  },
+  {
+    icon: 'security',
+    title: 'Compliance & Sicurezza',
+    description: 'GDPR, governance dei dati e framework di sicurezza',
+    highlights: ['GDPR Assessment', 'Data Classification', 'DLP Policies', 'Audit & Review']
+  },
+  {
+    icon: 'automation',
+    title: 'Automazione Processi',
+    description: 'Power Automate, workflow e ottimizzazione operativa',
+    highlights: ['Power Automate', 'Logic Apps', 'Process Mining', 'RPA Solutions']
+  }
+]
+---
+
+<section class="py-16 sm:py-20">
+  <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl mb-4">
+        Competenze & Specializzazioni
+      </h2>
+      <p class="text-xl text-zinc-600 dark:text-zinc-400">
+        Tecnologie e metodologie all'avanguardia per trasformare il tuo business
+      </p>
+    </div>
+
+    <!-- Expertise Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+      {expertiseAreas.map((area) => (
+        <div class="group relative overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 p-8 shadow-sm ring-1 ring-black/5 dark:ring-white/10 hover:shadow-lg transition-all duration-300">
+          <!-- Icon -->
+          <div class="mb-6">
+            {area.icon === 'microsoft' && (
+              <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M0 0h11.377v11.372H0zm12.623 0H24v11.372H12.623zM0 12.623h11.377V24H0zm12.623 0H24V24H12.623z"/>
+                </svg>
+              </div>
+            )}
+            {area.icon === 'ai' && (
+              <div class="w-12 h-12 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                </svg>
+              </div>
+            )}
+            {area.icon === 'security' && (
+              <div class="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              </div>
+            )}
+            {area.icon === 'automation' && (
+              <div class="w-12 h-12 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                <svg class="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+            )}
+          </div>
+
+          <!-- Content -->
+          <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-3">
+            {area.title}
+          </h3>
+          <p class="text-zinc-600 dark:text-zinc-400 mb-4">
+            {area.description}
+          </p>
+
+          <!-- Highlights -->
+          <div class="flex flex-wrap gap-2">
+            {area.highlights.map((highlight) => (
+              <span class="inline-flex items-center rounded-md bg-zinc-100 dark:bg-zinc-800 px-2 py-1 text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                {highlight}
+              </span>
+            ))}
+          </div>
+
+          <!-- Hover effect -->
+          <div class="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-brand-200 dark:group-hover:border-brand-800 transition-colors" />
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA Bottom -->
+    <div class="text-center">
+      <p class="text-zinc-600 dark:text-zinc-400 mb-6">
+        Vuoi approfondire le mie competenze e il mio approccio?
+      </p>
+      <a 
+        href="/it/servizi/" 
+        class="inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-brand-500 focus:outline-2 focus:outline-offset-2 focus:outline-brand-500 transition-colors"
+      >
+        Scopri tutti i servizi
+        <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+

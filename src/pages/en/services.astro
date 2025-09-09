@@ -1,66 +1,18 @@
 ---
 import Base from '../../layouts/Base.astro'
+import { getEntry, render } from 'astro:content'
+
+const entry = await getEntry('pages', 'en-services')
+const Content = entry ? (await render(entry)).Content : null
 ---
 
 <Base useLocalizedMeta={true} pageKey="services">
   
-  <section class="py-16 sm:py-20">
-    <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold mb-8">IT Consulting Services</h1>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="border rounded-lg p-6">
-          <h2 class="text-2xl font-semibold mb-4">Microsoft 365 Consulting</h2>
-          <p class="mb-4">
-            Complete implementation and optimization of the Microsoft 365 ecosystem for your business.
-          </p>
-          <ul class="list-disc list-inside space-y-2">
-            <li>Migration planning and execution</li>
-            <li>Security and compliance configuration</li>
-            <li>User training and adoption</li>
-            <li>Performance optimization</li>
-          </ul>
-        </div>
-        
-        <div class="border rounded-lg p-6">
-          <h2 class="text-2xl font-semibold mb-4">AI Integration</h2>
-          <p class="mb-4">
-            Integration of artificial intelligence solutions to automate processes and improve efficiency.
-          </p>
-          <ul class="list-disc list-inside space-y-2">
-            <li>AI strategy and planning</li>
-            <li>Custom chatbot development</li>
-            <li>Process automation with AI</li>
-            <li>Data analysis and insights</li>
-          </ul>
-        </div>
-        
-        <div class="border rounded-lg p-6">
-          <h2 class="text-2xl font-semibold mb-4">Compliance & Security</h2>
-          <p class="mb-4">
-            Ensure your business meets all regulatory requirements and security standards.
-          </p>
-          <ul class="list-disc list-inside space-y-2">
-            <li>GDPR compliance assessment</li>
-            <li>Security policy development</li>
-            <li>Risk assessment and mitigation</li>
-            <li>Audit preparation and support</li>
-          </ul>
-        </div>
-        
-        <div class="border rounded-lg p-6">
-          <h2 class="text-2xl font-semibold mb-4">Process Automation</h2>
-          <p class="mb-4">
-            Streamline your workflows with Power Platform and custom automation solutions.
-          </p>
-          <ul class="list-disc list-inside space-y-2">
-            <li>Workflow analysis and optimization</li>
-            <li>Power Automate implementation</li>
-            <li>Custom app development</li>
-            <li>Integration with existing systems</li>
-          </ul>
-        </div>
+  {Content && (
+    <section class="py-16 sm:py-20">
+      <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+        <Content />
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 </Base>

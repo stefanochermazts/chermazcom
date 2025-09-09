@@ -34,22 +34,24 @@ export const GET: APIRoute = async () => {
     
     // Add insights pages
     urls.push(`${baseUrl}${addLocaleToPath('/insights', locale)}`)
-    
-    for (const insight of insights) {
-      const slug = insight.slug ?? insight.id.replace(/\.mdx?$/, '')
-      urls.push(`${baseUrl}${addLocaleToPath(`/insights/${slug}`, locale)}`)
+    const ins = insights.filter(i => i.id.startsWith(`${locale}/`))
+    for (const insight of ins) {
+      const full = insight.slug ?? insight.id.replace(/\.mdx?$/, '')
+      const local = full.replace(new RegExp(`^${locale}/`), '')
+      urls.push(`${baseUrl}${addLocaleToPath(`/insights/${local}`, locale)}`)
     }
     
     // Add case studies pages
     urls.push(`${baseUrl}${addLocaleToPath('/case-studies', locale)}`)
-    
-    for (const caseStudy of caseStudies) {
-      const slug = caseStudy.slug ?? caseStudy.id.replace(/\.mdx?$/, '')
-      urls.push(`${baseUrl}${addLocaleToPath(`/case-studies/${slug}`, locale)}`)
+    const cs = caseStudies.filter(c => c.id.startsWith(`${locale}/`))
+    for (const caseStudy of cs) {
+      const full = caseStudy.slug ?? caseStudy.id.replace(/\.mdx?$/, '')
+      const local = full.replace(new RegExp(`^${locale}/`), '')
+      urls.push(`${baseUrl}${addLocaleToPath(`/case-studies/${local}`, locale)}`)
     }
     
     // Add insights categories
-    const categories = [...new Set(insights.flatMap(p => p.data.categories || []))]
+    const categories = [...new Set(ins.filter(p => p.id.startsWith(`${locale}/`)).flatMap(p => p.data.categories || []))]
     for (const category of categories) {
       urls.push(`${baseUrl}${addLocaleToPath(`/insights/categoria/${category}`, locale)}`)
     }

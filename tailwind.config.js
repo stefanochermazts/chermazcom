@@ -27,5 +27,5 @@ export default {
     },
   },
   plugins: [],
-  darkMode: ['class', '.darkmode'],
+  darkMode: ['selector', '[class~="darkmode"], [class~="dark"]'],
 }

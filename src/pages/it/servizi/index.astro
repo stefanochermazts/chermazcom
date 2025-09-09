@@ -1,9 +1,19 @@
 ---
-// Pagina servizi con URL italiano
+// Pagina servizi con URL italiano che legge contenuto MDX dalla collection "pages"
 import Base from '../../../layouts/Base.astro'
-import Services from '../../../components/Home/Services.astro'
+import { getEntry, render, getCollection } from 'astro:content'
+
+// I file italiani sono nella root della collection pages - cerchiamo 'servizi' non 'services'
+const page = await getEntry('pages', 'servizi')
+const Content = page ? (await render(page)).Content : null
 ---
 
-<Base title="Servizi" description="Servizi di consulenza IT: Microsoft 365, AI, automazione processi e compliance aziendale">
-  <Services />
+<Base title={page?.data?.title ?? 'Servizi'} description={page?.data?.excerpt ?? 'Servizi di consulenza IT'}>
+  {Content && (
+    <section class="py-16 sm:py-20">
+      <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+        <Content />
+      </div>
+    </section>
+  )}
 </Base>

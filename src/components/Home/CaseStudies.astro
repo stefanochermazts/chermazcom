@@ -1,20 +1,199 @@
 ---
-const { items = [] } = Astro.props
+/**
+ * CaseStudies Component - Case studies in evidenza
+ */
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+  items?: CollectionEntry<'caseStudies'>[]
+  baseUrl?: string
+}
+
+const { items = [], baseUrl = '/it/case-studies' } = Astro.props
+
+// Fallback data se non vengono passati case studies
+const fallbackCaseStudies = [
+  {
+    title: 'Intranet Enterprise per PMI',
+    excerpt: 'Implementazione completa Microsoft 365 con SharePoint Online per moderna collaborazione aziendale.',
+    kpi: ['ROI +35%', '100% adozione', '↓60% email interne'],
+    sector: 'Manufacturing',
+    slug: 'smartpm'
+  },
+  {
+    title: 'Chatbot AI Supporto Clienti',
+    excerpt: 'Sistema di assistenza automatizzata con AI per ridurre carico supporto e migliorare satisfaction.',
+    kpi: ['-40% ticket', '24/7 disponibilità', '95% accuracy'],
+    sector: 'E-commerce',
+    slug: 'chatbot-platform'
+  },
+  {
+    title: 'Compliance GDPR Automation',
+    excerpt: 'Automazione processi compliance e governance dati per conformità GDPR completa.',
+    kpi: ['100% compliance', '↓80% tempo audit', 'Zero sanzioni'],
+    sector: 'Financial Services',
+    slug: 'fishtidelog'
+  }
+]
+
+const displayItems = items.length > 0 ? items : fallbackCaseStudies
 ---
+
 <section class="py-16 sm:py-20">
-	<div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
-		<h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">Case studies</h2>
-		<div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-			{(items.length ? items : [
-				{ title: 'Intranet enterprise', kpi: 'ROI +35%' },
-				{ title: 'Chatbot supporto', kpi: '-40% ticket' },
-				{ title: 'Ottimizzazione WP', kpi: 'LCP < 2s' },
-			]).map((c) => (
-				<article class="rounded-2xl shadow-sm ring-1 ring-black/5 bg-white dark:bg-zinc-900 p-6">
-					<h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-1">{c.title}</h3>
-					<p class="text-zinc-700 dark:text-zinc-300">{c.kpi}</p>
-				</article>
-			))}
-		</div>
-	</div>
+  <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-12">
+      <div>
+        <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl mb-4">
+          Case Studies
+        </h2>
+        <p class="text-xl text-zinc-600 dark:text-zinc-400">
+          Progetti realizzati con risultati misurabili e impatto concreto
+        </p>
+      </div>
+      <a 
+        href={`${baseUrl}/`} 
+        class="hidden sm:inline-flex items-center text-brand-600 hover:text-brand-500 font-semibold group"
+      >
+        Tutti i progetti
+        <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Case Studies Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {displayItems.map((caseStudy, index) => {
+        const title = caseStudy.data?.title || caseStudy.title
+        const excerpt = caseStudy.data?.excerpt || caseStudy.excerpt
+        const kpi = caseStudy.data?.kpi || caseStudy.kpi || []
+        const sector = caseStudy.data?.sector || caseStudy.sector
+        // Usa la stessa logica dei componenti card esistenti
+        const rawSlug = caseStudy.slug ?? caseStudy.id.replace(/\.mdx?$/, '')
+        // Rimuovi prefisso linguistico per gli slug
+        const slug = rawSlug.replace(/^(en-|sl-)/, '')
+        
+        // Image selection logic for case studies
+        function getImageSrc(data: any, normalized: string) {
+          // Try card-specific format first
+          const cardPath = `/case-studies/${normalized}/card.webp`
+          
+          // Then try from frontmatter
+          const fmCandidates = [data?.image, data?.ogImage, data?.featuredImage]
+          for (const candidate of fmCandidates) {
+            if (typeof candidate === 'string' && candidate.trim().length > 0) {
+              // Prefer card format if it follows the pattern
+              if (candidate.includes('/case-studies/')) {
+                const basePath = candidate.substring(0, candidate.lastIndexOf('/'))
+                return `${basePath}/card.webp`
+              }
+              return candidate.trim()
+            }
+          }
+          
+          // Finally fallback
+          return '/images/logo_stefano_chermaz.png'
+        }
+        
+        const image = getImageSrc(caseStudy.data, slug)
+        
+        return (
+          <article class="group relative overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 shadow-sm ring-1 ring-black/5 dark:ring-white/10 hover:shadow-lg transition-all duration-300">
+            <!-- Image -->
+            <div class="aspect-[16/9] overflow-hidden">
+              <img 
+                src={image} 
+                alt={title} 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+            </div>
+
+            <!-- Content -->
+            <div class="p-6">
+              <!-- Sector badge -->
+              {sector && (
+                <div class="mb-3">
+                  <span class="inline-flex items-center rounded-md bg-green-100 dark:bg-green-900/30 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-300">
+                    {sector}
+                  </span>
+                </div>
+              )}
+
+              <!-- Title -->
+              <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-50 mb-3 line-clamp-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                <a href={`${baseUrl}/${slug}/`} class="stretched-link">
+                  {title}
+                </a>
+              </h3>
+
+              <!-- Excerpt -->
+              <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed line-clamp-3 mb-4">
+                {excerpt}
+              </p>
+
+              <!-- KPIs -->
+              {kpi.length > 0 && (
+                <div class="space-y-2">
+                  <p class="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">
+                    Risultati
+                  </p>
+                  <div class="flex flex-wrap gap-2">
+                    {kpi.slice(0, 3).map((metric: string) => (
+                      <span class="inline-flex items-center rounded-md bg-zinc-100 dark:bg-zinc-800 px-2 py-1 text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                        {metric}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <!-- Hover effect border -->
+            <div class="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-brand-200 dark:group-hover:border-brand-800 transition-colors pointer-events-none" />
+          </article>
+        )
+      })}
+    </div>
+
+    <!-- Mobile CTA -->
+    <div class="mt-12 text-center sm:hidden">
+      <a 
+        href={`${baseUrl}/`} 
+        class="inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-brand-500 focus:outline-2 focus:outline-offset-2 focus:outline-brand-500 transition-colors"
+      >
+        Tutti i progetti
+        <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
 </section>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .stretched-link::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    content: "";
+  }
+</style>

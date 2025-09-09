@@ -4,8 +4,33 @@ const currentPath = Astro.url.pathname || '/'
 const segments = currentPath.split('/').filter(Boolean)
 const hasPrefix = langs.includes(segments[0] as any)
 const rest = hasPrefix ? segments.slice(1).join('/') : segments.join('/')
+
+// Mappatura per gestire le differenze URL tra lingue
+const pathMappings = {
+  'contact': { it: 'contatti', en: 'contact', sl: 'kontakt' },
+  'contatti': { it: 'contatti', en: 'contact', sl: 'kontakt' },
+  'kontakt': { it: 'contatti', en: 'contact', sl: 'kontakt' },
+  'about': { it: 'chi-sono', en: 'about', sl: 'o-meni' },
+  'chi-sono': { it: 'chi-sono', en: 'about', sl: 'o-meni' },
+  'o-meni': { it: 'chi-sono', en: 'about', sl: 'o-meni' },
+  'services': { it: 'servizi', en: 'services', sl: 'storitve' },
+  'servizi': { it: 'servizi', en: 'services', sl: 'storitve' },
+  'storitve': { it: 'servizi', en: 'services', sl: 'storitve' },
+  'privacy': { it: 'privacy', en: 'privacy', sl: 'zasebnost' },
+  'zasebnost': { it: 'privacy', en: 'privacy', sl: 'zasebnost' }
+}
+
 function hrefFor(l: string) {
-  const path = rest ? `/${rest}/` : '/'
+  let path = rest ? `/${rest}/` : '/'
+  
+  // Se stiamo su una pagina con mapping specifico, usa quello
+  const firstSegment = rest.split('/')[0]
+  if (firstSegment && pathMappings[firstSegment]) {
+    const mappedPath = pathMappings[firstSegment][l]
+    const remainingPath = rest.split('/').slice(1).join('/')
+    path = remainingPath ? `/${mappedPath}/${remainingPath}/` : `/${mappedPath}/`
+  }
+  
   return l === 'it' ? `/it${path}` : `/${l}${path}`
 }
 const currentLang = hasPrefix ? (segments[0] as typeof langs[number]) : 'it'
@@ -35,48 +60,72 @@ const menuId = 'lang-menu'
 </div>
 
 <script>
-  const root = document.currentScript?.parentElement
-  if (root) {
-    const button = root.querySelector('button')
-    const menu = root.querySelector('ul')
-    const items = () => Array.from(menu.querySelectorAll('a'))
-    function openMenu() {
-      menu.hidden = false
-      button.setAttribute('aria-expanded', 'true')
-    }
-    function closeMenu() {
-      menu.hidden = true
-      button.setAttribute('aria-expanded', 'false')
-    }
-    button.addEventListener('click', () => {
-      if (menu.hidden) openMenu(); else closeMenu()
-    })
-    button.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault(); openMenu(); items()[0]?.focus()
+  function initLanguageSwitcher() {
+    document.querySelectorAll('.language-switcher').forEach(root => {
+      if (root.dataset.initialized) return
+      root.dataset.initialized = 'true'
+      
+      const button = root.querySelector('button')
+      const menu = root.querySelector('ul')
+      
+      if (!button || !menu) return
+      
+      const items = () => Array.from(menu.querySelectorAll('a'))
+      
+      function openMenu() {
+        menu.hidden = false
+        button.setAttribute('aria-expanded', 'true')
       }
-    })
-    menu.addEventListener('keydown', (e) => {
-      const list = items()
-      const index = list.indexOf(document.activeElement)
-      if (e.key === 'Escape') { e.preventDefault(); closeMenu(); button.focus() }
-      if (e.key === 'ArrowDown') { e.preventDefault(); list[(index + 1) % list.length]?.focus() }
-      if (e.key === 'ArrowUp') { e.preventDefault(); list[(index - 1 + list.length) % list.length]?.focus() }
-      if (e.key === 'Home') { e.preventDefault(); list[0]?.focus() }
-      if (e.key === 'End') { e.preventDefault(); list[list.length - 1]?.focus() }
-    })
-    menu.addEventListener('click', (e) => {
-      const link = e.target.closest('a[data-lang]')
-      if (link) {
-        const chosen = link.getAttribute('data-lang')
-        try { localStorage.setItem('lang', chosen) } catch {}
+      
+      function closeMenu() {
+        menu.hidden = true
+        button.setAttribute('aria-expanded', 'false')
       }
-    })
-    document.addEventListener('click', (e) => {
-      if (!root.contains(e.target)) closeMenu()
+      
+      button.addEventListener('click', (e) => {
+        e.preventDefault()
+        if (menu.hidden) openMenu(); else closeMenu()
+      })
+      
+      button.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); openMenu(); items()[0]?.focus()
+        }
+      })
+      
+      menu.addEventListener('keydown', (e) => {
+        const list = items()
+        const index = list.indexOf(document.activeElement)
+        if (e.key === 'Escape') { e.preventDefault(); closeMenu(); button.focus() }
+        if (e.key === 'ArrowDown') { e.preventDefault(); list[(index + 1) % list.length]?.focus() }
+        if (e.key === 'ArrowUp') { e.preventDefault(); list[(index - 1 + list.length) % list.length]?.focus() }
+        if (e.key === 'Home') { e.preventDefault(); list[0]?.focus() }
+        if (e.key === 'End') { e.preventDefault(); list[list.length - 1]?.focus() }
+      })
+      
+      menu.addEventListener('click', (e) => {
+        const link = e.target.closest('a[data-lang]')
+        if (link) {
+          const chosen = link.getAttribute('data-lang')
+          try { localStorage.setItem('lang', chosen) } catch {}
+        }
+      })
+      
+      document.addEventListener('click', (e) => {
+        if (!root.contains(e.target)) closeMenu()
+      })
     })
   }
   
+  // Inizializza quando il DOM è pronto
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLanguageSwitcher)
+  } else {
+    initLanguageSwitcher()
+  }
+  
+  // Reinizializza dopo le view transitions di Astro
+  document.addEventListener('astro:after-swap', initLanguageSwitcher)
 </script>
 
 <style lang="scss">

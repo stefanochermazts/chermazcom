@@ -5,3 +5,13 @@
 [dev]
   command = "npm run dev"
 
+[build.environment]
+  NODE_VERSION = "18"
+
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+

@@ -2,7 +2,7 @@
 import Base from '../../../layouts/Base.astro'
 import CaseStudyCard from '../../../components/CaseStudyCard.astro'
 import { getCollection } from 'astro:content'
-const studies = (await getCollection('caseStudies')).sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
+const studies = (await getCollection('caseStudies')).filter(s=> !s.id.startsWith('en-')).sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
 ---
 
 <Base title="Case studies" description="Selezione di progetti con KPI sintetici e impatto">

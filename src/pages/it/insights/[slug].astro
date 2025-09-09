@@ -3,16 +3,24 @@ import DefaultLayout from '../../../layouts/DefaultLayout.astro'
 import { getCollection, getEntry, render } from 'astro:content'
 
 const { slug } = Astro.params
+// I file italiani sono ora nella root
 const entry = await getEntry('insights', slug)
 if (!entry) throw new Error('Not found')
 const { Content } = await render(entry)
+
 export async function getStaticPaths() {
-  const collection = await getCollection('insights')
+  const collection = await getCollection('insights', ({ id }) => {
+    const normalizedId = id.replace(/\\/g, '/')
+    // I file italiani sono ora nella root (senza prefisso di lingua)
+    return !normalizedId.includes('/')
+  })
   return collection
     .filter((e) => (e.data?.status ?? 'publish') === 'publish')
     .map((e) => {
-      const slug = e.slug ?? e.id.replace(/\.mdx?$/, '')
-      return { params: { slug } }
+      const full = e.slug ?? e.id.replace(/\.mdx?$/, '')
+      // Rimuovi il prefisso it/ se presente, altrimenti usa il nome completo
+      const local = full.replace(/^it\//, '')
+      return { params: { slug: local } }
     })
 }
 ---

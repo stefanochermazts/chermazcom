@@ -1,0 +1,32 @@
+---
+import DefaultLayout from '../../../layouts/DefaultLayout.astro'
+import { getCollection, getEntry, render } from 'astro:content'
+
+export async function getStaticPaths() {
+  const collection = await getCollection('insights', ({ id }) => 
+    id.startsWith('sl-')
+  )
+  return collection
+    .filter((e) => (e.data?.status ?? 'publish') === 'publish')
+    .map((e) => {
+      const full = e.slug ?? e.id.replace(/\.mdx?$/, '')
+      const local = full.replace(/^sl-/, '')
+      return { params: { slug: local } }
+    })
+}
+
+const { slug } = Astro.params
+const entry = await getEntry('insights', `sl-${slug}`)
+if (!entry) throw new Error('Not found')
+const { Content } = await render(entry)
+---
+<DefaultLayout title={entry.data.title}>
+  <article class="container my-16 prose">
+    <h1>{entry.data.title}</h1>
+    <div class="content-large">
+      <Content />
+    </div>
+  </article>
+</DefaultLayout>
+
+

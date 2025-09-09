@@ -7,6 +7,7 @@ import Header from '../components/Header.astro'
 import Breadcrumbs from '../components/Breadcrumbs.astro'
 import Footer from '../components/Footer.astro'
 import { getLocaleFromUrl } from '../utils/i18n'
+import { getAlternateUrls } from '../utils/i18n'
 
 interface Props {
   title?: string
@@ -46,8 +47,8 @@ const locale = getLocaleFromUrl(Astro.url)
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="//images/logo_stefano_chermaz_sm.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="//images/logo_stefano_chermaz_sm.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#1f63ff" />
@@ -55,10 +56,22 @@ const locale = getLocaleFromUrl(Astro.url)
     {useLocalizedMeta ? (
       <LocalizedMeta title={title} description={description} pageKey={pageKey} ogImage={image} />
     ) : (
-      <SiteMeta title={title} description={description.substring(0, 150)} url={url} image={image} author={author} />
+      <SiteMeta title={title} description={(description||'').substring(0, 150)} url={url} image={image} author={author} />
     )}
 
     <slot name="head" />
+    <!-- hreflang alternates -->
+    {(() => {
+      const urls = getAlternateUrls(Astro.url.pathname)
+      return (
+        <>
+          <link rel="alternate" hrefLang="x-default" href={urls['x-default']} />
+          <link rel="alternate" hrefLang="it" href={urls['it']} />
+          <link rel="alternate" hrefLang="en" href={urls['en']} />
+          <link rel="alternate" hrefLang="sl" href={urls['sl']} />
+        </>
+      )
+    })()}
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
   </head>
@@ -71,6 +84,48 @@ const locale = getLocaleFromUrl(Astro.url)
       <slot />
     </main>
     <Footer />
+    
+    <script>
+      // Sincronizza le classi dark mode per Tailwind e sistema esistente
+      function syncDarkModeClasses() {
+        const html = document.documentElement
+        const body = document.body
+        
+        // Observer per cambiamenti nella classe darkmode
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              const target = mutation.target as HTMLElement
+              
+              if (target.classList.contains('darkmode')) {
+                // Se darkmode è presente, aggiungi anche dark
+                if (!target.classList.contains('dark')) {
+                  target.classList.add('dark')
+                }
+              } else {
+                // Se darkmode non è presente, rimuovi dark
+                target.classList.remove('dark')
+              }
+            }
+          })
+        })
+        
+        // Osserva cambiamenti su html e body
+        observer.observe(html, { attributes: true, attributeFilter: ['class'] })
+        observer.observe(body, { attributes: true, attributeFilter: ['class'] })
+        
+        // Sincronizza inizialmente
+        if (html.classList.contains('darkmode') || body.classList.contains('darkmode')) {
+          html.classList.add('dark')
+          body.classList.add('dark')
+        }
+      }
+      
+      // Esegui all'inizio e dopo ogni navigazione
+      document.addEventListener('DOMContentLoaded', syncDarkModeClasses)
+      document.addEventListener('astro:page-load', syncDarkModeClasses)
+      document.addEventListener('astro:after-swap', syncDarkModeClasses)
+    </script>
   </body>
   
 </html>

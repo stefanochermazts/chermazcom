@@ -1,0 +1,44 @@
+---
+import Base from '../../../layouts/Base.astro'
+import ArticleCard from '../../../components/ArticleCard.astro'
+import { getCollection } from 'astro:content'
+
+const all = await getCollection('insights', ({ id }) => 
+  id.startsWith('sl-')
+)
+const posts = all.sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
+
+const categories = Array.from(new Set(posts.flatMap(p => (p.data.categories ?? [])
+  .map((s:string)=> s.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')))))
+const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+const postsByCategory = (cat: string) => posts.filter(p => (p.data.categories ?? []).some((c: string) => normalize(c) === cat))
+---
+
+<Base useLocalizedMeta={true} pageKey="insights">
+  <section class="py-16 sm:py-20">
+    <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+      <h1 class="text-4xl font-bold mb-8">Vpogledi</h1>
+      <p class="text-xl mb-12 text-gray-600 dark:text-gray-400">
+        Tehnični članki in vodniki o Microsoftovih tehnologijah, umetni inteligenci in dobrih poslovnih praksah.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        {categories.map(cat => (
+          <article class="border rounded-2xl p-6">
+            <h2 class="text-2xl mb-2 capitalize">{cat}</h2>
+            <p class="opacity-80 mb-4">Članki po kategoriji</p>
+            <a class="button" href={`/sl/insights/categoria/${cat}/`}>Preberi članke</a>
+          </article>
+        ))}
+      </div>
+
+      <h2 class="text-4xl mb-6">Vsi članki</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map(p => (
+          <ArticleCard post={p} baseUrl="/sl/insights" />
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+

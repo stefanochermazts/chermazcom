@@ -1,20 +1,138 @@
 ---
-const { items = [] } = Astro.props
+/**
+ * Services Component - Servizi principali
+ */
+const services = [
+  {
+    icon: 'consulting',
+    title: 'Consulenza IT Strategica',
+    description: 'Analisi, progettazione e implementazione di soluzioni digitali su misura per la tua azienda.',
+    features: ['Digital Strategy', 'Technology Assessment', 'Roadmap Tecnologica', 'Change Management'],
+    cta: 'Scopri di più'
+  },
+  {
+    icon: 'microsoft365',
+    title: 'Microsoft 365 & SharePoint',
+    description: 'Modern Workplace completo: intranet, collaboration, governance e sicurezza dei dati.',
+    features: ['Intranet Aziendali', 'Teams Governance', 'SharePoint Online', 'Power Platform'],
+    cta: 'Progetti M365'
+  },
+  {
+    icon: 'ai',
+    title: 'AI & Automazione',
+    description: 'Intelligenza artificiale applicata: chatbot, automazioni intelligenti e integrazione AI.',
+    features: ['Chatbot Custom', 'OpenAI Integration', 'Process Automation', 'RAG Systems'],
+    cta: 'Soluzioni AI'
+  },
+  {
+    icon: 'compliance',
+    title: 'Compliance & Governance',
+    description: 'GDPR, governance dei dati, sicurezza e conformità normativa per la tua organizzazione.',
+    features: ['GDPR Assessment', 'Data Governance', 'Security Policies', 'Audit & Review'],
+    cta: 'Compliance'
+  }
+]
 ---
+
 <section class="py-16 sm:py-20">
-	<div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
-		<h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">Servizi</h2>
-		<div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-			{(items.length ? items : [
-				{ title: 'Consulenza IT', description: 'Strategia e delivery' },
-				{ title: 'SharePoint & M365', description: 'Intranet e collaboration' },
-				{ title: 'AI & Chatbot', description: 'Assistenti e automazioni' },
-			]).map((s) => (
-				<article class="rounded-2xl shadow-sm ring-1 ring-black/5 bg-white dark:bg-zinc-900 p-6">
-					<h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-1">{s.title}</h3>
-					<p class="text-zinc-700 dark:text-zinc-300">{s.description}</p>
-				</article>
-			))}
-		</div>
-	</div>
+  <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl mb-4">
+        Servizi di Consulenza IT
+      </h2>
+      <p class="text-xl text-zinc-600 dark:text-zinc-400">
+        Soluzioni complete per trasformare la tua azienda nel digitale
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      {services.map((service) => (
+        <article class="group relative overflow-hidden rounded-2xl bg-white dark:bg-zinc-900 p-8 shadow-sm ring-1 ring-black/5 dark:ring-white/10 hover:shadow-lg transition-all duration-300">
+          <!-- Icon -->
+          <div class="mb-6">
+            {service.icon === 'consulting' && (
+              <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+              </div>
+            )}
+            {service.icon === 'microsoft365' && (
+              <div class="w-12 h-12 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                <svg class="w-6 h-6 text-orange-600 dark:text-orange-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M0 0h11.377v11.372H0zm12.623 0H24v11.372H12.623zM0 12.623h11.377V24H0zm12.623 0H24V24H12.623z"/>
+                </svg>
+              </div>
+            )}
+            {service.icon === 'ai' && (
+              <div class="w-12 h-12 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                </svg>
+              </div>
+            )}
+            {service.icon === 'compliance' && (
+              <div class="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              </div>
+            )}
+          </div>
+
+          <!-- Content -->
+          <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-3">
+            {service.title}
+          </h3>
+          <p class="text-zinc-600 dark:text-zinc-400 mb-6">
+            {service.description}
+          </p>
+
+          <!-- Features -->
+          <ul class="space-y-2 mb-6">
+            {service.features.map((feature) => (
+              <li class="flex items-center text-sm text-zinc-600 dark:text-zinc-400">
+                <svg class="w-4 h-4 text-brand-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+
+          <!-- CTA -->
+          <a 
+            href="/it/servizi/" 
+            class="inline-flex items-center text-brand-600 hover:text-brand-500 font-semibold text-sm group"
+          >
+            {service.cta}
+            <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+
+          <!-- Hover effect -->
+          <div class="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-brand-200 dark:group-hover:border-brand-800 transition-colors" />
+        </article>
+      ))}
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="text-center">
+      <p class="text-zinc-600 dark:text-zinc-400 mb-6">
+        Hai un progetto specifico in mente? Parliamo insieme della soluzione migliore.
+      </p>
+      <a 
+        href="/it/contatti/" 
+        class="inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-brand-500 focus:outline-2 focus:outline-offset-2 focus:outline-brand-500 transition-colors"
+      >
+        Richiedi una consulenza
+        <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
 </section>
