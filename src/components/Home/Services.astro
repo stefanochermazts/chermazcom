@@ -2,7 +2,27 @@
 /**
  * Services Component - Servizi principali
  */
-const services = [
+interface ServiceItem {
+  icon: 'consulting' | 'microsoft365' | 'ai' | 'compliance'
+  title: string
+  description: string
+  features: string[]
+  cta: string
+}
+
+interface Props {
+  title?: string
+  subtitle?: string
+  services?: ServiceItem[]
+  servicesLinkBase?: string
+  bottomCtaText?: string
+  bottomCtaHref?: string
+}
+
+const {
+  title = 'Servizi di Consulenza IT',
+  subtitle = 'Soluzioni complete per trasformare la tua azienda nel digitale',
+  services = [
   {
     icon: 'consulting',
     title: 'Consulenza IT Strategica',
@@ -31,19 +51,19 @@ const services = [
     features: ['GDPR Assessment', 'Data Governance', 'Security Policies', 'Audit & Review'],
     cta: 'Compliance'
   }
-]
+  ],
+  servicesLinkBase = '/it/servizi/',
+  bottomCtaText = 'Richiedi una consulenza',
+  bottomCtaHref = '/it/contatti/'
+} = Astro.props as Props
 ---
 
 <section class="py-16 sm:py-20">
   <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
     <!-- Header -->
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl mb-4">
-        Servizi di Consulenza IT
-      </h2>
-      <p class="text-xl text-zinc-600 dark:text-zinc-400">
-        Soluzioni complete per trasformare la tua azienda nel digitale
-      </p>
+      <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl mb-4">{title}</h2>
+      <p class="text-xl text-zinc-600 dark:text-zinc-400">{subtitle}</p>
     </div>
 
     <!-- Services Grid -->
@@ -104,7 +124,7 @@ const services = [
 
           <!-- CTA -->
           <a 
-            href="/it/servizi/" 
+            href={servicesLinkBase}
             class="inline-flex items-center text-brand-600 hover:text-brand-500 font-semibold text-sm group"
           >
             {service.cta}
@@ -121,14 +141,12 @@ const services = [
 
     <!-- Bottom CTA -->
     <div class="text-center">
-      <p class="text-zinc-600 dark:text-zinc-400 mb-6">
-        Hai un progetto specifico in mente? Parliamo insieme della soluzione migliore.
-      </p>
+      <p class="text-zinc-600 dark:text-zinc-400 mb-6">&nbsp;</p>
       <a 
-        href="/it/contatti/" 
+        href={bottomCtaHref}
         class="inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-brand-500 focus:outline-2 focus:outline-offset-2 focus:outline-brand-500 transition-colors"
       >
-        Richiedi una consulenza
+        {bottomCtaText}
         <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
         </svg>

@@ -1,0 +1,89 @@
+---
+title: >-
+  Dal prototipo al prodotto: linee guida per scalare un progetto AI in
+  produzione
+date: '2025-09-09'
+excerpt: >-
+  Molti progetti AI si fermano al prototipo. Scopri come portarli in produzione
+  con governance, strumenti MLOps e strategie di scaling sostenibile.
+description: >-
+  Un articolo approfondito per capire come trasformare un proof-of-concept AI in
+  un prodotto enterprise production-ready. Dalla raccolta dati al deploy,
+  passando per MLOps, sicurezza e governance.
+slug: scalare-progetto-ai-produzione
+categories:
+  - ai-development
+tags:
+  - ai
+  - produzione
+  - mlops
+  - scaling
+  - governance
+ogImage: /posts/scalare-progetto-ai-produzione/og.webp
+image: /posts/scalare-progetto-ai-produzione/card.webp
+---
+
+Negli ultimi due anni moltissime aziende hanno sperimentato progetti di **Intelligenza Artificiale**. Spesso si tratta di **proof-of-concept (PoC)** sviluppati in poche settimane, magari con dataset ridotti e obiettivi esplorativi. Il problema è che gran parte di questi progetti non supera mai la fase di test: rimangono esperimenti interessanti ma non diventano **prodotti reali e scalabili**.
+
+Portare un progetto AI in produzione richiede un cambio di mentalità: non basta un modello che “funziona” in laboratorio, serve un ecosistema di **processi, strumenti e governance** che ne garantiscano affidabilità, sicurezza e sostenibilità.
+
+---
+
+## Perché tanti progetti AI falliscono
+
+Le statistiche mostrano che oltre il 70% dei progetti AI non arriva in produzione. Le cause principali sono:
+
+- **Assenza di metriche**: un prototipo può sembrare efficace, ma senza KPI non si può dimostrare il valore.  
+- **Dati non scalabili**: dataset usati per i PoC non riflettono la complessità del mondo reale.  
+- **Infrastruttura mancante**: modelli allenati su laptop non sono pronti per ambienti enterprise.  
+- **Governance debole**: mancano policy di sicurezza, compliance e audit.  
+- **Aspettative non realistiche**: il management spesso si aspetta miracoli, senza considerare costi e limiti.  
+
+---
+
+## Il percorso dal PoC al prodotto
+
+Scalare un progetto AI significa seguire alcune fasi fondamentali:
+
+### 1. Definizione dei requisiti
+- Identificare i **casi d’uso concreti** e gli stakeholder coinvolti.  
+- Stabilire KPI misurabili: accuratezza, tempi di risposta, costi di inferenza.  
+- Valutare i vincoli normativi (GDPR, DORA, NIS2, settore-specifici).  
+
+### 2. Preparazione dei dati
+- Creare pipeline di **raccolta, pulizia e labeling** dei dati.  
+- Definire policy di qualità e aggiornamento continuo.  
+- Considerare strumenti di **data governance** e cataloghi centralizzati.  
+
+### 3. Scelta dell’architettura
+- Valutare modelli pre-addestrati vs fine-tuning.  
+- Decidere tra **API esterne** (OpenAI, Anthropic, ecc.) e **modelli self-hosted** (Llama, Mistral).  
+- Definire la scalabilità: serverless, Kubernetes, GPU on-demand.  
+
+### 4. Implementazione MLOps
+Il cuore della scalabilità è il **Machine Learning Operations (MLOps)**:
+- Versionamento di dati e modelli.  
+- Pipeline CI/CD per addestramento e deploy.  
+- Monitoraggio continuo di performance e drift.  
+- Automazione dei rollback in caso di regressione.  
+
+### 5. Sicurezza e compliance
+- Anonimizzazione e pseudonimizzazione dei dati.  
+- Controlli di accesso granulari e log delle richieste.  
+- Audit trail completo per ispezioni interne ed esterne.  
+- Policy per l’uso etico dell’AI (no dati sensibili nei prompt, explainability).  
+
+### 6. Deploy e monitoraggio
+- Definire **SLA chiari**: tempi di risposta, uptime, costi.  
+- Usare strumenti di observability: tracing, log, alert.  
+- Implementare sistemi di **A/B testing** per confrontare versioni di modelli.  
+
+---
+
+## Strumenti e stack consigliati
+
+- **MLOps**: MLflow, Kubeflow, DVC, Airflow.  
+- **Deployment**: Docker + Kubernetes, serverless (AWS Lambda, Azure Functions).  
+- **Vector DB** (per RAG): Pinecone, Weaviate, Qdrant, Postgres+pgvector.  
+- **Monitoring**: Prometheus, Grafana, EvidentlyAI.  
+- **Security**: Vault, IAM co

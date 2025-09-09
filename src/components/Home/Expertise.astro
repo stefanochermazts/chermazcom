@@ -2,8 +2,25 @@
 /**
  * Expertise Component - Competenze e certificazioni
  */
+interface ExpertiseArea {
+  icon: 'microsoft' | 'ai' | 'security' | 'automation'
+  title: string
+  description: string
+  highlights: string[]
+}
 
-const expertiseAreas = [
+interface Props {
+  title?: string
+  subtitle?: string
+  areas?: ExpertiseArea[]
+  ctaText?: string
+  ctaHref?: string
+}
+
+const {
+  title = 'Competenze & Specializzazioni',
+  subtitle = "Tecnologie e metodologie all'avanguardia per trasformare il tuo business",
+  areas: expertiseAreas = [
   {
     icon: 'microsoft',
     title: 'Microsoft 365 & SharePoint',
@@ -28,19 +45,18 @@ const expertiseAreas = [
     description: 'Power Automate, workflow e ottimizzazione operativa',
     highlights: ['Power Automate', 'Logic Apps', 'Process Mining', 'RPA Solutions']
   }
-]
+  ],
+  ctaText = 'Scopri tutti i servizi',
+  ctaHref = '/it/servizi/'
+} = Astro.props as Props
 ---
 
 <section class="py-16 sm:py-20">
   <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
     <!-- Header -->
     <div class="text-center max-w-3xl mx-auto mb-16">
-      <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl mb-4">
-        Competenze & Specializzazioni
-      </h2>
-      <p class="text-xl text-zinc-600 dark:text-zinc-400">
-        Tecnologie e metodologie all'avanguardia per trasformare il tuo business
-      </p>
+      <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl mb-4">{title}</h2>
+      <p class="text-xl text-zinc-600 dark:text-zinc-400">{subtitle}</p>
     </div>
 
     <!-- Expertise Grid -->
@@ -106,13 +122,13 @@ const expertiseAreas = [
     <!-- CTA Bottom -->
     <div class="text-center">
       <p class="text-zinc-600 dark:text-zinc-400 mb-6">
-        Vuoi approfondire le mie competenze e il mio approccio?
+        &nbsp;
       </p>
       <a 
-        href="/it/servizi/" 
+        href={ctaHref}
         class="inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-brand-500 focus:outline-2 focus:outline-offset-2 focus:outline-brand-500 transition-colors"
       >
-        Scopri tutti i servizi
+        {ctaText}
         <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>

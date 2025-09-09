@@ -4,9 +4,8 @@ import ArticleCard from '../../../components/ArticleCard.astro'
 import { getCollection } from 'astro:content'
 
 const all = await getCollection('insights', ({ id }) => {
-  const normalizedId = id.replace(/\\/g, '/')
-  // I file italiani sono ora nella root (senza prefisso di lingua)
-  return !normalizedId.includes('/')
+  // Articoli italiani: nessun prefisso di lingua
+  return !id.startsWith('en-') && !id.startsWith('sl-')
 })
 const posts = all.sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
 

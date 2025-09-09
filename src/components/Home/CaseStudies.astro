@@ -7,9 +7,18 @@ import type { CollectionEntry } from 'astro:content'
 interface Props {
   items?: CollectionEntry<'caseStudies'>[]
   baseUrl?: string
+  title?: string
+  subtitle?: string
+  allProjectsLabel?: string
 }
 
-const { items = [], baseUrl = '/it/case-studies' } = Astro.props
+const {
+  items = [],
+  baseUrl = '/it/case-studies',
+  title = 'Case Studies',
+  subtitle = 'Progetti realizzati con risultati misurabili e impatto concreto',
+  allProjectsLabel = 'Tutti i progetti'
+} = Astro.props as Props
 
 // Fallback data se non vengono passati case studies
 const fallbackCaseStudies = [
@@ -44,18 +53,14 @@ const displayItems = items.length > 0 ? items : fallbackCaseStudies
     <!-- Header -->
     <div class="flex items-center justify-between mb-12">
       <div>
-        <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl mb-4">
-          Case Studies
-        </h2>
-        <p class="text-xl text-zinc-600 dark:text-zinc-400">
-          Progetti realizzati con risultati misurabili e impatto concreto
-        </p>
+        <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl mb-4">{title}</h2>
+        <p class="text-xl text-zinc-600 dark:text-zinc-400">{subtitle}</p>
       </div>
       <a 
         href={`${baseUrl}/`} 
         class="hidden sm:inline-flex items-center text-brand-600 hover:text-brand-500 font-semibold group"
       >
-        Tutti i progetti
+        {allProjectsLabel}
         <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
@@ -163,7 +168,7 @@ const displayItems = items.length > 0 ? items : fallbackCaseStudies
         href={`${baseUrl}/`} 
         class="inline-flex items-center rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-brand-500 focus:outline-2 focus:outline-offset-2 focus:outline-brand-500 transition-colors"
       >
-        Tutti i progetti
+        {allProjectsLabel}
         <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>

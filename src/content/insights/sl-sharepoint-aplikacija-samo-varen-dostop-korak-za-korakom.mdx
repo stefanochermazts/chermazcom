@@ -1,0 +1,325 @@
+---
+title: 'SharePoint aplikacija samo: varen dostop korak za korakom'
+slug: sl-sharepoint-aplikacija-samo-varen-dostop-korak-za-korakom
+date: 2024-05-07T00:00:00.000Z
+status: publish
+description: >-
+  SharePoint app-only: kaj je, prednosti, konfiguracija in varno upravljanje dovoljenj. Praktični vodnik s koraki,
+  najboljšimi praksami in povezavami do dokumentacije.
+excerpt: 'SharePoint app-only: kaj je, prednosti in konfiguracija. Praktični vodnik z najboljšimi praksami.'
+categories:
+  - sharepoint
+tags:
+  - sharepoint
+  - app-only
+  - sicurezza
+  - permessi
+  - microsoft 365
+image: /posts/accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-sulla-modalita-app-only/card.webp
+ogImage: /posts/accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-sulla-modalita-app-only/og.webp
+lang: sl
+sourceFile: insights/accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-sulla-modalita-app-only.mdx
+sourceSlug: accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-sulla-modalita-app-only
+sourceLang: it
+---
+
+import BreakoutImage from '../../components/BreakoutImage.astro'
+
+<BreakoutImage src="/posts/accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-sulla-modalita-app-only/cover.webp" alt="Schema di accesso app-only su SharePoint Online" />
+
+
+
+
+
+
+
+
+
+
+# Varna dostopnost do SharePoint: način samo za aplikacije
+
+Se iščeš varen način za dostop do SharePoint, potem si na pravem mestu! V tem članku bomo raziskali vse, kar je treba vedeti o načinu samo aplikacije in kako ga lahko uporabiš za zagotavljanje največje zaščite tvojih podatkov na SharePoint. Odkrij z nami vse prednosti in možnosti tega načina ter poskrbi, da boš imel varen dostop do vseh virov, ki jih potrebuješ. Uživaj v branju!
+
+
+
+## Kaj je način samo aplikacije v SharePointu?
+
+Način samo-aplikacije SharePoint je možnost, ki uporabnikom omogoča varen in nadzorovan dostop do virov in podatkov na platformi, brez potrebe po uporabi osebnih poverilnic. Z drugimi besedami, gre za vrsto avtentikacije, ki je alternativa klasičnemu načinu prijave z uporabniškim imenom in geslom.
+
+
+
+Kako točno deluje način samo aplikacije? V bistvu se ustvari "glavna aplikacija" znotraj okolja SharePoint, ki predstavlja entiteto, pooblaščeno za dostop do vsebin zahtevane strani ali knjižnice. Ta aplikacija ima svoj ID in je opremljena s potrebnimi dovoljenji za izvajanje določenih operacij na želenih virih.
+
+
+
+Pomembno je poudariti, da uporaba načina samo-aplikacije zahteva predhodno konfiguracijo s strani skrbnika spletnega mesta SharePoint. Potrebno je namreč ustvariti glavno aplikacijo in zagotoviti ustrezna dovoljenja, preden lahko uporabniki izkoristijo to vrsto dostopa.
+
+
+
+Ko je konfiguracija končana, lahko uporabniki izberejo, ali želijo uporabiti način samo aplikacije pri dostopu do SharePoint. Da to storijo, morajo izbrati gumb "App-Only" namesto da bi vnesli svoje osebne poverilnice.
+
+
+
+Ta možnost je lahko še posebej uporabna v situacijah, kjer je potrebno zagotoviti visok nivo varnosti pri dostopu do občutljivih podatkov, ki so prisotni na SharePoint. Na primer, če zaposleni zapusti podjetje ali spremeni vlogo, lahko skrbnik preprosto prekliče dovoljenja glavne aplikacije, povezane z njegovim računom, ne da bi bilo treba spreminjati dovoljenja za vsak posamezen splet ali knjižnico.
+
+
+
+Način samo aplikacije omogoča zmanjšanje tveganja nepooblaščenih dostopov do SharePoint. Z uporabo ene same aplikacije s specifičnimi privilegiji je mogoče omejiti uporabnike, ki lahko dostopajo do vsebin, in spremljati njihovo dejavnost.
+
+
+
+Za popolno izkoriščanje potenciala načina samo-aplikacije SharePoint je priporočljivo, da se posvetujete z administratorjem spletnega mesta ali opravite specifično usposabljanje. Na ta način boste bolje razumeli, kako pravilno konfigurirati in upravljati to možnost, da zagotovite varen in učinkovit dostop do poslovnih podatkov.
+
+
+
+## Prednosti in slabosti načina samo aplikacije
+
+Način samo-aplikacije je postal vse bolj priljubljen med uporabniki SharePoint, saj ponuja večjo varnost in prilagodljivost pri dostopu do vsebin. Vendar pa, kot pri vsaki tehnologiji, obstajajo prednosti in slabosti, ki jih je treba upoštevati pred njeno sprejetjem. V tem razdelku bomo raziskali prednosti in slabosti načina samo-aplikacije.
+
+
+
+Vantaggi:
+
+1. Večja varnost: način samo aplikacije uporablja avtentikacijo OAuth, da omogoči dostop do aplikacij, ne da bi bilo treba deliti poverilnice končnega uporabnika. To pomeni, da poverilnice uporabnikov ostanejo varne in jih ni mogoče ogroziti.
+
+2. Fleksibilen dostop: način samo aplikacije omogoča skrbnikom SharePointa, da dodelijo dostop do vsebin le določenim aplikacijam ali storitvam namesto končnim uporabnikom. To je lahko še posebej koristno, ko želite omejiti dostop le na določene delovne tokove ali avtomatizirane procese.
+
+3. Enostavnost upravljanja življenjskim ciklom aplikacij: z načinom samo aplikacije lahko aplikacije enostavno zastarajo ali se prekličejo, ne da bi to vplivalo na dostop končnih uporabnikov do SharePoint. To močno poenostavi postopek upravljanja življenjskega cikla aplikacij.
+
+
+
+Svantaggi:
+
+1. Kompleksna konfiguracija: konfiguracija načina samo aplikacije zahteva določeno stopnjo tehničnega znanja in je bolj zapletena v primerjavi z avtentikacijo, ki temelji na poverilnicah končnih uporabnikov. To lahko zahteva nekaj časa in truda, da se pravilno zaključi.
+
+2. Omejitev funkcionalnosti: nekatere funkcionalnosti SharePoint morda ne bodo na voljo v načinu samo aplikacije, kot so na primer zunanji dostop ali sinhronizacija datotek z OneDrive for Business. Pred sprejetjem tega načina je pomembno skrbno oceniti potrebne funkcionalnosti, da zagotovite, da ne bodo ogrožene z uporabo načina samo aplikacije.
+
+3. Ni primerna za vse scenarije: če vaš tim predvsem uporablja SharePoint za sodelovanje in deljenje vsebin med končnimi uporabniki, način samo aplikacije morda ni najboljša izbira. V tem primeru bi bilo morda preprosteje in učinkoviteje uporabiti avtentikacijo, ki temelji na poverilnicah končnih uporabnikov.
+
+
+
+Na splošno način samo-aplikacije zagotovo ponuja nekatere pomembne prednosti glede varnosti in prilagodljivosti pri dostopu do vsebin v SharePoint. Vendar pa je pomembno skrbno oceniti prednosti in slabosti, da ugotovite, ali je to najboljša izbira za potrebe vaše ekipe ali vaše organizacije.
+
+
+
+## Kako konfigurirati dostop v načinu samo aplikacija na SharePoint
+
+Za varen in nadzorovan dostop do vsebin v SharePointu je mogoče konfigurirati dostop v načinu samo aplikacije. Ta funkcionalnost omogoča aplikacijam dostop do podatkov v SharePointu brez potrebe po uporabniških poverilnicah. Na ta način je mogoče omejiti dostop le na pooblaščene aplikacije in zagotoviti večjo varnost za vaše vsebine.
+
+
+
+Konfiguracija dostopa v načinu samo aplikacije zahteva nekaj preprostih dejanj s strani skrbnika spletnega mesta SharePoint. Najprej je potrebno ustvariti aplikacijo v Azure Active Directory (Azure AD), ki predstavlja pooblaščeno entiteto za dostop do podatkov SharePoint. Da to dosežeš, sledi tem korakom:
+
+
+
+1. Prijavite se v svoj administratorski račun na Azure Portal.
+
+2. Pojdite v razdelek &#8220;Registrirane aplikacije&#8221; in kliknite na &#8220;Nova registracija&#8221;.
+
+3. Dodeli ime aplikaciji in izberi tip "API Web/API web singola".
+
+4. V polje “URI preusmeritve” vnesite URL spletne strani ali aplikacije, ki bo uporabljala način samo aplikacije za dostop do SharePoint.
+
+5. Ko to storiš, klikni na &#8220;Registra&#8221;.
+
+
+
+Ko bo registracija aplikacije zaključena, bodo potrebne nekatere dodatne nastavitve, preden boste lahko uporabili način samo aplikacije na SharePoint.
+
+
+
+6. Na zavihku &#8220;Certifikati &amp; skrivnosti&#8221; kliknite na &#8220;Nov skrivni certifikat odjemalca&#8221; in dodelite opis.
+
+7. Kopirajte ustvarjeno vrednost, saj bo to edina priložnost, ko jo boste lahko videli.
+
+8. Na zavihku "Dovoljenja API" izberite potrebna dovoljenja za aplikacijo na SharePoint, na primer branje seznamov ali upravljanje s spletnimi mesti.
+
+9. Shranite nastavitve.
+
+
+
+V tem trenutku je mogoče konfigurirati dostop v načinu samo aplikacije na želenem spletnem mestu SharePoint, tako da sledite tem korakom:
+
+
+
+1. Prijavi se na svoj spletni stran SharePoint kot skrbnik.
+
+2. Pojdite v razdelek &#8220;API&#8221; in kliknite na &#8220;Konfiguracija samo za aplikacije&#8221;.
+
+3. Vnesite ID stranke registrirane aplikacije v Azure AD in prilepite vrednost tajnega certifikata, ki ste ga ustvarili prej.
+
+4. Ko to storiš, klikni na &#8220;Genera nuovo token&#8221; za potrditev nastavitev.
+
+
+
+L'accesso v načinu samo aplikacije je zdaj konfiguriran na tvojem spletnem mestu SharePoint in le pooblaščene aplikacije bodo lahko dostopale do vsebin. Uporabiš lahko žeton, ki je bil ustvarjen za avtentikacijo aplikacije in dostop do podatkov SharePoint prek API.
+
+
+
+Za več informacij o konfiguraciji dostopa v načinu samo aplikacije na SharePointu, si oglejte uradno dokumentacijo Microsoft:
+
+- [Dostop samo za aplikacije prek SharePoint Online](https://learn.microsoft.com/sharepoint/dev/solution-guidance/security-apponlypolicy-appregistration)
+
+
+
+## Koraki za dodelitev dostopa do spletnega mesta SharePoint prek samo aplikacije
+
+Per dodelitev dostopa do spletnega mesta SharePoint prek načina samo aplikacije je pomembno slediti nekaterim osnovnim korakom. Ta način omogoča dostop do spletnega mesta brez uporabe osebnih poverilnic, kar zagotavlja večjo varnost in nadzor nad dostopom do podatkov.
+
+
+
+1. Ustvarjanje aplikacije v Azure Active Directory: prvi korak je ustvarjanje aplikacije v Azure AD, ki bo uporabljena za generiranje dostopnih žetonov za spletno mesto SharePoint. Za to je potrebno imeti račun z administratorskimi pravicami v Azure AD.
+
+
+
+2. Konfiguriranje dovoljenj aplikacije: ko je aplikacija ustvarjena, je pomembno pravilno konfigurirati njena dovoljenja, da omogočite dostop do SharePoint Online. Priporočljivo je omejiti dovoljenja le na potrebne vire, da se izognete morebitnim ranljivostim.
+
+
+
+3. Shranite ID aplikacije in skrivni ključ: po nastavitvi dovoljenj lahko prikažete in shranite ID aplikacije ter skrivni ključ, ki ju samodejno generira Azure AD. Te informacije bodo potrebne kasneje za avtentikacijo na spletnem mestu SharePoint.
+
+
+
+4. Dodelitev dovoljenj aplikaciji na spletnem mestu SharePoint: preden lahko aplikacija dostopa do spletnega mesta SharePoint, ji je potrebno dodeliti ustrezna dovoljenja. To lahko storite v razdelku “Glavna dovoljenja” v nastavitvah spletnega mesta.
+
+
+
+5. Generiranje dostopnih žetonov za aplikacijo: zdaj lahko nadaljujete z generiranjem dostopnih žetonov za aplikacijo, z uporabo ID-ja in skrivnega ključa, shranjenih prej. Ti žetoni bodo uporabljeni za dostop do spletnega mesta SharePoint brez potrebe po osebnih poverilnicah.
+
+
+
+6. Uporabite žetone za dostop do spletnega mesta: ko so žetoni ustvarjeni, lahko nadaljujete z dostopom do spletnega mesta SharePoint prek aplikacije samo. To lahko storite prek aplikacije ali skripta, ki uporablja žetone kot metodo avtentikacije.
+
+
+
+Sledite tem korakom, da boste lahko varno in nadzorovano dodelili dostop do spletnega mesta SharePoint prek načina samo aplikacije. Vedno se spomnite, da redno posodabljate dovoljenja aplikacije in prekličete morebitna dovoljenja, ki niso več potrebna, da zagotovite največjo varnost vaših občutljivih podatkov.
+
+
+
+## Kako upravljati in preklicati dostop v načinu samo aplikacije
+
+Ko enkrat omogočite način samo aplikacije za svoj spletni prostor SharePoint, je pomembno, da ste seznanjeni s tem, kako upravljati in preklicati dostop v tem načinu. Način samo aplikacije je koristna možnost za zagotavljanje varnega dostopa do aplikacij, ne da bi bilo treba deliti poverilnice končnega uporabnika. Vendar pa je pomembno zagotoviti, da imajo pooblaščeni uporabniki vedno dostop do njihove vsebine, medtem ko so nepooblaščeni uporabniki izključeni.
+
+
+
+Prva stvar, ki jo je treba upoštevati, je, da ima le skrbnik spletnega mesta popoln nadzor nad uporabo načina samo aplikacije. Skrbnik lahko pregleda in upravlja dovoljenja uporabnikov za aplikacije, vključno z možnostjo dodeljevanja ali odvzema dostopa v načinu samo aplikacije.
+
+
+
+Za upravljanje dostopa v načinu samo aplikacije, sledite tem korakom:
+
+
+
+1. Prijavi se na svoj spletni prostor SharePoint kot skrbnik.
+
+2. Pojdi na “Nastavitve spletnega mesta” in izberi “Dovoljenja uporabnikov”.
+
+3. Izberite "Avtorizacije aplikacij" v levem stranskem meniju.
+
+4. Tukaj lahko vidite seznam vseh aplikacij, ki so zahtevale ali so bile dodeljene načinu samo aplikacije.
+
+5. Da omogočite dostop v načinu samo aplikacija novi aplikaciji, kliknite na “Nov element” in posredujte zahtevane podrobnosti.
+
+6. Za preklic dostopa do obstoječe aplikacije jo izberi s seznama in klikni na “Izbriši”.
+
+
+
+Pomembno je opozoriti, da preklic dostopa v načinu samo aplikacije ne bo odstranil aplikacije s spletnega mesta SharePoint, temveč bo preprosto odstranil dovoljenja za dostop. Če želiš popolnoma odstraniti aplikacijo, boš to moral storiti ročno.
+
+
+
+Lahko tudi upravljate dostop v načinu samo-aplikacije za specifične uporabnike. Da to storite, sledite tem korakom:
+
+
+
+1. Na strani dovoljenj aplikacij izberi "Dovoljenja uporabnikov" v levem stranskem meniju.
+
+2. Lahko si ogledate in spremenite dovoljenja uporabnikov za vsako aplikacijo.
+
+3. Da bi dodelili ali odvzeli dostop v načinu samo aplikacije določenemu uporabniku, kliknite na “Uredi” poleg njihovega imena in izberite ali odznačite potrditveno polje “Dostop v načinu samo aplikacije”.
+
+
+
+Poleg tega lahko omejiš dostop v načinu samo aplikacije do določenih mest ali knjižnic v SharePoint. Da to storiš, sledi tem korakom:
+
+
+
+1. Prijavite se na spletno mesto SharePoint kot skrbnik.
+
+2. Pojdi na &#8220;Nastavitve spletnega mesta&#8221; in izberi &#8220;Dovoljenja uporabnikov&#8221;.
+
+3. Izberite “Dovoljenja za spletno mesto” ali “Dovoljenja knjižnice”, odvisno od tega, kje želite omejiti dostop.
+
+4. Kliknite na &#8220;Nov element&#8221; in navedite zahtevane podrobnosti.
+
+5. V razdelku &#8220;Dovoljenja&#8221; izberite &#8220;Poln nadzor&#8221; za dodelitev dostopa v načinu samo aplikacije samo uporabnikom s popolnimi dovoljenji.
+
+
+
+Infine, pomembno je omeniti, da če ima aplikacija dostop v načinu samo aplikacije do vašega spletnega mesta SharePoint, to ne vpliva na dovoljenja uporabnikov za vsebino znotraj samih aplikacij. Uporabniki bodo še naprej imeli dostop le do podatkov in vsebine
+
+
+
+## Primeri uporabe za način samo-aplikacije v SharePoint
+
+Način samo aplikacije je funkcionalnost SharePoint, ki omogoča zunanjim aplikacijam, da varno dostopajo do vsebin in virov spletnega mesta, ne da bi zahtevale poverilnice uporabnikov. Ta način je še posebej koristen za integrirane ali aplikacije, razvite s strani tretjih oseb, saj ponuja nadzorovan in omejen dostop le do potrebnih informacij.
+
+
+
+Za boljše razumevanje, kako deluje način samo aplikacije, si oglejmo nekaj praktičnih primerov primerov uporabe:
+
+
+
+1. Integracija s sistemom CRM: predstavljajmo si, da imamo sistem CRM, ki mora komunicirati z dokumenti, ki so na SharePointu. Z uporabo načina samo aplikacije lahko ustvarimo prilagojeno aplikacijo, ki se poveže z našim CRM in dostopa do specifičnih elementov na SharePointu, ne da bi bilo treba vsakič zahtevati overitev uporabnika.
+
+
+
+2. Avtomatizacija poslovnih procesov: pogosto podjetja potrebujejo avtomatizacijo določenih procesov, ki temeljijo na podatkih, ki so na voljo na SharePoint. Način samo aplikacije omogoča zunanjim aplikacijam dostop do podatkov in izvajanje specifičnih dejanj na varen način, brez potrebe po prijavi končnega uporabnika.
+
+
+
+3. Analiza podatkov: mnogokrat moramo analizirati podatke, ki so prisotni na SharePoint, da pridobimo koristne informacije za naše poslovanje. Z načinom samo aplikacije lahko razvijamo aplikacije ali orodja, ki se povezujejo s SharePoint in pridobivajo potrebne podatke za obdelavo poročil ali statistik.
+
+
+
+4. Sinhronizacija z drugimi storitvami v oblaku: če uporabljamo druge storitve v oblaku, kot sta Google Drive ali Dropbox, nam način samo aplikacije omogoča varno sinhronizacijo dokumentov, ki so na SharePointu, s temi storitvami. Na ta način imamo vse naše datoteke posodobljene in dostopne z katere koli platforme.
+
+
+
+5. Upravljanje vsebin: način samo-aplikacije se lahko uporablja tudi za avtomatsko upravljanje in organizacijo vsebin na SharePoint. Na primer, lahko razvijemo aplikacijo, ki spremlja in premika zastarele ali podvojene datoteke v posebno mapo, da ohrani spletno mesto bolj urejeno in organizirano.
+
+
+
+V povzetku, način samo aplikacije ponuja številne možnosti za izboljšanje učinkovitosti in varnosti dostopa do SharePointa preko zunanjih aplikacij. Pomembno je, da to funkcionalnost izkoristimo na pameten in odgovoren način, da zagotovimo boljše upravljanje s poslovnimi podatki.
+
+
+
+## Zaključki
+
+Zaključki
+
+
+
+Podrobno smo preučili način dostopa samo z aplikacijo za varno dostopanje do SharePoint. Videli smo, kako je ta metoda overjanja močna in zanesljiva rešitev za zaščito občutljivih podatkov znotraj platforme SharePoint.
+
+
+
+Najprej smo razpravljali o prednostih uporabe načina samo aplikacije v primerjavi z drugimi metodami avtentikacije. Ta način omogoča neposreden dostop do podatkov, ne da bi bilo treba prehajati skozi človeškega uporabnika, s čimer se zmanjša tveganje za kompromitacijo podatkov zaradi človeških napak ali kibernetskih napadov, usmerjenih na uporabniške račune.
+
+
+
+Raziskali smo različne scenarije, v katerih se način samo aplikacije lahko uspešno uporablja, na primer integracije med SharePoint in drugimi aplikacijami ali zunanjimi storitvami. V teh primerih uporaba načina samo aplikacije zagotavlja varen in nadzorovan dostop do podatkov s strani zunanjih aplikacij.
+
+
+
+Pogovarjali smo se tudi o postopku nastavitve načina samo-aplikacije na SharePoint Online in o tehničnih zahtevah, potrebnih za pravilno implementacijo. Pomembno je natančno slediti navodilom, ki jih zagotavlja Microsoft, in se prepričati, da so vsi predpogoji izpolnjeni, preden omogočite to funkcionalnost.
+
+
+
+Infine, smo izpostavili nekatere najboljše prakse, ki jih je treba upoštevati pri uporabi načina samo aplikacije. Na primer, ključno je spremljati dovoljenja, podeljena zunanjim aplikacijam, in jih preklicati, če niso več potrebna, da zagotovimo varnost podatkov.
+
+
+
+V končni fazi je način samo-aplikacije učinkovita rešitev za zagotavljanje varnega dostopa do občutljivih podatkov na SharePoint. S pravilno konfiguracijo in sprejetjem priporočljivih najboljših praks lahko ta metoda avtentikacije pomaga organizacijam zaščititi svoje podatke in ohraniti visok nivo varnosti pri upravljanju vsebin v SharePoint.
+
+Želiš varno in skladno implementirati aplikacije samo za aplikacije? Odkrij moje [storitve](/services/) ali me kontaktiraj preko [kontaktov](/contatti/). Pravi primeri so na voljo v razdelku [študije primerov](/case-studies/).

@@ -1,0 +1,378 @@
+---
+title: Configura razvoj lokalnega SPFx za SharePoint
+slug: sl-configura-razvoj-lokalnega-spfx-za-sharepoint
+date: 2024-07-01T00:00:00.000Z
+status: publish
+description: >-
+  Praktični vodnik za konfiguracijo lokalnega razvoja SPFx na SharePoint: zahteve, nastavitev Node.js, Gulp in Yeoman,
+  ustvarjanje projekta in distribucija.
+excerpt: 'Konfigurirajte lokalni razvoj SPFx na SharePointu: zahteve, nastavitev in ustvarjanje projekta.'
+categories:
+  - sharepoint
+tags:
+  - spfx
+  - sharepoint
+  - sviluppo locale
+  - node.js
+  - gulp
+image: /posts/configura-il-tuo-computer-per-lo-sviluppo-locale-di-componenti-spfx-di-sharepoint/card.webp
+ogImage: /posts/configura-il-tuo-computer-per-lo-sviluppo-locale-di-componenti-spfx-di-sharepoint/og.webp
+lang: sl
+sourceFile: insights/configura-il-tuo-computer-per-lo-sviluppo-locale-di-componenti-spfx-di-sharepoint.mdx
+sourceSlug: configura-il-tuo-computer-per-lo-sviluppo-locale-di-componenti-spfx-di-sharepoint
+sourceLang: it
+---
+
+import FAQSection from '../../components/Accordion/FAQSection.astro'
+import BreakoutImage from '../../components/BreakoutImage.astro'
+
+<BreakoutImage src="/posts/configura-il-tuo-computer-per-lo-sviluppo-locale-di-componenti-spfx-di-sharepoint/cover.webp" alt="Ambiente di sviluppo locale SPFx su Visual Studio Code" />
+
+
+
+
+
+
+
+
+
+
+## Kaj je lokalni razvoj komponent SPFx za SharePoint
+
+Lo **Razvoj lokalnih komponent SPFx za SharePoint** je bistvena praksa za razvijalce, ki želijo ustvariti in testirati prilagojene komponente za SharePoint v nadzorovanem in zasebnem okolju. Z uporabo **SharePoint Framework (SPFx)** lahko razvijalci gradijo sodobne spletne dele in razširitve, ki se popolnoma integrirajo z ekosistemom SharePoint.
+
+
+
+### Prednosti uporabe lokalnega razvoja komponent SPFx za SharePoint
+
+
+
+**Hitrost pri razvoju in testiranju:** Delo lokalno omogoča razvijalcem, da hitro testirajo spremembe, ne da bi morali nenehno distribuirati komponente v živo okolje.  
+**Izolirano razvojno okolje:** Lokalna nastavitev zmanjšuje tveganja, povezana s spremenjenimi, nepreverjenimi elementi v produkcijskih okoljih, kar zagotavlja, da se sprosti le preverjena koda.  
+**Napredna orodja in funkcionalnosti:** Razvijalci imajo dostop do orodij, kot so Visual Studio Code, Node.js in Gulp, da izboljšajo učinkovitost procesa razvoja.
+
+Za dodatne informacije o najboljših praksah za upravljanje notranje komunikacije s SharePointom lahko preberete ta članek, ki ga je napisal Stefano Chermaz. Če vas zanima varnost pri dostopu do SharePointa, bi vas morda zanimala ta vodnik, ki ga je prav tako napisal Stefano Chermaz in raziskuje način dostopa samo prek aplikacije za varnejši dostop do SharePointa.
+
+
+
+## Konfiguracija tvojega računalnika za lokalni razvoj SPFx komponent SharePoint
+
+### Sistemski zahtevki za lokalni razvoj SPFx komponent SharePoint
+
+Za začetek lokalnega razvoja komponent SPFx je bistveno zagotoviti, da vaš računalnik izpolnjuje naslednje zahteve:
+
+
+
+
+
+**Operacijski sistem:** Windows 10, macOS Sierra (10.12.6) ali novejši.  
+**Node.js:** LTS različica (Long Term Support). Ob času pisanja je priporočena različica 14.x.  
+**Gulp:** Orodje za avtomatizacijo za izvajanje skupnih nalog, kot sta minifikacija in optimizacija datotek.  
+**Visual Studio Code:** Brezplačni in zmogljiv urejevalnik izvorne kode, idealen za pisanje in odpravljanje napak v kodi.
+
+### Namestitev Node.js
+
+Node.js je osnovna zahteva, saj SPFx temelji na tem JavaScript runtime-u. Za namestitev Node.js:
+
+
+
+
+
+Obiščite uradno spletno stran Node.js.  
+Prenesite najnovejšo različico LTS za vaš operacijski sistem.  
+Sledite navodilom namestitvenega programa, da dokončate namestitev.
+
+Preveri namestitev tako, da odpreš terminal in vtipkaš:
+
+
+
+```sh
+node -v
+```
+
+
+
+Dovresti videti nameščeno različico, kar potrjuje, da je Node.js pravilno nameščen.
+
+
+
+### Priprava razvojnega okolja
+
+Con Node.js nameščenim, preidimo k pripravi okolja:
+
+
+
+
+
+**Namesti Gulp:**
+Gulp je bistveno orodje za avtomatizacijo nalog v razvojnem delovnem toku. Namesti Gulp globalno z uporabo npm (Node Package Manager), ki je vključen z Node.js:
+
+```sh
+npm install -g gulp-cli
+```
+
+**Konfiguriraj Visual Studio Code:**
+Prenesi in namesti Visual Studio Code. Ta urejevalnik ponuja številne koristne vtičnike za izboljšanje tvoje izkušnje pri razvoju s SPFx.  
+**Namesti Yeoman in generator SPFx:**
+Yeoman je generator scaffolding, ki ti pomaga hitro ustvariti projekte. Namesti Yeoman in generator SharePoint Framework z uporabo npm:
+
+```sh
+npm install -g yo @microsoft/generator-sharepoint
+```
+
+
+
+Ti koraki te bodo usmerili na pravo pot za učinkovito ustvarjanje komponent SPFx v tvojem lokalnem okolju.
+
+
+
+Če te zanima tudi varnost med razvojem na SharePoint, ti priporočam, da si ogledaš to vodilo o varnosti SharePoint, ki ti lahko ponudi dragocene informacije.
+
+
+
+## Ustvarjanje projekta SPFx v Visual Studio Code
+
+### Ustvarjanje novega projekta SharePoint Framework (SPFx) v Visual Studio Code
+
+**Projekti SPFx** in **Visual Studio Code** sta ključna orodja za razvoj prilagojenih komponent v SharePoint. Sledi tem korakom, da ustvariš nov projekt SPFx:
+
+
+
+
+
+**Namestitev Yeoman in SPFx Generator**:
+
+```bash
+npm install -g yo @microsoft/generator-sharepoint
+```
+
+Ta ukaz namesti Yeoman in SPFx generator globalno na tvojem sistemu.  
+**Ustvarjanje mape projekta**:
+
+```bash
+mkdir nome-del-progetto
+cd nome-del-progetto
+```
+
+Ustvari novo mapo za svoj projekt in se vanjo premakni.  
+**Generiranje projekta SPFx**:
+
+```bash
+yo @microsoft/sharepoint
+```
+
+Izvedi generator SPFx znotraj direktorija projekta. Odgovori na vprašanja, ki ti bodo postavljena, kot so ime projekta, opis in ali želiš uporabljati TypeScript ali JavaScript.  
+**Odprtje projekta v Visual Studio Code**:
+
+```bash
+code .
+```
+
+Uporabi ta ukaz za odpiranje trenutne mape v Visual Studio Code, kjer lahko začneš urejati in prilagajati generirane datoteke tvojega projekta SPFx.
+
+Sledite tem korakom in uspešno boste ustvarili nov projekt SPFx, pripravljen za nadaljnji razvoj v skladu s specifičnimi potrebami vašega okolja SharePoint.
+
+
+
+## Modifikacija in Prilagoditev SPFx Komponent SharePoint
+
+### Raziskovanje strukture projekta SPFx
+
+Un progetto SharePoint Framework (SPFx) je organiziran na strukturiran način, da olajša tako razvoj kot vzdrževanje. Tipična struktura vključuje:
+
+
+
+
+
+**src**: Vsebuje izvorno kodo komponente, vključno s datotekami Typescript, CSS ali SCSS.  
+**config**: Konfiguracije projekta, kot so nastavitve za gradnjo in distribuiranje.  
+**node_modules**: Knjižnice in odvisnosti, nameščene preko npm.  
+**sharepoint**: Datoteke specifične za SharePoint, vključno s paketi za distribucijo.
+
+### Sprememba obstoječih komponent SPFx
+
+Za spremembo obstoječega komponenta SPFx sledite tem korakom:
+
+
+
+
+
+**Odprtje projekta v Visual Studio Code**
+
+
+
+Odpri Visual Studio Code in naloži projekt SPFx.
+
+
+
+**Navigacija po Izvorni Kode**
+
+
+
+Pojdi v mapo src in poi do datoteke TypeScript, ki ustreza tvoji komponenti. Na primer, če delaš na Web Partu z imenom &#8220;HelloWorld&#8221;, poišči HelloWorldWebPart.ts.
+
+
+
+**Modifikacija Komponente**
+
+
+
+Lahko prilagodite obnašanje vaše Web Part tako, da spremenite datoteko TypeScript. Na primer, za spremembo prikazanega besedila, poiščite funkcijo render() in posodobite HTML vsebino.
+
+
+
+**Styling Personalizzato**
+
+
+
+Za dodajanje ali spremembo stilov CSS pojdite v mapo src -> webparts -> imeKomponente -> imeKomponente.module.scss. Tukaj lahko definirate nove stile ali posodobite obstoječe.
+
+
+
+**Testiranje sprememb lokalno**
+
+
+
+Uporabi ukaz gulp serve v terminalu Visual Studio Code, da lokalno preizkusiš svoje spremembe v okolju, podobnem SharePoint.
+
+Ti osnovni koraki omogočajo raziskovanje in prilagajanje komponent SPFx glede na specifične potrebe vašega projekta, kar zagotavlja visok nivo fleksibilnosti pri razvoju rešitev SharePoint.
+
+
+
+## Reševanje Pogostih Napak pri Lokalnem Razvoju SPFx Komponent SharePoint
+
+Med lokalnim razvojem komponent SPFx za SharePoint je običajno naleteti na nekatere napake, ki lahko ovirajo napredek. Nekatere glavne napake vključujejo:
+
+
+
+
+
+**Napake pri prevajanju**: pogosto posledica težav z odvisnostmi ali napačnimi konfiguracijami projekta.  
+**Težave pri upodabljanju**: lahko se pojavijo, ko se komponente ne prikažejo pravilno na strani SharePoint.  
+**Napake pri avtentikaciji**: težave pri avtentikaciji s storitvijo SharePoint med razvojem in testiranjem.  
+**Konflikti različic**: nezdružljive različice npm paketov ali knjižnic, uporabljenih v projektu.
+
+### Strategije za Reševanje Težav
+
+Za reševanje teh pogostih napak je koristno sprejeti različne strategije:
+
+
+
+
+
+**Preverjanje odvisnosti**:
+
+
+
+Utilizirajte [npm outdated](https://docs.npmjs.com/cli/v7/commands/npm-outdated) za preverjanje različic odvisnosti.  
+Posodobite pakete z npm update ali namestite specifične združljive različice.
+
+
+
+**Debug dell&#8217;Errore di Compilazione**:
+
+
+
+Preverite dnevnike konzole za podrobna sporočila o napaki.  
+Uporabite orodja, kot je ESLint, za identifikacijo težav v kodi.
+
+
+
+**Reševanje težav z upodabljanjem**:
+
+
+
+Poskrbite, da so vsi potrebni datoteki pravilno vključeni in referencirani. 
+Testirajte komponento v različnih brskalnikih, da ugotovite morebitne specifične nezdružljivosti.
+
+
+
+**Upravljanje z napakami pri avtentikaciji**:
+
+
+
+Preverite poverilnice in dovoljenja, potrebna za dostop do storitve SharePoint. Uporabite orodja, kot je gulp serve --nobrowser, za obhod nekaterih omejitev med lokalnim razvojem.
+
+
+
+**Reševanje konfliktov različic**:
+
+
+
+Uporabite ukaz npm ls za prikaz hierarhije odvisnosti in ugotavljanje morebitnih konfliktov. Upoštevajte uporabo datotek package-lock.json za ohranjanje doslednosti različic med različnimi okolji.
+
+Z uvajanjem teh praks je mogoče minimizirati ovire in ohraniti učinkovit delovni tok med lokalnim razvojem komponent SPFx.
+
+
+
+## Distribucija in Distribucija komponent SPFx v SharePointu
+
+### Priprava paketa SPFx za distribucijo
+
+Preden razdeliš svoj **Pacchetto SPFx**, je bistveno zagotoviti, da je bil projekt pravilno sestavljen. Uporabi ukaz gulp bundle --ship za ustvarjanje paketa, optimiziranega za proizvodnjo. Nato izvedeš gulp package-solution --ship za generiranje datoteke .sppkg, ki bo uporabljena za distribucijo.
+
+
+
+```bash
+gulp bundle --ship
+gulp package-solution --ship
+
+
+Il file .sppkg risultante sarà disponibile nella cartella sharepoint/solution del tuo progetto SPFx.
+
+
+### Pubblicazione del pacchetto nell&#8217;App Catalog di SharePoint
+
+Una volta preparato il pacchetto, è possibile pubblicarlo nell&#8217;**App Catalog** di SharePoint. Ecco i passaggi da seguire:
+
+
+
+Accedi al sito dell&#8217;**App Catalog** della tua organizzazione.
+Naviga alla sezione **&#8220;****Apps for SharePoint****&#8220;**.
+Carica il file .sppkg generato precedentemente.
+Durante l&#8217;upload, potrebbe essere richiesto di confermare le autorizzazioni necessarie per il componente; assicurati di accettare tutte le richieste pertinenti.
+
+
+
+
+Dopo aver caricato e approvato il pacchetto nell&#8217;App Catalog, diventerà disponibile per l&#8217;utilizzo nei siti SharePoint della tua organizzazione.
+
+
+## Conclusione
+
+Lo *sviluppo locale di componenti SPFx di SharePoint* offre molti vantaggi, come la possibilità di testare e modificare i componenti in un ambiente controllato prima della distribuzione. In questo articolo abbiamo visto come configurare il computer per lo sviluppo locale, creare e personalizzare progetti SPFx in Visual Studio Code, risolvere errori comuni e infine distribuire i componenti nell&#8217;App Catalog di SharePoint. Queste competenze sono essenziali per ogni sviluppatore che vuole ottimizzare e personalizzare l&#8217;esperienza utente nei siti SharePoint.
+
+Vuoi accelerare lo sviluppo SPFx in azienda con standard e sicurezza? Scopri i miei [servizi](/services/) o leggi i [case studies](/case-studies/). Per una consulenza rapida, visita [contatti](/contatti/).
+
+
+## Domande frequenti
+<FAQSection>
+### Cos&#8217;è lo Sviluppo Locale di Componenti SPFx di SharePoint?
+
+Lo Sviluppo Locale di Componenti SPFx di SharePoint si riferisce al processo di sviluppo e personalizzazione di componenti SharePoint Framework (SPFx) all&#8217;interno di un ambiente locale, prima della distribuzione ufficiale.
+
+
+### Quali sono i vantaggi dell&#8217;utilizzo dello Sviluppo Locale di Componenti SPFx di SharePoint?
+
+Gli vantaggi includono la possibilità di testare e modificare i componenti in un ambiente controllato prima della distribuzione, riducendo il rischio di errori e migliorando l&#8217;efficienza complessiva dello sviluppo.
+
+
+### Quali sono i requisiti di sistema per lo Sviluppo Locale di Componenti SPFx di SharePoint?
+
+I requisiti includono l&#8217;installazione di Node.js e la configurazione dell&#8217;ambiente di sviluppo, che può essere eseguita tramite strumenti come Gulp e Visual Studio Code.
+
+
+### Come posso creare un nuovo progetto SharePoint Framework (SPFx) in Visual Studio Code?
+
+La creazione avviene attraverso Visual Studio Code, utilizzando gli strumenti forniti per iniziare un nuovo progetto SPFx e personalizzare i componenti secondo le proprie esigenze.
+
+
+### Qual è il processo per la pubblicazione del pacchetto SPFx nell&#8217;App Catalog di SharePoint?
+
+Il pacchetto SPFx deve essere preparato per la distribuzione e quindi pubblicato nell&#8217;App Catalog di SharePoint, dove sarà disponibile per l&#8217;installazione da parte degli utenti finali.
+
+
+### Qual è l&#8217;importanza dello Sviluppo Locale di Componenti SPFx di SharePoint?
+
+Lo Sviluppo Locale offre agli sviluppatori la possibilità di esplorare e modificare i componenti SPFx in un ambiente controllato, acquisendo competenze cruciali prima della distribuzione ufficiale.
+</FAQSection>

@@ -1,0 +1,268 @@
+---
+title: 'Approvazioni z Power Automate: kako avtomatizirati procese'
+slug: sl-approvazioni-z-power-automate-kako-avtomatizirati-procese
+date: 2024-05-28T00:00:00.000Z
+status: publish
+description: >-
+  Approvazioni z Power Automate: prednosti, nastavitev, praktični primeri in najboljše prakse. Operativni vodnik z
+  integracijo Outlook in Teams.
+excerpt: 'Approvazioni z Power Automate: prednosti, konfiguracija, primeri in najboljše prakse.'
+categories:
+  - sharepoint
+tags:
+  - power automate
+  - approvazioni
+  - microsoft 365
+  - automatizzazione processi
+  - teams
+image: /posts/approvazioni-power-automate-tutto-ci-che-devi-sapere-per-automatizzare-i-processi/card.webp
+ogImage: /posts/approvazioni-power-automate-tutto-ci-che-devi-sapere-per-automatizzare-i-processi/og.webp
+lang: sl
+sourceFile: insights/approvazioni-power-automate-tutto-ci-che-devi-sapere-per-automatizzare-i-processi.mdx
+sourceSlug: approvazioni-power-automate-tutto-ci-che-devi-sapere-per-automatizzare-i-processi
+sourceLang: it
+---
+
+import FAQSection from '../../components/Accordion/FAQSection.astro'
+import BreakoutImage from '../../components/BreakoutImage.astro'
+
+<BreakoutImage src="/posts/approvazioni-power-automate-tutto-ci-che-devi-sapere-per-automatizzare-i-processi/cover.webp" alt="Flusso di approvazione in Power Automate" />
+
+
+
+
+
+
+
+
+
+
+## Uvod v odobritve Power Automate
+
+**Power Automate**, prej znan kot Microsoft Flow, je platforma za avtomatizacijo, ki jo je razvila Microsoft in omogoča avtomatizacijo delovnih tokov med različnimi aplikacijami in storitvami. To orodje omogoča sinhronizacijo datotek, zbiranje podatkov in avtomatizacijo kompleksnih poslovnih procesov brez potrebe po pisanju kode.
+
+
+
+Le **odobritve** igrajo ključno vlogo pri optimizaciji poslovnih procesov. Avtomatizacija teh procesov s Power Automate znatno skrajša čas odobritve in minimizira ročne napake. Avtomatske odobritve zagotavljajo, da se zahtevki obravnavajo hitro in natančno, kar izboljšuje skupno produktivnost organizacije.
+
+
+
+Le **Approvazioni Power Automate** so revolucionirale način, kako danes upravljamo odobritve. S popolno integracijo z orodji, kot sta Outlook in Teams, Power Automate uporabnikom omogoča pošiljanje in prejemanje zahtevkov za odobritev preko e-pošte ali mobilnih obvestil. To ne le poenostavi proces odločanja, temveč tudi nudi popolno sledljivost zahtevkov in prejetih povratnih informacij, kar povečuje preglednost in zanesljivost v procesu odločanja v podjetju.
+
+
+
+## Prednosti odobritev Power Automate pri avtomatizaciji odločanja procesov
+
+Power Automate ponuja številne prednosti za avtomatizacijo poslovnih odobritev, ki pomagajo izboljšati učinkovitost in zmanjšati napake. Tukaj je nekaj glavnih koristi:
+
+
+
+### Zmanjšanje Časa Odobritve in Povečanje Produktivnosti
+
+
+
+**Hitrost**: Z avtomatizacijo delovnih tokov s Power Automate je mogoče bistveno pospešiti postopek odobritve. Zahteve se takoj pošljejo odobriteljem preko obvestil po elektronski pošti ali mobilnih naprav.
+**Produktivnost**: Ta sistem odpravlja dolga čakanja in zaposlenim omogoča, da se osredotočijo na druge produktivne dejavnosti. Ni več potrebno ročno spremljati napredka zahtev, kar izboljšuje upravljanje s časom v podjetju.
+
+### Odprava Ročnih Napak z Avtomatizacijo Odobritev
+
+
+
+**Natančnost**: Avtomatizirani delovni tokovi drastično zmanjšujejo človeške napake, ki se lahko pojavijo med ročnim postopkom odobritve. Pravila, določena v sistemu, zagotavljajo, da se vsaka zahteva pravilno obdeluje.  
+**Zanesljivost**: S Power Automate odobritve sledijo vnaprej določenemu in dokumentiranemu postopku, kar zagotavlja, da so vse zahteve obravnavane enotno in v skladu s poslovnimi politikami.
+
+Ti koristi ponujajo večjo preglednost in sledljivost pri poslovnih odločitvah ter izboljšujejo splošno operativno učinkovitost.
+
+
+
+## Kako enostavno ustvariti in upravljati odobritve s Power Automate
+
+### Korak 1: Dostop in navigacija po vmesniku Power Automate
+
+Accedere a **Power Automate** je preprosto. Preprosto pojdite na uradno spletno stran Microsoft Power Automate in se prijavite s poslovnimi poverilnicami. Ko se prijavite, se pred vami prikaže intuitiven in uporabniku prijazen vmesnik.
+
+
+
+
+
+**Nadzorna plošča**: Tukaj lahko hitro pregledate aktivne delovne tokove, nedavne dejavnosti in druge pomembne metrike.  
+**Navigacija**: Uporabite stranski meni za dostop do različnih razdelkov, kot so &#8220;Moji tokovi&#8221;, &#8220;Timski tokovi&#8221; in &#8220;Ustvari&#8221;.
+
+### Korak 2: Ustvarjanje delovnega toka za odobritve
+
+Ustvarjanje novega delovnega toka je prvi korak k avtomatizaciji odobritev.
+
+
+
+
+
+**Kliknite na &#8216;Ustvari&#8217;**: Poiščite gumb &#8220;Ustvari&#8221; na vrhu nadzorne plošče.  
+**Izbira Predloge**: Izberite med prednastavljenimi predlogami ali ustvarite prilagojen tok.  
+**Nastavitev Trigerja**: Na primer, lahko izberete triger &#8220;Ko je element ustvarjen&#8221; za zagon toka, ko je dodan nov element v SharePoint.
+
+### Korak 3: Konfiguracija odobritvenih dejanj in naprednih nastavitev
+
+Ko je sprožilec nastavljen, je potrebno konfigurirati odobritvene akcije.
+
+
+
+
+
+**Dejanje odobritve**: Dodajte dejanje „Pošlji zahtevo za odobritev“.
+*Podrobnosti zahteve*: Določite ime odobritelja, vrsto odobritve (npr. enkratna ali večkratna odobritev) in podrobnosti zahteve.
+*Sporočilo*: Prilagodite sporočilo, ki bo poslano odobritelju preko e-pošte ali mobilne obvestitve.
+**Pogoji**: Dodajte napredne pogoje, če je potrebno. Na primer, pošljite zahtevo le, če znesek presega določeno mejo.
+
+### Korak 4: Testiranje, Objavljanje in Spremljanje Delovnega Toka
+
+Preden postavite delovni tok v produkcijo, je pomembno, da ga preizkusite.
+
+
+
+
+
+**Testiranje toka**: Uporabite resnične ali simulirane podatke za preverjanje, da vse deluje pravilno.  
+**Objava**: Ko je uspešno testirano, objavite tok, da ga naredite operativnega.  
+**Spremljanje**:
+
+
+
+*Dashboard*: Spremlja stanje zahtevkov za odobritev neposredno iz nadzorne plošče.  
+*Notifiche Email/Mobile*: Poskrbi, da odobritelji pravočasno prejemajo obvestila preko Outlooka ali Teams.
+
+Power Automate ponuja celovito rešitev za upravljanje odobritev, ki vključuje orodja, kot sta Outlook in Teams, za poenostavitev odločanja.
+
+
+
+## Praktični Primeri Avtomatizacije Odobritev z Power Automate
+
+### Odobrite poročila zaposlenih prek e-pošte z Power Automate
+
+Avtomatizacija odobritve poročil zaposlenih lahko močno poenostavi postopek. Z uporabo **Power Automate** lahko ustvarite delovni tok, ki samodejno pošlje zahtevo za odobritev po elektronski pošti vsakič, ko zaposleni naloži poročilo na SharePoint.
+
+
+
+
+
+**Trigger**: Ko je nov report naložen v knjižnico SharePoint.  
+**Azione**: Pošlji zahtevo za odobritev po elektronski pošti vodji ekipe.  
+**Condizione**: Če je report odobren, pošlji obvestilo zaposlenemu in arhiviraj dokument v določeno mapo; če je zavrnjen, pošlji povratne informacije za potrebne popravke.
+
+Ta tok zmanjšuje čakalne čase in minimizira ročne napake, pri čemer vse zainteresirane strani obvešča.
+
+
+
+### Upravljanje proračunskih zahtevkov preko Teams in Power Automate
+
+**Power Automate** lahko integrira Microsoft Teams za učinkovito upravljanje proračunskih zahtev. Tipičen tok za upravljanje proračunskih zahtev bi lahko vključeval:
+
+
+
+
+
+**Trigger**: Nova zahteva za proračun se pošlje prek obrazca v Microsoft Teams.  
+**Azione**: Pošlji zahtevo finančnemu vodji prek Teams in ustvari nalogo v Planner.  
+**Condizione**: Če je zahteva odobrena, posodobi stanje v obrazcu in pošlji obvestilo o odobritvi vlagatelju; če je zavrnjena, zagotovi podrobna pojasnila prek Teams.
+
+Ta pristop zagotavlja, da so vse zahteve sledljive in pravočasno obvladane, kar izboljšuje preglednost in učinkovitost odločanja.
+
+
+
+### Odobritve preko Prednastavljenih Modelov
+
+Poleg tega, če želiš še dodatno poenostaviti postopek odobritve v podjetju, lahko uporabiš prednastavljene predloge delovnih tokov za odobritev, ki jih ponuja JotForm. Te predloge omogočajo enostavno avtomatizacijo odobritev v različnih poslovnih scenarijih, kot so dopusti, nakupi ali zahtevki za stroške. S kombiniranjem teh predlog z Power Automate lahko ustvariš zelo učinkovito okolje in popolnoma odpraviš potrebo po ročnih procesih za odobritve v podjetju.
+
+
+
+## Končne Ugotovitve
+
+**Izkoristite Potencial Power Automate Odobritev za Večjo Operativno Učinkovitost**
+
+
+
+Le *approvazioni Power Automate* so močan način za hitrejše sprejemanje odločitev in izboljšanje produktivnosti. Z uporabo avtomatiziranih delovnih tokov lahko skrajšaš čas odobritve in se izogneš ročnim napakam. To ti omogoča, da vsak dan delaš bolje in z večjo natančnostjo.
+
+
+
+“Uporaba Power Automate za avtomatizacijo procesov pomeni prihranek dragocenega časa in osredotočanje na pomembne stvari.”
+
+
+
+**Nadaljujte z raziskovanjem možnosti avtomatizacije, ki jih ponuja Power Automate**
+
+
+
+Power Automate ima mnoge različne funkcije, ki jih lahko uporabiš za povečanje svoje učinkovitosti pri delu. Uporabiš ga lahko za upravljanje svojih projektov, organizacijo svojega časa in še veliko več. Tukaj je nekaj idej, kako lahko uporabiš Power Automate:
+
+
+
+
+
+**Avtomatizirajte e-poštna sporočila** za prihranek časa v svojem nabiralniku.  
+**Ustvarite delovne tokove za upravljanje svojih dnevnih opravil**, kot so načrtovanje sestankov ali pošiljanje opomnikov.  
+**Integrirajte Power Automate z drugimi aplikacijami, ki jih redno uporabljate**, kot sta Microsoft Teams ali SharePoint.
+
+Uporaba Power Automate na teh področjih ti lahko pomaga delati bolj pametno in hitreje, kar ti omogoča, da se osredotočiš na stvari, ki resnično štejejo.
+
+Za posodobljene smernice si oglejte Microsoft Learn: [Odobritve v Power Automate](https://learn.microsoft.com/power-automate/modern-approvals). Želite avtomatizirati procese v vaši organizaciji? Oglejte si moje [storitve](/services/) ali me kontaktirajte preko [kontaktov](/contatti/).
+
+
+
+Za dosego najboljših rezultatov s Power Automate ne pozabi na:
+
+
+
+
+
+**Prilagodite delovne tokove** glede na vaše specifične potrebe.  
+**Redno preizkušajte in optimizirajte svoje delovne tokove** , da zagotovite, da delujejo pravilno.  
+**Prejmite povratne informacije od svojih sodelavcev** o učinkovitosti delovnih tokov, ki ste jih ustvarili.
+
+Proaktiven pristop pri uporabi Power Automate lahko radikalno spremeni način, kako upravljaš odobritve, kar tvojo podjetje naredi bolj agilno in konkurenčno.
+
+
+
+## Domande frequenti
+<FAQSection>
+
+
+### Kaj je Power Automate in kako deluje za avtomatizacijo delovnih tokov?
+
+Power Automate je platforma za avtomatizacijo procesov, ki uporabnikom omogoča ustvarjanje avtomatskih delovnih tokov za poenostavitev vsakodnevnih nalog. Z uporabo Power Automate je mogoče povezati najbolj uporabljene aplikacije in storitve za avtomatizacijo poslovnih nalog, kar zmanjšuje ročno delo in povečuje učinkovitost.
+
+
+
+### Kakšna je pomembnost odobritev pri optimizaciji poslovnih procesov?
+
+Le odobritve igrajo ključno vlogo pri optimizaciji poslovnih procesov, saj omogočajo učinkovito upravljanje delovnega toka, kar zagotavlja, da se kritične odločitve sprejemajo pravočasno in natančno. Odobritve Power Automate ponujajo napredna orodja za poenostavitev in pospešitev procesa odločanja, kar celovito izboljšuje produktivnost podjetja.
+
+
+
+### Kako so Power Automate odobritve revolucionirale način, kako danes upravljamo odobritve?
+
+Le Approvazioni Power Automate so revolucionirale način, kako upravljamo današnje odobritve, saj uvajajo avtomatiziran in integriran pristop, ki znatno skrajša čas odobritve, odpravlja ročne napake in zagotavlja večjo preglednost v procesu odločanja. To je pripeljalo do bolj učinkovitega upravljanja odobritev, kar podjetjem omogoča, da se osredotočijo na bolj strateške dejavnosti.
+
+
+
+### Kakšne so prednosti Power Automate odobritev pri avtomatizaciji odločanja?
+
+Le Approvazioni Power Automate ponujajo številne prednosti pri avtomatizaciji odločanja, vključno z zmanjšanjem časa odobritve, povečanjem produktivnosti zaradi odprave ročnih napak in možnostjo ustvarjanja prilagojenih delovnih tokov, ki se prilagajajo specifičnim potrebam podjetja.
+
+
+
+### Kako lahko enostavno ustvarim in upravljam odobritve s Power Automate?
+
+Za enostavno ustvarjanje in upravljanje z Odobritvami v Power Automate lahko sledite nekaterim ključnim korakom: Dostop in navigacija po vmesniku Power Automate, Ustvarjanje delovnega toka za odobritve, Konfiguracija dejanj odobritve in napredne nastavitve, Testiranje, Objavljanje in spremljanje delovnega toka. Sledite tem korakom in uspešno boste implementirali Odobritve Power Automate.
+
+
+
+### Katere so nekatere praktične primere avtomatizacije odobritev s Power Automate?
+
+Nekateri praktični primeri avtomatizacije odobritev s Power Automate vključujejo odobritev poročil zaposlenih preko e-pošte in upravljanje proračunskih zahtevkov preko Teams. Ti primeri prikazujejo, kako Power Automate lahko poenostavi proces odločanja, kar omogoča učinkovito nadzorovanje poslovnih aktivnosti.
+
+
+
+### Kako lahko kar najbolje izkoristim potencial Power Automate odobritev za večjo operativno učinkovitost?
+
+Per sfruttare al massimo il potenziale delle Approvazioni Power Automate per una maggiore efficienza operativa, è consigliabile continuare a esplorare le possibilità offerte da questa piattaforma. Utilizzando strumenti avanzati come l&#8217;integrazione con Outlook e Teams, è possibile ottimizzare ulteriormente i processi decisionali, migliorando complessivamente l&#8217;efficienza operativa dell&#8217;azienda.
+</FAQSection>

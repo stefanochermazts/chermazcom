@@ -27,7 +27,7 @@ function log(msg) {
 function getAllMdxFiles(dir) {
   return fs
     .readdirSync(dir)
-    .filter((f) => f.endsWith('.md') || f.endsWith('.mdx'))
+    .filter((f) => (f.endsWith('.md') || f.endsWith('.mdx')) && !/^en-|^sl-/.test(f)) // solo IT
     .map((f) => path.join(dir, f))
 }
 
@@ -35,9 +35,21 @@ function ensureDir(p) {
   fs.mkdirSync(p, { recursive: true })
 }
 
+function isItalianContent(parsed) {
+  if (!parsed?.data) return true
+  if (!parsed.data.lang) return true
+  return String(parsed.data.lang).toLowerCase() === 'it'
+}
+
 async function createImagesForFile(filePath) {
   const raw = fs.readFileSync(filePath, 'utf8')
   const parsed = matter(raw)
+
+  if (!isItalianContent(parsed)) {
+    log(`➡️  Skip lang!=it → ${path.basename(filePath)}`)
+    return
+  }
+
   const title = parsed.data.title || path.basename(filePath, path.extname(filePath))
   const slug = parsed.data.slug || slugify(title, { lower: true, strict: true })
   const sector = parsed.data.sector || 'Business'
@@ -163,7 +175,7 @@ async function main() {
   ensureDir(POSTS_DIR)
 
   const files = getAllMdxFiles(CONTENT_DIR)
-  log(`Trovati ${files.length} file MD/MDX in case-studies`)
+  log(`Trovati ${files.length} file MD/MDX in case-studies (IT-only)`) // IT-only
 
   for (const file of files) {
     try {

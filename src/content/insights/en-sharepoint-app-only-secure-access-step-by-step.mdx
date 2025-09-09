@@ -1,0 +1,325 @@
+---
+title: 'SharePoint app-only: secure access step by step'
+slug: en-sharepoint-app-only-secure-access-step-by-step
+date: 2024-05-07T00:00:00.000Z
+status: publish
+description: >-
+  SharePoint app-only: what it is, advantages, configuration, and secure permission management. Practical guide with
+  steps, best practices, and links to documentation.
+excerpt: 'SharePoint app-only: what it is, advantages, and configuration. Practical guide with best practices.'
+categories:
+  - sharepoint
+tags:
+  - sharepoint
+  - app-only
+  - sicurezza
+  - permessi
+  - microsoft 365
+image: /posts/accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-sulla-modalita-app-only/card.webp
+ogImage: /posts/accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-sulla-modalita-app-only/og.webp
+lang: en
+sourceFile: insights/accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-sulla-modalita-app-only.mdx
+sourceSlug: accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-sulla-modalita-app-only
+sourceLang: it
+---
+
+import BreakoutImage from '../../components/BreakoutImage.astro'
+
+<BreakoutImage src="/posts/accesso-sicuro-a-sharepoint-tutto-quello-che-devi-sapere-sulla-modalita-app-only/cover.webp" alt="Schema di accesso app-only su SharePoint Online" />
+
+
+
+
+
+
+
+
+
+
+# Secure Access to SharePoint: App-Only Mode
+
+If you are looking for a secure way to access SharePoint, then you are in the right place! In this article, we will explore everything you need to know about app-only mode and how you can use it to ensure maximum protection of your data on SharePoint. Discover with us all the advantages and potential of this mode and make sure you have secure access to all the resources you need. Happy reading!
+
+
+
+## What is the app-only mode of SharePoint?
+
+The app-only mode of SharePoint is an option that allows users to securely and controlled access to the resources and data present on the platform, without having to use personal credentials. In other words, it is a type of authentication alternative to the classic login method with username and password.
+
+
+
+But how does the app-only mode actually work? Essentially, a "main app" is created within the SharePoint environment, which represents the entity authorized to access the content of the requested site or library. This application has its own ID and is equipped with the necessary permissions to perform certain operations on the desired resources.
+
+
+
+It is important to emphasize that the use of app-only mode requires preliminary configuration by the SharePoint site administrator. It is indeed necessary to create the main application and provide the appropriate permissions before users can take advantage of this type of access.
+
+
+
+Once the configuration is complete, users can choose whether to use app-only mode when accessing SharePoint. To do this, they must select the "App-Only" button instead of entering their personal credentials.
+
+
+
+This option can be particularly useful in situations where it is necessary to ensure a high level of security in accessing sensitive data present on SharePoint. For example, if an employee leaves the company or changes roles, the administrator can simply revoke the permissions of the main application associated with their account, without having to modify the permissions for each individual site or library.
+
+
+
+The app-only mode reduces the risk of unauthorized access to SharePoint. By using a single application with specific privileges, it is possible to limit the users who can access the content and monitor their activity.
+
+
+
+To fully leverage the capabilities of the app-only mode in SharePoint, it is advisable to consult the site administrator or undergo specific training. This way, it will be possible to better understand how to correctly configure and manage this option to ensure secure and efficient access to business data.
+
+
+
+## Advantages and Disadvantages of App-Only Mode
+
+The app-only mode has become increasingly popular among SharePoint users, as it offers greater security and flexibility in accessing content. However, like any technology, there are advantages and disadvantages to consider before adopting it. In this section, we will explore the pros and cons of the app-only mode.
+
+
+
+Advantages:
+
+1. Greater security: the app-only mode uses OAuth authentication to allow access to applications without having to share the end user's credentials. This means that user credentials remain secure and cannot be compromised.
+
+2. Flexible access: the app-only mode allows SharePoint administrators to grant access to content only to specific applications or services instead of end users. This can be particularly useful when you want to restrict access to only certain workflows or automated processes.
+
+3. Ease of application lifecycle management: with the app-only mode, applications can be easily deprecated or revoked without affecting end users' access to SharePoint. This greatly simplifies the application lifecycle management process.
+
+
+
+Disadvantages:
+
+1. Complex configuration: configuring the app-only mode requires a certain degree of technical knowledge and is more complex than authentication based on end-user credentials. This may take some time and effort to complete correctly.
+
+2. Limitation of functionalities: some features of SharePoint may not be available in app-only mode, such as external access or file synchronization with OneDrive for Business. Before adopting this mode, it is important to carefully assess the necessary functionalities to ensure that they will not be compromised by the use of app-only mode.
+
+3. Not suitable for all scenarios: if your team primarily uses SharePoint to collaborate and share content among end users, the app-only mode may not be the best choice. In this case, it might be simpler and more efficient to use authentication based on end user credentials.
+
+
+
+In general, the app-only mode certainly offers some significant advantages in terms of security and flexibility in accessing SharePoint content. However, it is important to carefully weigh the pros and cons to determine if it is the best choice for your team's or organization's needs.
+
+
+
+## How to Configure App-Only Access in SharePoint
+
+For secure and controlled access to SharePoint content, it is possible to configure app-only access. This feature allows applications to access SharePoint data without the need for user credentials. In this way, access can be restricted only to authorized applications, ensuring greater security for your content.
+
+
+
+The configuration of app-only access requires a few simple actions from the SharePoint site administrator. First, you need to create an application in Azure Active Directory (Azure AD) that represents the entity authorized to access SharePoint data. To do this, follow these steps:
+
+
+
+1. Log in to your administrator account on Azure Portal.
+
+2. Go to the "Registered apps" section and click on "New registration".
+
+3. Assign a name to the application and select the type "Web API/single web API".
+
+4. In the "Redirect URI" field, enter the URL of the website or application that will use app-only mode to access SharePoint.
+
+5. Having done that, click on “Register”.
+
+
+
+Once the application registration is complete, some additional settings will be required before you can use app-only mode on SharePoint.
+
+
+
+6. In the "Certificates & secrets" tab, click on "New client secret" and assign a description.
+
+7. Copy the generated value as this will be the only opportunity for you to view it.
+
+8. In the "API Permissions" tab, select the necessary permissions for the application on SharePoint, such as reading lists or managing sites.
+
+9. Save the settings.
+
+
+
+At this point, you can configure app-only access on the desired SharePoint site by following these steps:
+
+
+
+1. Access your SharePoint site as an administrator.
+
+2. Go to the "API" section and click on "App-only configuration".
+
+3. Enter the Client ID of the application registered in Azure AD and paste the value of the secret certificate generated earlier.
+
+4. Once this is done, click on "Generate new token" to confirm the settings.
+
+
+
+App-only access is now configured on your SharePoint site, and only authorized applications will be able to access the content. You can use the generated token to authenticate the application and access SharePoint data via API.
+
+
+
+For more information on configuring app-only access in SharePoint, refer to the official Microsoft documentation:
+
+- [App-only access per SharePoint Online](https://learn.microsoft.com/sharepoint/dev/solution-guidance/security-apponlypolicy-appregistration)
+
+
+
+## Steps to Grant Access to a SharePoint Site via App-Only
+
+To grant access to a SharePoint site via app-only mode, it is important to follow a few fundamental steps. This mode allows access to the site without using personal credentials, ensuring greater security and control over data access.
+
+
+
+1. Create an application in Azure Active Directory: the first step involves creating an application in Azure AD, which will be used to generate access tokens for the SharePoint site. To do this, you need to have an account with administrator privileges in Azure AD.
+
+
+
+2. Configure application permissions: once the application is created, it is important to correctly configure its permissions to allow access to SharePoint Online. It is advisable to limit permissions to only the necessary resources to avoid potential vulnerabilities.
+
+
+
+3. Save the application ID and secret key: after configuring the permissions, you can view and save the application ID and secret key automatically generated by Azure AD. This information will be necessary later to authenticate to the SharePoint site.
+
+
+
+4. Grant permissions to the application in the SharePoint site: before the application can access the SharePoint site, it is necessary to grant it the appropriate permissions. This can be done through the "Main Permissions" section in the site settings.
+
+
+
+5. Generate the application access tokens: you can now proceed to generate the application access tokens, using the ID and the secret key saved earlier. These tokens will be used to access the SharePoint site without requiring personal credentials.
+
+
+
+6. Use tokens to access the site: once the tokens are generated, you can proceed to access the SharePoint site via app-only. This can be done through an application or a script that uses the tokens as an authentication method.
+
+
+
+By following these steps, it will be possible to grant access to a SharePoint site securely and in a controlled manner through app-only mode. Always remember to keep the application permissions up to date and to revoke any permissions that are no longer necessary to ensure the maximum security of your sensitive data.
+
+
+
+## How to Manage and Revoke App-Only Access
+
+Once you have enabled app-only mode for your SharePoint site, it is important to be aware of how to manage and revoke access in this mode. App-only mode is a useful option for ensuring secure access to applications without having to share end-user credentials. However, it is essential to ensure that authorized users always have access to their content, while unauthorized users are excluded.
+
+
+
+The first thing to keep in mind is that only the site administrator has full control over the use of app-only mode. The administrator can view and manage user permissions for applications, including the ability to grant or revoke access in app-only mode.
+
+
+
+To manage access in app-only mode, follow these steps:
+
+
+
+1. Access your SharePoint site as an administrator.
+
+2. Go to “Site Settings” and select “User Permissions”.
+
+3. Select "Application Permissions" in the left sidebar.
+
+4. Here you can view a list of all the applications that have requested or been assigned to app-only mode.
+
+5. To grant app-only access to a new application, click on "New item" and provide the required details.
+
+6. To revoke access for an existing application, select it from the list and click on "Delete".
+
+
+
+It is important to note that revoking access in app-only mode will not remove the application from the SharePoint site, but will simply remove the access permissions. If you wish to completely delete an application, you will need to do so manually.
+
+
+
+You can also manage app-only access for specific users. To do this, follow these steps:
+
+
+
+1. From the application permissions page, select "User permissions" in the left sidebar.
+
+2. You can view and modify user permissions for each application.
+
+3. To grant or revoke app-only access to a specific user, click on "Edit" next to their name and select or deselect the "App-only access" checkbox.
+
+
+
+Additionally, you can restrict app-only access to specific SharePoint sites or libraries. To do this, follow these steps:
+
+
+
+1. Access the SharePoint site as an administrator.
+
+2. Go to “Site Settings” and select “User Permissions”.
+
+3. Select "Site permissions" or "Library permissions," depending on where you want to restrict access.
+
+4. Click on "New item" and provide the requested details.
+
+5. In the "Permissions" section, select "Full Control" to grant app-only access only to users with full permissions.
+
+
+
+Finally, it is important to remember that if an application has app-only access to your SharePoint site, this does not affect user permissions for the content within the applications themselves. Users will continue to have access only to the data and content
+
+
+
+## Examples of use cases for app-only mode in SharePoint
+
+The app-only mode is a feature of SharePoint that allows external applications to securely access site content and resources without requiring user credentials. This mode is particularly useful for integrated apps or those developed by third parties, as it provides controlled and limited access only to the necessary information.
+
+
+
+To better understand how app-only mode works, let's look at some practical examples of use cases:
+
+
+
+1. Integration with a CRM system: let’s imagine having a CRM system that needs to interact with the documents present on SharePoint. By using the app-only mode, we can create a custom application that connects to our CRM and accesses specific items on SharePoint without having to request user authentication each time.
+
+
+
+2. Automation of business processes: often companies need to automate certain processes based on the data present in SharePoint. The app-only mode allows external applications to access the data and perform specific actions securely, without requiring the end user's login.
+
+
+
+3. Data analysis: many times we need to analyze the data present on SharePoint to obtain useful information for our business. With the app-only mode, we can develop applications or tools that connect to SharePoint and retrieve the necessary data to generate reports or statistics.
+
+
+
+4. Synchronization with other cloud services: if we use other cloud services like Google Drive or Dropbox, the app-only mode allows us to securely synchronize documents on SharePoint with these services. This way, we can have all our files updated and accessible from any platform.
+
+
+
+5. Content management: the app-only mode can also be used to manage and organize content on SharePoint automatically. For example, we can develop an application that monitors and moves obsolete or duplicate files to a specific folder to keep the site cleaner and more organized.
+
+
+
+In summary, the app-only mode offers many possibilities to enhance the efficiency and security of access to SharePoint through external applications. It is important to leverage this feature intelligently and responsibly to ensure better management of corporate data.
+
+
+
+## Conclusions
+
+Conclusions
+
+
+
+We have examined in detail the app-only mode for secure access to SharePoint. We have seen how this authentication method is a powerful and reliable solution for protecting sensitive data within the SharePoint platform.
+
+
+
+First of all, we discussed the advantages of using app-only mode compared to other authentication methods. This mode allows direct access to data without having to go through a human user, thereby reducing the risk of data compromise due to human error or cyberattacks targeting user accounts.
+
+
+
+We have explored the various scenarios in which app-only mode can be successfully utilized, such as integrations between SharePoint and other external applications or services. In these cases, using app-only mode ensures secure and controlled access to data by external applications.
+
+
+
+We also discussed the process of configuring app-only mode on SharePoint Online and the technical requirements necessary to implement it correctly. It is important to carefully follow the instructions provided by Microsoft and ensure that all prerequisites are met before enabling this feature.
+
+
+
+Finally, we have highlighted some best practices to follow when using app-only mode. For example, it is essential to keep track of the permissions granted to external applications and revoke them if they are no longer necessary to ensure data security.
+
+
+
+Ultimately, the app-only mode is an effective solution for ensuring secure access to sensitive data on SharePoint. With proper configuration and the adoption of recommended best practices, this authentication method can help organizations protect their data and maintain a high level of security in content management on SharePoint.
+
+Do you want to implement app-only securely and in compliance? Discover my [services](/services/) or contact me via [contacts](/contatti/). You can find real examples in the [case studies](/case-studies/).

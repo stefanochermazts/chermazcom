@@ -2,6 +2,31 @@
 /**
  * About Component - Sezione chi sono per la homepage
  */
+interface Props {
+  title?: string
+  lead?: string
+  paragraph?: string
+  tags?: string[]
+  linkHref?: string
+  linkText?: string
+  photoLabel?: string
+  photoName?: string
+  yearsBadgeValue?: string
+  yearsBadgeSubtitle?: string
+}
+
+const {
+  title = 'Chi sono',
+  lead = 'Sono <strong>Stefano Chermaz</strong>, CTO e consulente IT specializzato in <strong>Microsoft 365</strong>, <strong>intelligenza artificiale</strong> e <strong>compliance aziendale</strong>.',
+  paragraph = 'Con oltre <strong>15 anni di esperienza</strong>, aiuto le aziende a trasformare i loro processi digitali attraverso soluzioni moderne, sicure e scalabili. Dal Modern Workplace alle automazioni AI, ogni progetto è progettato per generare valore concreto e misurabile.',
+  tags = ['Microsoft 365', 'Intelligenza Artificiale', 'GDPR & Compliance', 'SharePoint & Power Platform'],
+  linkHref = '/it/chi-sono/',
+  linkText = 'Scopri di più su di me',
+  photoLabel = 'Foto professionale',
+  photoName = 'Stefano Chermaz',
+  yearsBadgeValue = '15+ anni',
+  yearsBadgeSubtitle = 'di esperienza'
+} = Astro.props as Props
 ---
 
 <section class="py-16 sm:py-20 bg-zinc-50 dark:bg-zinc-900/50">
@@ -10,37 +35,21 @@
       <!-- Testo About -->
       <div class="max-w-2xl">
         <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl mb-6">
-          Chi sono
+          {title}
         </h2>
         <div class="prose prose-lg text-zinc-700 dark:text-zinc-300">
-          <p class="text-xl leading-8 mb-6">
-            Sono <strong>Stefano Chermaz</strong>, CTO e consulente IT specializzato in <strong>Microsoft 365</strong>, 
-            <strong>intelligenza artificiale</strong> e <strong>compliance aziendale</strong>.
-          </p>
-          <p class="mb-6">
-            Con oltre <strong>15 anni di esperienza</strong>, aiuto le aziende a trasformare i loro processi digitali 
-            attraverso soluzioni moderne, sicure e scalabili. Dal Modern Workplace alle automazioni AI, 
-            ogni progetto è progettato per generare valore concreto e misurabile.
-          </p>
+          <p class="text-xl leading-8 mb-6" set:html={lead} />
+          <p class="mb-6" set:html={paragraph} />
           <div class="flex flex-wrap gap-3 mb-8">
-            <span class="inline-flex items-center rounded-full bg-brand-100 dark:bg-brand-900/30 px-3 py-1 text-sm font-medium text-brand-700 dark:text-brand-300">
-              Microsoft 365
-            </span>
-            <span class="inline-flex items-center rounded-full bg-brand-100 dark:bg-brand-900/30 px-3 py-1 text-sm font-medium text-brand-700 dark:text-brand-300">
-              Intelligenza Artificiale
-            </span>
-            <span class="inline-flex items-center rounded-full bg-brand-100 dark:bg-brand-900/30 px-3 py-1 text-sm font-medium text-brand-700 dark:text-brand-300">
-              GDPR & Compliance
-            </span>
-            <span class="inline-flex items-center rounded-full bg-brand-100 dark:bg-brand-900/30 px-3 py-1 text-sm font-medium text-brand-700 dark:text-brand-300">
-              SharePoint & Power Platform
-            </span>
+            {tags.map((t) => (
+              <span class="inline-flex items-center rounded-full bg-brand-100 dark:bg-brand-900/30 px-3 py-1 text-sm font-medium text-brand-700 dark:text-brand-300">{t}</span>
+            ))}
           </div>
           <a 
-            href="/it/chi-sono/" 
+            href={linkHref}
             class="inline-flex items-center text-brand-600 hover:text-brand-500 font-semibold group"
           >
-            Scopri di più su di me
+            {linkText}
             <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
@@ -57,8 +66,8 @@
               <svg class="mx-auto h-16 w-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
-              <p class="text-sm font-medium">Foto professionale</p>
-              <p class="text-xs opacity-75 mt-1">Stefano Chermaz</p>
+              <p class="text-sm font-medium">{photoLabel}</p>
+              <p class="text-xs opacity-75 mt-1">{photoName}</p>
             </div>
           </div>
         </div>
@@ -72,8 +81,8 @@
               </svg>
             </div>
             <div>
-              <p class="text-sm font-semibold text-zinc-900 dark:text-zinc-50">15+ anni</p>
-              <p class="text-xs text-zinc-600 dark:text-zinc-400">di esperienza</p>
+              <p class="text-sm font-semibold text-zinc-900 dark:text-zinc-50">{yearsBadgeValue}</p>
+              <p class="text-xs text-zinc-600 dark:text-zinc-400">{yearsBadgeSubtitle}</p>
             </div>
           </div>
         </div>

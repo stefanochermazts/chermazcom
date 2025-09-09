@@ -15,6 +15,26 @@ const staticPages = [
   '/privacy'
 ]
 
+function detectLocaleFromId(id: string): 'it' | 'en' | 'sl' {
+  if (id.startsWith('en-')) return 'en'
+  if (id.startsWith('sl-')) return 'sl'
+  return 'it'
+}
+
+function localizeSlug(full: string): string {
+  // Rimuovi prefissi en-/sl- dal valore slug/id per il segmento URL locale
+  return full.replace(/^(en-|sl-)/, '')
+}
+
+function normalizeCategory(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '')
+}
+
 export const GET: APIRoute = async () => {
   // Get all insights and case studies
   const insights = await getCollection('insights')
@@ -31,29 +51,35 @@ export const GET: APIRoute = async () => {
       const fullPath = addLocaleToPath(localizedPath, locale)
       urls.push(`${baseUrl}${fullPath}`)
     }
-    
-    // Add insights pages
+
+    // Index pages
     urls.push(`${baseUrl}${addLocaleToPath('/insights', locale)}`)
-    const ins = insights.filter(i => i.id.startsWith(`${locale}/`))
-    for (const insight of ins) {
+    urls.push(`${baseUrl}${addLocaleToPath('/case-studies', locale)}`)
+
+    // Insights per-locale
+    const insForLocale = insights.filter((i) => detectLocaleFromId(i.id) === locale)
+    for (const insight of insForLocale) {
       const full = insight.slug ?? insight.id.replace(/\.mdx?$/, '')
-      const local = full.replace(new RegExp(`^${locale}/`), '')
+      const local = localizeSlug(full)
       urls.push(`${baseUrl}${addLocaleToPath(`/insights/${local}`, locale)}`)
     }
-    
-    // Add case studies pages
-    urls.push(`${baseUrl}${addLocaleToPath('/case-studies', locale)}`)
-    const cs = caseStudies.filter(c => c.id.startsWith(`${locale}/`))
-    for (const caseStudy of cs) {
-      const full = caseStudy.slug ?? caseStudy.id.replace(/\.mdx?$/, '')
-      const local = full.replace(new RegExp(`^${locale}/`), '')
+
+    // Case studies per-locale
+    const csForLocale = caseStudies.filter((c) => detectLocaleFromId(c.id) === locale)
+    for (const cs of csForLocale) {
+      const full = cs.slug ?? cs.id.replace(/\.mdx?$/, '')
+      const local = localizeSlug(full)
       urls.push(`${baseUrl}${addLocaleToPath(`/case-studies/${local}`, locale)}`)
     }
-    
-    // Add insights categories
-    const categories = [...new Set(ins.filter(p => p.id.startsWith(`${locale}/`)).flatMap(p => p.data.categories || []))]
-    for (const category of categories) {
-      urls.push(`${baseUrl}${addLocaleToPath(`/insights/categoria/${category}`, locale)}`)
+
+    // Insights categories per-locale
+    const categories = new Set<string>()
+    for (const p of insForLocale) {
+      const cats = (p.data.categories ?? []) as string[]
+      for (const c of cats) categories.add(normalizeCategory(c))
+    }
+    for (const cat of categories) {
+      urls.push(`${baseUrl}${addLocaleToPath(`/insights/categoria/${cat}`, locale)}`)
     }
   }
   

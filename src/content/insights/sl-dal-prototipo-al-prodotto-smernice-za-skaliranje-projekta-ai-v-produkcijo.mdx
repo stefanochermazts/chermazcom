@@ -1,0 +1,90 @@
+---
+title: 'Dal prototipo al prodotto: smernice za skaliranje projekta AI v produkcijo'
+date: '2025-09-09'
+excerpt: >-
+  Mnogi projekti AI se ustavijo pri prototipu. Odkrijte, kako jih pripeljati v produkcijo z upravljanjem, orodji MLOps
+  in strategijami trajnostnega skaliranja.
+description: >-
+  Un članek, ki poglobljeno razlaga, kako pretvoriti proof-of-concept AI v produkt, pripravljen za proizvodnjo v
+  podjetju. Od zbiranja podatkov do implementacije, preko MLOps, varnosti in upravljanja.
+slug: sl-dal-prototipo-al-prodotto-smernice-za-skaliranje-projekta-ai-v-produkcijo
+categories:
+  - ai-development
+tags:
+  - ai
+  - produzione
+  - mlops
+  - scaling
+  - governance
+ogImage: /posts/scalare-progetto-ai-produzione/og.webp
+image: /posts/scalare-progetto-ai-produzione/card.webp
+lang: sl
+sourceFile: insights/scalare-progetto-ai-produzione.mdx
+sourceSlug: scalare-progetto-ai-produzione
+sourceLang: it
+---
+
+V zadnjih dveh letih je veliko podjetij preizkusilo projekte **Intelligenza Artificiale**. Pogosto gre za **proof-of-concept (PoC)**, razvite v nekaj tednih, morda z manjšimi nabori podatkov in raziskovalnimi cilji. Težava je v tem, da velika večina teh projektov nikoli ne preseže faze testiranja: ostanejo zanimivi eksperimenti, a ne postanejo **pravi in skalabilni izdelki**.
+
+Pripeljati projekt AI v produkcijo zahteva spremembo miselnosti: ni dovolj model, ki "deluje" v laboratoriju, potreben je ekosistem **procesov, orodij in upravljanja**, ki zagotavljajo zanesljivost, varnost in trajnost.
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text you would like to have translated into Slovenian?
+
+## Zakaj toliko projektov AI propade
+
+Le statistike kažejo, da več kot 70 % projektov AI ne pride v produkcijo. Glavni vzroki so:
+
+- **Pomanjkanje metrik**: prototip se lahko zdi učinkovit, a brez KPI ni mogoče dokazati vrednosti.  
+- **Neskalabilni podatki**: nabori podatkov, uporabljeni za PoC, ne odražajo kompleksnosti resničnega sveta.  
+- **Manjkajoča infrastruktura**: modeli, usposobljeni na prenosnih računalnikih, niso pripravljeni za podjetniška okolja.  
+- **Šibka uprava**: manjkajo politike varnosti, skladnosti in revizije.  
+- **Nerealna pričakovanja**: vodstvo pogosto pričakuje čudeže, ne da bi upoštevalo stroške in omejitve.
+
+I'm sorry, but it seems that there is no text provided for translation. Please provide the text you would like to have translated into Slovenian.
+
+## Pot od PoC do produkta
+
+Skaliranje projekta AI pomeni slediti nekaterim osnovnim fazam:
+
+### 1. Določitev zahtev
+- Identificirati **konkretne primere uporabe** in vključene deležnike.  
+- Določiti merljive KPI: natančnost, časovni odziv, stroški sklepanja.  
+- Oceniti regulativne omejitve (GDPR, DORA, NIS2, specifične za panogo).
+
+### 2. Priprava podatkov
+- Ustvariti pipeline za **zbiranje, čiščenje in označevanje** podatkov.  
+- Določiti politike kakovosti in nenehnega posodabljanja.  
+- Upoštevati orodja za **data governance** in centralizirane kataloge.
+
+### 3. Izbira arhitekture
+- Oceniti predhodno usposobljene modele proti fine-tuning.  
+- Odločiti se med **zunanjimi API-ji** (OpenAI, Anthropic itd.) in **self-hosted modeli** (Llama, Mistral).  
+- Določiti razširljivost: brezstrežni, Kubernetes, GPU po potrebi.
+
+### 4. Implementacija MLOps
+Srce skalabilnosti je **Machine Learning Operations (MLOps)**:
+- Verzioniranje podatkov in modelov.  
+- CI/CD pipeline za usposabljanje in implementacijo.  
+- Neprekinjeno spremljanje zmogljivosti in drift.  
+- Avtomatizacija povratnih korakov v primeru regresije.
+
+### 5. Varnost in skladnost
+- Anonimizacija in pseudonimizacija podatkov.  
+- Granularni nadzor dostopa in dnevniki zahtev.  
+- Popolna revizijska sled za notranje in zunanje inšpekcije.  
+- Politika za etično uporabo AI (brez občutljivih podatkov v pozivih, razložljivost).
+
+### 6. Implementacija in spremljanje
+- Definirati **jasne SLA**: časi odziva, uptime, stroški.  
+- Uporabiti orodja za opazovanje: sledenje, dnevniški zapisi, opozorila.  
+- Implementirati sisteme **A/B testiranja** za primerjavo različic modelov.
+
+I'm sorry, but it seems that you haven't provided the text you want translated. Could you please share the text you would like me to translate into Slovenian?
+
+## Priporočena orodja in skladi
+
+- **MLOps**: MLflow, Kubeflow, DVC, Airflow.  
+- **Deployment**: Docker + Kubernetes, brezstrežno (AWS Lambda, Azure Functions).  
+- **Vector DB** (po RAG): Pinecone, Weaviate, Qdrant, Postgres+pgvector.  
+- **Monitoring**: Prometheus, Grafana, EvidentlyAI.  
+- **Security**: Vault, IAM co

@@ -4,11 +4,7 @@ import ArticleCard from '../../../../components/ArticleCard.astro'
 import { getCollection } from 'astro:content'
 
 export async function getStaticPaths() {
-  const posts = await getCollection('insights', ({ id }) => {
-    const normalizedId = id.replace(/\\/g, '/')
-    // I file italiani sono ora nella root (senza prefisso di lingua)
-    return !normalizedId.includes('/')
-  })
+  const posts = await getCollection('insights', ({ id }) => !id.startsWith('en-') && !id.startsWith('sl-'))
   const cats = new Set<string>()
   const normalizeLocal = (s: string) =>
     s
@@ -34,11 +30,7 @@ const normalize = (s: string) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '')
 const posts = (await getCollection('insights'))
-  .filter((p) => {
-    const normalizedId = p.id.replace(/\\/g, '/')
-    // I file italiani sono ora nella root (senza prefisso di lingua)
-    return !normalizedId.includes('/')
-  })
+  .filter((p) => !p.id.startsWith('en-') && !p.id.startsWith('sl-'))
   .filter((p) => (p.data.categories ?? []).some((c: string) => normalize(c) === categoria))
   .sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
 ---
