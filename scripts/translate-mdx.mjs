@@ -191,7 +191,7 @@ ${text}`
   /**
    * Processa un singolo file
    */
-  async processFile(filePath, targetLang, dryRun = false) {
+  async processFile(filePath, targetLang, dryRun = false, force = false) {
     try {
       console.log(`📄 Processing: ${filePath}`)
       
@@ -211,9 +211,13 @@ ${text}`
       // Controlla se il file target esiste già
       try {
         await fs.access(targetPath)
-        console.log(`   ⏭️  Skip: ${targetFileName} already exists`)
-        this.skippedCount++
-        return
+        if (!force) {
+          console.log(`   ⏭️  Skip: ${targetFileName} already exists (use --force to overwrite)`)
+          this.skippedCount++
+          return
+        } else {
+          console.log(`   🔄 Overwrite: ${targetFileName} (--force enabled)`)
+        }
       } catch {
         // File non esiste, continua
       }
@@ -225,14 +229,20 @@ ${text}`
       
       // Traduci frontmatter
       console.log(`   🔄 Translating frontmatter...`)
-      const translatedFrontmatter = await this.translateFrontmatter(frontmatter, targetLang, sourceSlug)
+      const rawTranslatedFrontmatter = await this.translateFrontmatter(frontmatter, targetLang, sourceSlug)
+      
+      // Pulisci il frontmatter da possibili delimitatori che l'API potrebbe aver aggiunto
+      const translatedFrontmatter = rawTranslatedFrontmatter.replace(/^---\s*\n?/, '').replace(/\n?---\s*$/, '')
       
       // Traduci contenuto
       console.log(`   🔄 Translating content...`)
       const translatedContent = await this.translateMDXContent(bodyContent, targetLang)
       
+      // Pulisci il contenuto tradotto da possibili --- all'inizio
+      const cleanContent = translatedContent.replace(/^---\s*\n\s*---\s*\n\s*/, '').replace(/^---\s*\n\s*/, '')
+      
       // Costruisci file finale
-      const finalContent = `---\n${translatedFrontmatter}\n---\n\n${translatedContent}`
+      const finalContent = `---\n${translatedFrontmatter}\n---\n\n${cleanContent}`
       
       // Scrivi file tradotto
       await fs.writeFile(targetPath, finalContent, 'utf-8')
@@ -261,7 +271,8 @@ ${text}`
       target = 'en',
       collection = 'all',
       dryRun = false,
-      sample = null
+      sample = null,
+      force = false
     } = options
 
     console.log(`🚀 Starting MDX Translation`)
@@ -269,6 +280,7 @@ ${text}`
     console.log(`   Collection: ${collection}`)
     console.log(`   Mode: ${dryRun ? 'DRY RUN' : 'LIVE'}`)
     console.log(`   Sample: ${sample || 'all files'}`)
+    console.log(`   Force overwrite: ${force ? 'YES' : 'NO'}`)
     console.log('')
 
     // Trova file da tradurre
@@ -295,7 +307,7 @@ ${text}`
     
     // Processa file
     for (const file of filesToProcess) {
-      await this.processFile(file, target, dryRun)
+      await this.processFile(file, target, dryRun, force)
       
       // Piccola pausa tra file per essere gentili con l'API
       await this.delay(500)
@@ -325,6 +337,8 @@ async function main() {
       options.sample = parseInt(arg.split('=')[1])
     } else if (arg === '--dry-run') {
       options.dryRun = true
+    } else if (arg === '--force') {
+      options.force = true
     }
   }
   

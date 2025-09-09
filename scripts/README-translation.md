@@ -33,6 +33,9 @@ node scripts/translate-mdx.mjs --target=en --sample=1 --dry-run
 
 # Test su un file reale
 node scripts/translate-mdx.mjs --target=en --collection=pages --sample=1
+
+# Sovrascrivere file esistenti (per tradurre file già copiati)
+node scripts/translate-mdx.mjs --target=en --collection=pages --sample=1 --force
 ```
 
 ### 2. Traduzione per collezione
@@ -67,6 +70,7 @@ node scripts/translate-mdx.mjs --target=en --sample=5
 - `--collection=insights|case-studies|pages|all`: Collezione da tradurre
 - `--sample=N`: Traduce solo N file (per test)
 - `--dry-run`: Simula senza creare file
+- `--force`: Sovrascrive file esistenti (utile per ri-tradurre file già copiati)
 
 ## Funzionalità
 
