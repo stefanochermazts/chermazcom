@@ -29,10 +29,11 @@ import Logo from './Logo.astro'
 </div>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  const initNavigation = () => {
     // variables
     const mainNav = document.querySelector('#main-navigation') as HTMLElement | null
-    if (!mainNav) return
+    if (!mainNav || mainNav.dataset.initialized === 'true') return
+    mainNav.dataset.initialized = 'true'
 
     const mainMenu = mainNav.querySelector('ul') as HTMLUListElement | null
     const dropdownMenus = [...document.querySelectorAll('.has-dropdown button')] as HTMLButtonElement[]
@@ -210,6 +211,23 @@ import Logo from './Logo.astro'
         closeAllDropdownMenus()
       }
     })
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavigation)
+  } else {
+    initNavigation()
+  }
+  document.addEventListener('astro:page-load', () => {
+    // reset and re-init after client router navigation
+    const mainNav = document.querySelector('#main-navigation') as HTMLElement | null
+    if (mainNav) mainNav.dataset.initialized = ''
+    initNavigation()
+  })
+  document.addEventListener('astro:after-swap', () => {
+    const mainNav = document.querySelector('#main-navigation') as HTMLElement | null
+    if (mainNav) mainNav.dataset.initialized = ''
+    initNavigation()
   })
 </script>
 

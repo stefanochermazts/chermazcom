@@ -16,7 +16,102 @@
   "pages": {
     "home": {
       "title": "Stefano Chermaz - IT svetovanje",
-      "description": "Specializirano IT svetovanje za Microsoft 365, AI in skladnost. Digitalne rešitve za sodobna podjetja."
+      "description": "Specializirano IT svetovanje za Microsoft 365, AI in skladnost. Digitalne rešitve za sodobna podjetja.",
+      "hero": {
+        "eyebrow": "IT svetovanje & AI",
+        "title": "Zanesljivi in razširljivi projekti na Microsoft 365 in AI",
+        "subtitle": "Modern Workplace, avtomatizacije, chatbot-i in upravljanje. Varnost in zmogljivost na prvem mestu.",
+        "primaryLabel": "Storitve",
+        "secondaryLabel": "Študije primerov"
+      },
+      "about": {
+        "title": "O meni",
+        "lead": "Sem <strong>Stefano Chermaz</strong>, CTO in IT svetovalec, specializiran za <strong>Microsoft 365</strong>, <strong>umetno inteligenco</strong> in <strong>poslovno skladnost</strong>.",
+        "paragraph": "Z več kot <strong>15 let izkušenj</strong> podjetjem pomagam preoblikovati njihove digitalne procese z modernimi, varnimi in razširljivimi rešitvami. Od Modern Workplace do AI avtomatizacij – vsak projekt je zasnovan za ustvarjanje konkretne, merljive vrednosti.",
+        "tags": [
+          "Microsoft 365",
+          "Umetna inteligenca",
+          "GDPR & Skladnost",
+          "SharePoint & Power Platform"
+        ],
+        "linkHref": "/sl/o-meni/",
+        "linkText": "Izvedi več o meni",
+        "photoLabel": "Profesionalna fotografija",
+        "photoName": "Stefano Chermaz",
+        "yearsBadgeValue": "15+ let",
+        "yearsBadgeSubtitle": "izkušenj",
+        "imageSrc": "/images/stefano chermaz.jpg",
+        "imageAlt": "Stefano Chermaz",
+        "imageAspectClass": "aspect-[4/3]"
+      },
+      "services": {
+        "title": "IT svetovalne storitve",
+        "subtitle": "Celovite rešitve za digitalno preobrazbo vašega podjetja",
+        "servicesLinkBase": "/sl/storitve/",
+        "bottomCtaText": "Zahtevaj posvet",
+        "bottomCtaHref": "/sl/kontakt/",
+        "items": [
+          {
+            "icon": "consulting",
+            "title": "Strateško IT svetovanje",
+            "description": "Analiza, načrtovanje in izvedba digitalnih rešitev po meri vašega podjetja.",
+            "features": ["Digitalna strategija", "Tehnološka ocena", "Tehnološki načrt", "Upravljanje sprememb"],
+            "cta": "Več informacij"
+          },
+          {
+            "icon": "microsoft365",
+            "title": "Microsoft 365 & SharePoint",
+            "description": "Celovit Modern Workplace: intranet, sodelovanje, upravljanje in varnost podatkov.",
+            "features": ["Korporativni intraneti", "Teams Governance", "SharePoint Online", "Power Platform"],
+            "cta": "M365 projekti"
+          },
+          {
+            "icon": "ai",
+            "title": "AI & Avtomatizacija",
+            "description": "Uporabna AI: chatbot-i, inteligentne avtomatizacije in AI integracija.",
+            "features": ["Custom Chatbots", "OpenAI integracija", "Avtomatizacija procesov", "RAG sistemi"],
+            "cta": "AI rešitve"
+          },
+          {
+            "icon": "compliance",
+            "title": "Skladnost & Upravljanje",
+            "description": "GDPR, upravljanje podatkov, varnost in regulativna skladnost vaše organizacije.",
+            "features": ["GDPR ocena", "Upravljanje podatkov", "Varnostne politike", "Revizija & pregled"],
+            "cta": "Skladnost"
+          }
+        ]
+      },
+      "expertise": {
+        "title": "Znanja & Specializacije",
+        "subtitle": "Napredne tehnologije in metode za preobrazbo vašega poslovanja",
+        "ctaText": "Oglej si vse storitve",
+        "ctaHref": "/sl/storitve/",
+        "areas": [
+          { "icon": "microsoft", "title": "Microsoft 365 & SharePoint", "description": "Modern Workplace, korporativni intraneti, upravljanje in varnost", "highlights": ["SharePoint Online", "Power Platform", "Teams", "Viva Suite"] },
+          { "icon": "ai", "title": "Umetna inteligenca", "description": "Chatbot-i, inteligentne avtomatizacije in AI integracija v procese", "highlights": ["Azure OpenAI", "M365 Copilot", "Custom GPT", "RAG sistemi"] },
+          { "icon": "security", "title": "Skladnost & Varnost", "description": "GDPR, upravljanje podatkov in varnostni okviri", "highlights": ["GDPR ocena", "Klasifikacija podatkov", "DLP politike", "Revizija & pregled"] },
+          { "icon": "automation", "title": "Avtomatizacija procesov", "description": "Power Automate, delovni tokovi in operativna optimizacija", "highlights": ["Power Automate", "Logic Apps", "Process Mining", "RPA rešitve"] }
+        ]
+      },
+      "caseStudies": {
+        "title": "Študije primerov",
+        "subtitle": "Izvedeni projekti z merljivimi rezultati in konkretnim vplivom",
+        "allProjectsLabel": "Vsi projekti"
+      },
+      "latestInsights": {
+        "title": "Zadnji vpogledi",
+        "subtitle": "Tehnični članki, vodniki in dobre prakse iz mojega bloga",
+        "allArticlesLabel": "Vsi članki",
+        "locale": "sl-SI"
+      },
+      "testimonials": {
+        "title": "Pričevanja",
+        "items": [
+          { "author": "CTO, MSP", "quote": "Takojšen vpliv na dostavo in kakovost." },
+          { "author": "Marketing vodja", "quote": "Učinkoviti in blagovni znamki prilagojeni chatbot-i." },
+          { "author": "IT Manager", "quote": "M365 intranet uporablja 100% ekipe." }
+        ]
+      }
     },
     "about": {
       "title": "O meni - Stefano Chermaz",

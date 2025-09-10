@@ -16,7 +16,102 @@
   "pages": {
     "home": {
       "title": "Stefano Chermaz - IT Consulting",
-      "description": "Specialized IT consulting in Microsoft 365, AI and Compliance. Digital solutions for modern businesses."
+      "description": "Specialized IT consulting in Microsoft 365, AI and Compliance. Digital solutions for modern businesses.",
+      "hero": {
+        "eyebrow": "IT consulting & AI",
+        "title": "Reliable, scalable projects on Microsoft 365 and AI",
+        "subtitle": "Modern Workplace, automations, chatbots and governance. Security and performance first.",
+        "primaryLabel": "Services",
+        "secondaryLabel": "Case studies"
+      },
+      "about": {
+        "title": "About",
+        "lead": "I am <strong>Stefano Chermaz</strong>, CTO and IT consultant specialized in <strong>Microsoft 365</strong>, <strong>artificial intelligence</strong> and <strong>business compliance</strong>.",
+        "paragraph": "With over <strong>15 years of experience</strong>, I help companies transform their digital processes through modern, secure and scalable solutions. From the Modern Workplace to AI automations, every project is designed to generate concrete, measurable value.",
+        "tags": [
+          "Microsoft 365",
+          "Artificial Intelligence",
+          "GDPR & Compliance",
+          "SharePoint & Power Platform"
+        ],
+        "linkHref": "/en/about/",
+        "linkText": "Learn more about me",
+        "photoLabel": "Professional photo",
+        "photoName": "Stefano Chermaz",
+        "yearsBadgeValue": "15+ years",
+        "yearsBadgeSubtitle": "of experience",
+        "imageSrc": "/images/stefano chermaz.jpg",
+        "imageAlt": "Stefano Chermaz",
+        "imageAspectClass": "aspect-[4/3]"
+      },
+      "services": {
+        "title": "IT Consulting Services",
+        "subtitle": "Complete solutions to transform your business digitally",
+        "servicesLinkBase": "/en/services/",
+        "bottomCtaText": "Request a consultation",
+        "bottomCtaHref": "/en/contact/",
+        "items": [
+          {
+            "icon": "consulting",
+            "title": "Strategic IT Consulting",
+            "description": "Analysis, design and implementation of tailored digital solutions for your company.",
+            "features": ["Digital Strategy", "Technology Assessment", "Technology Roadmap", "Change Management"],
+            "cta": "Learn more"
+          },
+          {
+            "icon": "microsoft365",
+            "title": "Microsoft 365 & SharePoint",
+            "description": "Complete Modern Workplace: intranet, collaboration, governance and data security.",
+            "features": ["Corporate Intranets", "Teams Governance", "SharePoint Online", "Power Platform"],
+            "cta": "M365 projects"
+          },
+          {
+            "icon": "ai",
+            "title": "AI & Automation",
+            "description": "Applied AI: chatbots, intelligent automations and AI integration.",
+            "features": ["Custom Chatbots", "OpenAI Integration", "Process Automation", "RAG Systems"],
+            "cta": "AI solutions"
+          },
+          {
+            "icon": "compliance",
+            "title": "Compliance & Governance",
+            "description": "GDPR, data governance, security and regulatory compliance for your organization.",
+            "features": ["GDPR Assessment", "Data Governance", "Security Policies", "Audit & Review"],
+            "cta": "Compliance"
+          }
+        ]
+      },
+      "expertise": {
+        "title": "Expertise & Specializations",
+        "subtitle": "Cutting-edge technologies and methodologies to transform your business",
+        "ctaText": "Explore all services",
+        "ctaHref": "/en/services/",
+        "areas": [
+          { "icon": "microsoft", "title": "Microsoft 365 & SharePoint", "description": "Modern Workplace, corporate intranets, governance and security", "highlights": ["SharePoint Online", "Power Platform", "Teams", "Viva Suite"] },
+          { "icon": "ai", "title": "Artificial Intelligence", "description": "Chatbots, intelligent automations and AI integration in processes", "highlights": ["Azure OpenAI", "M365 Copilot", "Custom GPT", "RAG Systems"] },
+          { "icon": "security", "title": "Compliance & Security", "description": "GDPR, data governance and security frameworks", "highlights": ["GDPR Assessment", "Data Classification", "DLP Policies", "Audit & Review"] },
+          { "icon": "automation", "title": "Process Automation", "description": "Power Automate, workflows and operational optimization", "highlights": ["Power Automate", "Logic Apps", "Process Mining", "RPA Solutions"] }
+        ]
+      },
+      "caseStudies": {
+        "title": "Case Studies",
+        "subtitle": "Delivered projects with measurable results and concrete impact",
+        "allProjectsLabel": "All projects"
+      },
+      "latestInsights": {
+        "title": "Latest Insights",
+        "subtitle": "Technical articles, guides and best practices from my blog",
+        "allArticlesLabel": "All articles",
+        "locale": "en-GB"
+      },
+      "testimonials": {
+        "title": "Testimonials",
+        "items": [
+          { "author": "CTO, SMB", "quote": "Immediate impact on delivery and quality." },
+          { "author": "Marketing Lead", "quote": "Effective and on-brand chatbots." },
+          { "author": "IT Manager", "quote": "M365 intranet adopted by 100% of the team." }
+        ]
+      }
     },
     "about": {
       "title": "About - Stefano Chermaz",

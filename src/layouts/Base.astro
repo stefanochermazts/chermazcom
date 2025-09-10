@@ -126,6 +126,18 @@ const locale = getLocaleFromUrl(Astro.url)
       document.addEventListener('astro:page-load', syncDarkModeClasses)
       document.addEventListener('astro:after-swap', syncDarkModeClasses)
     </script>
+    <style lang="scss" is:global>
+      // Ensure mobile nav overlays content and remains clickable
+      #main-navigation {
+        position: relative;
+        z-index: 50;
+      }
+
+      // Avoid scroll lock or clipping on mobile pages
+      html, body {
+        min-height: 100%;
+      }
+    </style>
   </body>
   
 </html>

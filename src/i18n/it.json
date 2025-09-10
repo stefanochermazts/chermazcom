@@ -16,7 +16,102 @@
   "pages": {
     "home": {
       "title": "Stefano Chermaz - Consulenza IT",
-      "description": "Consulenza IT specializzata in Microsoft 365, AI e Compliance. Soluzioni digitali per aziende moderne."
+      "description": "Consulenza IT specializzata in Microsoft 365, AI e Compliance. Soluzioni digitali per aziende moderne.",
+      "hero": {
+        "eyebrow": "Consulenza IT e AI",
+        "title": "Progetti affidabili e scalabili su Microsoft 365 e AI",
+        "subtitle": "Modern Workplace, automazioni, chatbot e governance. Sicurezza e performance al primo posto.",
+        "primaryLabel": "Servizi",
+        "secondaryLabel": "Case studies"
+      },
+      "about": {
+        "title": "Chi sono",
+        "lead": "Sono <strong>Stefano Chermaz</strong>, CTO e consulente IT specializzato in <strong>Microsoft 365</strong>, <strong>intelligenza artificiale</strong> e <strong>compliance aziendale</strong>.",
+        "paragraph": "Con oltre <strong>15 anni di esperienza</strong>, aiuto le aziende a trasformare i loro processi digitali attraverso soluzioni moderne, sicure e scalabili. Dal Modern Workplace alle automazioni AI, ogni progetto è progettato per generare valore concreto e misurabile.",
+        "tags": [
+          "Microsoft 365",
+          "Intelligenza Artificiale",
+          "GDPR & Compliance",
+          "SharePoint & Power Platform"
+        ],
+        "linkHref": "/it/chi-sono/",
+        "linkText": "Scopri di più su di me",
+        "photoLabel": "Foto professionale",
+        "photoName": "Stefano Chermaz",
+        "yearsBadgeValue": "15+ anni",
+        "yearsBadgeSubtitle": "di esperienza",
+        "imageSrc": "/images/stefano chermaz.jpg",
+        "imageAlt": "Stefano Chermaz",
+        "imageAspectClass": "aspect-[4/3]"
+      },
+      "services": {
+        "title": "Servizi di Consulenza IT",
+        "subtitle": "Soluzioni complete per trasformare la tua azienda nel digitale",
+        "servicesLinkBase": "/it/servizi/",
+        "bottomCtaText": "Richiedi una consulenza",
+        "bottomCtaHref": "/it/contatti/",
+        "items": [
+          {
+            "icon": "consulting",
+            "title": "Consulenza IT Strategica",
+            "description": "Analisi, progettazione e implementazione di soluzioni digitali su misura per la tua azienda.",
+            "features": ["Digital Strategy", "Technology Assessment", "Roadmap Tecnologica", "Change Management"],
+            "cta": "Scopri di più"
+          },
+          {
+            "icon": "microsoft365",
+            "title": "Microsoft 365 & SharePoint",
+            "description": "Modern Workplace completo: intranet, collaboration, governance e sicurezza dei dati.",
+            "features": ["Intranet Aziendali", "Teams Governance", "SharePoint Online", "Power Platform"],
+            "cta": "Progetti M365"
+          },
+          {
+            "icon": "ai",
+            "title": "AI & Automazione",
+            "description": "Intelligenza artificiale applicata: chatbot, automazioni intelligenti e integrazione AI.",
+            "features": ["Chatbot Custom", "OpenAI Integration", "Process Automation", "RAG Systems"],
+            "cta": "Soluzioni AI"
+          },
+          {
+            "icon": "compliance",
+            "title": "Compliance & Governance",
+            "description": "GDPR, governance dei dati, sicurezza e conformità normativa per la tua organizzazione.",
+            "features": ["GDPR Assessment", "Data Governance", "Security Policies", "Audit & Review"],
+            "cta": "Compliance"
+          }
+        ]
+      },
+      "expertise": {
+        "title": "Competenze & Specializzazioni",
+        "subtitle": "Tecnologie e metodologie all'avanguardia per trasformare il tuo business",
+        "ctaText": "Scopri tutti i servizi",
+        "ctaHref": "/it/servizi/",
+        "areas": [
+          { "icon": "microsoft", "title": "Microsoft 365 & SharePoint", "description": "Modern Workplace, intranet aziendali, governance e sicurezza", "highlights": ["SharePoint Online", "Power Platform", "Teams", "Viva Suite"] },
+          { "icon": "ai", "title": "Intelligenza Artificiale", "description": "Chatbot, automazioni intelligenti e integrazione AI nei processi", "highlights": ["OpenAI Azure", "Copilot M365", "Custom GPT", "RAG Systems"] },
+          { "icon": "security", "title": "Compliance & Sicurezza", "description": "GDPR, governance dei dati e framework di sicurezza", "highlights": ["GDPR Assessment", "Data Classification", "DLP Policies", "Audit & Review"] },
+          { "icon": "automation", "title": "Automazione Processi", "description": "Power Automate, workflow e ottimizzazione operativa", "highlights": ["Power Automate", "Logic Apps", "Process Mining", "RPA Solutions"] }
+        ]
+      },
+      "caseStudies": {
+        "title": "Case Studies",
+        "subtitle": "Progetti realizzati con risultati misurabili e impatto concreto",
+        "allProjectsLabel": "Tutti i progetti"
+      },
+      "latestInsights": {
+        "title": "Ultimi Insights",
+        "subtitle": "Articoli tecnici, guide e best practices dal mio blog",
+        "allArticlesLabel": "Tutti gli articoli",
+        "locale": "it-IT"
+      },
+      "testimonials": {
+        "title": "Testimonianze",
+        "items": [
+          { "author": "CTO, PMI", "quote": "Impatto immediato su delivery e qualità." },
+          { "author": "Marketing Lead", "quote": "Chatbot efficaci e on-brand." },
+          { "author": "IT Manager", "quote": "Intranet M365 adottata dal 100% del team." }
+        ]
+      }
     },
     "about": {
       "title": "Chi sono - Stefano Chermaz",

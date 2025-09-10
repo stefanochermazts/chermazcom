@@ -9,6 +9,7 @@ import LatestInsights from '../../components/Home/LatestInsights.astro'
 import Testimonials from '../../components/Home/Testimonials.astro'
 import Contact from '../../components/Home/Contact.astro'
 import { getCollection } from 'astro:content'
+import it from '../../i18n/it.json'
 
 // Dati per la pillar page
 const latestInsights = await getCollection('insights', ({ id }) => 
@@ -27,13 +28,56 @@ const recentCaseStudies = featuredCaseStudies
   .slice(0, 3)
 ---
 
-<DefaultLayout title="Stefano Chermaz - Consulenza IT, Microsoft 365, AI e Compliance" description="Consulenza IT specializzata in Microsoft 365, intelligenza artificiale e compliance. Trasformo le aziende con soluzioni digitali moderne e sicure.">
-  <Hero primary={{ href: '/it/servizi/', label: 'Servizi' }} secondary={{ href: '/it/case-studies/', label: 'Case studies' }} badgeValue="15+ anni" badgeSubtitle="di esperienza" />
-  <About />
-  <Services />
-  <Expertise />
-  <CaseStudies items={recentCaseStudies} baseUrl="/it/case-studies" />
-  <LatestInsights items={recentInsights} baseUrl="/it/insights" />
-  <Testimonials />
+<DefaultLayout title={it.pages.home.title} description={it.pages.home.description}>
+  <Hero eyebrow={it.pages.home.hero.eyebrow} title={it.pages.home.hero.title} subtitle={it.pages.home.hero.subtitle} primary={{ href: '/it/servizi/', label: it.pages.home.hero.primaryLabel }} secondary={{ href: '/it/case-studies/', label: it.pages.home.hero.secondaryLabel }} />
+  <About 
+    title={it.pages.home.about.title}
+    lead={it.pages.home.about.lead}
+    paragraph={it.pages.home.about.paragraph}
+    tags={it.pages.home.about.tags}
+    linkHref={it.pages.home.about.linkHref}
+    linkText={it.pages.home.about.linkText}
+    photoLabel={it.pages.home.about.photoLabel}
+    photoName={it.pages.home.about.photoName}
+    yearsBadgeValue={it.pages.home.about.yearsBadgeValue}
+    yearsBadgeSubtitle={it.pages.home.about.yearsBadgeSubtitle}
+    imageSrc={it.pages.home.about.imageSrc}
+    imageAlt={it.pages.home.about.imageAlt}
+    imageAspectClass={it.pages.home.about.imageAspectClass}
+  />
+  <Services 
+    title={it.pages.home.services.title}
+    subtitle={it.pages.home.services.subtitle}
+    servicesLinkBase={it.pages.home.services.servicesLinkBase}
+    bottomCtaText={it.pages.home.services.bottomCtaText}
+    bottomCtaHref={it.pages.home.services.bottomCtaHref}
+    services={it.pages.home.services.items}
+  />
+  <Expertise 
+    title={it.pages.home.expertise.title}
+    subtitle={it.pages.home.expertise.subtitle}
+    ctaText={it.pages.home.expertise.ctaText}
+    ctaHref={it.pages.home.expertise.ctaHref}
+    areas={it.pages.home.expertise.areas}
+  />
+  <CaseStudies 
+    items={recentCaseStudies} 
+    baseUrl="/it/case-studies" 
+    title={it.pages.home.caseStudies.title} 
+    subtitle={it.pages.home.caseStudies.subtitle}
+    allProjectsLabel={it.pages.home.caseStudies.allProjectsLabel}
+  />
+  <LatestInsights 
+    items={recentInsights} 
+    baseUrl="/it/insights" 
+    title={it.pages.home.latestInsights.title} 
+    subtitle={it.pages.home.latestInsights.subtitle}
+    allArticlesLabel={it.pages.home.latestInsights.allArticlesLabel}
+    locale={it.pages.home.latestInsights.locale}
+  />
+  <Testimonials 
+    title={it.pages.home.testimonials.title}
+    items={it.pages.home.testimonials.items}
+  />
   <Contact />
 </DefaultLayout>
