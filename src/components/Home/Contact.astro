@@ -9,6 +9,7 @@ interface Props {
   privacyText?: string
   privacyLink?: string
   submitText?: string
+  lang?: string
 }
 
 const { 
@@ -20,8 +21,23 @@ const {
   messageLabel = 'Messaggio',
   privacyText = 'Ho letto e accetto la',
   privacyLink = '/it/privacy',
-  submitText = 'Invia'
+  submitText = 'Invia',
+  lang = 'it'
 } = Astro.props
+
+// Determina il template email in base alla lingua
+const emailTemplate = {
+  'it': 'grazie-contatto-it',
+  'en': 'thank-you-contact-en', 
+  'sl': 'hvala-kontakt-sl'
+}[lang] || 'grazie-contatto-it'
+
+// Oggetto email personalizzato per lingua
+const emailSubject = {
+  'it': 'Grazie per aver contattato Stefano Chermaz',
+  'en': 'Thank you for contacting Stefano Chermaz',
+  'sl': 'Hvala, ker ste se obrnili na Stefana Chermaza'
+}[lang] || 'Grazie per aver contattato Stefano Chermaz'
 ---
 
 <section class="py-16 sm:py-20">
@@ -29,6 +45,11 @@ const {
     <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">{title}</h2>
     <form data-contact class="mt-8 grid gap-4" method="post" action={action} name="contact" data-netlify="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="_template" value={emailTemplate} />
+      <input type="hidden" name="_subject" value={emailSubject} />
+      <input type="hidden" name="_to" value="stefano@chermaz.com" />
+      <input type="hidden" name="_replyto" value="stefano@chermaz.com" />
+      <input type="hidden" name="_from" value="noreply@chermaz.com" />
       <p class="hidden">
         <label>Don't fill this out: <input name="bot-field" /></label>
       </p>

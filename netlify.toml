@@ -15,3 +15,14 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# Email notifications for form submissions
+[[notifications]]
+  type = "email"
+  event = "submission-created"
+  emails = ["stefano@chermaz.com"]
+
+# Form submission settings
+[forms]
+  from = "noreply@chermaz.com"
+  reply_to = "stefano@chermaz.com"
+
