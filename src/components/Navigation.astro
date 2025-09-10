@@ -36,7 +36,7 @@ import Logo from './Logo.astro'
     mainNav.dataset.initialized = 'true'
 
     const mainMenu = mainNav.querySelector('ul') as HTMLUListElement | null
-    const dropdownMenus = [...document.querySelectorAll('.has-dropdown button')] as HTMLButtonElement[]
+    const dropdownMenus = [...mainNav.querySelectorAll('.has-dropdown button')] as HTMLButtonElement[]
 
     // functions
     const setActiveMenuItem = (): void => {
@@ -209,6 +209,23 @@ import Logo from './Logo.astro'
       const element = event.target as Element
       if (!element.hasAttribute('aria-haspopup') && !element.classList.contains('submenu-item')) {
         closeAllDropdownMenus()
+      }
+    })
+
+    // Close mobile menu when clicking outside (but not from image loading observers)
+    window.addEventListener('click', (event: MouseEvent) => {
+      const element = event.target as Element
+      const mobileMenu = mainNav.querySelector('.mobile-menu') as HTMLElement | null
+      const toggle = mainNav.querySelector('.responsive-toggle') as HTMLElement | null
+      if (!mobileMenu || !toggle) return
+      
+      // Skip if this is triggered by automated systems (no pointer coordinates)
+      if (!event.isTrusted || (event.clientX === 0 && event.clientY === 0)) return
+      
+      const clickedInside = element.closest('#main-navigation')
+      if (!clickedInside && mobileMenu.classList.contains('show')) {
+        mobileMenu.classList.remove('show')
+        toggle.setAttribute('aria-expanded', 'false')
       }
     })
   }

@@ -27,60 +27,98 @@ const { class: className } = Astro.props
 </button>
 
 <script>
-  const initResponsiveToggle = () => {
-    // variables
-    const responsiveToggle = document.querySelector('.responsive-toggle') as HTMLElement | null
-    if (!responsiveToggle || responsiveToggle.dataset.initialized === 'true') return
-    responsiveToggle.dataset.initialized = 'true'
+  // Define globally to avoid duplicates and conflicts
+  if (!window.responsiveToggleInitialized) {
+    window.responsiveToggleInitialized = true
+    
+    const initResponsiveToggle = () => {
+      console.log('Initializing responsive toggle...')
+      
+      // variables
+      const responsiveToggle = document.querySelector('.responsive-toggle') as HTMLElement | null
+      if (!responsiveToggle) {
+        console.log('No responsive toggle found')
+        return
+      }
+      
+      if (responsiveToggle.dataset.initialized === 'true') {
+        console.log('Toggle already initialized')
+        return
+      }
+      
+      responsiveToggle.dataset.initialized = 'true'
+      console.log('Toggle initialized, adding click handler')
 
-    // functions
-    const openMenu = (toggle: Element) => {
-      const text = toggle.querySelector('span')
-      const icon = toggle.querySelector('svg')
-      if (!text || !icon) return
+      // functions
+      const openMenu = (toggle: Element) => {
+        const text = toggle.querySelector('span')
+        const icon = toggle.querySelector('svg')
+        if (!text || !icon) return
 
-      text.textContent = 'Close'
-      toggle.setAttribute('aria-expanded', 'true')
-      toggle.setAttribute('aria-label', 'Close menu navigation')
-      icon.innerHTML = `<path d="M10 10 2 2m8 8 8 8m-8-8 8-8m-8 8-8 8" stroke="var(--foreground-color)" stroke-width="2.667" stroke-linecap="round" stroke-linejoin="round"/>`
+        text.textContent = 'Close'
+        toggle.setAttribute('aria-expanded', 'true')
+        toggle.setAttribute('aria-label', 'Close menu navigation')
+        icon.innerHTML = `<path d="M10 10 2 2m8 8 8 8m-8-8 8-8m-8 8-8 8" stroke="var(--foreground-color)" stroke-width="2.667" stroke-linecap="round" stroke-linejoin="round"/>`
+      }
+
+      const closeMenu = (toggle: Element) => {
+        const text = toggle.querySelector('span')
+        const icon = toggle.querySelector('svg')
+        if (!text || !icon) return
+
+        text.textContent = 'Menu'
+        toggle.setAttribute('aria-expanded', 'false')
+        toggle.setAttribute('aria-label', 'Open menu navigation')
+        icon.innerHTML = `<path d="M2 1.667h24m-24 8h24m-24 8h24" stroke="var(--foreground-color)" stroke-width="2.667" stroke-linecap="round" stroke-linejoin="round"/>`
+      }
+
+      // execution
+      responsiveToggle.addEventListener('click', (ev) => {
+        console.log('Toggle clicked!')
+        ev.preventDefault()
+        ev.stopPropagation()
+
+        // scope to current header instance
+        const navRoot = responsiveToggle.closest('#main-navigation') as HTMLElement
+        const mobileNavigation = navRoot?.querySelector('.mobile-menu') as HTMLElement | null
+        
+        console.log('Mobile nav element:', mobileNavigation)
+        
+        if (!mobileNavigation) {
+          console.log('No mobile navigation found')
+          return
+        }
+
+        const willOpen = !mobileNavigation.classList.contains('show')
+        console.log('Will open:', willOpen)
+        
+        // Use setTimeout to avoid conflicts with other DOM observers
+        setTimeout(() => {
+          mobileNavigation.classList.toggle('show', willOpen)
+          mobileNavigation.setAttribute('aria-hidden', willOpen ? 'false' : 'true')
+          willOpen ? openMenu(responsiveToggle) : closeMenu(responsiveToggle)
+        }, 0)
+      })
     }
 
-    const closeMenu = (toggle: Element) => {
-      const text = toggle.querySelector('span')
-      const icon = toggle.querySelector('svg')
-      if (!text || !icon) return
-
-      text.textContent = 'Menu'
-      toggle.setAttribute('aria-expanded', 'false')
-      toggle.setAttribute('aria-label', 'Open menu navigation')
-      icon.innerHTML = `<path d="M2 1.667h24m-24 8h24m-24 8h24" stroke="var(--foreground-color)" stroke-width="2.667" stroke-linecap="round" stroke-linejoin="round"/>`
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initResponsiveToggle)
+    } else {
+      initResponsiveToggle()
     }
-
-    // execution
-    responsiveToggle.addEventListener('click', () => {
-      const mobileNavigation = document.querySelector('.mobile-menu')
-      if (!mobileNavigation) return
-
-      mobileNavigation.classList.toggle('show')
-      mobileNavigation.classList.contains('show') ? openMenu(responsiveToggle) : closeMenu(responsiveToggle)
+    
+    document.addEventListener('astro:page-load', () => {
+      const responsiveToggle = document.querySelector('.responsive-toggle') as HTMLElement | null
+      if (responsiveToggle) responsiveToggle.dataset.initialized = ''
+      initResponsiveToggle()
+    })
+    
+    document.addEventListener('astro:after-swap', () => {
+      const responsiveToggle = document.querySelector('.responsive-toggle') as HTMLElement | null
+      if (responsiveToggle) responsiveToggle.dataset.initialized = ''
+      initResponsiveToggle()
     })
   }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initResponsiveToggle)
-  } else {
-    initResponsiveToggle()
-  }
-  document.addEventListener('astro:page-load', () => {
-    const responsiveToggle = document.querySelector('.responsive-toggle') as HTMLElement | null
-    if (responsiveToggle) responsiveToggle.dataset.initialized = ''
-    initResponsiveToggle()
-  })
-  document.addEventListener('astro:after-swap', () => {
-    const responsiveToggle = document.querySelector('.responsive-toggle') as HTMLElement | null
-    if (responsiveToggle) responsiveToggle.dataset.initialized = ''
-    initResponsiveToggle()
-  })
 </script>
 
 <style lang="scss">
