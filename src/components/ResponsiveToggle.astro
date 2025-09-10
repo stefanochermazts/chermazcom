@@ -27,10 +27,11 @@ const { class: className } = Astro.props
 </button>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  const initResponsiveToggle = () => {
     // variables
-    const responsiveToggle = document.querySelector('.responsive-toggle')
-    if (!responsiveToggle) return
+    const responsiveToggle = document.querySelector('.responsive-toggle') as HTMLElement | null
+    if (!responsiveToggle || responsiveToggle.dataset.initialized === 'true') return
+    responsiveToggle.dataset.initialized = 'true'
 
     // functions
     const openMenu = (toggle: Element) => {
@@ -63,6 +64,22 @@ const { class: className } = Astro.props
       mobileNavigation.classList.toggle('show')
       mobileNavigation.classList.contains('show') ? openMenu(responsiveToggle) : closeMenu(responsiveToggle)
     })
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initResponsiveToggle)
+  } else {
+    initResponsiveToggle()
+  }
+  document.addEventListener('astro:page-load', () => {
+    const responsiveToggle = document.querySelector('.responsive-toggle') as HTMLElement | null
+    if (responsiveToggle) responsiveToggle.dataset.initialized = ''
+    initResponsiveToggle()
+  })
+  document.addEventListener('astro:after-swap', () => {
+    const responsiveToggle = document.querySelector('.responsive-toggle') as HTMLElement | null
+    if (responsiveToggle) responsiveToggle.dataset.initialized = ''
+    initResponsiveToggle()
   })
 </script>
 
