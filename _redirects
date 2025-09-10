@@ -11,6 +11,22 @@
 /it/contact /it/contatti/ 301
 /it/services/ /it/servizi/ 301
 /it/services /it/servizi/ 301
+
+# Redirect categorie unificate: office365, sharepoint -> office365-sharepoint
+/it/insights/categoria/office365 /it/insights/categoria/office365-sharepoint/ 301
+/it/insights/categoria/office365/ /it/insights/categoria/office365-sharepoint/ 301
+/it/insights/categoria/sharepoint /it/insights/categoria/office365-sharepoint/ 301
+/it/insights/categoria/sharepoint/ /it/insights/categoria/office365-sharepoint/ 301
+
+/en/insights/categoria/office365 /en/insights/categoria/office365-sharepoint/ 301
+/en/insights/categoria/office365/ /en/insights/categoria/office365-sharepoint/ 301
+/en/insights/categoria/sharepoint /en/insights/categoria/office365-sharepoint/ 301
+/en/insights/categoria/sharepoint/ /en/insights/categoria/office365-sharepoint/ 301
+
+/sl/insights/categoria/office365 /sl/insights/categoria/office365-sharepoint/ 301
+/sl/insights/categoria/office365/ /sl/insights/categoria/office365-sharepoint/ 301
+/sl/insights/categoria/sharepoint /sl/insights/categoria/office365-sharepoint/ 301
+/sl/insights/categoria/sharepoint/ /sl/insights/categoria/office365-sharepoint/ 301
 # BEGIN AUTO WP REDIRECTS
 /2023/06/chatbot-e-intelligenza-artificiale-la-sintesi-perfetta-per-una-comunicazione-avanzata        /it/insights/chatbot-e-intelligenza-artificiale-la-sintesi-perfetta-per-una-comunicazione-avanzata/ 301
 /2023/06/chatbot-e-intelligenza-artificiale-la-sintesi-perfetta-per-una-comunicazione-avanzata/       /it/insights/chatbot-e-intelligenza-artificiale-la-sintesi-perfetta-per-una-comunicazione-avanzata/ 301
