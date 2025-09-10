@@ -264,17 +264,9 @@ import Logo from './Logo.astro'
 
     // Desktop: switch to desktop menu at nav breakpoint
     @include breakpoint('nav') {
-      .mobile-menu {
-        display: none;
-      }
-
-      .responsive-toggle {
-        display: none;
-      }
-
-      .desktop-menu {
-        display: block;
-      }
+      .mobile-menu { display: none; }
+      .responsive-toggle { display: none !important; }
+      .desktop-menu { display: block; }
     }
 
     .wrapper {
