@@ -1,5 +1,5 @@
 ---
-import DefaultLayout from '../../../../layouts/DefaultLayout.astro'
+import UnifiedLayout from '../../../../layouts/UnifiedLayout.astro'
 import ArticleCard from '../../../../components/ArticleCard.astro'
 import { getCollection } from 'astro:content'
 
@@ -36,7 +36,7 @@ const posts = (await getCollection('insights'))
   .filter((p) => (p.data.categories ?? []).some((c: string) => normalize(c) === categoria))
   .sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
 ---
-<DefaultLayout title={`Kategorija: ${categoria}`}>
+<UnifiedLayout enableTransitions={true} title={`Kategorija: ${categoria}`}>
   <section class="my-16" style="max-width:1366px;margin-inline:auto;padding-inline:1rem;">
     <h1 class="text-5xl mb-6 capitalize">{categoria?.replace(/-/g,' ')}</h1>
     {posts.length === 0 ? (
@@ -49,4 +49,4 @@ const posts = (await getCollection('insights'))
       </div>
     )}
   </section>
-</DefaultLayout>
+</UnifiedLayout>

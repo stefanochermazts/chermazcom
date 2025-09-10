@@ -1,11 +1,14 @@
 ---
-import Base from '../../../layouts/Base.astro'
+import UnifiedLayout from '../../../layouts/UnifiedLayout.astro'
 import CaseStudyCard from '../../../components/CaseStudyCard.astro'
 import { getCollection } from 'astro:content'
-const studies = (await getCollection('caseStudies')).filter(s=> s.id.startsWith('sl-')).sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
+// Optimized collection loading
+const studies = (await getCollection('caseStudies', ({ id }) => id.startsWith('sl-')))
+  .filter(s => s.data.status !== 'draft') // Exclude drafts
+  .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
 ---
 
-<Base useLocalizedMeta={true} pageKey="caseStudies">
+<UnifiedLayout useLocalizedMeta={true} pageKey="caseStudies">
   <section class="py-16 sm:py-20">
     <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
       <h1 class="text-4xl font-bold mb-8">Študije primerov</h1>
@@ -22,6 +25,6 @@ const studies = (await getCollection('caseStudies')).filter(s=> s.id.startsWith(
       </div>
     </div>
   </section>
-</Base>
+</UnifiedLayout>
 
 

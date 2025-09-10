@@ -74,7 +74,6 @@ const { class: className } = Astro.props
 
       // execution
       responsiveToggle.addEventListener('click', (ev) => {
-        console.log('Toggle clicked!')
         ev.preventDefault()
         ev.stopPropagation()
 
@@ -82,15 +81,11 @@ const { class: className } = Astro.props
         const navRoot = responsiveToggle.closest('#main-navigation') as HTMLElement
         const mobileNavigation = navRoot?.querySelector('.mobile-menu') as HTMLElement | null
         
-        console.log('Mobile nav element:', mobileNavigation)
-        
         if (!mobileNavigation) {
-          console.log('No mobile navigation found')
           return
         }
 
         const willOpen = !mobileNavigation.classList.contains('show')
-        console.log('Will open:', willOpen)
         
         // Use setTimeout to avoid conflicts with other DOM observers
         setTimeout(() => {

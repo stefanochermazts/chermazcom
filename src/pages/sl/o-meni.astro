@@ -1,11 +1,11 @@
 ---
-import Base from '../../layouts/Base.astro'
+import UnifiedLayout from '../../layouts/UnifiedLayout.astro'
 import { getEntry, render } from 'astro:content'
 const entry = await getEntry('pages', 'sl-chi-sono')
 const Content = entry ? (await render(entry)).Content : null
 ---
 
-<Base useLocalizedMeta={true} pageKey="about">
+<UnifiedLayout useLocalizedMeta={true} pageKey="about">
   
   {Content && (
     <section class="py-16 sm:py-20">
@@ -14,4 +14,4 @@ const Content = entry ? (await render(entry)).Content : null
       </div>
     </section>
   )}
-</Base>
+</UnifiedLayout>

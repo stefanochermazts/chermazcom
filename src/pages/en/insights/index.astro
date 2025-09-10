@@ -1,21 +1,22 @@
 ---
-import Base from '../../../layouts/Base.astro'
+import UnifiedLayout from '../../../layouts/UnifiedLayout.astro'
 import ArticleCard from '../../../components/ArticleCard.astro'
 import { getCollection } from 'astro:content'
 
-const all = await getCollection('insights', ({ id }) => {
-  const normalizedId = id.replace(/\\/g, '/')
-  return normalizedId.startsWith('en-')
-})
-const posts = all.sort((a,b)=> (a.data.date||'') < (b.data.date||'') ? 1 : -1)
+// Simplified and optimized collection loading
+const all = await getCollection('insights', ({ id }) => id.startsWith('en-'))
+const posts = all
+  .filter(p => p.data.status === 'publish') // Only published posts
+  .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
 
-const categories = Array.from(new Set(posts.flatMap(p => (p.data.categories ?? [])
-  .map((s:string)=> s.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')))))
-const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-const postsByCategory = (cat: string) => posts.filter(p => (p.data.categories ?? []).some((c: string) => normalize(c) === cat))
+// Simplified category processing
+const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+const categories = [...new Set(
+  posts.flatMap(p => (p.data.categories || []).map(normalize))
+)].sort()
 ---
 
-<Base useLocalizedMeta={true} pageKey="insights">
+<UnifiedLayout useLocalizedMeta={true} pageKey="insights">
   <section class="my-32" style="max-width:1366px;margin-inline:auto;padding-inline:1rem;">
     <h1 class="text-6xl mb-8">Insights</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
@@ -35,4 +36,4 @@ const postsByCategory = (cat: string) => posts.filter(p => (p.data.categories ??
                   ))}
     </div>
   </section>
-</Base>
+</UnifiedLayout>

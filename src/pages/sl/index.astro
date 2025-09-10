@@ -1,5 +1,5 @@
 ---
-import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import UnifiedLayout from '../../layouts/UnifiedLayout.astro'
 import Hero from '../../components/Home/Hero.astro'
 import About from '../../components/Home/About.astro'
 import Services from '../../components/Home/Services.astro'
@@ -28,7 +28,7 @@ const recentCaseStudies = featuredCaseStudies
   .slice(0, 3)
 ---
 
-<DefaultLayout title={sl.pages.home.title} description={sl.pages.home.description}>
+<UnifiedLayout enableTransitions={true} title={sl.pages.home.title} description={sl.pages.home.description}>
   <Hero eyebrow={sl.pages.home.hero.eyebrow} title={sl.pages.home.hero.title} subtitle={sl.pages.home.hero.subtitle} primary={{ href: '/sl/storitve/', label: sl.pages.home.hero.primaryLabel }} secondary={{ href: '/sl/case-studies/', label: sl.pages.home.hero.secondaryLabel }} />
   <About 
     title={sl.pages.home.about.title}

@@ -1,5 +1,5 @@
 ---
-import DefaultLayout from '../../../layouts/DefaultLayout.astro'
+import UnifiedLayout from '../../../layouts/UnifiedLayout.astro'
 import BreakoutImage from '../../../components/BreakoutImage.astro'
 import { getCollection, getEntry, render } from 'astro:content'
 
@@ -41,7 +41,7 @@ function getHeroImage(data: any, slug: string) {
 
 const heroImage = getHeroImage(entry.data, slug)
 ---
-<DefaultLayout title={entry.data.title}>
+<UnifiedLayout enableTransitions={true} title={entry.data.title}>
   <article class="container my-16 prose">
     <h1>{entry.data.title}</h1>
     {entry.data.kpi && <p class="lead"><strong>{entry.data.kpi}</strong></p>}
@@ -50,4 +50,4 @@ const heroImage = getHeroImage(entry.data, slug)
     
     <Content />
   </article>
-</DefaultLayout>
+</UnifiedLayout>

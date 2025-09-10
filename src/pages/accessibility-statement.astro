@@ -1,9 +1,9 @@
 ---
-import DefaultLayout from '@layouts/DefaultLayout.astro'
+import UnifiedLayout from '../layouts/UnifiedLayout.astro'
 import PageHeader from '@components/PageHeader.astro'
 ---
 
-<DefaultLayout title="Accessibility statement">
+<UnifiedLayout enableTransitions={true} title="Accessibility statement">
   <PageHeader
     title="Accessibility statement"
     subtitle="This document outlines the accessibility features and support provided by our website. Be sure to fill in the details for your own website and check the WCAG 2.2 AA guidelines."
@@ -83,4 +83,4 @@ import PageHeader from '@components/PageHeader.astro'
       </p>
     </div>
   </section>
-</DefaultLayout>
+</UnifiedLayout>

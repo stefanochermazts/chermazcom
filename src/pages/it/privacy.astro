@@ -1,12 +1,12 @@
 ---
-import Base from '../../layouts/Base.astro'
+import UnifiedLayout from '../../layouts/UnifiedLayout.astro'
 import { getEntry, render } from 'astro:content'
 // I file italiani sono nella root della collection pages
 const entry = await getEntry('pages', 'privacy')
 const Content = entry ? (await render(entry)).Content : null
 ---
 
-<Base title="Privacy" description="Informativa sul trattamento dei dati personali — chermaz.com">
+<UnifiedLayout title="Privacy" description="Informativa sul trattamento dei dati personali — chermaz.com">
   {Content && (
     <section class="py-16 sm:py-20">
       <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8 prose dark:prose-invert">

@@ -1,5 +1,5 @@
 ---
-import DefaultLayout from '../layouts/DefaultLayout.astro'
+import UnifiedLayout from '../layouts/UnifiedLayout.astro'
 import { Icon } from 'astro-icon/components'
 import PageHeader from '../components/PageHeader.astro'
 import {
@@ -24,7 +24,7 @@ import {
 } from 'accessible-astro-components'
 ---
 
-<DefaultLayout title="Accessible components">
+<UnifiedLayout enableTransitions={true} title="Accessible components">
   <section class="my-12">
     <PageHeader
       title="Accessible components"
@@ -347,4 +347,4 @@ import {
       </div>
     </div>
   </section>
-</DefaultLayout>
+</UnifiedLayout>
