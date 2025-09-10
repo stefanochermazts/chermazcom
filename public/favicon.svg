@@ -1,9 +1,18 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-<mask id="mask0_907_31" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="512" height="512">
-<rect width="512" height="512" rx="80" fill="#161618"/>
-</mask>
-<g mask="url(#mask0_907_31)">
-<path d="M166.892 69.3845H390.357L226.065 315.018H2.6001L166.892 69.3845Z" fill="#42E0CE"/>
-<path d="M176.677 337.783L113.043 432.923H347.108L511.4 187.29H338.645L237.988 337.783H176.677Z" fill="#A14FD6"/>
-</g>
+  <defs>
+    <style>
+      .logo-bg { fill: #ffffff; }
+      .logo-icon { fill: #1f63ff; }
+      @media (prefers-color-scheme: dark) {
+        .logo-bg { fill: #1a1a1a; }
+        .logo-icon { fill: #42E0CE; }
+      }
+    </style>
+  </defs>
+  <rect width="512" height="512" rx="80" class="logo-bg"/>
+  <g transform="translate(128, 128) scale(4)">
+    <!-- Simplified "SC" monogram based on Stefano Chermaz initials -->
+    <path d="M20 10 C30 10, 35 15, 35 22 C35 29, 30 34, 20 34 L15 34 C10 34, 8 32, 8 30 L12 30 C12 30, 13 31, 15 31 L20 31 C26 31, 30 27, 30 22 C30 17, 26 13, 20 13 L10 13 C5 13, 2 16, 2 20 L6 20 C6 18, 7 16, 10 16 L20 16 Z" class="logo-icon"/>
+    <path d="M55 10 C65 10, 70 15, 70 22 L70 42 C70 49, 65 54, 55 54 L45 54 C35 54, 30 49, 30 42 L34 42 C34 46, 37 50, 45 50 L55 50 C61 50, 66 46, 66 42 L66 22 C66 18, 61 14, 55 14 L45 14 C37 14, 34 18, 34 22 L30 22 C30 15, 35 10, 45 10 L55 10 Z" class="logo-icon"/>
+  </g>
 </svg>

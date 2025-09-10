@@ -131,14 +131,14 @@ const displayItems = items.length > 0 ? items : fallbackInsights
               )}
 
               <!-- Title -->
-              <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-50 mb-3 line-clamp-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-50 mb-3 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                 <a href={`${baseUrl}/${slug}/`} class="stretched-link">
                   {title}
                 </a>
               </h3>
 
               <!-- Excerpt -->
-              <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed line-clamp-3 mb-4">
+              <p class="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed mb-4">
                 {excerpt}
               </p>
 
@@ -176,20 +176,6 @@ const displayItems = items.length > 0 ? items : fallbackInsights
 </section>
 
 <style>
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
   .stretched-link::after {
     position: absolute;
     top: 0;

@@ -5,7 +5,19 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1f63ff",
-  "icons": []
+  "icons": [
+    {
+      "src": "/images/logo_stefano_chermaz_sm.png",
+      "sizes": "94x94",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "94x94",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
 
 

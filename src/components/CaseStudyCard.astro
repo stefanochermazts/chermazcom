@@ -65,13 +65,13 @@ const mainKpi = Array.isArray(caseStudy.data.kpi) ? caseStudy.data.kpi[0] : case
       </div>
     )}
     
-    <h3 class="text-xl font-semibold mb-2 line-clamp-2">
+    <h3 class="text-xl font-semibold mb-2">
       <a href={href} class="hover:text-brand-500 transition-colors">
         {caseStudy.data.title}
       </a>
     </h3>
     
-    <p class="opacity-80 text-base mb-3 line-clamp-3">
+    <p class="opacity-80 text-base mb-3">
       {caseStudy.data.excerpt ?? ''}
     </p>
     
@@ -101,18 +101,3 @@ const mainKpi = Array.isArray(caseStudy.data.kpi) ? caseStudy.data.kpi[0] : case
   </div>
 </article>
 
-<style>
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-</style>
