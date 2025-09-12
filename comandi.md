@@ -62,6 +62,9 @@ node format-all-mdx.mjs --add-toc --add-meta --improve-accessibility
 # Prima volta: inizializza cache dallo stato attuale
 node scripts/init-cache.mjs
 
+# Se tutti i file sono già tradotti e non vuoi ri-tradurre
+node scripts/force-init-cache.mjs
+
 # Statistiche cache
 node scripts/file-cache.mjs stats
 
@@ -369,6 +372,9 @@ node scripts/generate-covers-fast.mjs --sample=2
 ```bash
 # PRIMA VOLTA: inizializza cache analizzando lo stato attuale
 node scripts/init-cache.mjs --verbose
+
+# Se hai GIÀ tutto tradotto e vuoi forzare cache come aggiornata
+node scripts/force-init-cache.mjs --verbose
 
 # Vedi statistiche cache
 node scripts/file-cache.mjs stats
