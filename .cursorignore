@@ -1,0 +1,18 @@
+# Cursor AI ignore file
+node_modules/
+.git/
+dist/
+build/
+.astro/
+*.log
+.cache/
+public/
+coverage/
+.env
+.env.local
+.env.production
+.env.staging
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db

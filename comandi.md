@@ -472,4 +472,79 @@ cat FORMAT-README.md
 - ⬆️ +40% leggibilità con termini evidenziati
 - ⬆️ +25% engagement con emoji contestuali
 - ⬆️ +60% scansionabilità con callout e liste
-- 🎯 SEO e accessibilità automaticamente ottimizzati 
+- 🎯 SEO e accessibilità automaticamente ottimizzati
+
+## 🔧 Gestione Metadati Articoli
+
+### Aggiungere Status Field agli articoli
+```bash
+# Controlla quali file non hanno il campo status (dry-run)
+node scripts/add-status-field.mjs --dry-run --verbose
+
+# Aggiunge status: publish agli articoli che non ce l'hanno
+node scripts/add-status-field.mjs
+
+# Con output dettagliato
+node scripts/add-status-field.mjs --verbose
+```
+
+**Problema risolto**: Gli articoli senza `status: publish` nel frontmatter non comparivano in homepage e nella sezione insights perché vengono filtrati dalla logica di visualizzazione.
+
+## 🔧 Soluzioni per WSL/Cursor Terminal
+
+### Problema: Terminal che non esce o sembra "appeso"
+
+#### ✅ Soluzione 1: Script Wrapper (RACCOMANDATO)
+```bash
+# Usa lo script wrapper con menu interattivo e timeout automatici
+./run-script.sh
+```
+
+#### ✅ Soluzione 2: Comandi con timeout esplicito
+```bash
+# Aggiungi sempre timeout per evitare hang
+timeout 120 node scripts/add-status-field.mjs --dry-run --verbose
+
+# Combina con feedback esplicito
+timeout 120 node scripts/translate-mdx-fast.mjs --target=en --collection=insights && echo "✅ COMPLETATO" || echo "❌ ERRORE/TIMEOUT"
+```
+
+#### ✅ Soluzione 3: Output con redirect e sync
+```bash
+# Forza il flush dell'output
+node scripts/add-status-field.mjs --verbose 2>&1 | tee /tmp/output.log && sync && echo "✅ DONE"
+```
+
+#### ✅ Soluzione 4: Esecuzione in background
+```bash
+# Per script lunghi
+node scripts/generate-covers-fast.mjs & 
+PID=$!
+wait $PID
+echo "✅ Script completato (PID: $PID)"
+```
+
+### Configurazione Cursor settings.json ottimale per WSL:
+```json
+{
+  "terminal.integrated.shellIntegration.enabled": true,
+  "terminal.integrated.inheritEnv": true,
+  "terminal.integrated.automationProfile.windows": {
+    "path": "C:\\Windows\\System32\\wsl.exe",
+    "args": ["-d", "Ubuntu"]
+  },
+  "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+  "terminal.integrated.profiles.windows": {
+    "Ubuntu (WSL)": {
+      "path": "C:\\Windows\\System32\\wsl.exe",
+      "args": ["-d", "Ubuntu"]
+    }
+  }
+}
+```
+
+### Quick Fix per comandi che si "appendono":
+```bash
+# Metodo veloce: Ctrl+C e poi
+kill -9 $(pgrep -f "node scripts")
+``` 
