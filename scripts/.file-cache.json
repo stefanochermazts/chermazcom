@@ -1,0 +1,893 @@
+{
+  "src/content/insights/tutto-quello-che-devi-sapere-sui-servizi-di-office-365-integrati-con-sharepoint-online.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-microsoft-365-services-integrated-with-sharepoint-online.mdx",
+        "lastGenerated": 1757703041822
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-servisi-microsoft-365-integrirani-s-sharepoint-online.mdx",
+        "lastGenerated": 1757703041930
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/tutto-quello-che-devi-sapere-sui-servizi-di-office-365-integrati-con-sharepoint-online/cover.webp",
+        "lastGenerated": 1757703041955
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/tutto-quello-che-devi-sapere-sui-servizi-di-office-365-integrati-con-sharepoint-online/card.webp",
+        "lastGenerated": 1757703041955
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/tutto-quello-che-devi-sapere-sui-servizi-di-office-365-integrati-con-sharepoint-online/og.webp",
+        "lastGenerated": 1757703041955
+      }
+    },
+    "lastModified": 1757700356071,
+    "contentHash": "4f6d6d2c009b702aa27edf14d2c3c5f0"
+  },
+  "src/content/insights/token-llm.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-token-in-llm-what-they-are-and-why-they-matter.mdx",
+        "lastGenerated": 1757703042049
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-tokeni-v-llm-kaj-so-in-zakaj-so-pomembni.mdx",
+        "lastGenerated": 1757703042143
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/token-llm/cover.webp",
+        "lastGenerated": 1757703042157
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/token-llm/card.webp",
+        "lastGenerated": 1757703042157
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/token-llm/og.webp",
+        "lastGenerated": 1757703042157
+      }
+    },
+    "lastModified": 1757256272997,
+    "contentHash": "749b7fc2c539dea7453cdb6cb6110927"
+  },
+  "src/content/insights/tall-stack-vs-astro-saas.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-from-tall-stack-to-astro-how-to-choose-the-right-stack-for-a-saas.mdx",
+        "lastGenerated": 1757703042295
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-dal-tall-stack-ad-astro-kako-izbrati-pravo-skladbo-za-saas.mdx",
+        "lastGenerated": 1757703042428
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/tall-stack-vs-astro-saas/cover.webp",
+        "lastGenerated": 1757703042441
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/tall-stack-vs-astro-saas/card.webp",
+        "lastGenerated": 1757703042441
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/tall-stack-vs-astro-saas/og.webp",
+        "lastGenerated": 1757703042441
+      }
+    },
+    "lastModified": 1757701856032,
+    "contentHash": "7d1d3336e70bec68cbfca38fa94354eb"
+  },
+  "src/content/insights/sviluppo-software-assistito-dallAI-cosa-cambia-davvero-nel-lavoro-degli-sviluppatori.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-software-development-assisted-by-ai-what-really-changes-in-the-work-of-developers.mdx",
+        "lastGenerated": 1757703042543
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-razvoj-programske-opreme-podprt-z-ai-kaj-se-resnicno-spremeni-v-delu-razvijalcev.mdx",
+        "lastGenerated": 1757703042635
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/sviluppo-software-assistito-dallAI-cosa-cambia-davvero-nel-lavoro-degli-sviluppatori/cover.webp",
+        "lastGenerated": 1757703042649
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/sviluppo-software-assistito-dallAI-cosa-cambia-davvero-nel-lavoro-degli-sviluppatori/card.webp",
+        "lastGenerated": 1757703042649
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/sviluppo-software-assistito-dallAI-cosa-cambia-davvero-nel-lavoro-degli-sviluppatori/og.webp",
+        "lastGenerated": 1757703042649
+      }
+    },
+    "lastModified": 1757700356071,
+    "contentHash": "338c3ecf87f2f3290865824d7c4a4fb0"
+  },
+  "src/content/insights/superare-il-limite-dei-3000-elementi-nelle-liste-sharepoint-facilmente.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-sharepoint-how-to-overcome-the-5000-item-limit.mdx",
+        "lastGenerated": 1757703042740
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-sharepoint-kako-premagati-omejitev-5000-elementov.mdx",
+        "lastGenerated": 1757703042821
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/superare-il-limite-dei-3000-elementi-nelle-liste-sharepoint-facilmente/cover.webp",
+        "lastGenerated": 1757703042832
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/superare-il-limite-dei-3000-elementi-nelle-liste-sharepoint-facilmente/card.webp",
+        "lastGenerated": 1757703042832
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/superare-il-limite-dei-3000-elementi-nelle-liste-sharepoint-facilmente/og.webp",
+        "lastGenerated": 1757703042832
+      }
+    },
+    "lastModified": 1757700356071,
+    "contentHash": "81775ff7c67330dae4466afbac240011"
+  },
+  "src/content/insights/sudoku-gratis-trova-i-migliori-siti-per-giocare-senza-spender-soldi.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-free-sudoku-the-best-sites-to-play-without-spending.mdx",
+        "lastGenerated": 1757703042953
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-sudoku-brezplacno-najboljse-strani-za-igranje-brez-trosenja.mdx",
+        "lastGenerated": 1757703043070
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/sudoku-gratis-trova-i-migliori-siti-per-giocare-senza-spender-soldi/cover.webp",
+        "lastGenerated": 1757703043101
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/sudoku-gratis-trova-i-migliori-siti-per-giocare-senza-spender-soldi/card.webp",
+        "lastGenerated": 1757703043101
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/sudoku-gratis-trova-i-migliori-siti-per-giocare-senza-spender-soldi/og.webp",
+        "lastGenerated": 1757703043102
+      }
+    },
+    "lastModified": 1757256272977,
+    "contentHash": "226427e3b67d5bd8b0b49a4b84136c32"
+  },
+  "src/content/insights/storia-e-curiosita-sul-sudoku-dalle-origini-ai-giorni-nostri.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-history-and-curiosities-about-sudoku-from-its-origins-to-today.mdx",
+        "lastGenerated": 1757703043233
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-zgodovina-in-zanimivosti-o-sudoku-od-izvora-do-danes.mdx",
+        "lastGenerated": 1757703043330
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/storia-e-curiosita-sul-sudoku-dalle-origini-ai-giorni-nostri/cover.webp",
+        "lastGenerated": 1757703043344
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/storia-e-curiosita-sul-sudoku-dalle-origini-ai-giorni-nostri/card.webp",
+        "lastGenerated": 1757703043344
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/storia-e-curiosita-sul-sudoku-dalle-origini-ai-giorni-nostri/og.webp",
+        "lastGenerated": 1757703043344
+      }
+    },
+    "lastModified": 1757256272973,
+    "contentHash": "3a214426069273db6bf1e63b9ccf7816"
+  },
+  "src/content/insights/sicurezza-sharepoint-guida-alla-difesa-dei-tuoi-siti.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-sharepoint-security-a-practical-guide-to-defending-sites.mdx",
+        "lastGenerated": 1757703043446
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-varnost-sharepoint-prakticni-vodnik-za-zascito-spletnih-mest.mdx",
+        "lastGenerated": 1757703043575
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/sicurezza-sharepoint-guida-alla-difesa-dei-tuoi-siti/cover.webp",
+        "lastGenerated": 1757703043593
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/sicurezza-sharepoint-guida-alla-difesa-dei-tuoi-siti/card.webp",
+        "lastGenerated": 1757703043593
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/sicurezza-sharepoint-guida-alla-difesa-dei-tuoi-siti/og.webp",
+        "lastGenerated": 1757703043593
+      }
+    },
+    "lastModified": 1757700356071,
+    "contentHash": "a69f84aebbd66f6475b73d829d9d9b87"
+  },
+  "src/content/insights/sharepoint-framework-2025-novita.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-sharepoint-framework-in-2025-new-possibilities-for-development.mdx",
+        "lastGenerated": 1757703043714
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-sharepoint-framework-v-2025-nove-moznosti-za-razvoj.mdx",
+        "lastGenerated": 1757703043948
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/sharepoint-framework-2025-novita/cover.webp",
+        "lastGenerated": 1757703043960
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/sharepoint-framework-2025-novita/card.webp",
+        "lastGenerated": 1757703043960
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/sharepoint-framework-2025-novita/og.webp",
+        "lastGenerated": 1757703043960
+      }
+    },
+    "lastModified": 1757700356071,
+    "contentHash": "3eb9380572a6c958aa37c4b70197ef20"
+  },
+  "src/content/insights/scopri-tutte-le-funzionalita-di-viva-engage-il-nuovo-strumento-per-la-collaborazione-aziendale.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-viva-engage-key-features-for-corporate-collaboration.mdx",
+        "lastGenerated": 1757703044125
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-viva-engage-kljucne-funkcionalnosti-za-podjetnisko-sodelovanje.mdx",
+        "lastGenerated": 1757703044251
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/scopri-tutte-le-funzionalita-di-viva-engage-il-nuovo-strumento-per-la-collaborazione-aziendale/cover.webp",
+        "lastGenerated": 1757703044271
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/scopri-tutte-le-funzionalita-di-viva-engage-il-nuovo-strumento-per-la-collaborazione-aziendale/card.webp",
+        "lastGenerated": 1757703044271
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/scopri-tutte-le-funzionalita-di-viva-engage-il-nuovo-strumento-per-la-collaborazione-aziendale/og.webp",
+        "lastGenerated": 1757703044271
+      }
+    },
+    "lastModified": 1757700356071,
+    "contentHash": "a0590c8bdc9fb0a7190b239a7ac5095f"
+  },
+  "src/content/insights/scalare-progetto-ai-produzione.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-from-prototype-to-product-guidelines-for-scaling-an-ai-project-into-production.mdx",
+        "lastGenerated": 1757703044400
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-dal-prototipo-al-prodotto-smernice-za-skaliranje-projekta-ai-v-produkcijo.mdx",
+        "lastGenerated": 1757703044514
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/scalare-progetto-ai-produzione/cover.webp",
+        "lastGenerated": 1757703044547
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/scalare-progetto-ai-produzione/card.webp",
+        "lastGenerated": 1757703044547
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/scalare-progetto-ai-produzione/og.webp",
+        "lastGenerated": 1757703044547
+      }
+    },
+    "lastModified": 1757700356071,
+    "contentHash": "792fdf81e39c1017717d9f78d09fa0be"
+  },
+  "src/content/insights/risolvere-i-sudoku-difficili-guida-completa-e-consigli-efficaci.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-difficult-sudoku-complete-guide-and-effective-tips.mdx",
+        "lastGenerated": 1757703044694
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-sudoku-tezki-popoln-vodnik-in-ucinkoviti-nasveti.mdx",
+        "lastGenerated": 1757703044872
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/risolvere-i-sudoku-difficili-guida-completa-e-consigli-efficaci/cover.webp",
+        "lastGenerated": 1757703044889
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/risolvere-i-sudoku-difficili-guida-completa-e-consigli-efficaci/card.webp",
+        "lastGenerated": 1757703044889
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/risolvere-i-sudoku-difficili-guida-completa-e-consigli-efficaci/og.webp",
+        "lastGenerated": 1757703044889
+      }
+    },
+    "lastModified": 1757256272945,
+    "contentHash": "021b98b884d0745ab7329dc82003a0eb"
+  },
+  "src/content/insights/riassunti-documenti-rag.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-document-summaries-rag-how-to-summarize-texts-with-ai.mdx",
+        "lastGenerated": 1757703045089
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-riassunti-dokumenti-rag-kako-sintetizirati-besedila-z-ai.mdx",
+        "lastGenerated": 1757703045282
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/riassunti-documenti-rag/cover.webp",
+        "lastGenerated": 1757703045311
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/riassunti-documenti-rag/card.webp",
+        "lastGenerated": 1757703045311
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/riassunti-documenti-rag/og.webp",
+        "lastGenerated": 1757703045311
+      }
+    },
+    "lastModified": 1757256272941,
+    "contentHash": "df592e3d0de7f2f0f49b10ee53fb67d8"
+  },
+  "src/content/insights/quali-sono-le-differenze-tra-chatgpt-e-claudeai.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-chatgpt-vs-claude-key-differences-pricing-and-use-cases.mdx",
+        "lastGenerated": 1757703045501
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-chatgpt-vs-claude-kljucne-razlike-cene-in-primeri-uporabe.mdx",
+        "lastGenerated": 1757703045664
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/quali-sono-le-differenze-tra-chatgpt-e-claudeai/cover.webp",
+        "lastGenerated": 1757703045681
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/quali-sono-le-differenze-tra-chatgpt-e-claudeai/card.webp",
+        "lastGenerated": 1757703045681
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/quali-sono-le-differenze-tra-chatgpt-e-claudeai/og.webp",
+        "lastGenerated": 1757703045681
+      }
+    },
+    "lastModified": 1757256272925,
+    "contentHash": "dfdd302904de1ba07bcc75e89c676966"
+  },
+  "src/content/insights/qual-e-la-differenza-tra-i-due-tipi-di-chatbot-attualmente-in-circolazione.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-chatbot-difference-between-rule-based-and-ai-when-to-choose-what.mdx",
+        "lastGenerated": 1757703045838
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-chatbot-razlika-med-rule-based-in-ai-kdaj-izbrati-kaj.mdx",
+        "lastGenerated": 1757703045982
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/qual-e-la-differenza-tra-i-due-tipi-di-chatbot-attualmente-in-circolazione/cover.webp",
+        "lastGenerated": 1757703046003
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/qual-e-la-differenza-tra-i-due-tipi-di-chatbot-attualmente-in-circolazione/card.webp",
+        "lastGenerated": 1757703046003
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/qual-e-la-differenza-tra-i-due-tipi-di-chatbot-attualmente-in-circolazione/og.webp",
+        "lastGenerated": 1757703046003
+      }
+    },
+    "lastModified": 1757256272909,
+    "contentHash": "ea700b96c5176007ab130de4e0c24974"
+  },
+  "src/content/insights/massimizza-le-prestazioni-di-wp-rocket-su-wordpress.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-wp-rocket-on-wordpress-how-to-improve-performance.mdx",
+        "lastGenerated": 1757703046177
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-wp-rocket-na-wordpress-kako-izboljsati-zmogljivost.mdx",
+        "lastGenerated": 1757703046309
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/massimizza-le-prestazioni-di-wp-rocket-su-wordpress/cover.webp",
+        "lastGenerated": 1757703046330
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/massimizza-le-prestazioni-di-wp-rocket-su-wordpress/card.webp",
+        "lastGenerated": 1757703046330
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/massimizza-le-prestazioni-di-wp-rocket-su-wordpress/og.webp",
+        "lastGenerated": 1757703046330
+      }
+    },
+    "lastModified": 1757256272897,
+    "contentHash": "e40c556e3df75a2bbecf6f60ddb9e805"
+  },
+  "src/content/insights/le-migliori-pratiche-per-gestire-la-comunicazione-interna-con-sharepoint.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-internal-communication-with-sharepoint-essential-best-practices.mdx",
+        "lastGenerated": 1757703046546
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-notranja-komunikacija-s-sharepoint-bistvene-najboljse-prakse.mdx",
+        "lastGenerated": 1757703046702
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/le-migliori-pratiche-per-gestire-la-comunicazione-interna-con-sharepoint/cover.webp",
+        "lastGenerated": 1757703046715
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/le-migliori-pratiche-per-gestire-la-comunicazione-interna-con-sharepoint/card.webp",
+        "lastGenerated": 1757703046715
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/le-migliori-pratiche-per-gestire-la-comunicazione-interna-con-sharepoint/og.webp",
+        "lastGenerated": 1757703046715
+      }
+    },
+    "lastModified": 1757700356071,
+    "contentHash": "b718fb14b04981ccbcde805b06bb851c"
+  },
+  "src/content/insights/laravel-eloquent-come-accedere-ai-dati-in-modo-semplice-e-veloce.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-laravel-eloquent-simple-and-fast-data-access.mdx",
+        "lastGenerated": 1757703046907
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-laravel-eloquent-enostaven-in-hiter-dostop-do-podatkov.mdx",
+        "lastGenerated": 1757703047088
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/laravel-eloquent-come-accedere-ai-dati-in-modo-semplice-e-veloce/cover.webp",
+        "lastGenerated": 1757703047127
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/laravel-eloquent-come-accedere-ai-dati-in-modo-semplice-e-veloce/card.webp",
+        "lastGenerated": 1757703047127
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/laravel-eloquent-come-accedere-ai-dati-in-modo-semplice-e-veloce/og.webp",
+        "lastGenerated": 1757703047127
+      }
+    },
+    "lastModified": 1757256272881,
+    "contentHash": "04cfccbe78c5a874d54f78283448f108"
+  },
+  "src/content/insights/intranet-intelligenti-sharepoint-ai.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-smart-intranets-combining-sharepoint-online-and-ai-for-the-digital-workplace.mdx",
+        "lastGenerated": 1757703047280
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-intranet-inteligentni-kombiniranje-sharepoint-online-in-ai-za-digitalno-delovno-okolje.mdx",
+        "lastGenerated": 1757703047479
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/intranet-intelligenti-sharepoint-ai/cover.webp",
+        "lastGenerated": 1757703047510
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/intranet-intelligenti-sharepoint-ai/card.webp",
+        "lastGenerated": 1757703047510
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/intranet-intelligenti-sharepoint-ai/og.webp",
+        "lastGenerated": 1757703047510
+      }
+    },
+    "lastModified": 1757700356071,
+    "contentHash": "fe49b959c8e526d029aff7ece39c8c16"
+  },
+  "src/content/insights/i-5-migliori-template-da-utilizzare-con-laravel-guida-completa.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-laravel-the-5-best-templates-to-get-started-right-away.mdx",
+        "lastGenerated": 1757703047703
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-laravel-5-najboljsih-predlog-za-takojsnje-zacetek.mdx",
+        "lastGenerated": 1757703047840
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/i-5-migliori-template-da-utilizzare-con-laravel-guida-completa/cover.webp",
+        "lastGenerated": 1757703047866
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/i-5-migliori-template-da-utilizzare-con-laravel-guida-completa/card.webp",
+        "lastGenerated": 1757703047866
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/i-5-migliori-template-da-utilizzare-con-laravel-guida-completa/og.webp",
+        "lastGenerated": 1757703047866
+      }
+    },
+    "lastModified": 1757700356071,
+    "contentHash": "390f0eddcb17801acbd7586139815d62"
+  },
+  "src/content/insights/guida-alla-creazione-di-chatbot-con-dialogflow.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-chatbot-with-dialogflow-step-by-step-practical-guide.mdx",
+        "lastGenerated": 1757703048066
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-chatbot-z-dialogflow-prakticni-vodnik-korak-za-korakom.mdx",
+        "lastGenerated": 1757703048274
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/guida-alla-creazione-di-chatbot-con-dialogflow/cover.webp",
+        "lastGenerated": 1757703048285
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/guida-alla-creazione-di-chatbot-con-dialogflow/card.webp",
+        "lastGenerated": 1757703048285
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/guida-alla-creazione-di-chatbot-con-dialogflow/og.webp",
+        "lastGenerated": 1757703048285
+      }
+    },
+    "lastModified": 1757257987110,
+    "contentHash": "5e189f6712067b927fd4629ba46598c5"
+  },
+  "src/content/insights/gioco-sudoku.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-free-online-sudoku-game.mdx",
+        "lastGenerated": 1757703048443
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-brezplacna-spletna-igra-sudoku.mdx",
+        "lastGenerated": 1757703048645
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/gioco-sudoku/cover.webp",
+        "lastGenerated": 1757703048679
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/gioco-sudoku/card.webp",
+        "lastGenerated": 1757703048679
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/gioco-sudoku/og.webp",
+        "lastGenerated": 1757703048679
+      }
+    },
+    "lastModified": 1757256272865,
+    "contentHash": "79995e2325d850be06c46de160af0a2c"
+  },
+  "src/content/insights/gioco-sudoku-gioca-come-un-professionista-usando-strategie-basate-sullai.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-sudoku-game-ai-based-strategies-for-playing-like-a-pro.mdx",
+        "lastGenerated": 1757703048917
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-gioco-sudoku-strategije-temeljece-na-ai-za-igranje-kot-pro.mdx",
+        "lastGenerated": 1757703049143
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/gioco-sudoku-gioca-come-un-professionista-usando-strategie-basate-sullai/cover.webp",
+        "lastGenerated": 1757703049161
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/gioco-sudoku-gioca-come-un-professionista-usando-strategie-basate-sullai/card.webp",
+        "lastGenerated": 1757703049161
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/gioco-sudoku-gioca-come-un-professionista-usando-strategie-basate-sullai/og.webp",
+        "lastGenerated": 1757703049161
+      }
+    },
+    "lastModified": 1757257987110,
+    "contentHash": "2ded242ddd4dadb2f5595284c1c6253a"
+  },
+  "src/content/insights/evoluzione-ai-sviluppo-software-2023-2026.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-from-snippets-to-agents-the-evolution-of-ai-in-software-development-2023-2026.mdx",
+        "lastGenerated": 1757703049417
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-dallo-snippet-agli-agenti-evolucija-ai-v-razvoju-programske-opreme-2023-2026.mdx",
+        "lastGenerated": 1757703049719
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/evoluzione-ai-sviluppo-software-2023-2026/cover.webp",
+        "lastGenerated": 1757703049766
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/evoluzione-ai-sviluppo-software-2023-2026/card.webp",
+        "lastGenerated": 1757703049766
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/evoluzione-ai-sviluppo-software-2023-2026/og.webp",
+        "lastGenerated": 1757703049766
+      }
+    },
+    "lastModified": 1757702293520,
+    "contentHash": "617fe49a177aaf30bd8388d2ff3b0d68"
+  },
+  "src/content/insights/dora-nis2-cosa-cambia-aziende.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-dora-and-nis2-what-really-changes-for-it-companies-in-2025.mdx",
+        "lastGenerated": 1757703050120
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-dora-in-nis2-kaj-se-res-spremeni-za-it-podjetja-leta-2025.mdx",
+        "lastGenerated": 1757703050412
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/dora-nis2-cosa-cambia-aziende/cover.webp",
+        "lastGenerated": 1757703050445
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/dora-nis2-cosa-cambia-aziende/card.webp",
+        "lastGenerated": 1757703050445
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/dora-nis2-cosa-cambia-aziende/og.webp",
+        "lastGenerated": 1757703050445
+      }
+    },
+    "lastModified": 1757701827616,
+    "contentHash": "88ede92a782fe27d772a1d20faf47aca"
+  },
+  "src/content/insights/database-mysql-e-siti-wordpress-ad-alto-traffico-come-ottimizzarlo-per-massimizzare-le-performance.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-high-traffic-wordpress-optimizing-mysql-for-maximum-performance.mdx",
+        "lastGenerated": 1757703050691
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-wordpress-z-visokim-prometom-optimizacija-mysql-za-maksimalno-zmogljivost.mdx",
+        "lastGenerated": 1757703050876
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/database-mysql-e-siti-wordpress-ad-alto-traffico-come-ottimizzarlo-per-massimizzare-le-performance/cover.webp",
+        "lastGenerated": 1757703050905
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/database-mysql-e-siti-wordpress-ad-alto-traffico-come-ottimizzarlo-per-massimizzare-le-performance/card.webp",
+        "lastGenerated": 1757703050905
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/database-mysql-e-siti-wordpress-ad-alto-traffico-come-ottimizzarlo-per-massimizzare-le-performance/og.webp",
+        "lastGenerated": 1757703050905
+      }
+    },
+    "lastModified": 1757256272853,
+    "contentHash": "635159514b6c8707119f89f483f65e4f"
+  },
+  "src/content/insights/dalla-risposta-automatica-al-linguaggio-generativo-le-differenze-tra-chatbot-e-chatgpt.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/insights/en-chatbot-vs-chatgpt-differences-and-when-to-choose-one-or-the-other.mdx",
+        "lastGenerated": 1757703051148
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/insights/sl-chatbot-vs-chatgpt-razlike-in-kdaj-izbrati-enega-ali-drugega.mdx",
+        "lastGenerated": 1757703051372
+      }
+    },
+    "images": {
+      "cover": {
+        "exists": true,
+        "path": "public/posts/dalla-risposta-automatica-al-linguaggio-generativo-le-differenze-tra-chatbot-e-chatgpt/cover.webp",
+        "lastGenerated": 1757703051393
+      },
+      "card": {
+        "exists": true,
+        "path": "public/posts/dalla-risposta-automatica-al-linguaggio-generativo-le-differenze-tra-chatbot-e-chatgpt/card.webp",
+        "lastGenerated": 1757703051393
+      },
+      "og": {
+        "exists": true,
+        "path": "public/posts/dalla-risposta-automatica-al-linguaggio-generativo-le-differenze-tra-chatbot-e-chatgpt/og.webp",
+        "lastGenerated": 1757703051393
+      }
+    },
+    "lastModified": 1757256272845,
+    "contentHash": "1a532a14cf368d6587aba8ac3a3cd2c4"
+  }
+}
