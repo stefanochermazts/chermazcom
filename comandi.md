@@ -214,6 +214,15 @@ node scripts/fix-all-yaml-quotes.mjs
 node scripts/convert-quotes-to-double.mjs
 ```
 
+### scripts/fix-yaml-multiline.mjs
+- Scopo: converte YAML multilinea (`title: >-`) in stringhe normali per compatibilità schema Astro.
+- Risolve errori "Content entry data does not match schema"
+- Esempio:
+```bash
+node scripts/fix-yaml-multiline.mjs --dry-run
+node scripts/fix-yaml-multiline.mjs
+```
+
 ### scripts/convert-to-multiline-yaml.mjs
 - Scopo: converte campi testuali in block scalar `>-` quando utile.
 - Esempio:
