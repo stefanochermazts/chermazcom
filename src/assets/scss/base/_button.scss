@@ -33,6 +33,19 @@
     }
   }
 
+  /* Variante neutra elegante (nero/bianco) */
+  &.is-neutral {
+    border-width: 2px;
+    border-color: light-dark(var(--color-neutral-900), var(--color-neutral-100));
+    background-color: light-dark(#ffffff, var(--color-neutral-900));
+    color: light-dark(var(--color-neutral-900), #ffffff);
+
+    &:where(:hover, :focus-visible) {
+      border-color: light-dark(var(--color-neutral-700), var(--color-neutral-200));
+      background-color: light-dark(var(--color-neutral-200), var(--color-neutral-800));
+    }
+  }
+
   &.has-icon {
     display: flex;
     align-items: center;

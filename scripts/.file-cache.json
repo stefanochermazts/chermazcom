@@ -1554,5 +1554,22 @@
     "images": {},
     "lastModified": 1757700356071,
     "contentHash": "abb4ca3dd4087bc9d41a053af88a8238"
+  },
+  "src/content/pages/ai-playground.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src/content/pages/en-ai-playground.mdx",
+        "lastGenerated": 1757784671886
+      },
+      "sl": {
+        "exists": true,
+        "path": "src/content/pages/sl-ai-playground.mdx",
+        "lastGenerated": 1757784705448
+      }
+    },
+    "images": {},
+    "lastModified": 1757776760325,
+    "contentHash": "e7c3f6bac5007bc16cb46e19761eab20"
   }
 }

@@ -12,8 +12,16 @@ export default {
       },
       colors: {
         brand: {
+          50: '#eef4ff',
+          100: '#d9e6ff',
+          200: '#b3cdff',
+          300: '#8db4ff',
+          400: '#679bff',
           500: '#1f63ff',
           600: '#164cd6',
+          700: '#113aa6',
+          800: '#0d2b7a',
+          900: '#091d52',
         },
         neutral: {
           500: '#64748b',
@@ -27,5 +35,6 @@ export default {
     },
   },
   plugins: [],
-  darkMode: ['selector', '[class~="darkmode"], [class~="dark"]'],
+  // Abilita le varianti `dark:` quando l'HTML ha classe `darkmode` (usata da accessible-astro-components)
+  darkMode: ['selector', '.darkmode'],
 }

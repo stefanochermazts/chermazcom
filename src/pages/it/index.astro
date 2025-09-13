@@ -6,6 +6,7 @@ import Services from '../../components/Home/Services.astro'
 import Expertise from '../../components/Home/Expertise.astro'
 import CaseStudies from '../../components/Home/CaseStudies.astro'
 import LatestInsights from '../../components/Home/LatestInsights.astro'
+import AIDemos from '../../components/Home/AIDemos.astro'
 import Testimonials from '../../components/Home/Testimonials.astro'
 import Contact from '../../components/Home/Contact.astro'
 import { getCollection } from 'astro:content'
@@ -75,9 +76,18 @@ const recentCaseStudies = featuredCaseStudies
     allArticlesLabel={it.pages.home.latestInsights.allArticlesLabel}
     locale={it.pages.home.latestInsights.locale}
   />
+  <AIDemos 
+    title="Dimostrazioni AI"
+    subtitle="Scopri le potenzialità dell'intelligenza artificiale applicata allo sviluppo"
+    ctaText="Scopri di più sui miei servizi AI"
+    ctaHref="/it/servizi/"
+    playgroundTitle="AI Code Playground"
+    playgroundDescription="Analizza e ottimizza il tuo codice con l'intelligenza artificiale. Incolla uno snippet e scopri come migliorarlo."
+    playgroundHref="/it/ai-playground/"
+  />
   <Testimonials 
     title={it.pages.home.testimonials.title}
     items={it.pages.home.testimonials.items}
   />
   <Contact lang="it" />
-</DefaultLayout>
+</UnifiedLayout>

@@ -1,0 +1,428 @@
+---
+// Playground component - Server side
+---
+
+<section class="py-12">
+  <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+      
+      <!-- Input Panel -->
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-3xl font-bold">Il Tuo Codice</h2>
+          
+          <!-- Language Selector -->
+          <div class="mb-4">
+            <label for="language-select" class="block text-sm font-medium mb-2">
+              Linguaggio:
+            </label>
+            <select 
+              id="language-select" 
+              class="block w-48 rounded-lg border px-3 py-2 text-sm"
+            >
+              <option value="javascript">JavaScript</option>
+              <option value="typescript">TypeScript</option>
+              <option value="python">Python</option>
+              <option value="php">PHP</option>
+              <option value="java">Java</option>
+              <option value="csharp">C#</option>
+              <option value="go">Go</option>
+              <option value="rust">Rust</option>
+            </select>
+          </div>
+
+          <!-- Code Editor -->
+          <div class="relative">
+            <textarea
+              id="code-input"
+              placeholder="// Incolla qui il tuo codice da analizzare..."
+              class="w-full h-80 p-4 font-mono text-sm rounded-lg border focus:ring-2"
+              spellcheck="false"
+            ></textarea>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap gap-3 mt-6">
+            <button id="analyze-btn" class="button has-icon is-neutral">
+              <span data-icon>🧠</span>
+              Analizza Codice
+            </button>
+            
+            <button id="optimize-btn" class="button has-icon is-neutral" disabled>
+              <span data-icon>⚡</span>
+              Ottimizza
+            </button>
+
+            <button id="clear-btn" class="button is-neutral" type="button">
+              Pulisci
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Output Panel -->
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-3xl font-bold">Analisi AI</h2>
+          
+          <!-- Loading State -->
+          <div id="loading-state" class="hidden">
+            <div class="flex items-center justify-center p-8 rounded-lg border">
+              <div class="flex items-center">
+                <span class="mr-2 animate-pulse">⏳</span>
+                <span id="loading-text">Analizzando il codice...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results Container -->
+          <div id="results-container" class="space-y-6">
+            <!-- Initial State -->
+            <div id="initial-state" class="text-center p-12 rounded-xl border">
+              <div class="mx-auto h-16 w-16 mb-6">{/* icon placeholder */}</div>
+              <h3 class="text-xl font-semibold mb-3">Pronto per l'analisi</h3>
+              <p class="text-base">Incolla il tuo codice nell'editor e clicca "Analizza" per iniziare.</p>
+            </div>
+
+            <!-- Analysis Results -->
+            <div id="analysis-results" class="hidden space-y-6">
+              <div class="rounded-xl border p-8">
+                <h3 class="text-xl font-semibold mb-4">Spiegazione del Codice</h3>
+                <div id="explanation-content" class="prose max-w-none"></div>
+              </div>
+
+              <div class="rounded-xl border p-8">
+                <h3 class="text-xl font-semibold mb-4">Suggerimenti di Miglioramento</h3>
+                <div id="suggestions-content" class="prose max-w-none"></div>
+              </div>
+            </div>
+
+            <!-- Optimized Code -->
+            <div id="optimized-results" class="hidden">
+              <div class="rounded-xl border p-8">
+                <h3 class="text-xl font-semibold mb-6">Codice Ottimizzato</h3>
+                <div class="relative mb-6">
+                  <pre id="optimized-code" class="p-6 rounded-xl overflow-x-auto text-sm font-mono border"></pre>
+                  <button id="copy-optimized-btn" class="button" title="Copia codice ottimizzato" style="position:absolute;top:8px;right:8px;">
+                    Copia
+                  </button>
+                </div>
+                <div id="optimization-explanation" class="prose max-w-none"></div>
+              </div>
+            </div>
+
+            <!-- Error State -->
+            <div id="error-state" class="hidden">
+              <div class="rounded-lg p-6 border">
+                <h3 class="text-lg font-semibold">Errore</h3>
+                <p id="error-message" class="mt-2"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Include the interactive JavaScript inline -->
+<script is:inline>
+/**
+ * AI Code Playground - Interactive JavaScript
+ * Gestisce l'interfaccia utente e le chiamate API
+ */
+
+class CodePlayground {
+  constructor() {
+    console.log('🎮 CodePlayground inizializzato')
+    this.initializeElements()
+    this.bindEvents()
+    this.currentAnalysis = null
+    this.setDefaultExample()
+    this.updateLabels()
+    console.log('✅ CodePlayground pronto')
+  }
+
+  updateLabels() {
+    const t = this.getTranslations()
+    
+    // Aggiorna i testi dei pulsanti mantenendo le icone
+    if (this.analyzeBtn) {
+      this.analyzeBtn.innerHTML = `<span data-icon>🧠</span>${t.analyzeBtn}`
+    }
+    if (this.optimizeBtn) {
+      this.optimizeBtn.innerHTML = `<span data-icon>⚡</span>${t.optimizeBtn}`
+    }
+    if (this.copyOptimizedBtn) {
+      this.copyOptimizedBtn.innerHTML = `<span data-icon>📋</span>${t.copyBtn}`
+    }
+    
+    // Aggiorna i testi statici
+    const readyTitle = document.querySelector('#initial-state h3')
+    if (readyTitle) readyTitle.textContent = t.readyTitle
+    
+    const readyText = document.querySelector('#initial-state p')
+    if (readyText) readyText.textContent = t.readyText
+    
+    const optimizedTitle = document.querySelector('#optimization-state h3')
+    if (optimizedTitle) optimizedTitle.textContent = t.optimizedTitle
+    
+    const errorTitle = document.querySelector('#error-state h3')
+    if (errorTitle) errorTitle.textContent = t.errorTitle
+  }
+
+  initializeElements() {
+    // Input elements
+    this.codeInput = document.getElementById('code-input')
+    this.languageSelect = document.getElementById('language-select')
+    
+    // Buttons
+    this.analyzeBtn = document.getElementById('analyze-btn')
+    this.optimizeBtn = document.getElementById('optimize-btn')
+    this.clearBtn = document.getElementById('clear-btn')
+    this.copyOptimizedBtn = document.getElementById('copy-optimized-btn')
+    this.loadingText = document.getElementById('loading-text')
+    
+    // UI States
+    this.loadingState = document.getElementById('loading-state')
+    this.initialState = document.getElementById('initial-state')
+    this.analysisResults = document.getElementById('analysis-results')
+    this.optimizedResults = document.getElementById('optimized-results')
+    this.errorState = document.getElementById('error-state')
+    
+    // Content containers
+    this.explanationContent = document.getElementById('explanation-content')
+    this.suggestionsContent = document.getElementById('suggestions-content')
+    this.optimizedCode = document.getElementById('optimized-code')
+    this.optimizationExplanation = document.getElementById('optimization-explanation')
+    this.errorMessage = document.getElementById('error-message')
+  }
+
+  bindEvents() {
+    if (this.analyzeBtn) this.analyzeBtn.addEventListener('click', () => this.analyzeCode())
+    if (this.optimizeBtn) this.optimizeBtn.addEventListener('click', () => this.optimizeCode())
+    if (this.clearBtn) this.clearBtn.addEventListener('click', () => this.clearAll())
+    if (this.copyOptimizedBtn) this.copyOptimizedBtn.addEventListener('click', () => this.copyOptimizedCode())
+    
+    if (this.codeInput) {
+      this.codeInput.addEventListener('input', () => this.updateButtonStates())
+      this.updateButtonStates()
+    }
+  }
+
+  updateButtonStates() {
+    const hasCode = this.codeInput?.value?.trim().length > 0
+    const isLoading = !this.loadingState?.classList.contains('hidden')
+    if (this.analyzeBtn) this.analyzeBtn.disabled = !hasCode || isLoading
+    if (this.optimizeBtn) this.optimizeBtn.disabled = !hasCode || !this.currentAnalysis || isLoading
+  }
+
+  getCurrentLocale() {
+    // Rileva la lingua dall'URL (es. /it/ai-playground/, /en/ai-playground/, /sl/ai-playground/)
+    const pathname = window.location.pathname
+    if (pathname.startsWith('/en/')) return 'en'
+    if (pathname.startsWith('/sl/')) return 'sl'
+    return 'it' // default
+  }
+
+  getTranslations() {
+    const locale = this.getCurrentLocale()
+    const translations = {
+      it: {
+        analyzeBtn: 'Analizza Codice',
+        optimizeBtn: 'Ottimizza',
+        analyzingText: 'Analizzando il codice...',
+        optimizingText: 'Ottimizzando il codice...',
+        loadingText: 'Caricamento...',
+        readyTitle: 'Pronto per l\'analisi',
+        readyText: 'Incolla il tuo codice nell\'editor e clicca "Analizza" per iniziare.',
+        optimizedTitle: 'Codice Ottimizzato',
+        errorTitle: 'Errore',
+        copyBtn: 'Copia',
+        copiedBtn: 'Copiato!',
+        errorNoCode: 'Inserisci del codice da analizzare.',
+        errorNoCodeOptimize: 'Inserisci del codice da ottimizzare.',
+        errorAnalysis: 'Errore durante l\'analisi del codice. Riprova più tardi.',
+        errorOptimization: 'Errore durante l\'ottimizzazione del codice. Riprova più tardi.'
+      },
+      en: {
+        analyzeBtn: 'Analyze Code',
+        optimizeBtn: 'Optimize',
+        analyzingText: 'Analyzing code...',
+        optimizingText: 'Optimizing code...',
+        loadingText: 'Loading...',
+        readyTitle: 'Ready for analysis',
+        readyText: 'Paste your code in the editor and click "Analyze" to start.',
+        optimizedTitle: 'Optimized Code',
+        errorTitle: 'Error',
+        copyBtn: 'Copy',
+        copiedBtn: 'Copied!',
+        errorNoCode: 'Please enter code to analyze.',
+        errorNoCodeOptimize: 'Please enter code to optimize.',
+        errorAnalysis: 'Error during code analysis. Please try again later.',
+        errorOptimization: 'Error during code optimization. Please try again later.'
+      },
+      sl: {
+        analyzeBtn: 'Analiziraj kodo',
+        optimizeBtn: 'Optimiziraj',
+        analyzingText: 'Analiziram kodo...',
+        optimizingText: 'Optimiziram kodo...',
+        loadingText: 'Nalagam...',
+        readyTitle: 'Pripravljen za analizo',
+        readyText: 'Prilepite svojo kodo v urejevalnik in kliknite "Analiziraj" za začetek.',
+        optimizedTitle: 'Optimizirana koda',
+        errorTitle: 'Napaka',
+        copyBtn: 'Kopiraj',
+        copiedBtn: 'Kopirano!',
+        errorNoCode: 'Prosim vnesite kodo za analizo.',
+        errorNoCodeOptimize: 'Prosim vnesite kodo za optimizacijo.',
+        errorAnalysis: 'Napaka med analizo kode. Poskusite znova pozneje.',
+        errorOptimization: 'Napaka med optimizacijo kode. Poskusite znova pozneje.'
+      }
+    }
+    return translations[locale] || translations.it
+  }
+
+  async analyzeCode() {
+    const code = this.codeInput?.value?.trim()
+    const language = this.languageSelect?.value
+    const locale = this.getCurrentLocale()
+    const t = this.getTranslations()
+    if (!code) return this.showError(t.errorNoCode)
+    this.showLoading(t.analyzingText)
+    try {
+      const response = await fetch('/api/playground/analyze', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code, language, locale }) })
+      if (!response.ok) throw new Error(`Errore HTTP: ${response.status}`)
+      const result = await response.json()
+      this.currentAnalysis = result
+      this.showAnalysisResults(result)
+      if (this.optimizeBtn) this.optimizeBtn.disabled = false
+    } catch (error) {
+      console.error('Errore durante l\'analisi:', error)
+      this.showError(t.errorAnalysis)
+    }
+  }
+
+  async optimizeCode() {
+    const code = this.codeInput?.value?.trim()
+    const language = this.languageSelect?.value
+    const locale = this.getCurrentLocale()
+    const t = this.getTranslations()
+    if (!code) return this.showError(t.errorNoCodeOptimize)
+    this.showLoading(t.optimizingText)
+    try {
+      const response = await fetch('/api/playground/optimize', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code, language, analysis: this.currentAnalysis || null, locale }) })
+      if (!response.ok) throw new Error(`Errore HTTP: ${response.status}`)
+      const result = await response.json()
+      this.showOptimizationResults(result)
+    } catch (error) {
+      console.error('Errore durante l\'ottimizzazione:', error)
+      this.showError(t.errorOptimization)
+    }
+  }
+
+  clearAll() {
+    if (this.codeInput) this.codeInput.value = ''
+    this.currentAnalysis = null
+    this.updateButtonStates()
+    this.showInitialState()
+  }
+
+  async copyOptimizedCode() {
+    const code = this.optimizedCode?.textContent
+    if (!code) return
+    try { await navigator.clipboard.writeText(code) } catch (e) { console.error(e) }
+  }
+
+  showLoading(message) {
+    this.hideAllStates()
+    if (this.loadingState) this.loadingState.classList.remove('hidden')
+    const t = this.getTranslations()
+    if (this.loadingText) this.loadingText.textContent = message || t.loadingText
+    if (this.analyzeBtn) this.analyzeBtn.disabled = true
+    if (this.optimizeBtn) this.optimizeBtn.disabled = true
+  }
+
+  showInitialState() {
+    this.hideAllStates()
+    if (this.initialState) this.initialState.classList.remove('hidden')
+    this.updateButtonStates()
+  }
+
+  showAnalysisResults(result) {
+    this.hideAllStates()
+    if (this.analysisResults) this.analysisResults.classList.remove('hidden')
+    if (this.explanationContent) this.explanationContent.innerHTML = this.formatMarkdown(result.explanation)
+    if (this.suggestionsContent) this.suggestionsContent.innerHTML = this.formatMarkdown(result.suggestions)
+    this.updateButtonStates()
+  }
+
+  showOptimizationResults(result) {
+    this.hideAllStates()
+    if (this.optimizedResults) this.optimizedResults.classList.remove('hidden')
+    if (this.optimizedCode) this.optimizedCode.textContent = result.optimizedCode
+    if (this.optimizationExplanation) this.optimizationExplanation.innerHTML = this.formatMarkdown(result.explanation)
+    this.updateButtonStates()
+  }
+
+  showError(message) {
+    this.hideAllStates()
+    if (this.errorState) this.errorState.classList.remove('hidden')
+    if (this.errorMessage) this.errorMessage.textContent = message
+    this.updateButtonStates()
+  }
+
+  hideAllStates() {
+    const states = [this.loadingState, this.initialState, this.analysisResults, this.optimizedResults, this.errorState]
+    states.forEach(state => { if (state) state.classList.add('hidden') })
+  }
+
+  formatMarkdown(text) {
+    if (!text) return ''
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/`(.*?)`/g, '<code class="px-1 py-0.5 rounded text-sm">$1</code>')
+      .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="p-4 rounded-lg overflow-x-auto text-sm"><code>$2</code></pre>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/\n/g, '<br>')
+      .replace(/^/, '<p>')
+      .replace(/$/, '</p>')
+  }
+
+  setDefaultExample() {
+    const example = `function fibonacci(n) {\n  if (n <= 1) return n;\n  return fibonacci(n - 1) + fibonacci(n - 2);\n}\n\nconsole.log(fibonacci(10));`
+    if (this.codeInput && !this.codeInput.value?.trim()) {
+      this.codeInput.value = example
+      this.updateButtonStates()
+    }
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => { new CodePlayground() })
+} else {
+  new CodePlayground()
+}
+</script>
+
+<style>
+  /* Contrasto select/options in light/dark */
+  select#language-select { 
+    background-color: #ffffff; 
+    color: #0f172a;
+    border-color: currentColor;
+  }
+  select#language-select option { 
+    background-color: #ffffff; 
+    color: #0f172a;
+  }
+  .dark select#language-select { 
+    background-color: #0f172a; 
+    color: #e5e7eb;
+  }
+  .dark select#language-select option { 
+    background-color: #0f172a; 
+    color: #e5e7eb;
+  }
+</style>

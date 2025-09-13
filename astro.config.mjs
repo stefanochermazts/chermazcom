@@ -4,9 +4,12 @@ import compress from 'astro-compress'
 import icon from 'astro-icon'
 import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath } from 'url'
+import netlify from '@astrojs/netlify'
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'server',
+  adapter: netlify({ mode: 'functions' }),
   compressHTML: true,
   site: 'https://www.chermaz.com',
   i18n: {

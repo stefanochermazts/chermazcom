@@ -490,6 +490,84 @@ node scripts/add-status-field.mjs --verbose
 
 **Problema risolto**: Gli articoli senza `status: publish` nel frontmatter non comparivano in homepage e nella sezione insights perché vengono filtrati dalla logica di visualizzazione.
 
+## 🎮 AI Code Playground
+
+### Panoramica
+Pagina dimostrativa interattiva che mostra le capacità dell'AI nello sviluppo software:
+- **URL**: `/it/ai-playground/`, `/en/ai-playground/`, `/sl/ai-playground/`
+- **Editor di codice** con syntax highlighting
+- **Analisi automatica** del codice tramite OpenAI API
+- **Ottimizzazione intelligente** con spiegazione delle modifiche
+- **Supporto multi-linguaggio** (JavaScript, Python, PHP, Java, C#, Go, Rust, TypeScript)
+
+### File Creati
+```
+src/pages/it/ai-playground.astro          # Pagina principale italiana
+src/pages/en/ai-playground.astro          # Pagina inglese  
+src/pages/sl/ai-playground.astro          # Pagina slovena
+src/components/Playground/CodePlayground.astro  # Componente playground
+src/pages/api/playground/analyze.ts       # API per analisi codice
+src/pages/api/playground/optimize.ts      # API per ottimizzazione
+src/components/Home/AIDemos.astro         # Sezione AI demos homepage
+public/js/playground.js                   # JavaScript interattivo
+```
+
+### Configurazione Richiesta
+
+#### 🔐 Sviluppo Locale
+```bash
+# Aggiungi al file .env (root del progetto)
+echo 'OPENAI_API_KEY=sk-your-key-here' >> .env
+
+# Verifica che .env sia in .gitignore
+echo ".env" >> .gitignore
+
+# Test configurazione
+node scripts/test-openai-config.mjs
+```
+
+#### 🚀 Deploy Netlify (SICURO)
+```bash
+# Metodo 1: Dashboard Netlify
+# Site settings → Environment variables → Add variable
+# Name: OPENAI_API_KEY
+# Value: sk-your-actual-openai-key-here
+
+# Metodo 2: CLI Netlify
+npm install -g netlify-cli
+netlify login
+netlify env:set OPENAI_API_KEY sk-your-openai-key-here
+
+# Verifica deploy
+netlify build
+```
+
+#### ⚠️ Sicurezza
+- ✅ Chiave SOLO server-side (import.meta.env.OPENAI_API_KEY)
+- ✅ Mai committare .env nel repository
+- ✅ Usare environment variables di Netlify per production
+- ❌ Mai usare PUBLIC_ prefix per API keys
+- ❌ Mai hardcodare chiavi nel codice
+
+### Funzionalità
+1. **Editor Codice**: Textarea con supporto multi-linguaggio
+2. **Analisi AI**: Spiegazione dettagliata del codice via OpenAI GPT-4o-mini
+3. **Ottimizzazione**: Versione migliorata del codice con spiegazione
+4. **UI Interattiva**: Stati di caricamento, errore, risultati
+5. **Copia Codice**: Funzione per copiare il codice ottimizzato
+6. **Responsive**: Design ottimizzato per mobile e desktop
+
+### Integrazione Homepage
+- ✅ Aggiunta sezione "Dimostrazioni AI" alla homepage italiana
+- 🔄 TODO: Aggiungere alle homepage EN e SL
+- 🔄 TODO: Aggiungere link nel menu di navigazione
+
+### Note Tecniche
+- **Modello AI**: GPT-4o-mini per bilanciare qualità/costi
+- **Sicurezza**: Validazione input, gestione errori, rate limiting
+- **Performance**: JavaScript vanilla per leggerezza
+- **Accessibilità**: Design conforme alle linee guida WCAG
+
 ## 🔧 Soluzioni per WSL/Cursor Terminal
 
 ### Problema: Terminal che non esce o sembra "appeso"

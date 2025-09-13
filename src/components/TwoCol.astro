@@ -8,12 +8,13 @@ interface Props {
   height?: number | string
   caption?: string
   reverse?: boolean
+  columns?: string
 }
 
-const { src, alt, width, height, caption, reverse = false } = Astro.props as Props
+const { src, alt, width, height, caption, reverse = false, columns = '1fr 1fr' } = Astro.props as Props
 ---
 
-<section class="two-col content-large">
+<section class="two-col content-large" style={`--columns:${columns}`}>
 	<div class:list={["media", reverse && "order-2"]}>
 		<div class="media-wrap">
 			<Figure src={src} alt={alt} width={width} height={height} caption={caption} />
@@ -32,7 +33,7 @@ const { src, alt, width, height, caption, reverse = false } = Astro.props as Pro
 		@media (min-width: 768px) {
 			.two-col {
 				display: grid;
-				grid-template-columns: 1fr 1fr;
+				grid-template-columns: var(--columns, 1fr 1fr);
 				gap: 2rem;
 				align-items: start;
 			}
