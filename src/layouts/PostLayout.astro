@@ -1,0 +1,257 @@
+---
+import UnifiedLayout from './UnifiedLayout.astro'
+
+interface PostFrontmatter {
+  title: string
+  date?: string
+  updated?: string
+  excerpt?: string
+  description?: string
+  categories?: string[]
+  tags?: string[]
+  image?: string
+  ogImage?: string
+  cover?: string
+  lang?: 'it' | 'en' | 'sl'
+}
+
+interface Props {
+  frontmatter: PostFrontmatter
+  slug: string
+  // readingTime è opzionale: se assente mostriamo un placeholder non intrusivo
+  readingTime?: string
+  // Opzionale: lista headings { depth: 2|3, slug, text }
+  toc?: Array<{ depth: number; slug: string; text: string }>
+  // Opzionale: autore e correlati
+  author?: { name: string; role?: string }
+  related?: Array<{ title: string; slug: string; image?: string }>
+  prev?: { title: string; slug: string }
+  next?: { title: string; slug: string }
+}
+
+const { frontmatter, slug, readingTime, toc = [], author, related = [], prev, next } = Astro.props as Props
+
+const fm = frontmatter || ({} as PostFrontmatter)
+const metaDescription = (fm.description || fm.excerpt || '').substring(0, 160)
+const datePublished = fm.date || ''
+const dateModified = fm.updated || fm.date || ''
+
+const hasToc = (toc?.filter((h) => h.depth === 2 || h.depth === 3).length || 0) >= 2
+const lang = fm.lang || 'it'
+
+const baseUrlByLang: Record<string, string> = { it: '/it/insights', en: '/en/insights', sl: '/sl/insights' }
+const baseUrl = baseUrlByLang[lang] || '/it/insights'
+
+// Utility per formattare data leggibile
+const formatDate = (iso?: string) => {
+  if (!iso) return null
+  try {
+    const d = new Date(iso)
+    return d.toLocaleDateString(lang, { year: 'numeric', month: 'long', day: '2-digit' })
+  } catch (e) { return iso }
+}
+---
+
+<UnifiedLayout title={fm.title} description={metaDescription} useLocalizedMeta={true} pageKey={`post:${slug}`}>
+  <article itemScope itemType="https://schema.org/BlogPosting" class="mx-auto max-w-3xl lg:max-w-4xl px-4 sm:px-6 lg:px-0 my-10 prose prose-lg dark:prose-invert">
+    <header class="not-prose mb-6">
+      <div class="flex flex-wrap items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
+        {Array.isArray(fm.categories) && fm.categories.length > 0 && (
+          <a itemProp="articleSection" href={`${baseUrl}/categoria/${(fm.categories[0]||'').toLowerCase().replace(/\s+/g,'-')}/`} class="inline-flex items-center gap-2 rounded-full bg-zinc-100 dark:bg-zinc-900 px-3 py-1 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+            <span class="font-medium">{fm.categories[0]}</span>
+          </a>
+        )}
+        {datePublished && (
+          <time itemProp="datePublished" datetime={datePublished} class="text-zinc-600 dark:text-zinc-300">{formatDate(datePublished)}</time>
+        )}
+        {dateModified && dateModified !== datePublished && (
+          <span class="text-zinc-500 dark:text-zinc-400">·</span>
+        )}
+        {dateModified && dateModified !== datePublished && (
+          <time itemProp="dateModified" datetime={dateModified} class="text-zinc-600 dark:text-zinc-300">{formatDate(dateModified)}</time>
+        )}
+        <span class="text-zinc-500 dark:text-zinc-400">·</span>
+        <span class="text-zinc-700 dark:text-zinc-200">{readingTime || '7 min'}</span>
+      </div>
+
+      <h1 itemProp="headline" class="mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50">
+        {fm.title}
+      </h1>
+
+      {(fm.cover || fm.image) && (
+        <div class="mt-6 aspect-[16/9] overflow-hidden rounded-md bg-zinc-100 dark:bg-zinc-900">
+          <img itemProp="image" src={fm.cover || fm.image} alt={fm.title} loading="lazy" decoding="async" sizes="(min-width:1024px) 60vw, 100vw" class="h-full w-full object-cover" />
+        </div>
+      )}
+      <meta itemProp="author" content="Stefano Chermaz" />
+    </header>
+
+    <section class="not-prose my-8" aria-label="In questo articolo" id="toc-section">
+      <details class={`group block lg:hidden rounded-md border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 ${hasToc ? '' : 'hidden'}`} id="toc-mobile">
+        <summary class="cursor-pointer px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">In questo articolo</summary>
+        <nav class="px-4 pb-4 text-sm" aria-label="Indice dei contenuti">
+          <ol class="space-y-1" id="toc-mobile-list">
+            {hasToc && toc.filter(h=>h.depth===2||h.depth===3).map((h) => (
+              <li>
+                <a href={`#${h.slug}`} class="block rounded px-2 py-1 hover:bg-zinc-50 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">{h.text}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </details>
+      <aside class={`hidden lg:block lg:sticky lg:top-24 lg:float-right lg:ml-8 lg:w-64 not-prose ${hasToc ? '' : 'lg:hidden'}`} id="toc-desktop">
+        <div class="rounded-md border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4">
+          <p class="mb-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100">In questo articolo</p>
+          <nav class="text-sm" aria-label="Indice dei contenuti">
+            <ol class="space-y-1" id="toc-desktop-list">
+              {hasToc && toc.filter(h=>h.depth===2||h.depth===3).map((h) => (
+                <li>
+                  <a href={`#${h.slug}`} class="block rounded px-2 py-1 hover:bg-zinc-50 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">{h.text}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        </div>
+      </aside>
+    </section>
+
+    <div class="content-large prose-headings:scroll-mt-24">
+      <slot />
+    </div>
+
+    <hr class="my-10" />
+
+    {author ? (
+      <section class="not-prose my-10 flex items-center gap-4 rounded-md border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4">
+        <div class="h-12 w-12 shrink-0 rounded-full bg-zinc-200 dark:bg-zinc-800"></div>
+        <div>
+          <p class="font-semibold text-zinc-900 dark:text-zinc-100">{author.name}</p>
+          {author.role && <p class="text-sm text-zinc-600 dark:text-zinc-300">{author.role}</p>}
+          <a href={`/${lang}/contact`} class="mt-2 inline-flex text-sm font-medium text-brand-700 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">Contattami</a>
+        </div>
+      </section>
+    ) : null}
+
+    {Array.isArray(related) && related.length > 0 ? (
+      <section class="not-prose my-12">
+        <h2 class="mb-4 text-xl font-bold">Articoli correlati</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {related.slice(0,3).map((r) => (
+            <a href={`${baseUrl}/${r.slug}/`} class="group block overflow-hidden rounded-md border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+              {r.image && <img src={r.image} alt={r.title} loading="lazy" decoding="async" class="aspect-video w-full object-cover" />}
+              <div class="p-3">
+                <h3 class="line-clamp-2 text-sm font-semibold group-hover:underline">{r.title}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    ) : null}
+
+    {(prev || next) ? (
+      <nav class="not-prose my-10 flex flex-col gap-4 sm:flex-row sm:items-stretch" aria-label="Navigazione articoli">
+        {prev && (
+          <a rel="prev" href={`${baseUrl}/${prev.slug}/`} class="flex-1 rounded-md border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+            <p class="text-xs uppercase tracking-wide text-zinc-500">Precedente</p>
+            <p class="mt-1 font-medium">{prev.title}</p>
+          </a>
+        )}
+        {next && (
+          <a rel="next" href={`${baseUrl}/${next.slug}/`} class="flex-1 rounded-md border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+            <p class="text-xs uppercase tracking-wide text-zinc-500">Successivo</p>
+            <p class="mt-1 font-medium">{next.title}</p>
+          </a>
+        )}
+      </nav>
+    ) : null}
+
+    <div class="not-prose my-12 text-center">
+      <a href={`/${lang}/contact`} class="inline-flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-white hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-500">Vuoi un assessment? → Contattami</a>
+    </div>
+  </article>
+
+  <script>
+    // Progress bar + TOC auto-generation + anchors
+    const updateProgress = () => {
+      const el = document.getElementById('reading-progress')
+      if (!el) return
+      const h = document.documentElement
+      const max = h.scrollHeight - h.clientHeight
+      const val = max > 0 ? (h.scrollTop / max) * 100 : 0
+      el.style.setProperty('--progress', `${val}%`)
+    }
+    const slugify = (s) => s.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-')
+    const ensureAnchorsAndToc = () => {
+      const article = document.querySelector('article')
+      if (!article) return
+      const headings = Array.from(article.querySelectorAll('h2, h3'))
+      if (headings.length === 0) return
+      const items = []
+      headings.forEach((h) => {
+        const text = h.textContent || ''
+        let id = h.id
+        if (!id) { id = slugify(text); h.id = id }
+        // Add visible anchor icon
+        if (!h.querySelector('a.anchor')) {
+          const a = document.createElement('a')
+          a.href = `#${id}`
+          a.className = 'anchor'
+          a.setAttribute('aria-label', 'Link a questa sezione')
+          a.textContent = '#'
+          h.appendChild(a)
+        }
+        items.push({ depth: h.tagName === 'H2' ? 2 : 3, slug: id, text })
+      })
+      if (items.filter(i=>i.depth===2||i.depth===3).length < 2) return
+      const mobile = document.getElementById('toc-mobile')
+      const mobileList = document.getElementById('toc-mobile-list')
+      const desktop = document.getElementById('toc-desktop')
+      const desktopList = document.getElementById('toc-desktop-list')
+      if (mobile && mobileList && mobile.classList.contains('hidden')) mobile.classList.remove('hidden')
+      if (desktop && desktop.classList.contains('lg:hidden')) desktop.classList.remove('lg:hidden')
+      const render = (ul) => {
+        if (!ul) return
+        ul.innerHTML = ''
+        items.forEach((i) => {
+          const li = document.createElement('li')
+          const a = document.createElement('a')
+          a.href = `#${i.slug}`
+          a.className = 'block rounded px-2 py-1 hover:bg-zinc-50 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500'
+          a.textContent = i.text
+          li.appendChild(a)
+          ul.appendChild(li)
+        })
+      }
+      render(mobileList)
+      render(desktopList)
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true })
+    window.addEventListener('resize', updateProgress)
+    document.addEventListener('astro:page-load', () => { updateProgress(); ensureAnchorsAndToc() })
+    updateProgress(); ensureAnchorsAndToc()
+  </script>
+
+  <style is:global>
+    /* Barra di progresso in alto (solo CSS) */
+    #reading-progress { position: fixed; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, #1f63ff 0 var(--progress), transparent var(--progress) 100%); z-index: 60; }
+
+    /* Stili callout per > **Nota:** */
+    .prose blockquote strong:first-child { display: inline-block; margin-right: .25rem; }
+    .prose blockquote { background: rgb(250 250 250); border-left: 4px solid rgb(228 228 231); padding: 1rem; border-radius: .25rem; }
+    .dark .prose blockquote { background: rgb(24 24 27); border-left-color: rgb(63 63 70); }
+
+    /* Code blocks */
+    .prose pre { overflow-x: auto; border-radius: .375rem; padding: 1rem; }
+    .prose code { word-break: break-word; }
+
+    /* Headings anchor visibility */
+    .prose h2 a.anchor, .prose h3 a.anchor { opacity: 0; margin-left: .25rem; text-decoration: none; }
+    .prose h2:hover a.anchor, .prose h2:focus-within a.anchor,
+    .prose h3:hover a.anchor, .prose h3:focus-within a.anchor { opacity: 1; }
+
+    /* Tables: make horizontally scrollable */
+    .prose table { display: block; overflow-x: auto; border-collapse: collapse; width: 100%; }
+  </style>
+</UnifiedLayout>
+
+

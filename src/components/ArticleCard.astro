@@ -40,7 +40,10 @@ function getImageSrc(data: any, normalized: string) {
 
 const image = getImageSrc(post.data, normalizedSlug)
 const date = post.data.date ? new Date(post.data.date) : null
-const tags = (post.data.tags ?? []).slice(0, 3) // max 3 tags
+const categories: string[] = (post.data.categories ?? [])
+const primaryCategory: string | null = categories.length > 0 ? String(categories[0]) : null
+const normalize = (s: string) => s.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+const categorySlug = primaryCategory ? normalize(primaryCategory) : ''
 const dateString = date ? date.toLocaleDateString('it-IT', { 
   day: 'numeric', 
   month: 'short', 
@@ -48,44 +51,50 @@ const dateString = date ? date.toLocaleDateString('it-IT', {
 }) : ''
 ---
 
-<article class="border rounded-2xl overflow-hidden bg-white dark:bg-gray-900 hover:shadow-lg transition-shadow">
-  <div class="aspect-[4/3] overflow-hidden">
+<article class="group border rounded-2xl overflow-hidden bg-white dark:bg-gray-900 hover:shadow-md focus-within:ring-2 focus-within:ring-brand-500 transition-all duration-200 will-change-transform hover:translate-y-[2px]" itemScope itemType="https://schema.org/BlogPosting">
+  <div class="relative aspect-[16/9] overflow-hidden bg-gradient-to-b from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-700">
     <img 
       src={image} 
       alt={post.data.title} 
-      class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+      class="w-full h-full object-cover transition-transform duration-300 blur-up group-hover:scale-105"
       loading="lazy"
+      decoding="async"
+      sizes="(min-width: 1024px) 33vw, 100vw"
+      onload="this.setAttribute('data-loaded','')"
     />
   </div>
   
   <div class="p-6">
-    <h3 class="text-xl font-semibold mb-2">
-      <a href={href} class="hover:text-brand-500 transition-colors">
+    <h2 class="text-[1.0625rem] sm:text-[1.125rem] font-semibold mb-2 leading-[1.15]">
+      <a href={href} class="text-[1.0625rem] sm:text-[1.125rem] leading-[1.15] hover:text-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-sm transition-colors break-words" aria-label={`Apri articolo: ${post.data.title}`} itemProp="headline">
         {post.data.title}
       </a>
-    </h3>
+    </h2>
     
-    <p class="opacity-80 text-base mb-4">
+    <p class="opacity-80 text-base mb-4 break-words" itemProp="description">
       {post.data.excerpt ?? post.data.description ?? ''}
     </p>
     
-    <div class="flex items-center justify-between text-sm">
-      {dateString && (
-        <time datetime={date?.toISOString()} class="text-gray-600 dark:text-gray-400">
-          {dateString}
-        </time>
-      )}
-      
-      {tags.length > 0 && (
-        <div class="flex gap-1 flex-wrap">
-          {tags.map(tag => (
-            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-xs">
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
+    <div class="flex items-center justify-between text-sm text-zinc-600 dark:text-zinc-400">
+      <div class="flex items-center gap-2">
+        {dateString && (
+          <time datetime={date?.toISOString()} itemProp="datePublished">{dateString}</time>
+        )}
+        {primaryCategory && (
+          <>
+            <span aria-hidden="true">·</span>
+            <a href={`${baseUrl}/?cat=${categorySlug}`} class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full ring-1 ring-zinc-300 dark:ring-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors" aria-label={`Filtra per categoria: ${primaryCategory}`}>
+              <span>{primaryCategory}</span>
+            </a>
+          </>
+        )}
+      </div>
     </div>
   </div>
+
+  <style>
+    img.blur-up:not([data-loaded]) { filter: blur(12px); transform: scale(1.02); opacity: 0.9; }
+    img.blur-up[data-loaded] { filter: blur(0); transform: none; opacity: 1; transition: filter .3s ease, transform .3s ease, opacity .3s ease; }
+  </style>
 </article>
 

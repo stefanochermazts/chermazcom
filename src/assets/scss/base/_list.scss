@@ -58,3 +58,11 @@ ol.incremented li p {
 ol.incremented ul li::before {
   content: '';
 }
+
+/* Accessibile: liste decorative senza marker quando si usa role="list" */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  padding-inline-start: 0;
+  margin: 0;
+}

@@ -1,5 +1,5 @@
 ---
-import UnifiedLayout from '../../../layouts/UnifiedLayout.astro'
+import PostLayout from '../../../layouts/PostLayout.astro'
 import { getCollection, getEntry, render } from 'astro:content'
 
 const { slug } = Astro.params
@@ -17,11 +17,6 @@ export async function getStaticPaths() {
     })
 }
 ---
-<UnifiedLayout enableTransitions={true} title={entry.data.title}>
-  <article class="container my-16 prose">
-    <h1>{entry.data.title}</h1>
-    <div class="content-large">
-      <Content />
-    </div>
-  </article>
-</UnifiedLayout>
+<PostLayout frontmatter={entry.data} slug={slug}>
+  <Content />
+</PostLayout>

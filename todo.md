@@ -118,6 +118,13 @@
 - [x] Listing per categoria `src/pages/it/insights/categoria/[categoria].astro`
  - [ ] Aggiungi selettore lingua come menu button conforme APG (keyboard + ARIA)
 
+### 4.1) Migliorie pagina Insights (incrementali)
+- [x] Toolbar (ricerca, chips categoria, sort) con querystring compatibile
+- [x] Filtri lato server per `?cat`, `?q`, `?sort=oldest`
+- [x] Ricerca live client-side senza rompere il fallback
+- [x] Lista accessibile: `section[aria-label]` + `ul[role="list"]` + `article`
+- [x] `ArticleCard`: immagine 16:9 lazy/async + `sizes`, blur placeholder, hover/focus, clamp titolo/abstract, meta data+categoria con chip → `?cat=`
+
 ## 4‑bis) Internazionalizzazione (IT / EN / SL)
 - [x] Definisci lingue del sito: italiano (predefinita), inglese, sloveno
 - [x] Struttura URL con prefissi di lingua: `/it/*`, `/en/*`, `/sl/*`

@@ -5,8 +5,8 @@ import { getCollection } from 'astro:content'
 
 // Simplified and optimized collection loading
 const all = await getCollection('insights', ({ id }) => id.startsWith('sl-'))
-const posts = all
-  .filter(p => p.data.status === 'publish') // Only published posts
+let posts = all
+  .filter(p => p.data.status === 'publish')
   .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
 
 // Simplified category processing
@@ -14,32 +14,62 @@ const normalize = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').rep
 const categories = [...new Set(
   posts.flatMap(p => (p.data.categories || []).map(normalize))
 )].sort()
+
+const { searchParams } = new URL(Astro.url)
+const catParam = searchParams.get('cat')
+const qParam = searchParams.get('q')?.toLowerCase() || ''
+const sortParam = searchParams.get('sort')
+
+if (catParam) {
+  posts = posts.filter(p => (p.data.categories || []).some(c => normalize(String(c)) === catParam))
+}
+if (qParam) {
+  posts = posts.filter(p => (
+    (p.data.title || '').toLowerCase().includes(qParam) ||
+    (p.data.excerpt || p.data.description || '').toLowerCase().includes(qParam)
+  ))
+}
+if (sortParam === 'oldest') {
+  posts = [...posts].sort((a, b) => new Date(a.data.date || 0).getTime() - new Date(b.data.date || 0).getTime())
+}
 ---
 
 <UnifiedLayout useLocalizedMeta={true} pageKey="insights">
-  <section class="py-16 sm:py-20">
-    <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
-      <h1 class="text-4xl font-bold mb-8">Vpogledi</h1>
-      <p class="text-xl mb-12 text-gray-600 dark:text-gray-400">
-        Tehnični članki in vodniki o Microsoftovih tehnologijah, umetni inteligenci in dobrih poslovnih praksah.
-      </p>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-        {categories.map(cat => (
-          <article class="border rounded-2xl p-6">
-            <h2 class="text-2xl mb-2 capitalize">{cat}</h2>
-            <p class="opacity-80 mb-4">Članki po kategoriji</p>
-            <a class="button" href={`/sl/insights/categoria/${cat}/`}>Preberi članke</a>
-          </article>
-        ))}
-      </div>
+  <section class="my-32" style="max-width:1366px;margin-inline:auto;padding-inline:1rem;">
+    <h1 class="text-6xl mb-8">Vpogledi</h1>
 
-      <h2 class="text-4xl mb-6">Vsi članki</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map(p => (
-          <ArticleCard post={p} baseUrl="/sl/insights" />
+    <form id="toolbar" class="mb-8 flex flex-col gap-4" method="get" aria-label="Filtri in razvrščanje">
+      <div class="flex items-center gap-2 flex-wrap" aria-label="Kategorije">
+        {categories.map(cat => (
+          <a href={`?cat=${cat}${qParam ? `&q=${encodeURIComponent(qParam)}` : ''}${sortParam ? `&sort=${sortParam}` : ''}`} class={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm ring-1 ring-zinc-300 dark:ring-zinc-700 ${catParam === cat ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900' : 'hover:bg-zinc-50 dark:hover:bg-zinc-800'}`}>{cat}</a>
         ))}
       </div>
-    </div>
+      <div class="flex items-center gap-3 md:justify-between md:flex-row flex-col">
+        <div class="flex-1 w-full md:w-auto">
+          <label for="search" class="sr-only">Iskanje</label>
+          <input id="search" name="q" type="search" value={qParam ?? ''} placeholder="Išči članke" class="w-full md:max-w-md rounded-lg ring-1 ring-zinc-300 dark:ring-zinc-700 px-3 py-2 text-base bg-white dark:bg-zinc-900" aria-label="Iskanje po naslovu ali opisu" />
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="sort" class="sr-only">Razvrsti</label>
+          <select id="sort" name="sort" class="rounded-lg ring-1 ring-zinc-300 dark:ring-zinc-700 px-3 py-2 bg-white dark:bg-zinc-900" aria-label="Razvrsti članke">
+            <option value="newest" selected={!sortParam || sortParam === 'newest'}>Najnovejši</option>
+            <option value="oldest" selected={sortParam === 'oldest'}>Najstarejši</option>
+          </select>
+          <button type="submit" class="rounded-lg bg-brand-600 text-white px-3 py-2 text-sm font-semibold hover:bg-brand-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">Uporabi</button>
+        </div>
+      </div>
+    </form>
+
+    <h2 class="text-4xl mb-6">Vsi članki</h2>
+    <section aria-label="Vsi članki">
+      <ul role="list" class="list-none pl-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map(p => (
+          <li>
+            <ArticleCard post={p} baseUrl="/sl/insights" />
+          </li>
+        ))}
+      </ul>
+    </section>
   </section>
 </UnifiedLayout>
 
