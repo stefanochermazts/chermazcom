@@ -1,6 +1,7 @@
 ---
 import PostLayout from '../../../layouts/PostLayout.astro'
 import { getCollection, getEntry, render } from 'astro:content'
+import { getRelatedPostsSimple, getFallbackPosts } from '../../../utils/relatedPosts'
 
 export const prerender = true;
 
@@ -9,6 +10,25 @@ const { slug } = Astro.params
 const entry = await getEntry('insights', slug)
 if (!entry) throw new Error('Not found')
 const { Content } = await render(entry)
+
+// Carica tutti i post per calcolare i correlati
+const allPosts = await getCollection('insights', ({ id }) => {
+  const normalizedId = id.replace(/\\/g, '/')
+  // Solo post italiani (senza prefisso)
+  return !normalizedId.startsWith('en-') && !normalizedId.startsWith('sl-')
+})
+
+// Calcola articoli correlati
+let relatedPosts = getRelatedPostsSimple(entry, allPosts, 3)
+
+// Se non trova abbastanza correlati, usa il fallback
+if (relatedPosts.length < 2) {
+  const fallbackPosts = getFallbackPosts(entry, allPosts, 3)
+  // Combina correlati + fallback senza duplicati
+  const existingIds = new Set(relatedPosts.map(p => p.id))
+  const additionalPosts = fallbackPosts.filter(p => !existingIds.has(p.id))
+  relatedPosts = [...relatedPosts, ...additionalPosts].slice(0, 3)
+}
 
 export async function getStaticPaths() {
   const collection = await getCollection('insights', ({ id }) => {
@@ -26,7 +46,7 @@ export async function getStaticPaths() {
     })
 }
 ---
-<PostLayout frontmatter={entry.data} slug={slug}>
+<PostLayout frontmatter={entry.data} slug={slug} relatedPosts={relatedPosts}>
   <Content />
 </PostLayout>
 

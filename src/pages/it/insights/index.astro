@@ -34,7 +34,7 @@ if (sortParam === 'oldest') {
   posts = [...posts].sort((a, b) => new Date(a.data.date || 0).getTime() - new Date(b.data.date || 0).getTime())
 }
 ---
-<UnifiedLayout enableTransitions={true} title="Insights — IT">
+<UnifiedLayout enableTransitions={true} title="Insights — IT" useLocalizedMeta={true} pageKey="insights">
   <section class="my-32" style="max-width:1366px;margin-inline:auto;padding-inline:1rem;">
     <h1 class="text-6xl mb-8">Insights</h1>
 

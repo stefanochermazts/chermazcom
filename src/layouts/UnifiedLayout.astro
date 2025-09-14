@@ -6,6 +6,8 @@ import LocalizedMeta from '../components/LocalizedMeta.astro'
 import Header from '../components/Header.astro'
 import Breadcrumbs from '../components/Breadcrumbs.astro'
 import Footer from '../components/Footer.astro'
+import CookieBanner from '../components/CookieBanner.astro'
+import SEODebug from '../components/SEODebug.astro'
 import { getLocaleFromUrl } from '../utils/i18n'
 import { getAlternateUrls } from '../utils/i18n'
 import { ClientRouter } from 'astro:transitions'
@@ -43,29 +45,41 @@ const {
 const locale = getLocaleFromUrl(Astro.url)
 ---
 
-<html lang={locale} dir="ltr">
+<html lang={locale} dir="ltr" class="theme-loading">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <script>
-      // Inizializza il tema PRIMA dei CSS, coerente con Accessible Astro Components
+    <script is:inline>
+      // Inizializza il tema PRIMA dei CSS per evitare FOUC
       (function() {
         try {
           var ls = localStorage.getItem('theme') || localStorage.getItem('aac-theme') || ''
           var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
           var isDark = ls ? ls === 'dark' : prefersDark
           var html = document.documentElement
+          
+          // Rimuovi sempre tutte le classi di tema prima di aggiungere quella corretta
+          html.classList.remove('dark', 'darkmode', 'theme-loading')
+          
           if (isDark) {
             html.classList.add('dark')
             html.classList.add('darkmode')
+            // Forza il tema scuro tramite CSS custom properties
+            html.style.colorScheme = 'dark'
           } else {
-            html.classList.remove('dark')
-            html.classList.remove('darkmode')
+            html.style.colorScheme = 'light'
           }
           
-        } catch (e) {}
+          // Marca come inizializzato
+          html.setAttribute('data-theme-initialized', 'true')
+          
+        } catch (e) {
+          // Fallback per sicurezza - rimuovi comunque la classe loading
+          document.documentElement.classList.remove('theme-loading')
+          console.warn('Theme initialization failed:', e)
+        }
       })()
     </script>
 
@@ -86,35 +100,11 @@ const locale = getLocaleFromUrl(Astro.url)
 
     <slot name="head" />
     
-    <!-- hreflang alternates -->
-    {(() => {
-      const urls = getAlternateUrls(Astro.url.pathname)
-      return (
-        <>
-          <link rel="alternate" hrefLang="x-default" href={urls['x-default']} />
-          <link rel="alternate" hrefLang="it" href={urls['it']} />
-          <link rel="alternate" hrefLang="en" href={urls['en']} />
-          <link rel="alternate" hrefLang="sl" href={urls['sl']} />
-        </>
-      )
-    })()}
+    <!-- hreflang alternates gestiti da LocalizedMeta/SiteMeta -->
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
     
-    <!-- Matomo -->
-    <script>
-      var _paq = window._paq = window._paq || [];
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      (function() {
-        var u="https://statistics.crowdm.it/";
-        _paq.push(['setTrackerUrl', u+'matomo.php']);
-        _paq.push(['setSiteId', '8']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-      })();
-    </script>
-    <!-- End Matomo Code -->
+    <!-- Analytics sarà caricato condizionalmente dal sistema di consenso cookie -->
     
     <!-- Temporary disable view transitions for debugging -->
     <!-- {enableTransitions && <ClientRouter />} -->
@@ -131,32 +121,57 @@ const locale = getLocaleFromUrl(Astro.url)
       <slot />
     </main>
     <Footer />
+    <CookieBanner />
+    
+    <!-- SEO Debug (solo in dev - attivabile con Ctrl+Shift+S) -->
+    <SEODebug enable={import.meta.env.DEV} />
     
     <style lang="scss" is:global>
       html, body { min-height: 100vh; }
       body { display: flex; flex-direction: column; main { flex: 1; } }
       #main-navigation { position: relative; z-index: 50; }
       
+      /* Previeni FOUC durante il caricamento del tema con una transizione fluida */
+      .theme-loading * {
+        transition: none !important;
+      }
+      
+      html[data-theme-initialized] * {
+        transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease !important;
+      }
+      
       /* Fix per dark mode - applica gli stili dark quando html ha classe darkmode */
       .darkmode {
         /* Forza Tailwind a riconoscere le varianti dark: */
-        .dark\:bg-zinc-900 { background-color: rgb(24 24 27) !important; }
-        .dark\:bg-zinc-800 { background-color: rgb(39 39 42) !important; }
-        .dark\:text-zinc-50 { color: rgb(250 250 250) !important; }
-        .dark\:text-zinc-100 { color: rgb(244 244 245) !important; }
-        .dark\:text-zinc-300 { color: rgb(212 212 216) !important; }
-        .dark\:text-zinc-400 { color: rgb(161 161 170) !important; }
-        .dark\:ring-white\/10 { --tw-ring-color: rgb(255 255 255 / 0.1) !important; }
-        .dark\:bg-zinc-900\/50 { background-color: rgb(24 24 27 / 0.5) !important; }
+        .dark\:bg-zinc-900, [class*="dark:bg-zinc-900"] { background-color: rgb(24 24 27) !important; }
+        .dark\:bg-zinc-800, [class*="dark:bg-zinc-800"] { background-color: rgb(39 39 42) !important; }
+        .dark\:text-zinc-50, [class*="dark:text-zinc-50"] { color: rgb(250 250 250) !important; }
+        .dark\:text-zinc-100, [class*="dark:text-zinc-100"] { color: rgb(244 244 245) !important; }
+        .dark\:text-zinc-300, [class*="dark:text-zinc-300"] { color: rgb(212 212 216) !important; }
+        .dark\:text-zinc-400, [class*="dark:text-zinc-400"] { color: rgb(161 161 170) !important; }
+        .dark\:ring-white\/10, [class*="dark:ring-white/10"] { --tw-ring-color: rgb(255 255 255 / 0.1) !important; }
+        .dark\:bg-zinc-900\/50, [class*="dark:bg-zinc-900/50"] { background-color: rgb(24 24 27 / 0.5) !important; }
         
         /* Gradient backgrounds */
-        .dark\:from-zinc-900 { --tw-gradient-from: rgb(24 24 27) var(--tw-gradient-from-position) !important; }
-        .dark\:via-zinc-900 { --tw-gradient-to: rgb(24 24 27) var(--tw-gradient-to-position) !important; --tw-gradient-stops: var(--tw-gradient-from), rgb(24 24 27) var(--tw-gradient-via-position), var(--tw-gradient-to) !important; }
-        .dark\:to-zinc-800 { --tw-gradient-to: rgb(39 39 42) var(--tw-gradient-to-position) !important; }
+        .dark\:from-zinc-900, [class*="dark:from-zinc-900"] { --tw-gradient-from: rgb(24 24 27) var(--tw-gradient-from-position) !important; }
+        .dark\:via-zinc-900, [class*="dark:via-zinc-900"] { --tw-gradient-to: rgb(24 24 27) var(--tw-gradient-to-position) !important; --tw-gradient-stops: var(--tw-gradient-from), rgb(24 24 27) var(--tw-gradient-via-position), var(--tw-gradient-to) !important; }
+        .dark\:to-zinc-800, [class*="dark:to-zinc-800"] { --tw-gradient-to: rgb(39 39 42) var(--tw-gradient-to-position) !important; }
         
         /* Badge e icon colors */
-        .dark\:bg-blue-900\/30 { background-color: rgb(30 58 138 / 0.3) !important; }
-        .dark\:bg-green-900\/30 { background-color: rgb(20 83 45 / 0.3) !important; }
+        .dark\:bg-blue-900\/30, [class*="dark:bg-blue-900/30"] { background-color: rgb(30 58 138 / 0.3) !important; }
+        .dark\:bg-green-900\/30, [class*="dark:bg-green-900/30"] { background-color: rgb(20 83 45 / 0.3) !important; }
+        
+        /* Text colors aggiuntivi */
+        .dark\:text-gray-400, [class*="dark:text-gray-400"] { color: rgb(156 163 175) !important; }
+        .dark\:text-green-400, [class*="dark:text-green-400"] { color: rgb(74 222 128) !important; }
+        .dark\:text-brand-400, [class*="dark:text-brand-400"] { color: rgb(139 180 255) !important; }
+        
+        /* Background colors aggiuntivi */
+        .dark\:bg-gray-800, [class*="dark:bg-gray-800"] { background-color: rgb(31 41 55) !important; }
+        .dark\:hover\:bg-zinc-800, [class*="dark:hover:bg-zinc-800"]:hover { background-color: rgb(39 39 42) !important; }
+        
+        /* Ring colors */
+        .dark\:ring-zinc-700, [class*="dark:ring-zinc-700"] { --tw-ring-color: rgb(63 63 70) !important; }
         .dark\:bg-purple-900\/30 { background-color: rgb(88 28 135 / 0.3) !important; }
         .dark\:bg-orange-900\/30 { background-color: rgb(154 52 18 / 0.3) !important; }
         .dark\:bg-amber-900\/30 { background-color: rgb(120 53 15 / 0.3) !important; }

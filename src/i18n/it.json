@@ -137,5 +137,71 @@
       "title": "Privacy Policy",
       "description": "Informativa sulla privacy e trattamento dei dati personali."
     }
+  },
+  "cookies": {
+    "banner": {
+      "title": "Rispettiamo la tua privacy",
+      "description": "Utilizziamo cookie per migliorare la tua esperienza di navigazione e analizzare il traffico del sito. Puoi scegliere quali cookie accettare.",
+      "acceptAll": "Accetta tutti",
+      "acceptNecessary": "Solo necessari",
+      "customize": "Personalizza",
+      "learnMore": "Scopri di più"
+    },
+    "preferences": {
+      "title": "Gestione Preferenze Cookie",
+      "description": "Puoi scegliere di abilitare o disabilitare diverse categorie di cookie. Nota che disabilitare alcuni cookie potrebbe limitare alcune funzionalità del sito.",
+      "save": "Salva preferenze",
+      "acceptAll": "Accetta tutti",
+      "rejectAll": "Solo necessari",
+      "categories": {
+        "necessary": {
+          "title": "Cookie Necessari",
+          "description": "Questi cookie sono essenziali per il funzionamento del sito web e non possono essere disabilitati nei nostri sistemi. Sono generalmente impostati in risposta ad azioni da te compiute che costituiscono una richiesta di servizi.",
+          "alwaysEnabled": "Sempre abilitati"
+        },
+        "analytics": {
+          "title": "Cookie Analytics",
+          "description": "Questi cookie ci permettono di contare le visite e fonti di traffico in modo da poter misurare e migliorare le prestazioni del nostro sito. Ci aiutano a sapere quali sono le pagine più e meno popolari e vedere come i visitatori si muovono intorno al sito."
+        },
+        "marketing": {
+          "title": "Cookie Marketing",
+          "description": "Questi cookie possono essere impostati attraverso il nostro sito dai nostri partner pubblicitari. Possono essere utilizzati da quelle aziende per costruire un profilo dei tuoi interessi e mostrarti annunci pertinenti su altri siti."
+        },
+        "preferences": {
+          "title": "Cookie Preferenze",
+          "description": "Questi cookie permettono al sito web di ricordare le scelte che fai (come il tuo nome utente, lingua o la regione in cui ti trovi) e forniscono funzionalità migliorate e più personali."
+        }
+      }
+    },
+    "policy": {
+      "title": "Cookie Policy",
+      "lastUpdated": "Ultimo aggiornamento",
+      "whatAreCookies": {
+        "title": "Cosa sono i cookie",
+        "description": "I cookie sono piccoli file di testo che vengono memorizzati sul tuo dispositivo quando visiti un sito web. Sono ampiamente utilizzati per far funzionare i siti web in modo più efficiente, nonché per fornire informazioni ai proprietari del sito."
+      },
+      "howWeUseCookies": {
+        "title": "Come utilizziamo i cookie",
+        "description": "Utilizziamo i cookie per vari scopi, tra cui garantire che il nostro sito web funzioni correttamente, analizzare come viene utilizzato il nostro sito e ricordare le tue preferenze."
+      },
+      "typesOfCookies": {
+        "title": "Tipi di cookie che utilizziamo",
+        "description": "Utilizziamo diversi tipi di cookie sul nostro sito web:"
+      },
+      "manageCookies": {
+        "title": "Come gestire i cookie",
+        "description": "Puoi controllare e/o eliminare i cookie come desideri. Puoi eliminare tutti i cookie che sono già sul tuo computer e puoi impostare la maggior parte dei browser per impedire che vengano memorizzati."
+      },
+      "thirdParty": {
+        "title": "Cookie di terze parti",
+        "description": "In alcuni casi speciali utilizziamo anche cookie forniti da terze parti fidate. I dettagli sui cookie di terze parti che potresti incontrare attraverso questo sito sono forniti di seguito."
+      }
+    },
+    "categories": {
+      "necessary": "Necessari",
+      "analytics": "Analytics",
+      "marketing": "Marketing", 
+      "preferences": "Preferenze"
+    }
   }
 }

@@ -28,7 +28,7 @@ const recentCaseStudies = featuredCaseStudies
   .slice(0, 3)
 ---
 
-<UnifiedLayout enableTransitions={true} title={en.pages.home.title} description={en.pages.home.description}>
+<UnifiedLayout enableTransitions={true} title={en.pages.home.title} description={en.pages.home.description} useLocalizedMeta={true} pageKey="home">
   <Hero eyebrow={en.pages.home.hero.eyebrow} title={en.pages.home.hero.title} subtitle={en.pages.home.hero.subtitle} primary={{ href: '/en/services/', label: en.pages.home.hero.primaryLabel }} secondary={{ href: '/en/case-studies/', label: en.pages.home.hero.secondaryLabel }} />
   <About 
     title={en.pages.home.about.title}

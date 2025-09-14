@@ -91,11 +91,24 @@ export function getAlternateUrls(path: string, baseUrl: string = 'https://www.ch
   const cleanPath = removeLocaleFromPath(path)
   const urls: Record<string, string> = {}
   
+  // For each locale, generate the appropriate localized URL
   for (const locale of locales) {
-    urls[locale] = `${baseUrl}${addLocaleToPath(cleanPath, locale)}`
+    // For dynamic paths, just add the locale prefix
+    if (cleanPath.includes('[') || cleanPath.includes('/categoria/') || cleanPath.startsWith('/insights/') || cleanPath.startsWith('/case-studies/')) {
+      urls[locale] = `${baseUrl}${addLocaleToPath(cleanPath, locale)}`
+    } else {
+      // For static paths, try to map to localized route
+      const localizedPath = getLocalizedRoute(cleanPath, locale)
+      urls[locale] = `${baseUrl}${localizedPath}`
+    }
   }
   
-  urls['x-default'] = `${baseUrl}${addLocaleToPath(cleanPath, defaultLocale)}`
+  // x-default points to the Italian version (default locale)
+  const defaultPath = cleanPath.includes('[') || cleanPath.includes('/categoria/') || cleanPath.startsWith('/insights/') || cleanPath.startsWith('/case-studies/')
+    ? addLocaleToPath(cleanPath, defaultLocale)
+    : getLocalizedRoute(cleanPath, defaultLocale)
+  
+  urls['x-default'] = `${baseUrl}${defaultPath}`
   
   return urls
 }
@@ -111,7 +124,8 @@ export const routeMappings: Record<Locale, Record<string, string>> = {
     '/case-studies': '/case-studies',
     '/insights': '/insights',
     '/contatti': '/contact',
-    '/privacy': '/privacy'
+    '/privacy': '/privacy',
+    '/cookie-policy': '/cookie-policy'
   },
   en: {
     '/': '/',
@@ -120,7 +134,8 @@ export const routeMappings: Record<Locale, Record<string, string>> = {
     '/case-studies': '/case-studies',
     '/insights': '/insights',
     '/contact': '/contact',
-    '/privacy': '/privacy'
+    '/privacy': '/privacy',
+    '/cookie-policy': '/cookie-policy'
   },
   sl: {
     '/': '/',
@@ -129,7 +144,8 @@ export const routeMappings: Record<Locale, Record<string, string>> = {
     '/case-studies': '/case-studies',
     '/insights': '/insights',
     '/kontakt': '/contact',
-    '/zasebnost': '/privacy'
+    '/zasebnost': '/privacy',
+    '/cookie-policy': '/cookie-policy'
   }
 }
 

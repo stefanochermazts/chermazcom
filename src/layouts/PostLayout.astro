@@ -1,5 +1,6 @@
 ---
 import UnifiedLayout from './UnifiedLayout.astro'
+import RelatedPosts from '../components/RelatedPosts.astro'
 
 interface PostFrontmatter {
   title: string
@@ -27,9 +28,11 @@ interface Props {
   related?: Array<{ title: string; slug: string; image?: string }>
   prev?: { title: string; slug: string }
   next?: { title: string; slug: string }
+  // Articoli correlati (nuova implementazione)
+  relatedPosts?: Array<import('astro:content').CollectionEntry<'insights'>>
 }
 
-const { frontmatter, slug, readingTime, toc = [], author, related = [], prev, next } = Astro.props as Props
+const { frontmatter, slug, readingTime, toc = [], author, related = [], prev, next, relatedPosts = [] } = Astro.props as Props
 
 const fm = frontmatter || ({} as PostFrontmatter)
 const metaDescription = (fm.description || fm.excerpt || '').substring(0, 160)
@@ -53,7 +56,8 @@ const formatDate = (iso?: string) => {
 ---
 
 <UnifiedLayout title={fm.title} description={metaDescription} useLocalizedMeta={true} pageKey={`post:${slug}`}>
-  <article itemScope itemType="https://schema.org/BlogPosting" class="mx-auto max-w-3xl lg:max-w-4xl px-4 sm:px-6 lg:px-0 my-10 prose prose-lg dark:prose-invert">
+  <article itemScope itemType="https://schema.org/BlogPosting" class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8 my-10">
+    <div class="prose prose-lg dark:prose-invert mx-auto max-w-4xl">
     <header class="not-prose mb-6">
       <div class="flex flex-wrap items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
         {Array.isArray(fm.categories) && fm.categories.length > 0 && (
@@ -115,8 +119,9 @@ const formatDate = (iso?: string) => {
       </aside>
     </section>
 
-    <div class="content-large prose-headings:scroll-mt-24">
-      <slot />
+      <div class="content-large prose-headings:scroll-mt-24">
+        <slot />
+      </div>
     </div>
 
     <hr class="my-10" />
@@ -168,6 +173,11 @@ const formatDate = (iso?: string) => {
     <div class="not-prose my-12 text-center">
       <a href={`/${lang}/contact`} class="inline-flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-white hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-500">Vuoi un assessment? → Contattami</a>
     </div>
+    
+    <!-- Articoli correlati -->
+    {relatedPosts.length > 0 && (
+      <RelatedPosts posts={relatedPosts} />
+    )}
   </article>
 
   <script>

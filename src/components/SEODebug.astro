@@ -1,0 +1,223 @@
+---
+import { getAlternateUrls, getLocaleFromUrl } from '../utils/i18n'
+
+interface Props {
+  enable?: boolean
+}
+
+const { enable = false } = Astro.props
+
+if (!enable) {
+  // Non mostrare nulla se non è abilitato
+  return null
+}
+
+const locale = getLocaleFromUrl(Astro.url)
+const currentPath = Astro.url.pathname
+const canonical = Astro.url.toString()
+const alternateUrls = getAlternateUrls(currentPath, Astro.site?.toString())
+---
+
+{enable && (
+  <>
+    <!-- Indicatore discreto che il debug è disponibile -->
+    <div id="seo-debug-indicator" style="position: fixed; top: 10px; right: 10px; background: rgba(0,100,255,0.1); border: 1px solid rgba(0,100,255,0.3); color: rgba(0,100,255,0.8); padding: 0.25rem 0.5rem; border-radius: 4px; font-family: monospace; font-size: 10px; z-index: 9999; cursor: pointer; transition: all 0.2s;" title="SEO Debug disponibile - Premi Ctrl+Shift+S" onclick="toggleSEODebug()">
+      🔍 SEO
+    </div>
+    
+    <!-- Panel di debug (nascosto di default) -->
+    <div id="seo-debug-panel" class="seo-debug" style="position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.9); color: white; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 12px; max-width: 400px; z-index: 10000; max-height: 80vh; overflow-y: auto; display: none;">
+    <h3 style="margin: 0 0 1rem 0; color: #ffd700;">🔍 SEO Debug Info</h3>
+    <div style="margin-bottom: 1rem; padding: 0.5rem; background: rgba(255,255,255,0.1); border-radius: 4px;">
+      <strong>⌨️ Hotkeys:</strong><br/>
+      <span style="color: #ffff99;">Ctrl+Shift+S</span> - Toggle panel<br/>
+      <span style="color: #ffff99;">Escape</span> - Close panel
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <strong>📍 Current:</strong><br/>
+      <div style="margin-left: 1rem; color: #00ff00;">
+        Locale: {locale}<br/>
+        Path: {currentPath}<br/>
+        URL: {Astro.url.toString()}
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <strong>🔗 Canonical:</strong><br/>
+      <div style="margin-left: 1rem; color: #00ffff; word-break: break-all;">
+        {canonical}
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <strong>🌍 Hreflang:</strong><br/>
+      {Object.entries(alternateUrls).map(([lang, url]) => (
+        <div style="margin-left: 1rem; color: #ffff00;">
+          {lang}: <span style="color: #00ffff; word-break: break-all;">{url}</span>
+        </div>
+      ))}
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <strong>📋 Meta Tags Found:</strong><br/>
+      <div id="meta-tags-found" style="margin-left: 1rem; color: #ff9999;">
+        Loading...
+      </div>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <strong>⚠️ Issues:</strong><br/>
+      <div id="seo-issues" style="margin-left: 1rem; color: #ff6666;">
+        Checking...
+      </div>
+    </div>
+    
+    <div style="display: flex; gap: 0.5rem;">
+      <button onclick="toggleSEODebug()" style="background: #44ff44; color: black; border: none; padding: 0.5rem; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold;">
+        🔄 Refresh
+      </button>
+      <button onclick="this.parentElement.parentElement.style.display='none'" style="background: #ff4444; color: white; border: none; padding: 0.5rem; border-radius: 4px; cursor: pointer; font-size: 11px;">
+        ❌ Close
+      </button>
+    </div>
+  </div>
+  </>
+)}
+
+<script>
+  // Funzione globale per il toggle del debug SEO
+  function toggleSEODebug() {
+    const panel = document.getElementById('seo-debug-panel')
+    const indicator = document.getElementById('seo-debug-indicator')
+    
+    if (panel) {
+      const isVisible = panel.style.display !== 'none'
+      panel.style.display = isVisible ? 'none' : 'block'
+      
+      // Nasconde/mostra l'indicatore quando il panel è aperto
+      if (indicator) {
+        indicator.style.display = isVisible ? 'block' : 'none'
+      }
+      
+      if (!isVisible) {
+        // Quando mostriamo il panel, aggiorna i dati
+        updateSEODebugData()
+      }
+    }
+  }
+  
+  // Funzione per aggiornare i dati del debug
+  function updateSEODebugData() {
+    const metaTagsDiv = document.getElementById('meta-tags-found')
+    const issuesDiv = document.getElementById('seo-issues')
+    
+    if (!metaTagsDiv || !issuesDiv) return
+    
+    const canonicals = document.querySelectorAll('link[rel="canonical"]')
+    const hreflangLinks = document.querySelectorAll('link[rel="alternate"][hreflang]')
+    const titleTags = document.querySelectorAll('title')
+    const descriptions = document.querySelectorAll('meta[name="description"]')
+    
+    const issues = []
+    
+    // Check canonicals
+    if (canonicals.length === 0) {
+      issues.push('❌ No canonical link found')
+    } else if (canonicals.length > 1) {
+      issues.push(`⚠️ Multiple canonical links (${canonicals.length})`)
+    }
+    
+    // Check hreflang
+    if (hreflangLinks.length === 0) {
+      issues.push('❌ No hreflang links found')
+    } else {
+      const langs = Array.from(hreflangLinks).map(link => link.getAttribute('hreflang'))
+      const expectedLangs = ['it', 'en', 'sl', 'x-default']
+      const missingLangs = expectedLangs.filter(lang => !langs.includes(lang))
+      if (missingLangs.length > 0) {
+        issues.push(`⚠️ Missing hreflang: ${missingLangs.join(', ')}`)
+      }
+    }
+    
+    // Check titles
+    if (titleTags.length === 0) {
+      issues.push('❌ No title tag found')
+    } else if (titleTags.length > 1) {
+      issues.push(`⚠️ Multiple title tags (${titleTags.length})`)
+    }
+    
+    // Check descriptions
+    if (descriptions.length === 0) {
+      issues.push('❌ No meta description found')
+    } else if (descriptions.length > 1) {
+      issues.push(`⚠️ Multiple meta descriptions (${descriptions.length})`)
+    }
+    
+    // Display results
+    metaTagsDiv.innerHTML = `
+      Canonical: ${canonicals.length}<br/>
+      Hreflang: ${hreflangLinks.length}<br/>
+      Title: ${titleTags.length}<br/>
+      Description: ${descriptions.length}
+    `
+    
+    issuesDiv.innerHTML = issues.length === 0 
+      ? '✅ No issues found!' 
+      : issues.join('<br/>')
+  }
+  
+  // Setup keyboard shortcuts
+  document.addEventListener('keydown', function(e) {
+    // Ctrl+Shift+S per toggle debug
+    if (e.ctrlKey && e.shiftKey && e.key === 'S') {
+      e.preventDefault()
+      toggleSEODebug()
+    }
+    
+    // Escape per chiudere debug
+    if (e.key === 'Escape') {
+      const panel = document.getElementById('seo-debug-panel')
+      const indicator = document.getElementById('seo-debug-indicator')
+      if (panel && panel.style.display !== 'none') {
+        panel.style.display = 'none'
+        if (indicator) indicator.style.display = 'block'
+      }
+    }
+  })
+  
+  // Aggiorna i dati al caricamento se il debug è abilitato
+  if (document.querySelector('.seo-debug')) {
+    setTimeout(updateSEODebugData, 100)
+  }
+  
+  // Rendi la funzione disponibile globalmente
+  window.toggleSEODebug = toggleSEODebug
+</script>
+
+<style>
+  .seo-debug {
+    scrollbar-width: thin;
+    scrollbar-color: #666 #333;
+  }
+  
+  .seo-debug::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .seo-debug::-webkit-scrollbar-track {
+    background: #333;
+  }
+  
+  .seo-debug::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 3px;
+  }
+  
+  #seo-debug-indicator:hover {
+    background: rgba(0,100,255,0.2) !important;
+    border-color: rgba(0,100,255,0.5) !important;
+    color: rgba(0,100,255,1) !important;
+    transform: scale(1.05);
+  }
+</style>

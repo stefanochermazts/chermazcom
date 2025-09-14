@@ -137,5 +137,71 @@
       "title": "Pravilnik o zasebnosti",
       "description": "Pravilnik o zasebnosti in obdelavi osebnih podatkov."
     }
+  },
+  "cookies": {
+    "banner": {
+      "title": "Spoštujemo vašo zasebnost",
+      "description": "Uporabljamo piškotke za izboljšanje vaše izkušnje brskanja in analizo prometa na spletni strani. Lahko izberete, katere piškotke sprejeti.",
+      "acceptAll": "Sprejmi vse",
+      "acceptNecessary": "Samo potrebne",
+      "customize": "Prilagodi",
+      "learnMore": "Več informacij"
+    },
+    "preferences": {
+      "title": "Upravljanje nastavitev piškotkov",
+      "description": "Lahko izberete, ali omogočiti ali onemogočiti različne kategorije piškotkov. Upoštevajte, da onemogočanje nekaterih piškotkov lahko omeji nekatere funkcionalnosti spletne strani.",
+      "save": "Shrani nastavitve",
+      "acceptAll": "Sprejmi vse",
+      "rejectAll": "Samo potrebne",
+      "categories": {
+        "necessary": {
+          "title": "Potrebni piškotki",
+          "description": "Ti piškotki so bistveni za delovanje spletne strani in jih ni mogoče izklopiti v naših sistemih. Običajno se nastavijo le kot odziv na vaša dejanja, ki predstavljajo zahtevo za storitve.",
+          "alwaysEnabled": "Vedno omogočeno"
+        },
+        "analytics": {
+          "title": "Analitični piškotki",
+          "description": "Ti piškotki nam omogočajo štetje obiskov in virov prometa, da lahko merimo in izboljšamo delovanje naše spletne strani. Pomagajo nam vedeti, katere strani so najbolj in najmanj priljubljene ter videti, kako se obiskovalci premikajo po spletni strani."
+        },
+        "marketing": {
+          "title": "Trženjski piškotki",
+          "description": "Te piškotke lahko na naši spletni strani nastavijo naši oglaševalski partnerji. Ta podjetja jih lahko uporabljajo za izgradnjo profila vaših interesov in vam pokazati ustrezne oglase na drugih spletnih straneh."
+        },
+        "preferences": {
+          "title": "Piškotki za nastavitve",
+          "description": "Ti piškotki omogočajo spletni strani, da si zapomni vaše izbire (kot je vaše uporabniško ime, jezik ali regija, v kateri se nahajate) in zagotavlja izboljšane, bolj osebne funkcije."
+        }
+      }
+    },
+    "policy": {
+      "title": "Pravilnik o piškotkih",
+      "lastUpdated": "Zadnje posodobljeno",
+      "whatAreCookies": {
+        "title": "Kaj so piškotki",
+        "description": "Piškotki so majhne besedilne datoteke, ki se shranijo na vaši napravi, ko obiščete spletno stran. Široko se uporabljajo za bolj učinkovito delovanje spletnih strani ter za zagotavljanje informacij lastnikom spletnih strani."
+      },
+      "howWeUseCookies": {
+        "title": "Kako uporabljamo piškotke",
+        "description": "Piškotke uporabljamo za različne namene, vključno z zagotavljanjem, da naša spletna stran deluje pravilno, analiziranjem, kako se uporablja naša spletna stran, in pomnenjem vaših nastavitev."
+      },
+      "typesOfCookies": {
+        "title": "Vrste piškotkov, ki jih uporabljamo",
+        "description": "Na naši spletni strani uporabljamo različne vrste piškotkov:"
+      },
+      "manageCookies": {
+        "title": "Kako upravljati s piškotki",
+        "description": "Piškotke lahko nadzorujete in/ali izbrišete, kot želite. Lahko izbrišete vse piškotke, ki so že na vašem računalniku, in večino brskalnikov lahko nastavite tako, da preprečijo njihovo shranjevanje."
+      },
+      "thirdParty": {
+        "title": "Piškotki tretjih oseb",
+        "description": "V nekaterih posebnih primerih uporabljamo tudi piškotke zaupanja vrednih tretjih oseb. Podrobnosti o piškotkih tretjih oseb, ki jih lahko naletite na tej spletni strani, so navedene spodaj."
+      }
+    },
+    "categories": {
+      "necessary": "Potrebni",
+      "analytics": "Analitični",
+      "marketing": "Trženjski",
+      "preferences": "Nastavitve"
+    }
   }
 }

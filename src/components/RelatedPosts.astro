@@ -1,0 +1,153 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import ArticleCard from './ArticleCard.astro'
+import { getLocaleFromUrl, t } from '../utils/i18n'
+
+interface Props {
+  posts: CollectionEntry<'insights'>[]
+  title?: string
+  className?: string
+}
+
+const { posts, title, className = '' } = Astro.props
+
+if (!posts || posts.length === 0) {
+  return null
+}
+
+const locale = getLocaleFromUrl(Astro.url)
+const baseUrlByLang: Record<string, string> = { 
+  it: '/it/insights', 
+  en: '/en/insights', 
+  sl: '/sl/insights' 
+}
+const baseUrl = baseUrlByLang[locale] || '/it/insights'
+
+// Traduzione titolo se non fornito
+const sectionTitle = title || (locale === 'it' ? 'Articoli correlati' : 
+                              locale === 'en' ? 'Related articles' : 
+                              'Povezani članki')
+---
+
+<section class={`related-posts ${className}`} aria-labelledby="related-posts-title">
+  <div class="related-posts-container">
+    <header class="related-posts-header">
+      <h2 id="related-posts-title" class="related-posts-title">
+        {sectionTitle}
+      </h2>
+      <p class="related-posts-subtitle">
+        {locale === 'it' ? 'Altri contenuti che potrebbero interessarti' : 
+         locale === 'en' ? 'Other content you might find interesting' : 
+         'Druga vsebina, ki vas lahko zanima'}
+      </p>
+    </header>
+    
+    <div class="related-posts-grid">
+      {posts.map(post => (
+        <div class="related-post-item">
+          <ArticleCard post={post} baseUrl={baseUrl} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .related-posts {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    border-top: 1px solid rgb(228 228 231);
+    padding-top: 3rem;
+  }
+  
+  .darkmode .related-posts {
+    border-top-color: rgb(63 63 70);
+  }
+  
+  .related-posts-container {
+    /* La larghezza è già gestita dal layout padre */
+    padding: 0;
+  }
+  
+  .related-posts-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  
+  .related-posts-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: rgb(17 24 39);
+    margin: 0 0 0.75rem 0;
+  }
+  
+  .darkmode .related-posts-title {
+    color: rgb(249 250 251);
+  }
+  
+  .related-posts-subtitle {
+    font-size: 1rem;
+    color: rgb(107 114 128);
+    margin: 0;
+    line-height: 1.5;
+  }
+  
+  .darkmode .related-posts-subtitle {
+    color: rgb(156 163 175);
+  }
+  
+  .related-posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  @media (min-width: 640px) {
+    .related-posts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .related-posts-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+  }
+  
+  .related-post-item {
+    transition: transform 0.2s ease;
+  }
+  
+  .related-post-item:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Responsive per 3-4 articoli */
+  .related-posts-grid:has(> :nth-child(3)) {
+    grid-template-columns: 1fr;
+  }
+  
+  @media (min-width: 640px) {
+    .related-posts-grid:has(> :nth-child(3)) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .related-posts-grid:has(> :nth-child(3)) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .related-posts-grid:has(> :nth-child(4)) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .related-posts-grid:has(> :nth-child(4)) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

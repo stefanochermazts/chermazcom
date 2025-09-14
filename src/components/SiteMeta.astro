@@ -1,4 +1,6 @@
 ---
+import { getAlternateUrls } from '../utils/i18n'
+
 /**
  * SiteMeta Component
  *
@@ -30,15 +32,11 @@ interface Props {
 const { title, description, url, image, author = 'Stefano Chermaz' } = Astro.props
 
 let subtitle = 'Stefano Chermaz'
-// Compute canonical and hreflang URLs in frontmatter to avoid inline const in template
-const supportedLangs = ['it', 'en', 'sl']
-const currentUrl = new URL(Astro.url)
-const urlSegments = currentUrl.pathname.split('/').filter(Boolean)
-const hasLangPrefix = supportedLangs.includes(urlSegments[0])
-const remainingPath = hasLangPrefix ? urlSegments.slice(1).join('/') : urlSegments.join('/')
-const currentLang = hasLangPrefix ? urlSegments[0] : 'it'
-const canonical = `${Astro.site}${currentLang}/${remainingPath ? remainingPath + '/' : ''}`
-const makeUrl = (l) => `${Astro.site}${l}/${remainingPath ? remainingPath + '/' : ''}`
+
+// Use the same logic as LocalizedMeta for consistency
+const currentPath = Astro.url.pathname
+const canonical = Astro.url.toString()
+const alternateUrls = getAlternateUrls(currentPath, Astro.site?.toString())
 ---
 
 <!-- general meta -->
@@ -69,7 +67,6 @@ const makeUrl = (l) => `${Astro.site}${l}/${remainingPath ? remainingPath + '/' 
 <title>{title} - {subtitle}</title>
 
 <!-- hreflang -->
-<link rel="alternate" hreflang="x-default" href={`${Astro.site}`} />
-<link rel="alternate" hreflang="it" href={makeUrl('it')} />
-<link rel="alternate" hreflang="en" href={makeUrl('en')} />
-<link rel="alternate" hreflang="sl" href={makeUrl('sl')} />
+{Object.entries(alternateUrls).map(([lang, url]) => (
+  <link rel="alternate" hreflang={lang} href={url} />
+))}
