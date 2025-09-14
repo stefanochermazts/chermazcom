@@ -26,3 +26,16 @@
   from = "noreply@chermaz.com"
   reply_to = "stefano@chermaz.com"
 
+# Redirects (ensure present in published config)
+[[redirects]]
+  from = "/risolvere-i-sudoku-difficili-guida-completa-e-consigli-efficaci"
+  to = "/it/insights/risolvere-i-sudoku-difficili-guida-completa-e-consigli-efficaci/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/risolvere-i-sudoku-difficili-guida-completa-e-consigli-efficaci/"
+  to = "/it/insights/risolvere-i-sudoku-difficili-guida-completa-e-consigli-efficaci/"
+  status = 301
+  force = true
+
