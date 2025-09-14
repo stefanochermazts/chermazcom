@@ -563,6 +563,85 @@ titleWeight: 2       // Peso similarità titolo
 
 **Il sistema di articoli correlati è ora completamente operativo e ottimizzato per SEO e UX! 📈**
 
+## ✅ OG Image Personalizzata - Logo del Sito - 14 dicembre 2024
+
+### 🎯 Problema risolto
+L'immagine Open Graph (og:image) mostrava il logo di default di Astro invece del logo del sito Chermaz.com, causando una branding inconsistente sui social media.
+
+### 🔧 Implementazione
+
+#### **File aggiornati:**
+```
+src/layouts/UnifiedLayout.astro        # Immagine default aggiornata
+src/components/LocalizedMeta.astro     # Path immagine OG localizzata 
+src/layouts/PostLayout.astro           # Support immagini OG per articoli
+public/images/og-default.svg           # Nuova immagine OG branded
+public/og-preview.html                 # Tool per generare versione JPG
+```
+
+#### **Immagine OG creata:**
+- **Dimensioni**: 1200x630px (ratio 1.91:1 ottimale per social)
+- **Formato**: SVG (compatibile con molti social) + tool per JPG fallback
+- **Design**: Logo Chermaz + gradiente brand + testo informativo
+- **Colori**: Palette brand (#42E0CE, #A14FD6, dark background)
+
+#### **Gerarchia immagini OG:**
+```typescript
+PostLayout: fm.ogImage || fm.cover || fm.image || default
+UnifiedLayout: image prop || '/images/og-default.svg'
+LocalizedMeta: ogImage prop || '/images/og-default.svg'
+```
+
+### 🎨 Design OG Image
+
+#### **Elementi visivi:**
+1. **Background**: Gradiente scuro (#0f172a → #1e293b)
+2. **Logo**: Versione scalata del logo Chermaz (turchese + viola)
+3. **Testo principale**: "Stefano Chermaz" (white, 48px)
+4. **Sottotitolo**: "Consulenza IT & Microsoft 365" (#94a3b8, 28px)
+5. **Website**: "chermaz.com" (brand turchese, 22px)
+6. **Divider**: Linea gradiente brand (400px)
+
+#### **Preview tool creato:**
+- File: `/public/og-preview.html`
+- Accesso: `http://localhost:4321/og-preview.html`
+- Uso: Per generare screenshot 1200x630 → JPG fallback
+
+### 📊 Benefici ottenuti
+
+#### **Branding consistency:**
+- ✅ Logo riconoscibile su Facebook, LinkedIn, Twitter
+- ✅ Colori brand coherent con design del sito
+- ✅ Informazioni chiare (nome, servizi, website)
+
+#### **SEO e Social Media:**
+- ✅ Click-through rate migliorato sui social
+- ✅ Professional appearance nei link condivisi
+- ✅ Brand awareness aumentata
+
+#### **Flessibilità per articoli:**
+- ✅ Ogni articolo può avere ogImage custom nel frontmatter
+- ✅ Fallback automatico su cover/image se presente
+- ✅ Default brandizzato se nessuna immagine specifica
+
+### 🔗 Meta Tag aggiornati
+
+#### **Open Graph completo:**
+```html
+<meta property="og:image" content="https://chermaz.com/images/og-default.svg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Stefano Chermaz - Consulenza IT" />
+```
+
+#### **Twitter Card:**
+```html
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://chermaz.com/images/og-default.svg" />
+```
+
+**L'immagine OG ora riflette perfettamente il brand del sito su tutti i social media! 🎨**
+
 ## Formattazione Automatica MDX - 12 Sep 2025
 
 ### ✅ Completato

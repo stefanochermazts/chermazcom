@@ -1,0 +1,46 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#42E0CE;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A14FD6;stop-opacity:1" />
+    </linearGradient>
+    <!-- Pattern for subtle texture -->
+    <pattern id="pattern" patternUnits="userSpaceOnUse" width="40" height="40">
+      <rect width="40" height="40" fill="transparent"/>
+      <circle cx="20" cy="20" r="1" fill="#334155" opacity="0.2"/>
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+  <rect width="1200" height="630" fill="url(#pattern)"/>
+  
+  <!-- Logo PNG ad alta risoluzione embedded (centered, scaled appropriately) -->
+  <image href="/images/logo_stefano_chermaz.png" x="500" y="150" width="200" height="200" preserveAspectRatio="xMidYMid meet"/>
+  
+  <!-- Title -->
+  <text x="600" y="400" text-anchor="middle" fill="white" font-family="system-ui, -apple-system, 'Segoe UI', Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="-0.5px">
+    Stefano Chermaz
+  </text>
+  
+  <!-- Decorative line -->
+  <line x1="400" y1="430" x2="800" y2="430" stroke="url(#accent-gradient)" stroke-width="3" opacity="0.8"/>
+  
+  <!-- Subtitle -->
+  <text x="600" y="480" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, 'Segoe UI', Arial, sans-serif" font-size="32" font-weight="400">
+    Consulenza IT &amp; Microsoft 365
+  </text>
+  
+  <!-- Website -->
+  <text x="600" y="520" text-anchor="middle" fill="#42E0CE" font-family="system-ui, -apple-system, 'Segoe UI', Arial, sans-serif" font-size="24" font-weight="500">
+    chermaz.com
+  </text>
+  
+  <!-- Subtle glow effect behind logo -->
+  <circle cx="600" cy="250" r="120" fill="url(#accent-gradient)" opacity="0.1"/>
+</svg>
