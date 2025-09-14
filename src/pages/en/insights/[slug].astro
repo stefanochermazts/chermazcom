@@ -2,6 +2,8 @@
 import PostLayout from '../../../layouts/PostLayout.astro'
 import { getCollection, getEntry, render } from 'astro:content'
 
+export const prerender = true;
+
 const { slug } = Astro.params
 const entry = await getEntry('insights', `en-${slug}`)
 if (!entry) throw new Error('Not found')

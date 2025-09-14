@@ -3,6 +3,8 @@ import UnifiedLayout from '../../../../layouts/UnifiedLayout.astro'
 import ArticleCard from '../../../../components/ArticleCard.astro'
 import { getCollection } from 'astro:content'
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const posts = await getCollection('insights', ({ id }) => !id.startsWith('en-') && !id.startsWith('sl-'))
   const cats = new Set<string>()

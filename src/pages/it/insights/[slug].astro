@@ -2,6 +2,8 @@
 import PostLayout from '../../../layouts/PostLayout.astro'
 import { getCollection, getEntry, render } from 'astro:content'
 
+export const prerender = true;
+
 const { slug } = Astro.params
 // I file italiani sono ora nella root
 const entry = await getEntry('insights', slug)

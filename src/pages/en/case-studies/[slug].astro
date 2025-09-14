@@ -3,6 +3,8 @@ import UnifiedLayout from '../../../layouts/UnifiedLayout.astro'
 import BreakoutImage from '../../../components/BreakoutImage.astro'
 import { getCollection, getEntry, render } from 'astro:content'
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const collection = (await getCollection('caseStudies')).filter(e=> e.id.startsWith('en-'))
   return collection.map((e) => {

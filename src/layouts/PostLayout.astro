@@ -87,7 +87,7 @@ const formatDate = (iso?: string) => {
     </header>
 
     <section class="not-prose my-8" aria-label="In questo articolo" id="toc-section">
-      <details class={`group block lg:hidden rounded-md border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 ${hasToc ? '' : 'hidden'}`} id="toc-mobile">
+      <details class={`group block lg:hidden rounded-2xl ring-1 ring-zinc-200 dark:ring-zinc-800 bg-white dark:bg-zinc-900 hover:shadow-sm transition-shadow focus-within:ring-2 focus-within:ring-brand-500 ${hasToc ? '' : 'hidden'}`} id="toc-mobile">
         <summary class="cursor-pointer px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">In questo articolo</summary>
         <nav class="px-4 pb-4 text-sm" aria-label="Indice dei contenuti">
           <ol class="space-y-1" id="toc-mobile-list">
@@ -100,7 +100,7 @@ const formatDate = (iso?: string) => {
         </nav>
       </details>
       <aside class={`hidden lg:block lg:sticky lg:top-24 lg:float-right lg:ml-8 lg:w-64 not-prose ${hasToc ? '' : 'lg:hidden'}`} id="toc-desktop">
-        <div class="rounded-md border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4">
+        <div class="rounded-2xl ring-1 ring-zinc-200 dark:ring-zinc-800 bg-white dark:bg-zinc-900 p-4 hover:shadow-sm transition-shadow focus-within:ring-2 focus-within:ring-brand-500">
           <p class="mb-2 text-sm font-semibold text-zinc-900 dark:text-zinc-100">In questo articolo</p>
           <nav class="text-sm" aria-label="Indice dei contenuti">
             <ol class="space-y-1" id="toc-desktop-list">
