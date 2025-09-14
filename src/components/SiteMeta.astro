@@ -27,9 +27,9 @@ interface Props {
   author?: string
 }
 
-const { title, description, url, image, author = 'Mark Teekman' } = Astro.props
+const { title, description, url, image, author = 'Stefano Chermaz' } = Astro.props
 
-let subtitle = 'Accessible Astro Starter'
+let subtitle = 'Stefano Chermaz'
 // Compute canonical and hreflang URLs in frontmatter to avoid inline const in template
 const supportedLangs = ['it', 'en', 'sl']
 const currentUrl = new URL(Astro.url)

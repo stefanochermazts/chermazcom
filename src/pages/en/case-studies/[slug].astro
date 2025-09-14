@@ -42,12 +42,16 @@ function getHeroImage(data: any, slug: string) {
 const heroImage = getHeroImage(entry.data, slug)
 ---
 <UnifiedLayout enableTransitions={true} title={entry.data.title}>
-  <article class="container my-16 prose">
-    <h1>{entry.data.title}</h1>
-    {entry.data.kpi && <p class="lead"><strong>{entry.data.kpi}</strong></p>}
-    
+  <article class="mx-auto max-w-3xl lg:max-w-4xl px-4 sm:px-6 lg:px-0 my-10 prose prose-lg dark:prose-invert">
+    <header class="not-prose mb-6">
+      <h1 class="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50">{entry.data.title}</h1>
+      {entry.data.kpi && <p class="mt-2 text-lg text-zinc-700 dark:text-zinc-300"><strong>{entry.data.kpi}</strong></p>}
+    </header>
+
     <BreakoutImage src={heroImage} alt={entry.data.title} />
-    
-    <Content />
+
+    <div class="content-large prose-headings:scroll-mt-24">
+      <Content />
+    </div>
   </article>
 </UnifiedLayout>

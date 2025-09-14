@@ -22,7 +22,8 @@ const fallbackSrc = '/images/logo_stefano_chermaz.png'
 const finalSrc = (typeof src === 'string' && src.trim().length > 0) ? src : fallbackSrc
 ---
 
-<div class="relative -mx-4 my-8 md:-mx-8 lg:-mx-[120px]">
-  <img src={finalSrc} alt={alt} class="h-auto w-full rounded-lg object-cover" loading="lazy" />
-  <div class="absolute inset-0 rounded-lg shadow-inner"></div>
+<div class="my-6">
+  <div class="relative aspect-[16/9] overflow-hidden rounded-md bg-zinc-100 dark:bg-zinc-900">
+    <img src={finalSrc} alt={alt} class="h-full w-full object-cover" loading="lazy" decoding="async" sizes="(min-width:1024px) 60vw, 100vw" />
+  </div>
 </div>
