@@ -447,10 +447,83 @@
       this.sessionId = this.generateSessionId();
       this.apiBase = window.location.origin;
       this.currentLanguage = this.detectLanguage();
+      this.i18n = {
+        it: {
+          subtitle: 'Assistente AI per i contenuti del sito',
+          placeholder: 'Scrivi la tua domanda...',
+          quick: {
+            a: { label: '🤖 Creare chatbot', query: 'Come posso creare un chatbot?' },
+            b: { label: '💼 Servizi', query: 'Che servizi offre Stefano?' },
+            c: { label: '📊 SharePoint', query: 'Come implementare SharePoint?' }
+          },
+          welcome: {
+            intro1: '👋 Ciao! Sono Ask Stefano, il tuo assistente AI specializzato nei contenuti di questo sito.',
+            intro2: 'Puoi chiedermi informazioni su:',
+            bullets: [
+              'Sviluppo di chatbot e AI',
+              'SharePoint e Microsoft 365',
+              'Servizi di consulenza IT',
+              'Case study e progetti'
+            ],
+            prompt: 'Cosa vorresti sapere?'
+          },
+          thinking: 'Sto pensando...'
+          ,sourcesLabel: '📚 Fonti',
+          demo: (q) => `Grazie per la tua domanda: "${q}".\n\nQuesto è un messaggio di demo del widget Ask Stefano. Il sistema completo includerà:\n\n• Ricerca semantica nei contenuti del sito\n• Risposte generate con AI basate sui tuoi articoli\n• Sistema di citazioni automatico\n• Supporto multilingue (IT/EN/SL)\n\nIl backend API è già implementato e sarà attivo quando il sito verrà deployato su Netlify.`
+        },
+        en: {
+          subtitle: 'AI assistant for this site\'s content',
+          placeholder: 'Type your question...',
+          quick: {
+            a: { label: '🤖 Build a chatbot', query: 'How can I build a chatbot?' },
+            b: { label: '💼 Services', query: 'What services does Stefano offer?' },
+            c: { label: '📊 SharePoint', query: 'How to implement SharePoint?' }
+          },
+          welcome: {
+            intro1: '👋 Hi! I\'m Ask Stefano, your AI assistant specialized in this website\'s content.',
+            intro2: 'You can ask me about:',
+            bullets: [
+              'Chatbot and AI development',
+              'SharePoint and Microsoft 365',
+              'IT consulting services',
+              'Case studies and projects'
+            ],
+            prompt: 'What would you like to know?'
+          },
+          thinking: 'Thinking...'
+          ,sourcesLabel: '📚 Sources',
+          demo: (q) => `Thanks for your question: "${q}".\n\nThis is a demo message of the Ask Stefano widget. The full system will include:\n\n• Semantic search across the site\n• AI answers grounded on your articles\n• Automatic citation system\n• Multi-language support (IT/EN/SL)\n\nThe backend API is already implemented and will be active when deployed on Netlify.`
+        },
+        sl: {
+          subtitle: 'AI asistent za vsebine tega spletnega mesta',
+          placeholder: 'Vnesite svoje vprašanje...',
+          quick: {
+            a: { label: '🤖 Ustvari chatbot', query: 'Kako lahko ustvarim chatbot?' },
+            b: { label: '💼 Storitve', query: 'Katere storitve ponuja Stefano?' },
+            c: { label: '📊 SharePoint', query: 'Kako uvesti SharePoint?' }
+          },
+          welcome: {
+            intro1: '👋 Živjo! Sem Ask Stefano, vaš AI asistent, specializiran za vsebine tega spletnega mesta.',
+            intro2: 'Lahko me vprašate o:',
+            bullets: [
+              'Razvoj chatbotov in AI',
+              'SharePoint in Microsoft 365',
+              'IT svetovalne storitve',
+              'Študije primerov in projekti'
+            ],
+            prompt: 'Kaj vas zanima?'
+          },
+          thinking: 'Razmišljam...'
+          ,sourcesLabel: '📚 Viri',
+          demo: (q) => `Hvala za vaše vprašanje: "${q}".\n\nTo je predstavitveno sporočilo gradnika Ask Stefano. Celoten sistem bo vključeval:\n\n• Semantično iskanje po spletnem mestu\n• Odgovore z AI na podlagi vaših člankov\n• Samodejni sistem citiranja\n• Večjezično podporo (IT/EN/SL)\n\nZaledni API je že implementiran in bo aktiven po namestitvi na Netlify.`
+        }
+      };
       
       this.initializeElements();
       this.bindEvents();
       this.setupAutoResize();
+      this.localizeStaticUI();
+      this.renderWelcomeMessage();
     }
 
     generateSessionId() {
@@ -475,6 +548,33 @@
       this.sendButton = document.getElementById('send-button');
       this.charCount = document.querySelector('.char-count');
       this.quickActions = document.querySelectorAll('.quick-action');
+    }
+
+    getI18n() {
+      return this.i18n[this.currentLanguage] || this.i18n.it;
+    }
+
+    localizeStaticUI() {
+      const t = this.getI18n();
+      // Header subtitle
+      const subtitleEl = document.querySelector('.chat-subtitle');
+      if (subtitleEl) subtitleEl.textContent = t.subtitle;
+      // Placeholder
+      if (this.chatInput) this.chatInput.placeholder = t.placeholder;
+      // Quick actions
+      const buttons = Array.from(this.quickActions || []);
+      if (buttons[0]) { buttons[0].textContent = t.quick.a.label; buttons[0].dataset.query = t.quick.a.query; }
+      if (buttons[1]) { buttons[1].textContent = t.quick.b.label; buttons[1].dataset.query = t.quick.b.query; }
+      if (buttons[2]) { buttons[2].textContent = t.quick.c.label; buttons[2].dataset.query = t.quick.c.query; }
+    }
+
+    renderWelcomeMessage() {
+      const t = this.getI18n();
+      if (!this.messagesContainer) return;
+      this.messagesContainer.innerHTML = '';
+      const bullets = t.welcome.bullets.map(b => `• ${b}`).join('\n');
+      const text = `${t.welcome.intro1}\n\n${t.welcome.intro2}\n${bullets}\n\n${t.welcome.prompt}`;
+      this.addMessage(text, 'assistant');
     }
 
     bindEvents() {
@@ -586,7 +686,7 @@
       loadingDiv.id = loadingId;
       const loadingContent = document.createElement('div');
       loadingContent.className = 'message-content loading';
-      loadingContent.textContent = 'Sto pensando...';
+      loadingContent.textContent = this.getI18n().thinking;
       loadingDiv.appendChild(loadingContent);
       this.messagesContainer.appendChild(loadingDiv);
       this.scrollToBottom();
@@ -615,7 +715,7 @@
       } catch (e) {
         document.getElementById(loadingId)?.remove();
 
-        const demoResponse = `Grazie per la tua domanda: "${query}".\n\nQuesto è un messaggio di demo del widget Ask Stefano. Il sistema completo includerà:\n\n• Ricerca semantica nei contenuti del sito\n• Risposte generate con AI basate sui tuoi articoli\n• Sistema di citazioni automatico\n• Supporto multilingue (IT/EN/SL)\n\nIl backend API è già implementato e sarà attivo quando il sito verrà deployato su Netlify.`;
+        const demoResponse = this.getI18n().demo(query);
         this.addMessage(demoResponse, 'assistant');
       }
     }
@@ -642,7 +742,7 @@
           const listItems = sources
             .map((s, idx) => `<li>[${s.id ?? idx + 1}] <a href="${s.url}" target="_blank" rel="noopener">${s.title || s.url}</a></li>`) 
             .join('');
-          sourcesDiv.innerHTML = `<h4>📚 Fonti</h4><ul>${listItems}</ul>`;
+          sourcesDiv.innerHTML = `<h4>${this.getI18n().sourcesLabel}</h4><ul>${listItems}</ul>`;
           contentDiv.appendChild(sourcesDiv);
         }
       } else {
