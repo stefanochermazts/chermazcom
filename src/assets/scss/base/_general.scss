@@ -11,7 +11,8 @@ body {
   font-family: var(--font-body);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+  // rimuovo leggero text-shadow che schiariva il testo su sfondo chiaro
+  text-shadow: none;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -53,7 +54,7 @@ blockquote {
   border-inline-start: 4px solid var(--brand-500, #1f63ff);
   padding-inline-start: 1rem;
   margin-block: 1.25em;
-  color: light-dark(var(--color-neutral-700), var(--color-neutral-300));
+  color: light-dark(var(--color-neutral-800), var(--color-neutral-300));
 }
 
 hr {
