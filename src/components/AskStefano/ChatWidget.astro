@@ -707,11 +707,24 @@
         if (!res.ok) throw new Error(`API Error: ${res.status}`);
         const data = await res.json();
 
-        this.addMessage(
-          data.response || 'Nessuna risposta disponibile.',
-          'assistant',
-          Array.isArray(data.sources) ? data.sources : null
-        );
+        // Create assistant message container and stream characters (typing effect)
+        const messageId = this.addMessage('', 'assistant');
+        await this.typeStream(messageId, data.response || '');
+
+        // Append sources after typing completed
+        if (Array.isArray(data.sources) && data.sources.length) {
+          const messageEl = document.getElementById(messageId);
+          const contentDiv = messageEl?.querySelector('.message-content');
+          if (contentDiv) {
+            const sourcesDiv = document.createElement('div');
+            sourcesDiv.className = 'message-sources';
+            const listItems = data.sources
+              .map((s, idx) => `<li>[${s.id ?? idx + 1}] <a href="${s.url}" target="_blank" rel="noopener">${s.title || s.url}</a></li>`) 
+              .join('');
+            sourcesDiv.innerHTML = `<h4>${this.getI18n().sourcesLabel}</h4><ul>${listItems}</ul>`;
+            contentDiv.appendChild(sourcesDiv);
+          }
+        }
       } catch (e) {
         document.getElementById(loadingId)?.remove();
 
@@ -732,9 +745,9 @@
       contentDiv.className = 'message-content';
       
       if (type === 'assistant') {
-        // Convert line breaks to HTML
-        const htmlContent = content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
-        contentDiv.innerHTML = '<p>' + htmlContent + '</p>';
+        // Convert line breaks to HTML (if content iniziale presente)
+        const htmlContent = (content || '').replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
+        contentDiv.innerHTML = htmlContent ? '<p>' + htmlContent + '</p>' : '';
 
         if (sources && sources.length) {
           const sourcesDiv = document.createElement('div');
@@ -754,6 +767,29 @@
       this.scrollToBottom();
 
       return messageId;
+    }
+
+    async typeStream(messageId, fullText) {
+      const el = document.getElementById(messageId);
+      const contentDiv = el?.querySelector('.message-content');
+      if (!contentDiv) return;
+
+      // Typing effect rendering plain text with basic breaks
+      const decoder = (text) => text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\n/g, '<br>');
+
+      contentDiv.innerHTML = '';
+      const chunkSize = 6; // characters per frame
+      for (let i = 0; i < fullText.length; i += chunkSize) {
+        const slice = fullText.slice(i, i + chunkSize);
+        contentDiv.innerHTML += decoder(slice);
+        this.scrollToBottom();
+        // small delay to simulate streaming
+        await new Promise(r => setTimeout(r, 16)); // ~60fps
+      }
     }
 
     scrollToBottom() {
