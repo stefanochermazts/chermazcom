@@ -138,6 +138,14 @@
       "description": "Pravilnik o zasebnosti in obdelavi osebnih podatkov."
     }
   },
+  "person": {
+    "jobTitle": "IT svetovalec & CTO",
+    "description": "Specialist za Microsoft 365, umetno inteligenco in poslovno skladnost"
+  },
+  "services": {
+    "title": "IT svetovanje Microsoft 365 in AI",
+    "description": "Specializirane svetovalne storitve za Microsoft 365, umetno inteligenco in poslovno skladnost"
+  },
   "cookies": {
     "banner": {
       "title": "Spoštujemo vašo zasebnost",

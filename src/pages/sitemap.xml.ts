@@ -12,7 +12,8 @@ const staticPages = [
   '/case-studies',
   '/insights',
   '/contact',
-  '/privacy'
+  '/privacy',
+  '/ai-playground'
 ]
 
 function detectLocaleFromId(id: string): 'it' | 'en' | 'sl' {

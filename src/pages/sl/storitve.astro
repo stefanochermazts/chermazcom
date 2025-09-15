@@ -6,7 +6,7 @@ const entry = await getEntry('pages', 'sl-servizi')
 const Content = entry ? (await render(entry)).Content : null
 ---
 
-<UnifiedLayout useLocalizedMeta={true} pageKey="services">
+<UnifiedLayout useLocalizedMeta={true} pageKey="services" structuredDataType="Service">
 
   {Content && (
     <section class="py-16 sm:py-20">

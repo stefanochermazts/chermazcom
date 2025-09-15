@@ -138,6 +138,14 @@
       "description": "Informativa sulla privacy e trattamento dei dati personali."
     }
   },
+  "person": {
+    "jobTitle": "Consulente IT & CTO",
+    "description": "Specialista in Microsoft 365, Intelligenza Artificiale e Compliance aziendale"
+  },
+  "services": {
+    "title": "Consulenza IT Microsoft 365 e AI",
+    "description": "Servizi di consulenza specializzata in Microsoft 365, intelligenza artificiale e compliance aziendale"
+  },
   "cookies": {
     "banner": {
       "title": "Rispettiamo la tua privacy",

@@ -138,6 +138,14 @@
       "description": "Privacy policy and personal data processing information."
     }
   },
+  "person": {
+    "jobTitle": "IT Consultant & CTO",
+    "description": "Specialist in Microsoft 365, Artificial Intelligence and Business Compliance"
+  },
+  "services": {
+    "title": "Microsoft 365 and AI IT Consulting",
+    "description": "Specialized consulting services in Microsoft 365, artificial intelligence and business compliance"
+  },
   "cookies": {
     "banner": {
       "title": "We respect your privacy",

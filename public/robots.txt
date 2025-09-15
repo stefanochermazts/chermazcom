@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Block wp-admin if any old WP paths remain
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/uploads/
+
+# Allow all other content
+Allow: /it/
+Allow: /en/
+Allow: /sl/
+
+# Sitemap
+Sitemap: https://www.chermaz.com/sitemap.xml

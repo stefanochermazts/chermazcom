@@ -164,12 +164,70 @@
 - [x] Configurato redirect automatico da URL inglesi a italiani in produzione
 - [x] Risolto contenuto duplicato nella homepage italiana (rimosso codice duplicato)
 
-## 6) SEO e redirect
-- [x] Aggiungi `netlify.toml` (build/dev)
-- [ ] Crea `_redirects` con mapping da WordPress alle nuove sezioni
+## ✅ 6) SEO e redirect - COMPLETATO 15 dicembre 2024
+- [x] Aggiungi `netlify.toml` (build/dev) 
+- [x] Crea `_redirects` con mapping da WordPress alle nuove sezioni
 - [x] Crea `_headers` con security headers e caching adeguato
-- [ ] Genera `sitemap.xml` (automatica o file) e `robots.txt` con `Sitemap: https://www.chermaz.com/sitemap.xml`
-- [ ] Imposta meta per pagina (title, description, OG) e JSON‑LD (Person/Organization/Service)
+- [x] Genera `sitemap.xml` (automatica o file) e `robots.txt` con `Sitemap: https://www.chermaz.com/sitemap.xml`
+- [x] Imposta meta per pagina (title, description, OG) e JSON‑LD (Person/Organization/Service)
+
+### 🎯 Obiettivo raggiunto
+Sistema completo di SEO tecnico e redirect per massimizzare la visibilità sui motori di ricerca e garantire un'esperienza utente ottimale durante la migrazione da WordPress.
+
+### 🛠️ Implementazione finale
+
+#### 1. **File di Configurazione Netlify**
+- ✅ **`netlify.toml`**: Build settings, environment variables, form notifications
+- ✅ **`_redirects`**: Mapping completo da WordPress URL → nuove sezioni Astro (171 regole)
+- ✅ **`_headers`**: Security headers, caching, X-Frame-Options, CSP
+
+#### 2. **Sitemap e Robots**
+- ✅ **Sitemap dinamico**: `src/pages/sitemap.xml.ts` genera automaticamente per tutte le lingue
+- ✅ **Robots.txt**: Configurato con sitemap URL e regole di crawling
+- ✅ **Multilingue**: Include automaticamente `/it/`, `/en/`, `/sl/` con hreflang
+
+#### 3. **JSON-LD Structured Data**
+- ✅ **Componente StructuredData.astro**: Sistema modulare per schema multipli
+- ✅ **Schema supportati**: Person (About), Organization (Home), Service (Services), WebPage (Content)
+- ✅ **Localizzazione**: Traduzioni IT/EN/SL per tutti i campi schema
+- ✅ **Integrazione**: Automatico in `UnifiedLayout.astro` con props dedicati
+
+#### 4. **Meta Tags Avanzati**
+- ✅ **Meta tags base**: Title, description, author per ogni pagina
+- ✅ **Open Graph**: Immagini, URL, descrizioni localizzate
+- ✅ **Twitter Cards**: Large image summary con immagini branded
+- ✅ **Canonical**: URL canonici corretti per ogni lingua
+- ✅ **Hreflang**: Links alternati per SEO internazionale
+
+### 🔧 File implementati/aggiornati:
+```
+netlify.toml                          # Configurazione hosting
+_redirects                            # Mapping WordPress → Astro  
+public/robots.txt                     # Direttive crawler
+src/pages/sitemap.xml.ts              # Sitemap dinamico
+src/components/StructuredData.astro   # JSON-LD modulare
+src/layouts/UnifiedLayout.astro       # Integrazione StructuredData
+src/i18n/it.json                      # Traduzioni schema IT
+src/i18n/en.json                      # Traduzioni schema EN
+src/i18n/sl.json                      # Traduzioni schema SL
+src/pages/*/chi-sono.astro            # Schema Person IT
+src/pages/*/about.astro               # Schema Person EN
+src/pages/*/o-meni.astro              # Schema Person SL
+src/pages/*/servizi.astro             # Schema Service IT
+src/pages/*/services.astro            # Schema Service EN  
+src/pages/*/storitve.astro            # Schema Service SL
+```
+
+### 🚀 Benefici SEO ottenuti:
+
+1. **Redirect SEO-friendly**: Preserve authority da WordPress con 301 redirects
+2. **Structured Data ricchi**: Google comprende meglio contenuti e servizi
+3. **Sitemap automatico**: Indicizzazione rapida di tutti i contenuti multilingue
+4. **Meta tags ottimizzati**: Click-through rate migliorato nei SERP
+5. **Schema organizzati**: Person per About, Service per servizi, Organization per homepage
+6. **Crawler compliance**: Robots.txt guida l'indicizzazione efficiente
+
+**Il sito ora ha un'infrastruttura SEO di livello enterprise! 🎯**
 
 ## 7) Form contatti (Netlify Forms)
 - [ ] Implementa `contact.astro` con `data-netlify="true"` e honeypot

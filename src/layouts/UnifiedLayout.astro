@@ -8,6 +8,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro'
 import Footer from '../components/Footer.astro'
 import CookieBanner from '../components/CookieBanner.astro'
 import SEODebug from '../components/SEODebug.astro'
+import StructuredData from '../components/StructuredData.astro'
 import { getLocaleFromUrl } from '../utils/i18n'
 import { getAlternateUrls } from '../utils/i18n'
 import { ClientRouter } from 'astro:transitions'
@@ -22,6 +23,8 @@ interface Props {
   pageKey?: string
   useLocalizedMeta?: boolean
   enableTransitions?: boolean
+  structuredDataType?: 'Person' | 'Organization' | 'Service' | 'WebPage'
+  serviceType?: string
 }
 
 const {
@@ -39,7 +42,9 @@ const {
   },
   pageKey,
   useLocalizedMeta = false,
-  enableTransitions = false
+  enableTransitions = false,
+  structuredDataType = 'Organization',
+  serviceType
 } = Astro.props as Props
 
 const locale = getLocaleFromUrl(Astro.url)
@@ -102,7 +107,8 @@ const locale = getLocaleFromUrl(Astro.url)
     
     <!-- hreflang alternates gestiti da LocalizedMeta/SiteMeta -->
 
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
+    <!-- Structured Data JSON-LD -->
+    <StructuredData type={structuredDataType} pageKey={pageKey} serviceType={serviceType} />
     
     <!-- Analytics sarà caricato condizionalmente dal sistema di consenso cookie -->
     

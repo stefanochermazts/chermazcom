@@ -1,0 +1,158 @@
+---
+import { getLocaleFromUrl, t, type Locale } from '../utils/i18n'
+
+interface Props {
+  type?: 'Person' | 'Organization' | 'Service' | 'WebPage'
+  pageKey?: string
+  serviceType?: string
+}
+
+const { type = 'Organization', pageKey, serviceType } = Astro.props
+const locale = getLocaleFromUrl(Astro.url) as Locale
+
+// Base data
+const baseUrl = Astro.site?.toString() || 'https://www.chermaz.com'
+const currentUrl = Astro.url.toString()
+
+// Person Schema (for About page)
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Stefano Chermaz",
+  "jobTitle": t('person.jobTitle', locale) || "IT Consultant & CTO",
+  "description": t('person.description', locale) || "Specialista in Microsoft 365, Intelligenza Artificiale e Compliance aziendale",
+  "url": baseUrl,
+  "image": `${baseUrl}/images/stefano chermaz.jpg`,
+  "sameAs": [
+    "https://www.linkedin.com/in/stefanochermaz/",
+    "https://github.com/stefanochermazts"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Trieste",
+    "addressRegion": "Friuli-Venezia Giulia", 
+    "addressCountry": "IT"
+  },
+  "knowsAbout": [
+    "Microsoft 365",
+    "SharePoint",
+    "Power Platform",
+    "Artificial Intelligence",
+    "GDPR Compliance",
+    "DORA Regulation",
+    "IT Consulting",
+    "Modern Workplace"
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Stefano Chermaz — Consulenza IT",
+    "url": baseUrl
+  }
+}
+
+// Organization Schema (for homepage and general pages)
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Stefano Chermaz — Consulenza IT",
+  "alternateName": "chermaz.com",
+  "description": t('site.description', locale),
+  "url": baseUrl,
+  "logo": `${baseUrl}/images/logo_stefano_chermaz_sm.png`,
+  "image": `${baseUrl}/images/og-default.svg`,
+  "founder": {
+    "@type": "Person",
+    "name": "Stefano Chermaz"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/in/stefanochermaz/"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Trieste", 
+    "addressRegion": "Friuli-Venezia Giulia",
+    "addressCountry": "IT"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+39-340-123-4567",
+    "contactType": "customer service",
+    "availableLanguage": ["it", "en", "sl"]
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Italy"
+  },
+  "knowsAbout": [
+    "Microsoft 365 Consulting",
+    "SharePoint Development", 
+    "Power Platform Implementation",
+    "AI Solutions",
+    "GDPR Compliance",
+    "Digital Transformation"
+  ]
+}
+
+// Service Schema (for Services page)
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": serviceType || t('services.title', locale) || "Consulenza IT Microsoft 365 e AI",
+  "description": t('services.description', locale) || "Servizi di consulenza specializzata in Microsoft 365, intelligenza artificiale e compliance aziendale",
+  "provider": {
+    "@type": "Person",
+    "name": "Stefano Chermaz",
+    "url": baseUrl
+  },
+  "areaServed": {
+    "@type": "Country", 
+    "name": "Italy"
+  },
+  "serviceType": serviceType || "IT Consulting",
+  "category": "Information Technology",
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceRange": "€€€",
+    "description": "Consulenza professionale su Microsoft 365, AI e Compliance"
+  }
+}
+
+// WebPage Schema (default for content pages)
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": pageKey ? t(`pages.${pageKey}.title`, locale) : t('site.title', locale),
+  "description": pageKey ? t(`pages.${pageKey}.description`, locale) : t('site.description', locale),
+  "url": currentUrl,
+  "inLanguage": locale,
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": t('site.title', locale),
+    "url": baseUrl
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "IT Consulting"
+  }
+}
+
+// Select appropriate schema
+let schema
+switch (type) {
+  case 'Person':
+    schema = personSchema
+    break
+  case 'Service':
+    schema = serviceSchema
+    break
+  case 'WebPage':
+    schema = webPageSchema
+    break
+  default:
+    schema = organizationSchema
+}
+---
+
+<!-- Structured Data JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

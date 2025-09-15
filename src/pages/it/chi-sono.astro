@@ -7,7 +7,7 @@ const entry = await getEntry('pages', 'chi-sono')
 if (!entry) throw new Error('Pagina "chi-sono" non trovata')
 const { Content } = await render(entry)
 ---
-<UnifiedLayout enableTransitions={true} title={entry.data.title}>
+<UnifiedLayout enableTransitions={true} title={entry.data.title} structuredDataType="Person">
   <article class="container my-16 prose">
     <h1>{entry.data.title}</h1>
     <Content />
