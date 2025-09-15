@@ -209,14 +209,26 @@ const locale = getLocaleFromUrl(Astro.url)
         .dark\:bg-zinc-800, [class*="dark:bg-zinc-800"] { background-color: rgb(248 250 252) !important; }
         .dark\:text-zinc-50, [class*="dark:text-zinc-50"] { color: rgb(24 24 27) !important; }
         .dark\:text-zinc-100, [class*="dark:text-zinc-100"] { color: rgb(39 39 42) !important; }
-        /* In modalità light, forziamo il testo "dark:text-zinc-300" al colore principale per avere alto contrasto */
-        .dark\:text-zinc-300, [class*="dark:text-zinc-300"] { color: var(--foreground-color) !important; }
+        /* In modalità light, forziamo qualsiasi variante dark:text-zinc-XXX al colore principale */
+        .dark\:text-zinc-50, [class*="dark:text-zinc-50"],
+        .dark\:text-zinc-100, [class*="dark:text-zinc-100"],
+        .dark\:text-zinc-200, [class*="dark:text-zinc-200"],
+        .dark\:text-zinc-300, [class*="dark:text-zinc-300"],
+        .dark\:text-zinc-400, [class*="dark:text-zinc-400"],
+        .dark\:text-zinc-500, [class*="dark:text-zinc-500"],
+        .dark\:text-zinc-600, [class*="dark:text-zinc-600"],
+        .dark\:text-zinc-700, [class*="dark:text-zinc-700"],
+        .dark\:text-zinc-800, [class*="dark:text-zinc-800"],
+        .dark\:text-zinc-900, [class*="dark:text-zinc-900"] {
+          color: var(--foreground-color) !important;
+        }
 
         /* Qualsiasi classe di testo grigio (Tailwind) viene forzata al colore primario per accessibilità */
         [class*="text-zinc-"], [class*="text-gray-"], [class*="text-neutral-"], [class*="text-slate-"], [class*="text-stone-"] {
           color: var(--foreground-color) !important;
         }
-        .dark\:text-zinc-400, [class*="dark:text-zinc-400"] { color: rgb(161 161 170) !important; }
+        /* Annulla eventuali residui specifici */
+        .dark\:text-zinc-400, [class*="dark:text-zinc-400"] { color: var(--foreground-color) !important; }
         .dark\:ring-zinc-800, [class*="dark:ring-zinc-800"] { --tw-ring-color: rgb(228 228 231) !important; }
         .dark\:ring-zinc-700, [class*="dark:ring-zinc-700"] { --tw-ring-color: rgb(212 212 216) !important; }
         
