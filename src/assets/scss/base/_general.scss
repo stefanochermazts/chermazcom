@@ -102,6 +102,17 @@ a {
   color: var(--foreground-color) !important;
 }
 
+// Estensione: qualsiasi testo grigio in tema chiaro diventa testo principale
+html:not(.darkmode):not(.dark) :where(
+  [class*="text-zinc-"],
+  [class*="text-gray-"],
+  [class*="text-neutral-"],
+  [class*="text-slate-"],
+  [class*="text-stone-"]
+) {
+  color: var(--foreground-color) !important;
+}
+
 main a,
 footer a {
   @include text-decoration(var(--link-color), var(--link-hover-color));
