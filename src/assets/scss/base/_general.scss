@@ -89,6 +89,19 @@ a {
   }
 }
 
+// Tema chiaro: forza il testo "descrittivo" grigio al colore primario
+// per garantire contrasto elevato (homepage e liste)
+:root :where(
+  .text-zinc-600,
+  .text-zinc-700,
+  .text-gray-600,
+  .text-gray-700,
+  .text-neutral-600,
+  .text-neutral-700
+) {
+  color: var(--foreground-color) !important;
+}
+
 main a,
 footer a {
   @include text-decoration(var(--link-color), var(--link-hover-color));
