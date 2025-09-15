@@ -209,7 +209,8 @@ const locale = getLocaleFromUrl(Astro.url)
         .dark\:bg-zinc-800, [class*="dark:bg-zinc-800"] { background-color: rgb(248 250 252) !important; }
         .dark\:text-zinc-50, [class*="dark:text-zinc-50"] { color: rgb(24 24 27) !important; }
         .dark\:text-zinc-100, [class*="dark:text-zinc-100"] { color: rgb(39 39 42) !important; }
-        .dark\:text-zinc-300, [class*="dark:text-zinc-300"] { color: rgb(113 113 122) !important; }
+        /* In modalità light, forziamo il testo "dark:text-zinc-300" al colore principale per avere alto contrasto */
+        .dark\:text-zinc-300, [class*="dark:text-zinc-300"] { color: var(--foreground-color) !important; }
         .dark\:text-zinc-400, [class*="dark:text-zinc-400"] { color: rgb(161 161 170) !important; }
         .dark\:ring-zinc-800, [class*="dark:ring-zinc-800"] { --tw-ring-color: rgb(228 228 231) !important; }
         .dark\:ring-zinc-700, [class*="dark:ring-zinc-700"] { --tw-ring-color: rgb(212 212 216) !important; }
