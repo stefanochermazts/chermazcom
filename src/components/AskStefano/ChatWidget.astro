@@ -554,21 +554,41 @@
       // Add user message
       this.addMessage(query, 'user');
 
-      // Add demo response (since API might not work in development)
-      setTimeout(() => {
-        const demoResponse = `Grazie per la tua domanda: "${query}". 
+      // Show loading
+      const loadingId = 'loading_' + Date.now();
+      const loadingDiv = document.createElement('div');
+      loadingDiv.className = 'message assistant';
+      loadingDiv.id = loadingId;
+      const loadingContent = document.createElement('div');
+      loadingContent.className = 'message-content loading';
+      loadingContent.textContent = 'Sto pensando...';
+      loadingDiv.appendChild(loadingContent);
+      this.messagesContainer.appendChild(loadingDiv);
+      this.scrollToBottom();
 
-Questo è un messaggio di demo del widget Ask Stefano. Il sistema completo includerà:
+      try {
+        const res = await fetch(`${this.apiBase}/.netlify/functions/ask`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query,
+            language: this.currentLanguage,
+            sessionId: this.sessionId
+          })
+        });
 
-• Ricerca semantica nei contenuti del sito
-• Risposte generate con AI basate sui tuoi articoli
-• Sistema di citazioni automatico
-• Supporto multilingue (IT/EN/SL)
+        document.getElementById(loadingId)?.remove();
 
-Il backend API è già implementato e sarà attivo quando il sito verrà deployato su Netlify.`;
+        if (!res.ok) throw new Error(`API Error: ${res.status}`);
+        const data = await res.json();
 
+        this.addMessage(data.response || 'Nessuna risposta disponibile.', 'assistant');
+      } catch (e) {
+        document.getElementById(loadingId)?.remove();
+
+        const demoResponse = `Grazie per la tua domanda: "${query}".\n\nQuesto è un messaggio di demo del widget Ask Stefano. Il sistema completo includerà:\n\n• Ricerca semantica nei contenuti del sito\n• Risposte generate con AI basate sui tuoi articoli\n• Sistema di citazioni automatico\n• Supporto multilingue (IT/EN/SL)\n\nIl backend API è già implementato e sarà attivo quando il sito verrà deployato su Netlify.`;
         this.addMessage(demoResponse, 'assistant');
-      }, 1000);
+      }
     }
 
     addMessage(content, type) {
