@@ -1,0 +1,773 @@
+---
+// Chat Widget Component for Ask Stefano
+---
+
+<div id="ask-stefano-widget" class="ask-stefano-widget">
+  <!-- Widget Toggle Button -->
+  <button 
+    id="chat-toggle" 
+    class="chat-toggle" 
+    aria-label="Open Ask Stefano Chat"
+    type="button"
+  >
+    <svg class="chat-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3.04.97 4.37L1 23l6.63-1.97C9.96 21.64 11.46 22 13 22h7c1.1 0 2-.9 2-2V12c0-5.52-4.48-10-10-10z"/>
+    </svg>
+    <span class="chat-label">Ask Stefano</span>
+  </button>
+
+  <!-- Chat Panel -->
+  <div id="chat-panel" class="chat-panel hidden">
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="chat-header-content">
+        <div class="avatar">
+          <span class="avatar-text">S</span>
+        </div>
+        <div class="header-text">
+          <h3 class="chat-title">Ask Stefano</h3>
+          <p class="chat-subtitle">Assistente AI per i contenuti del sito</p>
+        </div>
+      </div>
+      <button id="chat-close" class="chat-close" aria-label="Close chat">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Messages Area -->
+    <div id="chat-messages" class="chat-messages">
+      <!-- Welcome Message -->
+      <div class="message assistant">
+        <div class="message-content">
+          <p>👋 Ciao! Sono <strong>Ask Stefano</strong>, il tuo assistente AI specializzato nei contenuti di questo sito.</p>
+          <p>Puoi chiedermi informazioni su:</p>
+          <ul>
+            <li>Sviluppo di chatbot e AI</li>
+            <li>SharePoint e Microsoft 365</li>
+            <li>Servizi di consulenza IT</li>
+            <li>Case study e progetti</li>
+          </ul>
+          <p><em>Cosa vorresti sapere?</em></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button class="quick-action" data-query="Come posso creare un chatbot?">
+        🤖 Creare chatbot
+      </button>
+      <button class="quick-action" data-query="Che servizi offre Stefano?">
+        💼 Servizi
+      </button>
+      <button class="quick-action" data-query="Come implementare SharePoint?">
+        📊 SharePoint
+      </button>
+    </div>
+
+    <!-- Input Area -->
+    <div class="chat-input-area">
+      <div class="input-wrapper">
+        <textarea 
+          id="chat-input" 
+          class="chat-input" 
+          placeholder="Scrivi la tua domanda..."
+          rows="1"
+          maxlength="500"
+        ></textarea>
+        <button id="send-button" class="send-button" type="button" disabled>
+          <svg class="send-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="input-footer">
+        <span class="char-count">0/500</span>
+        <span class="powered-by">Powered by AI</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ask-stefano-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  /* Toggle Button */
+  .chat-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .chat-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.5);
+  }
+
+  .chat-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .chat-label {
+    white-space: nowrap;
+  }
+
+  /* Chat Panel */
+  .chat-panel {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 380px;
+    max-width: calc(100vw - 48px);
+    height: 600px;
+    max-height: calc(100vh - 140px);
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .chat-panel:not(.hidden) {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  /* Header */
+  .chat-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .chat-header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .header-text {
+    flex: 1;
+  }
+
+  .chat-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .chat-subtitle {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  .chat-close {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+
+  .chat-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .chat-close svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Messages */
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    background: #f8fafc;
+  }
+
+  .message {
+    margin-bottom: 16px;
+  }
+
+  .message.assistant .message-content {
+    background: white;
+    border-radius: 12px 12px 12px 4px;
+    padding: 12px 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-left: 3px solid #667eea;
+  }
+
+  .message.user .message-content {
+    background: #667eea;
+    color: white;
+    border-radius: 12px 12px 4px 12px;
+    padding: 12px 16px;
+    margin-left: 40px;
+  }
+
+  .message-content p {
+    margin: 0 0 8px 0;
+    line-height: 1.5;
+  }
+
+  .message-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .message-content ul {
+    margin: 8px 0;
+    padding-left: 20px;
+  }
+
+  .message-content li {
+    margin-bottom: 4px;
+  }
+
+  /* Quick Actions */
+  .quick-actions {
+    padding: 12px 16px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .quick-action {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #475569;
+  }
+
+  .quick-action:hover {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+  }
+
+  /* Input Area */
+  .chat-input-area {
+    background: white;
+    border-top: 1px solid #e2e8f0;
+    padding: 16px;
+  }
+
+  .input-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 8px;
+    transition: border-color 0.2s;
+  }
+
+  .input-wrapper:focus-within {
+    border-color: #667eea;
+  }
+
+  .chat-input {
+    flex: 1;
+    border: none;
+    background: none;
+    resize: none;
+    outline: none;
+    font-size: 14px;
+    line-height: 1.4;
+    max-height: 100px;
+    font-family: inherit;
+  }
+
+  .send-button {
+    background: #667eea;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s;
+    opacity: 0.5;
+  }
+
+  .send-button:not(:disabled) {
+    opacity: 1;
+  }
+
+  .send-button:not(:disabled):hover {
+    background: #5a67d8;
+    transform: translateY(-1px);
+  }
+
+  .send-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .input-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    font-size: 11px;
+    color: #64748b;
+  }
+
+  /* Loading State */
+  .loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-style: italic;
+  }
+
+  .loading::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid #e2e8f0;
+    border-top: 2px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  /* Sources under assistant message */
+  .message-sources {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e2e8f0;
+  }
+  .message-sources h4 {
+    margin: 0 0 6px 0;
+    font-size: 12px;
+    color: #475569;
+  }
+  .message-sources ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+  .message-sources li {
+    margin: 2px 0;
+    font-size: 12px;
+  }
+  .message-sources a {
+    color: #667eea;
+    text-decoration: none;
+  }
+  .message-sources a:hover { text-decoration: underline; }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .ask-stefano-widget {
+      bottom: 16px;
+      right: 16px;
+      left: 16px;
+    }
+
+    .chat-panel {
+      right: 0;
+      left: 0;
+      width: auto;
+      max-width: none;
+    }
+
+    .chat-toggle {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script is:inline>
+  /**
+   * Ask Stefano Chat Widget - Inline Implementation
+   * Interactive chat functionality
+   */
+
+  class AskStefanoChat {
+    constructor() {
+      this.isOpen = false;
+      this.sessionId = this.generateSessionId();
+      this.apiBase = window.location.origin;
+      this.currentLanguage = this.detectLanguage();
+      this.i18n = {
+        it: {
+          subtitle: 'Assistente AI per i contenuti del sito',
+          placeholder: 'Scrivi la tua domanda...',
+          quick: {
+            a: { label: '🤖 Creare chatbot', query: 'Come posso creare un chatbot?' },
+            b: { label: '💼 Servizi', query: 'Che servizi offre Stefano?' },
+            c: { label: '📊 SharePoint', query: 'Come implementare SharePoint?' }
+          },
+          welcome: {
+            intro1: '👋 Ciao! Sono Ask Stefano, il tuo assistente AI specializzato nei contenuti di questo sito.',
+            intro2: 'Puoi chiedermi informazioni su:',
+            bullets: [
+              'Sviluppo di chatbot e AI',
+              'SharePoint e Microsoft 365',
+              'Servizi di consulenza IT',
+              'Case study e progetti'
+            ],
+            prompt: 'Cosa vorresti sapere?'
+          },
+          thinking: 'Sto pensando...'
+          ,sourcesLabel: '📚 Fonti',
+          demo: (q) => `Grazie per la tua domanda: "${q}".\n\nQuesto è un messaggio di demo del widget Ask Stefano. Il sistema completo includerà:\n\n• Ricerca semantica nei contenuti del sito\n• Risposte generate con AI basate sui tuoi articoli\n• Sistema di citazioni automatico\n• Supporto multilingue (IT/EN/SL)\n\nIl backend API è già implementato e sarà attivo quando il sito verrà deployato su Netlify.`
+        },
+        en: {
+          subtitle: 'AI assistant for this site\'s content',
+          placeholder: 'Type your question...',
+          quick: {
+            a: { label: '🤖 Build a chatbot', query: 'How can I build a chatbot?' },
+            b: { label: '💼 Services', query: 'What services does Stefano offer?' },
+            c: { label: '📊 SharePoint', query: 'How to implement SharePoint?' }
+          },
+          welcome: {
+            intro1: '👋 Hi! I\'m Ask Stefano, your AI assistant specialized in this website\'s content.',
+            intro2: 'You can ask me about:',
+            bullets: [
+              'Chatbot and AI development',
+              'SharePoint and Microsoft 365',
+              'IT consulting services',
+              'Case studies and projects'
+            ],
+            prompt: 'What would you like to know?'
+          },
+          thinking: 'Thinking...'
+          ,sourcesLabel: '📚 Sources',
+          demo: (q) => `Thanks for your question: "${q}".\n\nThis is a demo message of the Ask Stefano widget. The full system will include:\n\n• Semantic search across the site\n• AI answers grounded on your articles\n• Automatic citation system\n• Multi-language support (IT/EN/SL)\n\nThe backend API is already implemented and will be active when deployed on Netlify.`
+        },
+        sl: {
+          subtitle: 'AI asistent za vsebine tega spletnega mesta',
+          placeholder: 'Vnesite svoje vprašanje...',
+          quick: {
+            a: { label: '🤖 Ustvari chatbot', query: 'Kako lahko ustvarim chatbot?' },
+            b: { label: '💼 Storitve', query: 'Katere storitve ponuja Stefano?' },
+            c: { label: '📊 SharePoint', query: 'Kako uvesti SharePoint?' }
+          },
+          welcome: {
+            intro1: '👋 Živjo! Sem Ask Stefano, vaš AI asistent, specializiran za vsebine tega spletnega mesta.',
+            intro2: 'Lahko me vprašate o:',
+            bullets: [
+              'Razvoj chatbotov in AI',
+              'SharePoint in Microsoft 365',
+              'IT svetovalne storitve',
+              'Študije primerov in projekti'
+            ],
+            prompt: 'Kaj vas zanima?'
+          },
+          thinking: 'Razmišljam...'
+          ,sourcesLabel: '📚 Viri',
+          demo: (q) => `Hvala za vaše vprašanje: "${q}".\n\nTo je predstavitveno sporočilo gradnika Ask Stefano. Celoten sistem bo vključeval:\n\n• Semantično iskanje po spletnem mestu\n• Odgovore z AI na podlagi vaših člankov\n• Samodejni sistem citiranja\n• Večjezično podporo (IT/EN/SL)\n\nZaledni API je že implementiran in bo aktiven po namestitvi na Netlify.`
+        }
+      };
+      
+      this.initializeElements();
+      this.bindEvents();
+      this.setupAutoResize();
+      this.localizeStaticUI();
+      this.renderWelcomeMessage();
+    }
+
+    generateSessionId() {
+      return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    detectLanguage() {
+      const path = window.location.pathname;
+      if (path.startsWith('/en/')) return 'en';
+      if (path.startsWith('/sl/')) return 'sl';
+      return 'it';
+    }
+
+    initializeElements() {
+      this.widget = document.getElementById('ask-stefano-widget');
+      this.toggleButton = document.getElementById('chat-toggle');
+      this.chatPanel = document.getElementById('chat-panel');
+      this.closeButton = document.getElementById('chat-close');
+      this.messagesContainer = document.getElementById('chat-messages');
+      this.inputArea = document.querySelector('.chat-input-area');
+      this.chatInput = document.getElementById('chat-input');
+      this.sendButton = document.getElementById('send-button');
+      this.charCount = document.querySelector('.char-count');
+      this.quickActions = document.querySelectorAll('.quick-action');
+    }
+
+    getI18n() {
+      return this.i18n[this.currentLanguage] || this.i18n.it;
+    }
+
+    localizeStaticUI() {
+      const t = this.getI18n();
+      // Header subtitle
+      const subtitleEl = document.querySelector('.chat-subtitle');
+      if (subtitleEl) subtitleEl.textContent = t.subtitle;
+      // Placeholder
+      if (this.chatInput) this.chatInput.placeholder = t.placeholder;
+      // Quick actions
+      const buttons = Array.from(this.quickActions || []);
+      if (buttons[0]) { buttons[0].textContent = t.quick.a.label; buttons[0].dataset.query = t.quick.a.query; }
+      if (buttons[1]) { buttons[1].textContent = t.quick.b.label; buttons[1].dataset.query = t.quick.b.query; }
+      if (buttons[2]) { buttons[2].textContent = t.quick.c.label; buttons[2].dataset.query = t.quick.c.query; }
+    }
+
+    renderWelcomeMessage() {
+      const t = this.getI18n();
+      if (!this.messagesContainer) return;
+      this.messagesContainer.innerHTML = '';
+      const bullets = t.welcome.bullets.map(b => `• ${b}`).join('\n');
+      const text = `${t.welcome.intro1}\n\n${t.welcome.intro2}\n${bullets}\n\n${t.welcome.prompt}`;
+      this.addMessage(text, 'assistant');
+    }
+
+    bindEvents() {
+      // Toggle chat
+      this.toggleButton?.addEventListener('click', () => this.toggleChat());
+      this.closeButton?.addEventListener('click', () => this.closeChat());
+      
+      // Send message
+      this.sendButton?.addEventListener('click', () => this.sendMessage());
+      this.chatInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          this.sendMessage();
+        }
+      });
+
+      // Input validation
+      this.chatInput?.addEventListener('input', () => this.updateInputState());
+
+      // Quick actions
+      this.quickActions?.forEach(button => {
+        button.addEventListener('click', () => {
+          const query = button.dataset.query;
+          if (query) {
+            this.chatInput.value = query;
+            this.updateInputState();
+            this.sendMessage();
+          }
+        });
+      });
+
+      // Close on escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && this.isOpen) {
+          this.closeChat();
+        }
+      });
+    }
+
+    setupAutoResize() {
+      if (!this.chatInput) return;
+      
+      this.chatInput.addEventListener('input', () => {
+        this.chatInput.style.height = 'auto';
+        this.chatInput.style.height = Math.min(this.chatInput.scrollHeight, 100) + 'px';
+      });
+    }
+
+    toggleChat() {
+      if (this.isOpen) {
+        this.closeChat();
+      } else {
+        this.openChat();
+      }
+    }
+
+    openChat() {
+      this.isOpen = true;
+      this.chatPanel?.classList.remove('hidden');
+      this.chatInput?.focus();
+      console.log('Ask Stefano chat opened');
+    }
+
+    closeChat() {
+      this.isOpen = false;
+      this.chatPanel?.classList.add('hidden');
+      console.log('Ask Stefano chat closed');
+    }
+
+    updateInputState() {
+      if (!this.chatInput || !this.sendButton || !this.charCount) return;
+
+      const text = this.chatInput.value.trim();
+      const length = this.chatInput.value.length;
+      
+      // Update character count
+      this.charCount.textContent = `${length}/500`;
+      
+      // Enable/disable send button
+      this.sendButton.disabled = text.length === 0;
+      
+      // Update character count color
+      if (length > 450) {
+        this.charCount.style.color = '#ef4444';
+      } else if (length > 400) {
+        this.charCount.style.color = '#f59e0b';
+      } else {
+        this.charCount.style.color = '#64748b';
+      }
+    }
+
+    async sendMessage() {
+      const query = this.chatInput?.value?.trim();
+      if (!query) return;
+
+      console.log('Sending message:', query);
+      
+      // Clear input
+      this.chatInput.value = '';
+      this.updateInputState();
+
+      // Add user message
+      this.addMessage(query, 'user');
+
+      // Show loading
+      const loadingId = 'loading_' + Date.now();
+      const loadingDiv = document.createElement('div');
+      loadingDiv.className = 'message assistant';
+      loadingDiv.id = loadingId;
+      const loadingContent = document.createElement('div');
+      loadingContent.className = 'message-content loading';
+      loadingContent.textContent = this.getI18n().thinking;
+      loadingDiv.appendChild(loadingContent);
+      this.messagesContainer.appendChild(loadingDiv);
+      this.scrollToBottom();
+
+      try {
+        const res = await fetch(`${this.apiBase}/.netlify/functions/ask`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query,
+            language: this.currentLanguage,
+            sessionId: this.sessionId
+          })
+        });
+
+        document.getElementById(loadingId)?.remove();
+
+        if (!res.ok) throw new Error(`API Error: ${res.status}`);
+        const data = await res.json();
+
+        this.addMessage(
+          data.response || 'Nessuna risposta disponibile.',
+          'assistant',
+          Array.isArray(data.sources) ? data.sources : null
+        );
+      } catch (e) {
+        document.getElementById(loadingId)?.remove();
+
+        const demoResponse = this.getI18n().demo(query);
+        this.addMessage(demoResponse, 'assistant');
+      }
+    }
+
+    addMessage(content, type, sources = null) {
+      if (!this.messagesContainer) return null;
+
+      const messageId = 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${type}`;
+      messageDiv.id = messageId;
+
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'message-content';
+      
+      if (type === 'assistant') {
+        // Convert line breaks to HTML
+        const htmlContent = content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
+        contentDiv.innerHTML = '<p>' + htmlContent + '</p>';
+
+        if (sources && sources.length) {
+          const sourcesDiv = document.createElement('div');
+          sourcesDiv.className = 'message-sources';
+          const listItems = sources
+            .map((s, idx) => `<li>[${s.id ?? idx + 1}] <a href="${s.url}" target="_blank" rel="noopener">${s.title || s.url}</a></li>`) 
+            .join('');
+          sourcesDiv.innerHTML = `<h4>${this.getI18n().sourcesLabel}</h4><ul>${listItems}</ul>`;
+          contentDiv.appendChild(sourcesDiv);
+        }
+      } else {
+        contentDiv.textContent = content;
+      }
+
+      messageDiv.appendChild(contentDiv);
+      this.messagesContainer.appendChild(messageDiv);
+      this.scrollToBottom();
+
+      return messageId;
+    }
+
+    scrollToBottom() {
+      if (this.messagesContainer) {
+        this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+      }
+    }
+  }
+
+  // Initialize when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('ask-stefano-widget')) {
+      console.log('Initializing Ask Stefano Chat Widget...');
+      window.askStefanoChat = new AskStefanoChat();
+    }
+  });
+</script>
