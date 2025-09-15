@@ -9,6 +9,7 @@ import Footer from '../components/Footer.astro'
 import CookieBanner from '../components/CookieBanner.astro'
 import SEODebug from '../components/SEODebug.astro'
 import StructuredData from '../components/StructuredData.astro'
+import ChatWidget from '../components/AskStefano/ChatWidget.astro'
 import { getLocaleFromUrl } from '../utils/i18n'
 import { getAlternateUrls } from '../utils/i18n'
 import { ClientRouter } from 'astro:transitions'
@@ -128,6 +129,9 @@ const locale = getLocaleFromUrl(Astro.url)
     </main>
     <Footer />
     <CookieBanner />
+    
+    <!-- Ask Stefano Chat Widget -->
+    <ChatWidget />
     
     <!-- SEO Debug (solo in dev - attivabile con Ctrl+Shift+S) -->
     <SEODebug enable={import.meta.env.DEV} />

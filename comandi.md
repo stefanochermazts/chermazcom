@@ -626,3 +626,16 @@ echo "✅ Script completato (PID: $PID)"
 # Metodo veloce: Ctrl+C e poi
 kill -9 $(pgrep -f "node scripts")
 ``` 
+
+GIT:
+# Stato attuale
+git status
+git branch
+
+# Switch rapido
+git checkout main      # → Produzione
+git checkout askstefano # → Sviluppo
+
+# Sync veloce
+git pull origin main    # Aggiorna da remote
+git push origin askstefano # Publica sviluppo
