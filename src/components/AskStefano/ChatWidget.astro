@@ -384,6 +384,31 @@
     animation: spin 1s linear infinite;
   }
 
+  /* Sources under assistant message */
+  .message-sources {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e2e8f0;
+  }
+  .message-sources h4 {
+    margin: 0 0 6px 0;
+    font-size: 12px;
+    color: #475569;
+  }
+  .message-sources ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+  .message-sources li {
+    margin: 2px 0;
+    font-size: 12px;
+  }
+  .message-sources a {
+    color: #667eea;
+    text-decoration: none;
+  }
+  .message-sources a:hover { text-decoration: underline; }
+
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
@@ -582,7 +607,11 @@
         if (!res.ok) throw new Error(`API Error: ${res.status}`);
         const data = await res.json();
 
-        this.addMessage(data.response || 'Nessuna risposta disponibile.', 'assistant');
+        this.addMessage(
+          data.response || 'Nessuna risposta disponibile.',
+          'assistant',
+          Array.isArray(data.sources) ? data.sources : null
+        );
       } catch (e) {
         document.getElementById(loadingId)?.remove();
 
@@ -591,7 +620,7 @@
       }
     }
 
-    addMessage(content, type) {
+    addMessage(content, type, sources = null) {
       if (!this.messagesContainer) return null;
 
       const messageId = 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
@@ -606,6 +635,16 @@
         // Convert line breaks to HTML
         const htmlContent = content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>');
         contentDiv.innerHTML = '<p>' + htmlContent + '</p>';
+
+        if (sources && sources.length) {
+          const sourcesDiv = document.createElement('div');
+          sourcesDiv.className = 'message-sources';
+          const listItems = sources
+            .map((s, idx) => `<li>[${s.id ?? idx + 1}] <a href="${s.url}" target="_blank" rel="noopener">${s.title || s.url}</a></li>`) 
+            .join('');
+          sourcesDiv.innerHTML = `<h4>📚 Fonti</h4><ul>${listItems}</ul>`;
+          contentDiv.appendChild(sourcesDiv);
+        }
       } else {
         contentDiv.textContent = content;
       }
