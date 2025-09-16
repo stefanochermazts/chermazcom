@@ -136,6 +136,35 @@ Rispondi usando solo le informazioni fornite nel contesto sopra. Includi citazio
     const citationRatio = citationCount / relevantChunks.length
     const confidence = Math.min(0.95, (avgSimilarity * 0.7) + (citationRatio * 0.3))
     
+    // Normalize URLs to ensure correct section prefix
+    function normalizeContentUrl(rawUrl, type) {
+      try {
+        const urlObj = new URL(rawUrl, 'https://www.chermaz.com')
+        let pathname = urlObj.pathname || '/'
+
+        // keep only pathname for preview environments
+        let path = pathname
+
+        // already good
+        if (/\/(insights|case-studies)\//.test(path)) return path
+
+        // detect language prefix
+        const langMatch = path.match(/^\/(it|en|sl)\//)
+        const lang = langMatch ? langMatch[1] : 'it'
+        const rest = path.replace(/^\/(it|en|sl)\//, '').replace(/^\/+|\/+$/g, '')
+
+        if ((type === 'insight' || type === 'insights') && rest) {
+          return `/${lang}/insights/${rest.endsWith('/') ? rest : rest + '/'}`
+        }
+        if ((type === 'case-study' || type === 'case-studies') && rest) {
+          return `/${lang}/case-studies/${rest.endsWith('/') ? rest : rest + '/'}`
+        }
+        return path
+      } catch {
+        return rawUrl
+      }
+    }
+
     return {
       response,
       confidence,
@@ -144,7 +173,7 @@ Rispondi usando solo le informazioni fornite nel contesto sopra. Includi citazio
       sources: relevantChunks.map((chunk, index) => ({
         id: index + 1,
         title: chunk.chunk.title,
-        url: chunk.chunk.url,
+        url: normalizeContentUrl(chunk.chunk.url, chunk.chunk.metadata.type),
         type: chunk.chunk.metadata.type,
         similarity: chunk.score
       }))
