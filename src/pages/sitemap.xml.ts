@@ -38,8 +38,8 @@ function normalizeCategory(s: string): string {
 
 export const GET: APIRoute = async () => {
   // Get all insights and case studies
-  const insights = await getCollection('insights')
-  const caseStudies = await getCollection('caseStudies')
+  const insights = (await getCollection('insights')).filter(i => (i.data?.status ?? 'publish') === 'publish')
+  const caseStudies = (await getCollection('caseStudies')).filter(c => (c.data?.status ?? 'publish') === 'publish')
   
   const urls: string[] = []
   

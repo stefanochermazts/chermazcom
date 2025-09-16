@@ -40,7 +40,9 @@
     "db:reset": "node scripts/reset-vector-storage.mjs",
     "ask:test": "node scripts/test-chatbot.mjs",
     "api:test": "node scripts/test-api.mjs",
-    "dev:netlify": "netlify dev"
+    "dev:netlify": "netlify dev",
+    "content:mark-status": "node scripts/mark-translations-status.mjs",
+    "content:sync-deleted": "node scripts/sync-deleted-translations.mjs"
   },
   "keywords": [
     "astro",

@@ -4,7 +4,7 @@ const baseFields = {
   title: z.string(),
   slug: z.string().optional(),
   date: z.coerce.date().optional(),
-  status: z.enum(['publish', 'draft']).default('publish').optional(),
+  status: z.enum(['publish', 'draft', 'deleted']).default('publish').optional(),
   excerpt: z.string().optional(),
   categories: z.array(z.string()).optional(),
   tags: z.array(z.string()).optional(),

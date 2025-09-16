@@ -183,6 +183,11 @@ async function processFile(filePath) {
     const language = detectLanguage(filename)
     const contentType = detectContentType(filePath)
     const title = frontmatter.title || filename.replace(/\.mdx?$/, '')
+    const status = (frontmatter.status || 'publish')
+    if (status !== 'publish') {
+      console.log(`⏭️  Skipping ${filename} (status=${status})`)
+      return { processed: 0, chunks: 0 }
+    }
     const slug = frontmatter.slug
     const url = generateUrl(contentType, language, slug, filename)
     

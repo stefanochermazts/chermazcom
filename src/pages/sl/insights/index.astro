@@ -6,7 +6,7 @@ import { getCollection } from 'astro:content'
 // Simplified and optimized collection loading
 const all = await getCollection('insights', ({ id }) => id.startsWith('sl-'))
 let posts = all
-  .filter(p => p.data.status === 'publish')
+  .filter(p => (p.data.status || 'publish') === 'publish')
   .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
 
 // Simplified category processing
