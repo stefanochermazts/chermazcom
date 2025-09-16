@@ -756,7 +756,7 @@
           const sourcesDiv = document.createElement('div');
           sourcesDiv.className = 'message-sources';
           const listItems = sources
-            .map((s, idx) => `<li>[${s.id ?? idx + 1}] <a href="${s.url}" target="_blank" rel="noopener">${s.title || s.url}</a></li>`) 
+            .map((s, idx) => `<li>[${s.id ?? idx + 1}] <a href="${this.normalizeSourceUrl(s.url, s.type)}" target="_blank" rel="noopener">${s.title || s.url}</a></li>`) 
             .join('');
           sourcesDiv.innerHTML = `<h4>${this.getI18n().sourcesLabel}</h4><ul>${listItems}</ul>`;
           contentDiv.appendChild(sourcesDiv);
@@ -772,6 +772,24 @@
       return messageId;
     }
 
+    normalizeSourceUrl(rawUrl, type) {
+      try {
+        const u = new URL(rawUrl, window.location.origin);
+        let path = u.pathname || '/';
+        // already correct
+        if (/\/(insights|case-studies)\//.test(path)) return path;
+        // determine section
+        const section = (type === 'case-study' || type === 'case-studies') ? 'case-studies' : 'insights';
+        // detect lang
+        const m = path.match(/^\/(it|en|sl)\//);
+        const lang = m ? m[1] : this.currentLanguage || 'it';
+        const rest = path.replace(/^\/(it|en|sl)\//, '').replace(/^\/+|\/+$/g, '');
+        if (!rest) return `/${lang}/${section}/`;
+        return `/${lang}/${section}/${rest.endsWith('/') ? rest : rest + '/'}`;
+      } catch {
+        return rawUrl;
+      }
+    }
     async typeStream(messageId, fullText) {
       const el = document.getElementById(messageId);
       const contentDiv = el?.querySelector('.message-content');
