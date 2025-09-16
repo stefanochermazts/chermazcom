@@ -1,0 +1,179 @@
+---
+title: 'HR 4.0 #1 – Od CV do pametnega uvajanja z AI in Microsoft 365'
+slug: sl-hr-ai-onboarding
+date: 2025-09-17T00:00:00.000Z
+status: publish
+description: >-
+  Kako združiti AI in Microsoft 365 za pospešitev izbire kadrov in uvajanja: od
+  parsing-a CV-jev do ustvarjanja HR portala na SharePointu. excerpt:
+  'Strategije za zelo težke Sudoku: Tehnika X, kandidati in verige.'
+categories:
+  - ai-development
+tags:
+  - sharepoint
+  - PowerAutomate
+  - NIS2
+  - DORA
+  - compliance
+---
+# HR 4.0 #1 – Od CV do pametnega uvajanja z AI in Microsoft 365
+
+## Uvod
+
+Oddelek za človeške vire je pogosto preobremenjen z ročnimi in ponavljajočimi se nalogami: pregledovanje življenjepisov, zbiranje dokumentov za zaposlitve, priprava kontrolnih seznamov in materialov za uvajanje.
+V konkurenčnem okolju, kjer čas zaposlitve šteje, lahko ti počasni procesi ogrozijo sposobnost privabljanja in zadrževanja najboljših talentov.
+
+S novimi tehnologijami pa je mogoče spremeniti paradigma. V tem prvem poglavju serije *HR 4.0* bomo videli, kako lahko **razvoj AI** in **Microsoft 365** združimo za preoblikovanje upravljanja s prijavami in uvajanja, kar proces naredi hiter, standardiziran in skalabilen.
+
+## Izhodiščni problem
+
+Predstavljajmo si srednje veliko podjetje, ki prejme **stotine prijav vsak mesec**.
+Kadri morajo:
+
+* ročno prebrati vsak CV,
+* izvleči ključne kompetence,
+* primerjati kandidate,
+* ročno pripraviti dokumentacijo za uvajanje.
+
+Rezultat?
+
+* **Izgubljen čas** pri nalogah z nizko vrednostjo,
+* **Napake in subjektivnost** pri izbiri,
+* **Neenotno uvajanje**, s kontrolnimi seznami, ki se razlikujejo od managerja do managerja.
+
+---
+
+## Rešitev: AI + Microsoft 365
+
+Ključ je v kombinaciji **umetne inteligence** za parsing CV-jev z ekosistemom **Microsoft 365**, še posebej **SharePoint** in **Teams**.
+
+### Korak 1 – Parsing CV-jev z AI
+
+AI model (na primer GPT-4.1 ali ekvivalenti) analizira CV-je v PDF/Word formatu in izvleče strukturirane informacije:
+
+* tehnične kompetence,
+* delovne izkušnje,
+* izobrazba,
+* mehke veščine.
+
+Rezultat je **strukturiran JSON**, ki ga je enostavno integrirati v baze podatkov ali sezname SharePoint.
+
+### Korak 2 – Ustvarjanje kartic kandidatov v SharePoint
+
+Vsak analiziran CV postane **digitalna kartica** v seznamu SharePoint, s predhodno izpolnjenimi polji:
+
+* Ime, vloga, izkušnje,
+* Ključne kompetence,
+* AI ocena ujemanja glede na profil delovnega mesta.
+
+### Korak 3 – Portal za uvajanje
+
+Ko je kandidat izbran, SharePoint postane tudi **portal za uvajanje**:
+
+* standardni dokumenti na voljo v OneDrive,
+* kontrolni seznami nalog (npr. IT dostopi, identifikacijske kartice, usposabljanje),
+* digitalni obrazci za podjetniške politike,
+* namenski kanal Teams za sprejem novega zaposlenega.
+
+---
+
+## Tehničen primer: AI za parsing CV
+
+Da prikažemo najbolj konkretni del, tukaj je **primer v Pythonu**, ki uporablja OpenAI API za pretvorbo CV-jev v PDF v strukturiran JSON:
+
+```python
+import openai
+from PyPDF2 import PdfReader
+
+# Preberi besedilo iz CV PDF
+reader = PdfReader("cv_kandidata.pdf")
+text = "".join([page.extract_text() for page in reader.pages])
+
+# Klic API za izvlečenje podatkov
+response = openai.ChatCompletion.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "Izvleči kompetence, izkušnje in izobrazbo iz CV. Odgovori v JSON."},
+        {"role": "user", "content": text}
+    ],
+    temperature=0.2
+)
+
+print(response.choices[0].message["content"])
+```
+
+Pričakovani izhod (poenostavljen primer):
+
+```json
+{
+  "ime": "Mario Rossi",
+  "vloga": "Data Analyst",
+  "kompetence": ["SQL", "Power BI", "Python"],
+  "izkušnje": [
+    {"podjetje": "XYZ Spa", "leta": 3, "vloga": "Business Analyst"}
+  ],
+  "izobrazba": "Diploma iz ekonomije"
+}
+```
+
+Ti podatki se lahko samodejno shranijo v **seznam SharePoint** preko Microsoft Graph API ali Power Automate.
+
+---
+
+## Konkreten koristi
+
+Kombiniran pristop prinaša takojšnje koristi:
+
+### Za HR
+
+* Zmanjšanje **70% časa** porabljenega za pregledovanje.
+* Možnost osredotočanja na razgovore in "kulturno ujemanje".
+
+### Za kandidate
+
+* Hitrejši odgovori.
+* Jasno in standardizirano uvajanje.
+
+### Za podjetje
+
+* HR procesi **skalabilni** tudi v obdobjih hitre rasti.
+* Boljše **employer branding**: kandidat zaznava organizacijo in sodobnost.
+
+---
+
+## Zasebnost in varnost
+
+Upravljanje s občutljivimi osebnimi podatki, kot so CV-ji, zahteva pozornost:
+
+* AI se mora uporabljati v **skladu** (izogibanje pošiljanju občutljivih podatkov storitvam, ki niso skladne z GDPR).
+* Microsoft 365 zagotavlja varno upravljanje dokumentov z **nadzorom dostopa in šifriranjem**.
+* Priporočljivo je, da se vzdržuje **evidenca obdelave** ažurna.
+
+---
+
+## Razširitev: samodejno rangiranje kandidatov
+
+Dodatni korak je lahko **samodejno ocenjevanje ujemanja**:
+
+* Določijo se ključne zahteve delovnega profila (npr. Python, SQL, izkušnje ≥3 leta).
+* AI izračuna oceno za vsak CV.
+* SharePoint razvršča kandidate glede na oceno → HR se takoj osredotočijo na najboljših 10%.
+
+---
+
+## Zaključek
+
+To prvo poglavje serije *HR 4.0* prikazuje, kako lahko združitev **razvoja AI** in **Microsoft 365** radikalno spremeni izbiro in uvajanje.
+Od počasnega in ročnega procesa → do **hitrega, standardiziranega in varnega** toka.
+
+V naslednjih člankih bomo videli, kako razširiti digitalizacijo HR:
+
+* **Samodejni delovni tokovi** za dopuste in uspešnost (Članek 2),
+* **Varnost in skladnost** HR podatkov v luči DORA/NIS2 (Članek 3).
+
+---
+
+## Poziv k dejanju
+
+Želite razumeti, kako implementirati podobne rešitve v vašem oddelku HR?
+👉 [Kontaktirajte me](/contact) za osebno svetovanje.

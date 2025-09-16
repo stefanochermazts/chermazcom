@@ -1571,5 +1571,34 @@
     "images": {},
     "lastModified": 1757776760325,
     "contentHash": "e7c3f6bac5007bc16cb46e19761eab20"
+  },
+  "src\\content\\insights\\sviluppo-software-assistito-dallAI-cosa-cambia-davvero-nel-lavoro-degli-sviluppatori.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src\\content\\insights\\en-sviluppo-software-assistito-dallAI-cosa-cambia-davvero-nel-lavoro-degli-sviluppatori.mdx",
+        "lastGenerated": 1758025022724
+      }
+    },
+    "images": {},
+    "lastModified": 1757429267670,
+    "contentHash": "dfb40dcde39643b3765daf9a2862dfaa"
+  },
+  "src\\content\\insights\\hr-ai-onboarding.mdx": {
+    "translations": {
+      "en": {
+        "exists": true,
+        "path": "src\\content\\insights\\en-hr-ai-onboarding.mdx",
+        "lastGenerated": 1758025326040
+      },
+      "sl": {
+        "exists": true,
+        "path": "src\\content\\insights\\sl-hr-ai-onboarding.mdx",
+        "lastGenerated": 1758025370559
+      }
+    },
+    "images": {},
+    "lastModified": 1758025254373,
+    "contentHash": "87ee5de718eebbb73912e9e4ed594b68"
   }
 }

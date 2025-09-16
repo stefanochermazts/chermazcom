@@ -1,0 +1,182 @@
+---
+title: 'HR 4.0 #1 – Dal CV all’onboarding intelligente con AI e Microsoft 365'
+slug: hr-ai-onboarding
+date: 2025-09-17T00:00:00.000Z
+status: publish
+description: >-
+  Come unire AI e Microsoft 365 per velocizzare la selezione del personale e
+  l’onboarding: dal parsing dei CV alla creazione del portale HR su SharePoint.
+  excerpt: 'Strategie per Sudoku difficilissimi: Tecnica della X, candidati e
+  catene.'
+categories:
+  - ai-development
+tags:
+  - sharepoint
+  - PowerAutomate
+  - NIS2
+  - DORA
+  - compliance
+image: /posts/hr-ai-onboarding/card.webp
+ogImage: /posts/hr-ai-onboarding/og.webp
+---
+# HR 4.0 #1 – Dal CV all’onboarding intelligente con AI e Microsoft 365
+
+## Introduzione
+
+Il reparto Risorse Umane è spesso sommerso da attività manuali e ripetitive: screening dei curriculum, raccolta di documenti per le assunzioni, preparazione di checklist e materiali di onboarding.
+In un contesto competitivo, dove il tempo di assunzione fa la differenza, questi processi lenti possono compromettere la capacità di attrarre e trattenere i migliori talenti.
+
+Con le nuove tecnologie, però, è possibile ribaltare il paradigma. In questo primo capitolo della serie *HR 4.0* vediamo come **AI development** e **Microsoft 365** possano essere integrati per trasformare la gestione delle candidature e l’onboarding, rendendo il processo rapido, standardizzato e scalabile.
+
+## Il problema di partenza
+
+Immaginiamo una media azienda che riceve **centinaia di candidature ogni mese**.
+Gli HR devono:
+
+* leggere manualmente ogni CV,
+* estrarre competenze chiave,
+* confrontare candidati,
+* preparare manualmente documentazione di inserimento.
+
+Il risultato?
+
+* **Tempo perso** in attività a basso valore,
+* **Errori e soggettività** nella selezione,
+* **Onboarding disomogeneo**, con checklist diverse da manager a manager.
+
+---
+
+## La soluzione: AI + Microsoft 365
+
+La chiave è combinare **intelligenza artificiale** per il parsing dei CV con l’ecosistema **Microsoft 365**, in particolare **SharePoint** e **Teams**.
+
+### Step 1 – Parsing dei CV con AI
+
+Un modello AI (ad esempio GPT-4.1 o equivalenti) analizza i CV in PDF/Word ed estrae informazioni strutturate:
+
+* competenze tecniche,
+* esperienze lavorative,
+* formazione,
+* soft skill.
+
+Il risultato è un **JSON strutturato** facilmente integrabile in database o liste SharePoint.
+
+### Step 2 – Creazione schede candidati in SharePoint
+
+Ogni CV analizzato diventa una **scheda digitale** in una lista SharePoint, con campi precompilati:
+
+* Nome, ruolo, esperienza,
+* Competenze chiave,
+* Punteggio AI di match rispetto al job profile.
+
+### Step 3 – Portale Onboarding
+
+Una volta scelto il candidato, SharePoint diventa anche il **portale di onboarding**:
+
+* documenti standard disponibili in OneDrive,
+* checklist attività (es. accessi IT, badge, formazione),
+* form digitali per policy aziendali,
+* canale Teams dedicato per accogliere il nuovo assunto.
+
+---
+
+## Esempio tecnico: AI per parsing CV
+
+Per mostrare la parte più concreta, ecco un **esempio in Python** che utilizza l’API OpenAI per trasformare un CV in PDF in un JSON strutturato:
+
+```python
+import openai
+from PyPDF2 import PdfReader
+
+# Leggi testo da CV PDF
+reader = PdfReader("cv_candidato.pdf")
+text = "".join([page.extract_text() for page in reader.pages])
+
+# Chiamata API per estrarre dati
+response = openai.ChatCompletion.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "Estrai competenze, esperienze e formazione da un CV. Rispondi in JSON."},
+        {"role": "user", "content": text}
+    ],
+    temperature=0.2
+)
+
+print(response.choices[0].message["content"])
+```
+
+Output atteso (esempio semplificato):
+
+```json
+{
+  "nome": "Mario Rossi",
+  "ruolo": "Data Analyst",
+  "competenze": ["SQL", "Power BI", "Python"],
+  "esperienze": [
+    {"azienda": "XYZ Spa", "anni": 3, "ruolo": "Business Analyst"}
+  ],
+  "formazione": "Laurea in Economia"
+}
+```
+
+Questi dati possono essere salvati automaticamente in una **lista SharePoint** tramite Microsoft Graph API o Power Automate.
+
+---
+
+## Vantaggi concreti
+
+L’approccio combinato offre benefici immediati:
+
+### Per l’HR
+
+* Riduzione del **70% del tempo** speso nello screening.
+* Possibilità di concentrarsi sulle interviste e sul “cultural fit”.
+
+### Per i candidati
+
+* Risposte più rapide.
+* Onboarding chiaro e standardizzato.
+
+### Per l’azienda
+
+* Processi HR **scalabili** anche in periodi di forte crescita.
+* Miglior **employer branding**: il candidato percepisce organizzazione e modernità.
+
+---
+
+## Privacy e sicurezza
+
+Gestire dati personali sensibili come i CV richiede attenzione:
+
+* L’AI deve essere usata in modalità **compliance** (evitando di inviare dati sensibili a servizi non conformi al GDPR).
+* Microsoft 365 garantisce gestione sicura dei documenti con **controllo accessi e crittografia**.
+* È opportuno mantenere un **registro dei trattamenti** aggiornato.
+
+---
+
+## Estensione: ranking automatico candidati
+
+Un ulteriore passo può essere il **match score automatico**:
+
+* Si definiscono i requisiti chiave del job profile (es. Python, SQL, esperienza ≥3 anni).
+* L’AI calcola un punteggio per ogni CV.
+* SharePoint ordina i candidati in base al punteggio → gli HR si focalizzano subito sul top 10%.
+
+---
+
+## Conclusione
+
+Questo primo capitolo della serie *HR 4.0* mostra come l’unione tra **AI development** e **Microsoft 365** possa trasformare radicalmente la selezione e l’onboarding.
+Da processo lento e manuale → a flusso **rapido, standardizzato e sicuro**.
+
+Nei prossimi articoli vedremo come estendere la digitalizzazione HR:
+
+* **Workflow automatizzati** per ferie e performance (Articolo 2),
+* **Sicurezza e compliance** dei dati HR in ottica DORA/NIS2 (Articolo 3).
+
+---
+
+## Call-to-Action
+
+Vuoi capire come implementare soluzioni simili nel tuo reparto HR?
+👉 [Contattami](/contact) per una consulenza personalizzata.

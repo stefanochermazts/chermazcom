@@ -10,6 +10,7 @@ import path from 'path'
 import OpenAI from 'openai'
 import { glob } from 'glob'
 import yaml from 'js-yaml'
+import matter from 'gray-matter'
 import FileCache from './file-cache.mjs'
 
 const cache = new FileCache()
@@ -55,7 +56,8 @@ function parseArgs() {
     dryRun: false,
     sample: null,
     force: false,
-    verbose: false
+    verbose: false,
+    only: null
   }
 
   for (const arg of process.argv.slice(2)) {
@@ -71,6 +73,8 @@ function parseArgs() {
       args.force = true
     } else if (arg === '--verbose') {
       args.verbose = true
+    } else if (arg.startsWith('--only=')) {
+      args.only = arg.split('=')[1]
     }
   }
 
@@ -87,6 +91,16 @@ async function findAllSourceFiles(collection) {
     const basename = path.basename(file)
     return !basename.startsWith('en-') && !basename.startsWith('sl-')
   })
+}
+
+async function getFrontmatterStatus(filePath) {
+  try {
+    const content = await fs.readFile(filePath, 'utf-8')
+    const fm = matter(content)
+    return (fm.data?.status) || 'publish'
+  } catch {
+    return 'unknown'
+  }
 }
 
 async function translateContent(content, targetLang) {
@@ -116,19 +130,11 @@ async function translateContent(content, targetLang) {
 }
 
 async function updateSlugInContent(content, newSlug) {
-  // Aggiorna slug nel frontmatter
-  const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)
-  if (!frontmatterMatch) return content
-
-  const frontmatter = yaml.load(frontmatterMatch[1]) || {}
-  frontmatter.slug = newSlug
-  
-  const updatedFrontmatter = yaml.dump(frontmatter, { 
-    lineWidth: -1, 
-    quotingType: '"' 
-  }).trim()
-  
-  return `---\n${updatedFrontmatter}\n---\n${frontmatterMatch[2]}`
+  // Aggiorna slug nel frontmatter con parser robusto
+  const fm = matter(content)
+  const data = fm.data || {}
+  data.slug = newSlug
+  return matter.stringify(fm.content, data)
 }
 
 async function translateFile(sourceFile, targetLang, dryRun = false, verbose = false) {
@@ -138,13 +144,9 @@ async function translateFile(sourceFile, targetLang, dryRun = false, verbose = f
     // Leggi file sorgente
     const content = await fs.readFile(sourceFile, 'utf-8')
     
-    // Estrai informazioni dal frontmatter originale
-    const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/)
-    if (!frontmatterMatch) {
-      throw new Error('Frontmatter non trovato')
-    }
-    
-    const originalFrontmatter = yaml.load(frontmatterMatch[1]) || {}
+    // Estrai informazioni dal frontmatter originale (robusto a CRLF/BOM)
+    const parsed = matter(content)
+    const originalFrontmatter = parsed.data || {}
     const originalSlug = originalFrontmatter.slug || path.basename(sourceFile, '.mdx')
     
     // Genera slug tradotto
@@ -197,6 +199,9 @@ async function main() {
   console.log('================================')
   console.log(`Target: ${LANGUAGES[args.targetLang].name}`)
   console.log(`Collection: ${args.collection}`)
+  if (!CONFIG.apiKey) {
+    console.log('⚠️  OPENAI_API_KEY non rilevata nell\'ambiente')
+  }
   
   if (args.dryRun) {
     console.log('🔍 Modalità DRY RUN - nessun file verrà modificato')
@@ -207,8 +212,28 @@ async function main() {
   }
   
   // Trova tutti i file sorgente
-  const sourceFiles = await findAllSourceFiles(args.collection)
+  let sourceFiles = await findAllSourceFiles(args.collection)
+  // Filtro opzionale per singolo file (--only=<slug|filename.mdx>)
+  if (args.only) {
+    const needle = args.only.replace(/\.mdx?$/, '')
+    sourceFiles = sourceFiles.filter(f => {
+      const base = path.basename(f, '.mdx')
+      return base === needle || base.includes(needle)
+    })
+    if (sourceFiles.length === 0) {
+      console.log(`⚠️  Nessun file trovato che corrisponde a "${args.only}" in ${args.collection}`)
+      return
+    }
+  }
   console.log(`📁 Trovati ${sourceFiles.length} file sorgente`)
+  if (args.verbose) {
+    const sampleList = sourceFiles.slice(0, 10)
+    for (const f of sampleList) {
+      const st = await getFrontmatterStatus(f)
+      console.log(`   - ${path.basename(f)} [status=${st}]`)
+    }
+    if (sourceFiles.length > 10) console.log(`   ... (+${sourceFiles.length - 10} altri)`)    
+  }
   
   // Determina quali file necessitano traduzione
   let filesToTranslate
@@ -217,9 +242,22 @@ async function main() {
   } else {
     filesToTranslate = await cache.getFilesNeedingTranslation(sourceFiles, args.targetLang)
   }
+  if (args.verbose) {
+    console.log('🔎 Stato cache per i primi file:')
+    const check = sourceFiles.slice(0, 10)
+    for (const f of check) {
+      const res = await cache.isTranslationUpToDate(f, args.targetLang)
+      console.log(`   · ${path.basename(f)} → ${res.upToDate ? 'up-to-date' : 'needs-translation'}${res.reason ? ` (${res.reason})` : ''}`)
+    }
+  }
   
   if (filesToTranslate.length === 0) {
     console.log('✅ Tutte le traduzioni sono aggiornate!')
+    if (!args.force) {
+      console.log('   Suggerimenti:')
+      console.log('   • Se hai aggiunto nuovi file, esegui: node scripts/file-cache.mjs reset')
+      console.log('   • Oppure forza il ricalcolo: --force')
+    }
     return
   }
   
@@ -274,7 +312,14 @@ async function main() {
   }
 }
 
-// Esegui se chiamato direttamente
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch(console.error)
+// Esegui se chiamato direttamente (compatibile con Windows)
+import { pathToFileURL } from 'url'
+try {
+  const invoked = process.argv[1] ? pathToFileURL(process.argv[1]).href : ''
+  if (import.meta.url === invoked) {
+    main().catch((e) => { console.error(e); process.exit(1) })
+  }
+} catch {
+  // Fallback: esegui sempre
+  main().catch((e) => { console.error(e); process.exit(1) })
 }
