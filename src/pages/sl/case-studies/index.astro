@@ -4,7 +4,7 @@ import CaseStudyCard from '../../../components/CaseStudyCard.astro'
 import { getCollection } from 'astro:content'
 // Optimized collection loading
 const studies = (await getCollection('caseStudies', ({ id }) => id.startsWith('sl-')))
-  .filter(s => (s.data.status || 'publish') === 'publish')
+  .filter(s => s.data.status !== 'draft') // Exclude drafts
   .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
 ---
 

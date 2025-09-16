@@ -55,17 +55,7 @@
     </div>
 
     <!-- Quick Actions -->
-    <div class="quick-actions">
-      <button class="quick-action" data-query="Come posso creare un chatbot?">
-        🤖 Creare chatbot
-      </button>
-      <button class="quick-action" data-query="Che servizi offre Stefano?">
-        💼 Servizi
-      </button>
-      <button class="quick-action" data-query="Come implementare SharePoint?">
-        📊 SharePoint
-      </button>
-    </div>
+    <div class="quick-actions"></div>
 
     <!-- Input Area -->
     <div class="chat-input-area">
@@ -450,15 +440,11 @@
       this.sessionId = this.generateSessionId();
       this.apiBase = window.location.origin;
       this.currentLanguage = this.detectLanguage();
+      // Static i18n strings (not including quick actions; those are loaded from config below)
       this.i18n = {
         it: {
           subtitle: 'Assistente AI per i contenuti del sito',
           placeholder: 'Scrivi la tua domanda...',
-          quick: {
-            a: { label: '🤖 Creare chatbot', query: 'Come posso creare un chatbot?' },
-            b: { label: '💼 Servizi', query: 'Che servizi offre Stefano?' },
-            c: { label: '📊 SharePoint', query: 'Come implementare SharePoint?' }
-          },
           welcome: {
             intro1: '👋 Ciao! Sono Ask Stefano, il tuo assistente AI specializzato nei contenuti di questo sito.',
             intro2: 'Puoi chiedermi informazioni su:',
@@ -477,11 +463,6 @@
         en: {
           subtitle: 'AI assistant for this site\'s content',
           placeholder: 'Type your question...',
-          quick: {
-            a: { label: '🤖 Build a chatbot', query: 'How can I build a chatbot?' },
-            b: { label: '💼 Services', query: 'What services does Stefano offer?' },
-            c: { label: '📊 SharePoint', query: 'How to implement SharePoint?' }
-          },
           welcome: {
             intro1: '👋 Hi! I\'m Ask Stefano, your AI assistant specialized in this website\'s content.',
             intro2: 'You can ask me about:',
@@ -500,11 +481,6 @@
         sl: {
           subtitle: 'AI asistent za vsebine tega spletnega mesta',
           placeholder: 'Vnesite svoje vprašanje...',
-          quick: {
-            a: { label: '🤖 Ustvari chatbot', query: 'Kako lahko ustvarim chatbot?' },
-            b: { label: '💼 Storitve', query: 'Katere storitve ponuja Stefano?' },
-            c: { label: '📊 SharePoint', query: 'Kako uvesti SharePoint?' }
-          },
           welcome: {
             intro1: '👋 Živjo! Sem Ask Stefano, vaš AI asistent, specializiran za vsebine tega spletnega mesta.',
             intro2: 'Lahko me vprašate o:',
@@ -521,12 +497,31 @@
           demo: (q) => `Hvala za vaše vprašanje: "${q}".\n\nTo je predstavitveno sporočilo gradnika Ask Stefano. Celoten sistem bo vključeval:\n\n• Semantično iskanje po spletnem mestu\n• Odgovore z AI na podlagi vaših člankov\n• Samodejni sistem citiranja\n• Večjezično podporo (IT/EN/SL)\n\nZaledni API je že implementiran in bo aktiven po namestitvi na Netlify.`
         }
       };
+      // Quick actions configuration (can be extended up to 30+ items per language)
+      this.quickActionsConfig = {
+        it: [
+          { label: '🤖 HR Onboarding', query: 'Soluzioni HR con AI e Microsoft365?' },
+          { label: '💼 Servizi', query: 'Che servizi offre Stefano?' },
+          { label: '📊 SharePoint', query: 'Come implementare SharePoint?' }
+        ],
+        en: [
+          { label: '🤖 HR Onboarding', query: 'HR solutions with AI and Microsoft 365?' }
+          { label: '💼 Services', query: 'What services does Stefano offer?' },
+          { label: '📊 SharePoint', query: 'How to implement SharePoint?' }
+        ],
+        sl: [
+          { label: '🤖 HR Onboarding', query: 'Kadrovske rešitve z AI in Microsoft 365?' }
+          { label: '💼 Storitve', query: 'Katere storitve ponuja Stefano?' },
+          { label: '📊 SharePoint', query: 'Kako uvesti SharePoint?' }
+        ]
+      };
       
       this.initializeElements();
       this.bindEvents();
       this.setupAutoResize();
       this.localizeStaticUI();
       this.renderWelcomeMessage();
+      this.renderQuickActions();
     }
 
     generateSessionId() {
@@ -550,7 +545,7 @@
       this.chatInput = document.getElementById('chat-input');
       this.sendButton = document.getElementById('send-button');
       this.charCount = document.querySelector('.char-count');
-      this.quickActions = document.querySelectorAll('.quick-action');
+      this.quickActionsContainer = document.querySelector('.quick-actions');
     }
 
     getI18n() {
@@ -564,11 +559,33 @@
       if (subtitleEl) subtitleEl.textContent = t.subtitle;
       // Placeholder
       if (this.chatInput) this.chatInput.placeholder = t.placeholder;
-      // Quick actions
-      const buttons = Array.from(this.quickActions || []);
-      if (buttons[0]) { buttons[0].textContent = t.quick.a.label; buttons[0].dataset.query = t.quick.a.query; }
-      if (buttons[1]) { buttons[1].textContent = t.quick.b.label; buttons[1].dataset.query = t.quick.b.query; }
-      if (buttons[2]) { buttons[2].textContent = t.quick.c.label; buttons[2].dataset.query = t.quick.c.query; }
+    }
+
+    // Render three random quick actions from config for current language
+    renderQuickActions() {
+      const container = this.quickActionsContainer;
+      if (!container) return;
+      const lang = this.currentLanguage || 'it';
+      const all = Array.isArray(this.quickActionsConfig[lang]) ? this.quickActionsConfig[lang].slice() : [];
+      if (all.length === 0) { container.innerHTML = ''; return; }
+      // Shuffle and take first three
+      for (let i = all.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [all[i], all[j]] = [all[j], all[i]];
+      }
+      const selected = all.slice(0, 3);
+      container.innerHTML = selected.map(item => `<button class="quick-action" data-query="${item.query}">${item.label}</button>`).join('');
+      // Re-bind events for newly created buttons
+      container.querySelectorAll('.quick-action').forEach(button => {
+        button.addEventListener('click', () => {
+          const query = button.dataset.query;
+          if (query) {
+            this.chatInput.value = query;
+            this.updateInputState();
+            this.sendMessage();
+          }
+        });
+      });
     }
 
     renderWelcomeMessage() {
@@ -638,6 +655,8 @@
       this.isOpen = true;
       this.chatPanel?.classList.remove('hidden');
       this.chatInput?.focus();
+      // re-render new random quick actions each time chat opens
+      this.renderQuickActions();
       console.log('Ask Stefano chat opened');
     }
 

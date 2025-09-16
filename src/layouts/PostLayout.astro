@@ -192,12 +192,9 @@ const formatDate = (iso?: string) => {
     }
     const slugify = (s) => s.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-')
     const ensureAnchorsAndToc = () => {
-      const articleEl = document.querySelector('article')
-      if (!articleEl) return
-      // Limita agli heading del contenuto principale dell'articolo
-      const contentEl = articleEl.querySelector('.content-large')
-      if (!contentEl) return
-      const headings = Array.from(contentEl.querySelectorAll('h2, h3'))
+      const article = document.querySelector('article')
+      if (!article) return
+      const headings = Array.from(article.querySelectorAll('h2, h3'))
       if (headings.length === 0) return
       const items = []
       headings.forEach((h) => {
