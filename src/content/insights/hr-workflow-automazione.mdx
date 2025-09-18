@@ -1,0 +1,105 @@
+---
+title: 'HR 4.0 #2 – Automazione dei processi HR con Power Automate e OneDrive'
+slug: hr-workflow-automazione
+date: 2025-09-18T00:00:00.000Z
+description: >-
+  "Dalla gestione ferie alle valutazioni di performance: come Microsoft 365 può
+  digitalizzare i processi HR e ridurre gli errori amministrativi."
+excerpt: >-
+  Scopri come Power Automate e OneDrive possono trasformare i processi HR,
+  automatizzando ferie e valutazioni per maggiore efficienza e trasparenza.
+categories:
+  - microsoft365
+tags:
+  - workflow
+  - power-automate
+  - ferie
+  - valutazioni
+ogImage: /posts/hr-workflow-automazione/og.webp
+image: /posts/hr-workflow-automazione/card.webp
+---
+
+# HR 4.0 #2 – Automazione dei processi HR con Power Automate e OneDrive
+
+## Introduzione
+
+Gestire ferie e performance tramite email o fogli Excel porta solo caos e perdita di tempo. Con **Power Automate** e **OneDrive**, è possibile digitalizzare i processi HR creando flussi semplici, trasparenti e sicuri.
+
+---
+
+## Il problema di partenza
+
+* Dipendenti inviano richieste ferie via email → nessuna tracciabilità.
+* I manager devono controllare manualmente disponibilità e sovrapposizioni.
+* Le valutazioni annuali sono sparse in documenti non versionati e senza approvazioni centralizzate.
+
+Conseguenze: errori frequenti, malcontento tra dipendenti, perdita di tempo per HR.
+
+---
+
+## La soluzione: Microsoft 365 come piattaforma HR
+
+### Workflow ferie con Power Automate
+
+1. Dipendente compila un form (Microsoft Forms o SharePoint List).
+2. Flusso Power Automate invia richiesta al manager su Teams/Outlook.
+3. Manager approva/rifiuta → aggiornamento automatico dello stato in SharePoint.
+4. HR riceve notifica e log completo.
+
+### Valutazioni performance con OneDrive e SharePoint
+
+* Modelli di valutazione archiviati in OneDrive.
+* Versionamento automatico → nessun conflitto di documento.
+* Accesso controllato e approvazioni registrate.
+* Risultati consolidati in SharePoint per reportistica.
+
+---
+
+## Esempio tecnico: JSON Power Automate
+
+Esempio di step per la gestione ferie:
+
+```json
+{
+  "trigger": "On new item in SharePoint list",
+  "actions": [
+    { "sendApproval": "ManagerEmail" },
+    { "updateItem": { "Status": "Approved/Rejected" } },
+    { "sendNotification": "HRTeam" }
+  ]
+}
+```
+
+Questo schema semplificato mostra la logica di base di un flow che collega dipendenti, manager e HR.
+
+---
+
+## Vantaggi concreti
+
+* **Per HR**: meno lavoro manuale, più controllo.
+* **Per dipendenti**: maggiore trasparenza e feedback immediato.
+* **Per manager**: decisioni rapide e tracciabilità completa.
+
+---
+
+## Privacy e sicurezza
+
+* Tutti i dati gestiti in Microsoft 365 → rispetto policy aziendali e GDPR.
+* Accessi controllati con permessi granulari.
+* Audit trail disponibile per ogni approvazione.
+
+---
+
+## Conclusione
+
+Con Power Automate e OneDrive, il reparto HR diventa più agile ed efficiente.
+La gestione ferie e le valutazioni performance passano da un processo manuale e caotico a un flusso **digitalizzato, tracciabile e sicuro**.
+
+Nel prossimo articolo vedremo come estendere la digitalizzazione HR alla **protezione dei dati e alla compliance normativa** (DORA/NIS2).
+
+---
+
+## Call-to-Action
+
+Vuoi scoprire come digitalizzare i processi HR nella tua azienda?
+👉 [Contattami](/contact) per una consulenza personalizzata.

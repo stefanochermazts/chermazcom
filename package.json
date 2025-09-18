@@ -23,6 +23,7 @@
     "fm:validate": "node scripts/validate-frontmatter.mjs",
     "fm:fix": "node scripts/fix-frontmatter-colons.mjs",
     "i18n:translate:file": "node scripts/translate-file.mjs",
+    "i18n:translate:one": "node scripts/translate-one.mjs",
     "i18n:translate:all": "node scripts/translate-content.mjs",
     "content:inject-cover": "node scripts/inject-cover-image.mjs",
     "content:heroify": "node scripts/convert-first-image-to-hero.mjs",

@@ -1,0 +1,96 @@
+---
+title: "HR 4.0 #3 – Sicurezza e compliance HR con AI e Microsoft 365"
+slug: sl-hr-compliance-security
+date: 2025-09-18T00:00:00.000Z
+description: '"Proteggere i dati HR sensibili con policy di sicurezza Microsoft
+  365 e classificazione AI: dal rispetto di DORA/NIS2 alla gestione incidenti."'
+excerpt: "Come garantire sicurezza e compliance nella gestione HR: AI per
+  classificare documenti sensibili e Microsoft 365 per applicare policy DLP e
+  incident response."
+categories:
+  - microsoft365
+tags:
+  - privacy-security
+  - nis2
+  - dora
+  - incident-response
+ogImage: /posts/hr-compliance-security/og.webp
+image: /posts/hr-compliance-security/card.webp
+lang: sl
+---
+
+# HR 4.0 #3 – Varnost in skladnost HR z AI in Microsoft 365
+
+## Uvod
+
+HR podatki so med najbolj občutljivimi v podjetju: plače, zdravniška potrdila, disciplinske opombe. Zaščita teh informacij je ključna ne le za zaupanje zaposlenih, temveč tudi za spoštovanje predpisov **NIS2** in **DORA**.
+
+---
+
+## Izhodiščni problem
+
+* HR datoteke, ki se delijo po e-pošti brez nadzora.
+* Brez sledljivosti v primeru uhajanja podatkov.
+* Pomanjkanje skladnih postopkov za odzivanje na incidente.
+
+Posledice: tveganje kazni, izguba zaupanja, škoda za ugled.
+
+---
+
+## Rešitev: AI + Microsoft 365
+
+### Klasifikacija dokumentov z AI
+
+* AI model analizira HR dokumente in jih klasificira (npr. plače, življenjepisi, zdravniška potrdila).
+* Izhod: metapodatki, ki omogočajo posebne politike.
+
+### Varnostne politike z Microsoft 365
+
+* **Preprečevanje izgube podatkov (DLP)**: blokiranje zunanjega deljenja klasificiranih dokumentov.
+* **Samodejno označevanje**: oznake zaupnosti na podlagi klasifikacije AI.
+* **Sledljivost revizij**: vsak dostop in deljenje se beleži.
+
+### Samodejno odzivanje na incidente
+
+* Evidenca incidentov na SharePointu.
+* Power Automate pošlje samodejno obvestilo IT varnosti in DPO.
+* Obvestilo v 24 urah, kot zahteva NIS2/DORA.
+
+---
+
+## Tehničen primer: AI poziv za klasifikacijo
+
+Primer poziva za klasifikacijo HR dokumentov:
+
+```text
+Si AI asistent za varnost podatkov. Analiziraj predloženi dokument in odgovori v JSON, ki navaja:
+- kategorija: [življenjepis | plače | zdravniška_potrdila | drugi]
+- raven_občutljivosti: [nizka | srednja | visoka]
+```
+
+---
+
+## Konkretne prednosti
+
+* **Za HR**: zmanjšanje tveganj nepravilnega upravljanja podatkov.
+* **Za podjetje**: skladnost s predpisi in pripravljena sledljivost revizij v primeru inšpekcije.
+* **Za zaposlene**: večje zaupanje v zaščito njihovih osebnih podatkov.
+
+---
+
+## Zaključek
+
+Z AI in Microsoft 365 varnost HR preide iz ročnega dela v **inteligenten, avtomatiziran in skladen** proces.
+
+Serija *HR 4.0* je pokazala, kako preoblikovati oddelek HR:
+
+1. Izbira in uvajanje z AI (Članek 1).
+2. Avtomatizacija procesov z Power Automate (Članek 2).
+3. Zaščita in skladnost HR podatkov (Članek 3).
+
+---
+
+## Poziv k akciji
+
+Želite varnost HR vašega podjetja dvigniti na višjo raven?
+👉 [Kontaktirajte me](/contact) za usmerjeno svetovanje o AI, Microsoft 365 in skladnosti s predpisi.

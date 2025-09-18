@@ -639,3 +639,6 @@ git checkout askstefano # → Sviluppo
 # Sync veloce
 git pull origin main    # Aggiorna da remote
 git push origin askstefano # Publica sviluppo
+
+Translate a single file to English:
+run i18n:translate:one -- --file src/content/insights/hr-ai-onboarding.mdx --to en

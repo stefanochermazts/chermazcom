@@ -1,0 +1,104 @@
+---
+title: "HR 4.0 #2 – Automation of HR Processes with Power Automate and OneDrive"
+slug: en-hr-workflow-automazione
+date: 2025-09-18T00:00:00.000Z
+description: '"From managing leave to performance evaluations: how Microsoft 365
+  can digitize HR processes and reduce administrative errors."'
+excerpt: Discover how Power Automate and OneDrive can transform HR processes by
+  automating leave and evaluations for greater efficiency and transparency.
+categories:
+  - microsoft365
+tags:
+  - workflow
+  - power-automate
+  - ferie
+  - valutazioni
+ogImage: /posts/hr-workflow-automazione/og.webp
+image: /posts/hr-workflow-automazione/card.webp
+lang: en
+---
+
+# HR 4.0 #2 – Automation of HR Processes with Power Automate and OneDrive
+
+## Introduction
+
+Managing leave and performance via email or Excel sheets only leads to chaos and wasted time. With **Power Automate** and **OneDrive**, it is possible to digitize HR processes by creating simple, transparent, and secure flows.
+
+---
+
+## The Initial Problem
+
+* Employees send leave requests via email → no traceability.
+* Managers must manually check availability and overlaps.
+* Annual evaluations are scattered across unversioned documents and without centralized approvals.
+
+Consequences: frequent errors, employee dissatisfaction, wasted time for HR.
+
+---
+
+## The Solution: Microsoft 365 as an HR Platform
+
+### Leave Workflow with Power Automate
+
+1. Employee fills out a form (Microsoft Forms or SharePoint List).
+2. Power Automate flow sends request to the manager on Teams/Outlook.
+3. Manager approves/rejects → automatic status update in SharePoint.
+4. HR receives notification and complete log.
+
+### Performance Evaluations with OneDrive and SharePoint
+
+* Evaluation templates stored in OneDrive.
+* Automatic versioning → no document conflicts.
+* Controlled access and recorded approvals.
+* Consolidated results in SharePoint for reporting.
+
+---
+
+## Technical Example: JSON Power Automate
+
+Example of steps for managing leave:
+
+```json
+{
+  "trigger": "On new item in SharePoint list",
+  "actions": [
+    { "sendApproval": "ManagerEmail" },
+    { "updateItem": { "Status": "Approved/Rejected" } },
+    { "sendNotification": "HRTeam" }
+  ]
+}
+```
+
+This simplified schema shows the basic logic of a flow that connects employees, managers, and HR.
+
+---
+
+## Concrete Benefits
+
+* **For HR**: less manual work, more control.
+* **For employees**: greater transparency and immediate feedback.
+* **For managers**: quick decisions and complete traceability.
+
+---
+
+## Privacy and Security
+
+* All data managed in Microsoft 365 → compliance with company policies and GDPR.
+* Controlled access with granular permissions.
+* Audit trail available for every approval.
+
+---
+
+## Conclusion
+
+With Power Automate and OneDrive, the HR department becomes more agile and efficient.
+Leave management and performance evaluations transition from a manual and chaotic process to a **digitized, traceable, and secure** flow.
+
+In the next article, we will see how to extend HR digitization to **data protection and regulatory compliance** (DORA/NIS2).
+
+---
+
+## Call-to-Action
+
+Do you want to discover how to digitize HR processes in your company?
+👉 [Contact me](/contact) for a personalized consultation.

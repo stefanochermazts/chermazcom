@@ -1,0 +1,105 @@
+---
+title: "HR 4.0 #2 – Automazione dei processi HR con Power Automate e OneDrive"
+slug: sl-hr-workflow-automazione
+date: 2025-09-18T00:00:00.000Z
+description: '"Dalla gestione ferie alle valutazioni di performance: come
+  Microsoft 365 può digitalizzare i processi HR e ridurre gli errori
+  amministrativi."'
+excerpt: Scopri come Power Automate e OneDrive possono trasformare i processi
+  HR, automatizzando ferie e valutazioni per maggiore efficienza e trasparenza.
+categories:
+  - microsoft365
+tags:
+  - workflow
+  - power-automate
+  - ferie
+  - valutazioni
+ogImage: /posts/hr-workflow-automazione/og.webp
+image: /posts/hr-workflow-automazione/card.webp
+lang: sl
+---
+
+# HR 4.0 #2 – Avtomatizacija HR procesov s Power Automate in OneDrive
+
+## Uvod
+
+Upravljanje dopustov in uspešnosti preko e-pošte ali Excelovih tabel prinaša le zmedo in izgubo časa. S **Power Automate** in **OneDrive** je mogoče digitalizirati HR procese z ustvarjanjem preprostih, preglednih in varnih tokov.
+
+---
+
+## Izhodiščni problem
+
+* Zaposleni pošiljajo zahteve za dopust preko e-pošte → brez sledljivosti.
+* Vodje morajo ročno preverjati razpoložljivost in prekrivanja.
+* Letne ocene so razpršene v dokumentih brez različic in brez centraliziranih odobritev.
+
+Posledice: pogoste napake, nezadovoljstvo med zaposlenimi, izguba časa za HR.
+
+---
+
+## Rešitev: Microsoft 365 kot HR platforma
+
+### Tok dopustov s Power Automate
+
+1. Zaposleni izpolni obrazec (Microsoft Forms ali SharePoint List).
+2. Tok Power Automate pošlje zahtevo vodji preko Teams/Outlook.
+3. Vodja odobri/odkloni → samodejno posodabljanje stanja v SharePointu.
+4. HR prejme obvestilo in popoln dnevnik.
+
+### Ocenjevanje uspešnosti z OneDrive in SharePoint
+
+* Predloge za ocenjevanje shranjene v OneDrive.
+* Samodejno različiciranje → brez konfliktov dokumentov.
+* Nadzorovan dostop in zabeležene odobritve.
+* Konsolidirani rezultati v SharePointu za poročanje.
+
+---
+
+## Tehnični primer: JSON Power Automate
+
+Primer korakov za upravljanje dopustov:
+
+```json
+{
+  "trigger": "Ob novem elementu v SharePoint seznamu",
+  "actions": [
+    { "sendApproval": "ManagerEmail" },
+    { "updateItem": { "Status": "Odobreno/Odklonjeno" } },
+    { "sendNotification": "HRTeam" }
+  ]
+}
+```
+
+Ta poenostavljen diagram prikazuje osnovno logiko toka, ki povezuje zaposlene, vodje in HR.
+
+---
+
+## Konkretne prednosti
+
+* **Za HR**: manj ročnega dela, več nadzora.
+* **Za zaposlene**: večja preglednost in takojšnja povratna informacija.
+* **Za vodje**: hitre odločitve in popolna sledljivost.
+
+---
+
+## Zasebnost in varnost
+
+* Vsi podatki se obravnavajo v Microsoft 365 → spoštovanje poslovnih politik in GDPR.
+* Nadzorovani dostopi z granularnimi dovoljenji.
+* Dnevnik revizij na voljo za vsako odobritev.
+
+---
+
+## Zaključek
+
+S Power Automate in OneDrive postane HR oddelek bolj agilen in učinkovit.
+Upravljanje dopustov in ocene uspešnosti preidejo iz ročnega in kaotičnega procesa v **digitaliziran, sledljiv in varen** tok.
+
+V naslednjem članku bomo videli, kako razširiti digitalizacijo HR na **zaščito podatkov in skladnost z zakonodajo** (DORA/NIS2).
+
+---
+
+## Poziv k dejanju
+
+Želite izvedeti, kako digitalizirati HR procese v vašem podjetju?
+👉 [Kontaktirajte me](/contact) za osebno svetovanje.
