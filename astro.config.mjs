@@ -12,6 +12,15 @@ export default defineConfig({
   adapter: netlify({ mode: 'functions' }),
   compressHTML: true,
   site: 'https://www.chermaz.com',
+  markdown: {
+    shikiConfig: {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark'
+      },
+      wrap: true
+    }
+  },
   i18n: {
     defaultLocale: 'it',
     locales: ['it', 'en', 'sl'],

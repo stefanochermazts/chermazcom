@@ -80,6 +80,11 @@ pre {
   overflow: auto;
 }
 
+// Ensure shiki blocks are legible in light mode
+:root :where(.astro-code, pre code) {
+  color: inherit;
+}
+
 a {
   transition: color var(--animation-speed-fast) var(--cubic-bezier);
   color: var(--link-color);
