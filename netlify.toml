@@ -1,41 +1,36 @@
 [build]
   command = "npm run build"
+  functions = "netlify/functions"
   publish = "dist"
-
-[dev]
-  command = "npm run dev"
 
 [build.environment]
   NODE_VERSION = "18"
 
-[[plugins]]
-  package = "@netlify/plugin-functions-install-core"
-
+# Configurazione per le Netlify Functions
 [functions]
-  directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# Email notifications for form submissions
-[[notifications]]
-  type = "email"
-  event = "submission-created"
-  emails = ["stefano@chermaz.com"]
+# Variabili ambiente per le functions (da configurare nel dashboard Netlify)
+# WEBHOOK_SECRET = "your-secure-webhook-secret"
+# GITHUB_TOKEN = "ghp_your-github-token"
+# GITHUB_OWNER = "your-github-username"
+# GITHUB_REPO = "chermazcom"
 
-# Form submission settings
-[forms]
-  from = "noreply@chermaz.com"
-  reply_to = "stefano@chermaz.com"
-
-# Redirects (ensure present in published config)
+# Redirect per API più pulite
 [[redirects]]
-  from = "/risolvere-i-sudoku-difficili-guida-completa-e-consigli-efficaci"
-  to = "/it/insights/risolvere-i-sudoku-difficili-guida-completa-e-consigli-efficaci/"
-  status = 301
-  force = true
+  from = "/api/webhook/article"
+  to = "/.netlify/functions/webhook-article"
+  status = 200
 
 [[redirects]]
-  from = "/risolvere-i-sudoku-difficili-guida-completa-e-consigli-efficaci/"
-  to = "/it/insights/risolvere-i-sudoku-difficili-guida-completa-e-consigli-efficaci/"
-  status = 301
-  force = true
+  from = "/api/webhook/test"
+  to = "/.netlify/functions/webhook-test"
+  status = 200
 
+# Headers di sicurezza
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"

@@ -649,10 +649,70 @@ Uso base:
 ./generate-frontmatter.sh comprendere-il.processo-adozione-intelligenza-artificiale
 
 # Conversione automatica (usa header esistente o nomi colonne)
-node convert-takeaway-table.js articolo.mdx
 
-# Con titolo personalizzato
-node convert-takeaway-table.js articolo.mdx --title "Fasi del Processo"
+node convert-takeaway-table.js src/content/insights/comprendere-il-processo-adozione-intelligenza-artificiale.mdx --title "Confronto Opportunità e Sfide IA"
 
 # Esempio con il tuo articolo
 node convert-takeaway-table.js src/content/insights/articolo.mdx --title "Opportunità e Sfide"
+
+## Sistema Webhook per Pubblicazione Automatica
+
+# Avvio server webhook (riceve articoli da tool esterni)
+./start-webhook.sh
+
+# Test completo del sistema webhook
+./test-webhook.sh
+
+# Avvio manuale con configurazione custom
+export WEBHOOK_SECRET="your-secret-here"
+export WEBHOOK_PORT=3001
+node webhook-server.js
+
+# Test singolo endpoint
+curl -X POST http://localhost:3001/webhook/article \
+  -H "Authorization: Bearer your-secret" \
+  -H "Content-Type: application/json" \
+  -d @test-webhook.json
+
+# Health check
+curl http://localhost:3001/health
+
+# Pulizia file di test
+rm -f src/content/insights/come-l-intelligenza-artificiale-sta-trasformando-il-marketing-digitale.mdx*
+
+## Deploy Webhook su Netlify (Produzione)
+
+# Setup iniziale Netlify
+npm install -g netlify-cli
+netlify login
+netlify init  # o netlify link se già esistente
+
+# Deploy automatico su Netlify
+./deploy-netlify.sh
+
+# Deploy manuale
+cd netlify/functions && npm install && cd ../..
+netlify deploy --prod
+
+# Test webhook su Netlify
+export NETLIFY_URL="https://your-site.netlify.app"
+export WEBHOOK_SECRET="your-webhook-secret"
+./test-netlify-webhook.sh
+
+# Test singolo endpoint Netlify
+curl -X POST https://your-site.netlify.app/api/webhook/test \
+  -H "Authorization: Bearer your-webhook-secret" \
+  -H "Content-Type: application/json" \
+  -d '{"test": true}'
+
+# Test articolo completo su Netlify
+curl -X POST https://your-site.netlify.app/api/webhook/article \
+  -H "Authorization: Bearer your-webhook-secret" \
+  -H "Content-Type: application/json" \
+  -d @test-webhook.json
+
+# Configurazione variabili ambiente Netlify (dashboard):
+# WEBHOOK_SECRET = "your-secure-secret"
+# GITHUB_TOKEN = "ghp_your-github-token" 
+# GITHUB_OWNER = "your-username"
+# GITHUB_REPO = "chermazcom"
