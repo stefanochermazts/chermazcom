@@ -8,8 +8,9 @@ date: 2025-09-20
 categories: ["Intelligenza Artificiale", "Trasformazione Digitale", "Strategia Aziendale"]
 tags: ["adozione IA", "processo aziendale", "trasformazione digitale", "strategia tecnologica", "innovazione"]
 ---
+import BreakoutImage from '../../components/BreakoutImage.astro'
 
-![processo adozione intelligenza artificiale](https://csuxjmfbwmkxiegfpljm.supabase.co/storage/v1/object/public/blog-images/organization-5881/1758354383362_image_1758354383234.png)
+<BreakoutImage src="https://csuxjmfbwmkxiegfpljm.supabase.co/storage/v1/object/public/blog-images/organization-5881/1758354383362_image_1758354383234.png" alt="processo adozione intelligenza artificiale" />
 
 Quando si parla di intelligenza artificiale, viene subito in mente un futuro pieno di robot e automazione. Eppure, tra tutte le idee sulla tecnologia, sorprende scoprire che oltre il **13% delle imprese dell’Unione Europea ha già integrato soluzioni di IA** nei propri processi. Quello che nessuno si aspetta è che il vero cambiamento non è solo tecnico. Coinvolge cultura aziendale, strategie e competenze, trasformando ogni fase del lavoro in qualcosa di completamente nuovo.
 
@@ -86,15 +87,35 @@ L'obiettivo finale è creare un'infrastruttura tecnologica intelligente che non 
 
 Questa tabella organizza le fasi e gli elementi principali del processo di adozione dell'intelligenza artificiale come illustrato nel testo.
 
-| Fase del Processo                 | Descrizione sintetica                                              |
-|-----------------------------------|--------------------------------------------------------------------|
-| Valutazione Strategica Iniziale   | Analisi delle esigenze, processi esistenti e definizione obiettivi |
-| Architettura Tecnologica          | Selezione delle tecnologie e sviluppo delle infrastrutture         |
-| Sviluppo Competenze Interne       | Formazione del personale e acquisizione di expertise IA            |
-| Progettazione Soluzioni           | Identificazione casi d'uso specifici e personalizzazione IA        |
-| Implementazione Graduale          | Adozione progressiva, monitoraggio e ottimizzazione continua       |
-| Gestione del Cambiamento          | Supporto a cultura, comunicazione e organizzazione                 |
-
+<TakeawayTable 
+  title="Fasi del Processo di Adozione IA"
+  items={[
+    {
+      takeaway: "<strong>Valutazione Strategica Iniziale</strong>",
+      explanation: "Analisi delle esigenze, processi esistenti e definizione obiettivi"
+    },
+    {
+      takeaway: "<strong>Architettura Tecnologica</strong>",
+      explanation: "Selezione delle tecnologie e sviluppo delle infrastrutture"
+    },
+    {
+      takeaway: "<strong>Sviluppo Competenze Interne</strong>",
+      explanation: "Formazione del personale e acquisizione di expertise IA"
+    },
+    {
+      takeaway: "<strong>Progettazione Soluzioni</strong>",
+      explanation: "Identificazione casi d'uso specifici e personalizzazione IA"
+    },
+    {
+      takeaway: "<strong>Implementazione Graduale</strong>",
+      explanation: "Adozione progressiva, monitoraggio e ottimizzazione continua"
+    },
+    {
+      takeaway: "<strong>Gestione del Cambiamento</strong>",
+      explanation: "Supporto a cultura, comunicazione e organizzazione"
+    }
+  ]}
+/>
 ## Perché l'adozione dell'intelligenza artificiale è importante per le aziende?
 
 L'intelligenza artificiale rappresenta una rivoluzione tecnologica che offre alle aziende opportunità straordinarie di crescita, innovazione e competitività. Non si tratta più di una scelta opzionale, ma di una necessità strategica per rimanere rilevanti in un mercato sempre più digitale e dinamico.
