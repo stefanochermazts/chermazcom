@@ -100,6 +100,7 @@
     "@astrojs/markdown-remark": "^6.3.6",
     "@fontsource/inter": "^5.0.0",
     "@fontsource/sora": "^5.0.0",
+    "@octokit/rest": "^20.0.2",
     "@pinecone-database/pinecone": "^6.1.2",
     "@tailwindcss/vite": "^4.1.7",
     "@types/pg": "^8.15.5",
