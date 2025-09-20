@@ -642,3 +642,17 @@ git push origin askstefano # Publica sviluppo
 
 Translate a single file to English:
 run i18n:translate:one -- --file src/content/insights/hr-ai-onboarding.mdx --to en
+
+Comando creato: ./generate-frontmatter.sh
+Il comando è ora disponibile nella root del progetto e funziona così:
+Uso base:
+./generate-frontmatter.sh comprendere-il.processo-adozione-intelligenza-artificiale
+
+# Conversione automatica (usa header esistente o nomi colonne)
+node convert-takeaway-table.js articolo.mdx
+
+# Con titolo personalizzato
+node convert-takeaway-table.js articolo.mdx --title "Fasi del Processo"
+
+# Esempio con il tuo articolo
+node convert-takeaway-table.js src/content/insights/articolo.mdx --title "Opportunità e Sfide"
