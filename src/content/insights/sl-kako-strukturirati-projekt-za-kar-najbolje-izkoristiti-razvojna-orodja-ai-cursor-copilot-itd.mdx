@@ -1,0 +1,350 @@
+---
+title: Kako strukturirati projekt za kar najbolje izkoristiti razvojna orodja AI (Cursor, Copilot, itd.)
+slug: sl-kako-strukturirati-projekt-za-kar-najbolje-izkoristiti-razvojna-orodja-ai-cursor-copilot-itd
+lang: sl
+status: publish
+excerpt: >-
+  Najboljše prakse za 'sviluppo‑AI': struktura repozitorija, dokumentacija, testi, pozivi, CI/CD in upravljanje za
+  učinkovito delovanje Cursor/Copilot ter zmanjšanje napak in trenj.
+date: 2025-09-22T00:00:00.000Z
+categories:
+  - ai-development
+  - best-practices
+tags:
+  - cursor
+  - copilot
+  - ai-development
+  - project-structure
+  - software-engineering
+  - sviluppo-ai
+description: >-
+  Praktični in analitični vodnik o tem, kako organizirati programski projekt za maksimalno učinkovitost orodij za razvoj
+  AI (Cursor, Copilot itd.): od nastavitve do upravljanja, s kontrolnimi seznami in metrikami.
+ogImage: /posts/ai-project-structuring/og.webp
+image: /posts/ai-project-structuring/card.webp
+sourceFile: insights/ai-project-structuring.mdx
+sourceSlug: ai-project-structuring
+sourceLang: it
+---
+
+# Kako strukturirati projekt za optimalno izkoriščanje razvojnih orodij AI
+
+> **za tiste, ki iščejo "razvoj‑AI"**: AI povečuje produktivnost le pri projektih **urejenih, dokumentiranih, testiranih in obvladovanih**. Potrebni so: jasni cilji, modularni repozitorij, domeni glosar, testno ogrodje, standardni pozivi, semantični commit-i, CI z minimalno kakovostjo, upravljanje skrivnosti, ADR za arhitekturne odločitve in politika vzdrževanja.
+
+V tem priročniku gremo **v globino** vsake faze, z **cilji, pričakovanimi izidi, pogostimi napakami in metričnimi podatki** za merjenje, ali tvoje *sviluppo‑AI* res deluje.
+
+I'm sorry, but it seems that you haven't provided any text to translate. Could you please provide the text you would like to have translated into Slovenian?
+
+## 1) Jasna opredelitev cilja (temelj konteksta)
+
+**Cilj**: dati AI *brief*, ki zmanjšuje nejasnosti.
+
+**Kaj storiti**
+
+* Napiši 5–10 **uporabniških zgodb** prioritetnih (format: *Kot \[vloga] želim \[dejanje] za \[vrednost]*).
+* Zmapiraj 3–5 **nefunkcionalnih omejitev**: zmogljivost, ciljni brskalniki, proračun za oblak, skladnost (GDPR/DORA).
+* Naštej **vmesnike**, ki so predvideni (zunanje API, DB, identiteta).
+
+**Pričakovani izhod**
+
+* `/docs/vision.md` z namenom, KPI-ji in nediskutabilnimi izbiremi.
+
+**Pogoste napake**
+
+* Backlog “spesa della settimana”: eterogeneo in nekonsistentno → *sviluppo‑AI* zmedeno.
+
+**Metriche**
+
+* % zgodb s kriterijem sprejemanja (cilj ≥ 80%).
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text you'd like me to translate into Slovenian?
+
+## 2) Izbira in razlaga sklada (zmanjšanje površine napake)
+
+**Cilj**: jasna *golden path*, tako da Cursor/Copilot ne predlagata nasprotujočih si vzorcev.
+
+**Kaj storiti**
+
+* Izberi **eno** skladovnico za plast (npr. *Astro+React* za splet, *Node/Express* za API, *Postgres* za DB).
+* Dokumentiraj različice in knjižnice v `README.md` (npr. Node 20, pnpm, Tailwind 3).
+* Prednastavi **lint/format** (ESLint, Prettier, Stylelint) in **pravila**.
+
+**Očekivani izhod**
+
+* `README.md` → sekcije *Stack*, *Scripts*, *Konvencije*.
+* `.nvmrc`, `.editorconfig`, `eslint.config.*`.
+
+**Pogoste napake**
+
+* Mešanica okvirjev brez motivacije; podvojene odvisnosti.
+
+**Metriche**
+
+* Stopnja uspešnosti lintanja v CI (cilj 100%).
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text that you would like me to translate into Slovenian?
+
+## 3) Struktura repozitorija (navigabilnost za AI)
+
+**Cilj**: narediti kodo **predvidljivo**. Orodja za *razvoj‑AI* razmišljajo po vzorcih in bližini.
+
+**Kaj storiti**
+
+```
+/src
+  /components      # UI o unità riusabili
+  /pages           # routing
+  /services        # integrazioni esterne
+  /domain          # modelli e logica dominio
+/tests             # unit/integration/e2e
+/docs              # specifiche e decisioni
+/scripts           # utility di build/dev
+```
+
+
+
+* Dodajte `.env.example` in `ENVIRONMENT.md` (politika skrivnosti).
+* Uporabite **potne aliazhe** (npr. `@/services`) za zmanjšanje krhkih uvozov.
+
+**Očekivani izhod**
+
+* Mapa map v `README.md`.
+
+**Pogoste napake**
+
+* Datoteka “God object”, čezuvoz cirkularjev, `utils.js` onnivoro.
+
+**Metriche**
+
+* Povprečna kompleksnost na datoteko (npr. < 15), povezovanje med moduli v upadu.
+
+I'm sorry, but it seems that you haven't provided the text you want to translate. Please provide the text, and I'll be happy to assist you with the translation to Slovenian.
+
+## 4) Dokumentacija domene (semantično utemeljevanje)
+
+**Cilj**: zagotoviti **jezik in pravila** poslovanja, ki jih mora AI upoštevati.
+
+**Kaj storiti**
+
+* `/docs/glossario.md`: ključni izrazi, sinonimi, primeri.
+* `/docs/regole-dominio.md`: omejitve (npr. dopust > 26 dni → odobritev HR).
+* ADR (*Architecture Decision Records*) za pomembne odločitve: `/docs/adr/0001-tall-vs-astro.md`.
+
+**Očekivani izhod**
+
+* Glossar povezan s komentarji in pozivi.
+
+**Pogoste napake**
+
+* Neposredna terminologija med moduli → divergentni odgovori AI.
+
+**Metriche**
+
+* Težava pri pojasnilu domena/teden (trend → 0).
+
+I'm sorry, but it seems that you haven't provided any text to translate. Please provide the text you'd like translated into Slovenian, and I'll be happy to assist you!
+
+## 5) Test in primeri uporabe (naučiti se preko primerov)
+
+**Cilj**: dati Cursor/Copilot **verificirane vzorce**.
+
+**Kaj narediti**
+
+* Predisponi *scaffold* test (enotni/integracijski). Tudi prazni, a **poimenovani**.
+* Napiši **spec v navadnem besedilu** blizu kode (npr. `service.spec.md`).
+* Pokrij funkcije “kritične” s testi docstring (vhod→pričakovano), ki jih lahko AI prebere.
+
+**Očekivani izhod**
+
+* `tests/**` razdeljeno po plasteh; poročilo o pokritosti v CI.
+
+**Pogoste napake**
+
+* Test reattivi (napisani *po* napakah); ogromne fixture, ki jih ni mogoče ponovno uporabiti.
+
+**Metriche**
+
+* Pokritost linij/veji (prvotni cilj 60% → 80%); povprečni čas do zelenega PR.
+
+I'm sorry, but it seems that you haven't provided any text to translate. Please provide the text you'd like me to translate to Slovenian, and I'll be happy to assist you!
+
+## 6) Interno inženiring pozivov (ponovno uporabne navodila)
+
+**Cilj**: standardizirati, kako prosiš za pomoč pri AI za *razvoj-AI*.
+
+**Kaj storiti**
+
+* Mapa `/prompts/` s predlogami: `refactor.prompt.md`, `testgen.prompt.md`, `review.prompt.md`.
+* Struktura T‑C‑G‑O: **Naloga**, **Omejitve**, **Utemeljitev** (povezava do datoteke/glosarja), **Izhod** (želeno shemo).
+* Ustvari “**politiko komentarjev**” (npr. docstring z uporabo primerov) za povečanje lokalnega konteksta.
+
+**Pričakovani izhod**
+
+* Ponovno uporabni pozivi povezani v PR.
+
+**Pogoste napake**
+
+* Nejasne zahteve (“izboljšaj kodo”); nedoločeni izhodi.
+
+**Metri**
+
+* % zahtev AI, ki zahtevajo popravke > 2 (naraščajoči trend).
+
+It seems that the text you want to translate is missing. Please provide the text you would like me to translate into Slovenian, and I'll be happy to assist you!
+
+## 7) Zaveze semantiki in changelog (sledovi za AI)
+
+**Cilj**: pretvoriti zgodovino repozitorija v **signale**, ki jih lahko uporabi AI.
+
+**Kaj storiti**
+
+* Konvencionalni Commits (`feat:`, `fix:`, `perf:`, `docs:` …).
+* Hook, ki posodobi `CHANGELOG.md` (tudi z AI) in ga postavi v stanje.
+* PR predloga z *kontextom, alternativnimi rešitvami, ki so bile zavrnjene, tveganji*.
+
+**Očekivani izhod**
+
+* Dosje sprememb, ki je **berljiv** za AI in ljudi.
+
+**Pogoste napake**
+
+* Sporočila “update”; PR brez opisa.
+
+**Metriche**
+
+* Povprečna hitrost pregleda kode; % PR z popolnim opisom (cilj ≥ 90%).
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Please provide the text you would like translated to Slovenian, and I'll be happy to assist you!
+
+## 8) Integracija AI v razvojni cikel (nadzorovana sodelovanja)
+
+**Cilj**: uporabiti AI kot *so‑razvijalec* ob ohranjanju **človeške kontrole**.
+
+**Kaj storiti**
+
+* Vprašajte **pojasnila** o generiranem kodi, preden ga sprejmete.
+* Uporabite **feature flags** za varno sproščanje.
+* Omejite spremembe AI na **majhne obsege** (eno funkcijo, eno datoteko, en test naenkrat).
+
+**Očekivani izhod**
+
+* PR majhni, motivirani, reverzibilni.
+
+**Pogoste napake**
+
+* “Big bang refactor” generirani z AI; zaklepanje na nejasne odločitve.
+
+**Metriche**
+
+* Stopnja vračanja < 5%; napake po združitvi/teden v upadu.
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text you'd like me to translate to Slovenian?
+
+## 9) CI/CD, varnost in kakovost (minimalne garancije)
+
+**Cilj**: preprečiti, da *razvoj-AI* uvede regresije ali tveganja.
+
+**Kaj storiti**
+
+* Pipeline con: lint + test + build + **type‑check** + **security scan** (npr. `npm audit`, `trivy` za kontejner).
+* **Skrivnosti**: `.env` samo lokalno; v CI uporabi upravitelj skrivnosti (Netlify env, GitHub Actions skrivnosti).
+* **SAST/DAST** osnova; politika odvisnosti (renovate dependabot).
+
+**Pričakovani izhod**
+
+* `DEPLOY.md` z okolji, ukazi, povratnimi koraki; oznaka CI na README.
+
+**Pogoste napake**
+
+* Zaupne informacije; odsotnost varnostnih preverjanj.
+
+**Metriche**
+
+* Stopnja uspešnosti gradnje (cilj ≥ 95%); kritične ranljivosti = 0; povprečni čas za uvedbo.
+
+I'm sorry, but it seems that you haven't provided the text you want to be translated. Could you please share the text you would like me to translate into Slovenian?
+
+## 10) Vzdrževanje, upravljanje in rast (projekt, ki dobro star)
+
+**Cilj**: poskrbeti, da projekt ostane **AI‑friendly** skozi čas.
+
+**Kaj storiti**
+
+* **ADR** za vsako pomembno arhitekturno odločitev; pregleduj četrtletno.
+* **Roadmap** v `/docs/roadmap.md` z mejniki in deprecacijami.
+* **Refactor budget**: 10–15% časa sprinta za stalno čiščenje.
+
+**Pričakovani izhod**
+
+* Konsistenten repozitorij, tehnični dolg pod nadzorom, *sviluppo‑AI* vedno učinkovit.
+
+**Pogoste napake**
+
+* Kaotična rast, neposodobljene odvisnosti, zastareli dokumenti.
+
+**Metriche**
+
+* Tehnične dolgove zaprte/sprint; odvisnosti *outdated* < 10%.
+
+I'm sorry, but it seems that you haven't provided the text you want to be translated. Please share the content you'd like me to translate into Slovenian, and I'll be happy to assist!
+
+## SEO za "sviluppo‑AI": kje in kako uporabiti ključno besedo
+
+* Vnesite **sviluppo‑AI** v: naslov H1/H2, `description`, `excerpt`, prvi odstavek, 2–3 naslove sekcij.
+* Uporabite naravne variante: *sviluppo AI*, *strumenti AI za razvijalce*, *AI v razvojnem ciklu*.
+* Interno povežite na: *RAG za kodo*, *AI za changelog/README*, *Agentic AI v CI/CD*.
+* Dodajte **FAQ** na dno s shemo označevanja (npr. *Kaj je sviluppo‑AI?*, *Kako pripraviti repo za Cursor?*).
+
+I'm sorry, but it seems like you haven't provided the text that you want to be translated. Could you please share the text you'd like me to translate into Slovenian?
+
+## Checklist operativa (stampabile e approfondita)
+
+Ta kontrolni seznam je zasnovan kot praktično orodje za ekipe, ki sprejemajo orodja za *sviluppo‑AI*. Vsaka postavka vključuje **ukrep, cilj in merilo uspeha**.
+
+* [ ] **Vizija in KPI v `/docs/vision.md`**
+  *Cilj*: dati strateški kontekst AI.
+  *Metrika*: % uporabniških zgodb s kriteriji sprejemanja ≥ 80%.
+
+* [ ] **Stack in različice v `README.md`**
+  *Cilj*: zmanjšati nejasnosti glede ogrodij/libraries.
+  *Metrika*: stopnja uspešnosti lint 100% v CI.
+
+* [ ] **Standardna struktura map + pot do aliasa**
+  *Cilj*: navigabilen repozitorij in jasni vzorci.
+  *Metrika*: povprečna povezanost med moduli v upadu, kompleksnost datotek < 15.
+
+* [ ] **Glosar in pravila domene**
+  *Cilj*: semantična osnova za dosledne odgovore AI.
+  *Metrika*: vprašanja za pojasnitev domene → 0.
+
+* [ ] **Scaffold test + coverage in CI**
+  *Cilj*: zagotoviti preverljive primere.
+  *Metrika*: coverage od 60% do 80% v 3 sprintih.
+
+* [ ] **`/prompts/` s predlogo T‑C‑G‑O**
+  *Cilj*: standardizirati zahteve AI.
+  *Metrika*: % pozivov za izboljšanje < 20%.
+
+* [ ] **Conventional Commits + CHANGELOG**
+  *Cilj*: berljiva zgodovina, ki jo lahko izkoristi AI.
+  *Metrika*: % PR z popolnim opisom ≥ 90%.
+
+* [ ] **Pipeline CI: lint/test/build/type/security**
+  *Cilj*: preprečiti regresije in ranljivosti.
+  *Metrika*: stopnja uspešnosti gradnje ≥ 95%, kritične ranljivosti = 0.
+
+* [ ] **Upravljanje skrivnostmi in politika `.env`**
+  *Cilj*: preprečiti uhajanje poverilnic.
+  *Metrika*: skrivnosti, ki so bile zavezane = 0.
+
+* [ ] **ADR, roadmap in refaktoriranje proračuna**
+  *Cilj*: ohranjanje upravljanja in trajnostne rasti.
+  *Metrika*: zaprti problemi tehničnega dolga/sprint, zastarele odvisnosti < 10%.
+
+I'm sorry, but it seems that you haven't provided the text you want to translate. Please share the text, and I'll be happy to help with the translation to Slovenian.
+
+## Zaključek
+
+Uno *sviluppo‑AI* efficace nasce da **disciplina in jasnost**. Z urejanjem konteksta (repo, domena, testi, pozivi, upravljanje) pretvoriš Cursor/Copilot v **zanesljive digitalne sodelavce**, zmanjšaš napake in pospešiš čas do trga.
+
+👉 Želiš revizijo svojega repozitorija, da ga pripraviš na *AI‑ready* v 7 dneh? [Kontaktiraj me](/contact).

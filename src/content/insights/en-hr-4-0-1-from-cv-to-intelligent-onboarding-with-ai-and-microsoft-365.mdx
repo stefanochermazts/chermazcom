@@ -1,0 +1,189 @@
+---
+title: 'HR 4.0 #1 – From CV to intelligent onboarding with AI and Microsoft 365'
+slug: en-hr-4-0-1-from-cv-to-intelligent-onboarding-with-ai-and-microsoft-365
+date: 2025-09-17T00:00:00.000Z
+status: publish
+description: >-
+  How to combine AI and Microsoft 365 to speed up recruitment and onboarding: from CV parsing to creating the HR portal
+  on SharePoint.
+excerpt: >-
+  Discover how AI can analyze resumes and create automatic profiles in SharePoint, transforming HR selection and
+  onboarding into a fast, standardized, and secure process.
+categories:
+  - ai-development
+tags:
+  - sharepoint
+  - PowerAutomate
+  - NIS2
+  - DORA
+  - compliance
+image: /posts/hr-ai-onboarding/card.webp
+ogImage: /posts/hr-ai-onboarding/og.webp
+lang: en
+sourceFile: insights/hr-ai-onboarding.mdx
+sourceSlug: hr-ai-onboarding
+sourceLang: it
+---
+
+# HR 4.0 #1 – From CV to Intelligent Onboarding with AI and Microsoft 365
+
+## Introduction
+
+The Human Resources department is often overwhelmed by manual and repetitive tasks: screening resumes, collecting documents for hiring, preparing checklists and onboarding materials. In a competitive environment, where time-to-hire makes a difference, these slow processes can undermine the ability to attract and retain top talent.
+
+With new technologies, however, it is possible to overturn the paradigm. In this first chapter of the *HR 4.0* series, we will see how **AI development** and **Microsoft 365** can be integrated to transform the management of applications and onboarding, making the process fast, standardized, and scalable.
+
+## The Starting Problem
+
+Imagine a medium-sized company that receives **hundreds of applications every month**. HR must:
+
+* manually read each CV,
+* extract key skills,
+* compare candidates,
+* manually prepare onboarding documentation.
+
+The result?
+
+* **Time wasted** on low-value activities,
+* **Errors and subjectivity** in selection,
+* **Inconsistent onboarding**, with different checklists from manager to manager.
+
+It seems that there is no text provided for translation. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## The solution: AI + Microsoft 365
+
+The key is to combine **artificial intelligence** for CV parsing with the **Microsoft 365** ecosystem, particularly **SharePoint** and **Teams**.
+
+### Step 1 – Parsing Resumes with AI
+
+An AI model (e.g., GPT-4.1 or equivalents) analyzes CVs in PDF/Word and extracts structured information:
+
+* technical skills,
+* work experience,
+* education,
+* soft skills.
+
+The result is a **structured JSON** easily integrable into databases or SharePoint lists.
+
+### Step 2 – Creating candidate cards in SharePoint
+
+Every CV analyzed becomes a **digital card** in a SharePoint list, with pre-filled fields:
+
+* Name, role, experience,
+* Key skills,
+* AI match score against the job profile.
+
+### Step 3 – Portal Onboarding
+
+Once the candidate is selected, SharePoint also becomes the **onboarding portal**:
+
+* standard documents available in OneDrive,
+* activity checklist (e.g., IT accesses, badges, training),
+* digital forms for company policies,
+* dedicated Teams channel to welcome the new hire.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you'd like me to translate, and I'll be happy to assist you!
+
+## Technical Example: AI for CV Parsing
+
+To show the most concrete part, here is an **example in Python** that uses the OpenAI API to transform a PDF CV into a structured JSON:
+
+```python
+import openai
+from PyPDF2 import PdfReader
+
+# Leggi testo da CV PDF
+reader = PdfReader("cv_candidato.pdf")
+text = "".join([page.extract_text() for page in reader.pages])
+
+# Chiamata API per estrarre dati
+response = openai.ChatCompletion.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "Estrai competenze, esperienze e formazione da un CV. Rispondi in JSON."},
+        {"role": "user", "content": text}
+    ],
+    temperature=0.2
+)
+
+print(response.choices[0].message["content"])
+```
+
+
+
+Expected output (simplified example):
+
+```json
+{
+  "nome": "Mario Rossi",
+  "ruolo": "Data Analyst",
+  "competenze": ["SQL", "Power BI", "Python"],
+  "esperienze": [
+    {"azienda": "XYZ Spa", "anni": 3, "ruolo": "Business Analyst"}
+  ],
+  "formazione": "Laurea in Economia"
+}
+```
+
+
+
+These data can be automatically saved in a **SharePoint list** via Microsoft Graph API or Power Automate.
+
+It seems that the text you wanted to translate is missing. Please provide the text you would like me to translate, and I'll be happy to assist you!
+
+## Concrete Benefits
+
+The combined approach offers immediate benefits:
+
+### For HR
+
+* Reduction of **70% of the time** spent on screening.
+* Ability to focus on interviews and “cultural fit”.
+
+### For Candidates
+
+* Faster responses.
+* Clear and standardized onboarding.
+
+### For the company
+
+* Scalable HR **processes** even during periods of rapid growth.
+* Improved **employer branding**: the candidate perceives organization and modernity.
+
+It seems that there is no text provided for translation. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## Privacy and Security
+
+Managing sensitive personal data such as CVs requires attention:
+
+* AI must be used in **compliance** mode (avoiding sending sensitive data to services that are not GDPR compliant).
+* Microsoft 365 ensures secure document management with **access control and encryption**.
+* It is advisable to maintain an updated **record of processing activities**.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## Extension: automatic candidate ranking
+
+An additional step can be the **automatic match score**:
+
+* The key requirements of the job profile are defined (e.g., Python, SQL, experience ≥3 years).
+* AI calculates a score for each CV.
+* SharePoint ranks candidates based on the score → HR focuses immediately on the top 10%.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you would like me to translate to English, and I'll be happy to assist you!
+
+## Conclusion
+
+This first chapter of the *HR 4.0* series shows how the union between **AI development** and **Microsoft 365** can radically transform selection and onboarding. From a slow and manual process → to a **fast, standardized, and secure** flow.
+
+In the upcoming articles, we will explore how to extend HR digitization:
+
+* **Automated workflows** for vacations and performance (Article 2),
+* **Data security and compliance** for HR in the context of DORA/NIS2 (Article 3).
+
+It seems that you haven't provided the text you want to be translated. Please share the text, and I'll be happy to assist you with the translation!
+
+## Call-to-Action
+
+Do you want to understand how to implement similar solutions in your HR department?  
+👉 [Contact me](/contact) for a personalized consultation.

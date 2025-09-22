@@ -1,0 +1,111 @@
+---
+title: 'HR 4.0 #2 – Avtomatizacija HR procesov s Power Automate in OneDrive'
+slug: sl-hr-4-0-2-avtomatizacija-hr-procesov-s-power-automate-in-onedrive
+date: 2025-09-18T00:00:00.000Z
+status: publish
+description: >-
+  "Dalla gestione dopustov do ocen uspešnosti: kako Microsoft 365 lahko digitalizira procese HR in zmanjša
+  administrativne napake."
+excerpt: >-
+  Odkrijte, kako Power Automate in OneDrive lahko spremenita HR procese, avtomatizirata dopuste in ocene za večjo
+  učinkovitost in preglednost.
+categories:
+  - microsoft365
+tags:
+  - workflow
+  - power-automate
+  - ferie
+  - valutazioni
+ogImage: /posts/hr-workflow-automazione/og.webp
+image: /posts/hr-workflow-automazione/card.webp
+lang: sl
+sourceFile: insights/hr-workflow-automazione.mdx
+sourceSlug: hr-workflow-automazione
+sourceLang: it
+---
+
+# HR 4.0 #2 – Avtomatizacija HR procesov z Power Automate in OneDrive
+
+## Uvod
+
+Upravljanje dopusti in uspešnost preko e-pošte ali Excelovih tabel prinaša le kaos in izgubo časa. S **Power Automate** in **OneDrive** je mogoče digitalizirati HR procese z ustvarjanjem preprostih, preglednih in varnih tokov.
+
+I'm sorry, but it seems that you haven't provided the text you want to be translated. Please provide the text, and I'll be happy to assist you with the translation to Slovenian.
+
+## Il problema di partenza
+
+* Zaposleni pošiljajo zahteve za dopust preko e-pošte → brez sledenja.
+* Managerji morajo ročno preverjati razpoložljivost in prekrivanja.
+* Letne ocene so razpršene v dokumentih brez različic in brez centraliziranih odobritev.
+
+Posledice: pogoste napake, nezadovoljstvo med zaposlenimi, izguba časa za HR.
+
+I'm sorry, but it seems that you haven't provided the text you want translated. Please provide the text, and I'll be happy to assist you with the translation to Slovenian.
+
+## Rešitev: Microsoft 365 kot HR platforma
+
+### Delovni tokovi dopustov s Power Automate
+
+1. Zaposleni izpolni obrazec (Microsoft Forms ali SharePoint List).
+2. Power Automate tok pošlje zahtevo managerju preko Teams/Outlook.
+3. Manager odobri/odkloni → samodejna posodobitev stanja v SharePoint.
+4. HR prejme obvestilo in popoln dnevnik.
+
+### Valutacije uspešnosti z OneDrive in SharePoint
+
+* Modeli ocenjevanja shranjeni v OneDrive.
+* Samodejno različiciranje → brez konfliktov dokumentov.
+* Nadzorovan dostop in zabeležena odobritve.
+* Konsolidirani rezultati v SharePoint za poročanje.
+
+It seems that the text you wanted to translate is missing. Please provide the text you would like to have translated to Slovenian, and I'll be happy to assist you!
+
+## Tehnični primer: JSON Power Automate
+
+Primer koraka za upravljanje dopustov:
+
+```json
+{
+  "trigger": "On new item in SharePoint list",
+  "actions": [
+    { "sendApproval": "ManagerEmail" },
+    { "updateItem": { "Status": "Approved/Rejected" } },
+    { "sendNotification": "HRTeam" }
+  ]
+}
+```
+
+
+
+To shema poenostavljeno prikazuje osnovno logiko toka, ki povezuje zaposlene, managerje in HR.
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text you would like me to translate into Slovenian?
+
+## Konkretné prednosti
+
+* **Za HR**: manj ročnega dela, več nadzora.
+* **Za zaposlene**: večja preglednost in takojšnje povratne informacije.
+* **Za managerje**: hitre odločitve in popolna sledljivost.
+
+It seems that the text you want to translate is missing. Please provide the text you'd like to have translated into Slovenian, and I'll be happy to assist you!
+
+## Zasebnost in varnost
+
+* Vsi podatki, obvladovani v Microsoft 365 → v skladu s podjetniškimi politikami in GDPR.
+* Nadzorovani dostopi s podrobnimi dovoljenji.
+* Revizijska sled je na voljo za vsako odobritev.
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text you would like to have translated into Slovenian?
+
+## Zaključek
+
+Con Power Automate in OneDrive, oddelek HR postane bolj agilen in učinkovit. Upravljanje dopustov in ocene uspešnosti preidejo iz ročnega in kaotičnega procesa v **digitaliziran, sledljiv in varen** tok.
+
+V naslednjem članku bomo videli, kako razširiti digitalizacijo HR na **zaščito podatkov in skladnost z zakonodajo** (DORA/NIS2).
+
+Please provide the text you would like to have translated into Slovenian.
+
+## Poziv k dejanju
+
+Želiš odkriti, kako digitalizirati HR procese v tvojem podjetju?  
+👉 [Kontaktiraj me](/contact) za osebno svetovanje.

@@ -1,0 +1,349 @@
+---
+title: >-
+  Come strutturare un progetto per sfruttare al meglio gli strumenti AI di
+  sviluppo (Cursor, Copilot, ecc.)
+slug: ai-project-structuring
+lang: it
+status: publish
+excerpt: >-
+  Best practice di 'sviluppo‑AI': struttura del repo, documentazione, test,
+  prompt, CI/CD e governance per far lavorare bene Cursor/Copilot e ridurre
+  errori e attriti.
+date: 2025-09-22T00:00:00.000Z
+categories:
+  - ai-development
+  - best-practices
+tags:
+  - cursor
+  - copilot
+  - ai-development
+  - project-structure
+  - software-engineering
+  - sviluppo-ai
+description: >-
+  Guida pratica e analitica su come organizzare un progetto software per
+  massimizzare l’efficacia degli strumenti di sviluppo AI (Cursor, Copilot,
+  ecc.): dal setup alla governance, con checklist e metriche.
+ogImage: /posts/ai-project-structuring/og.webp
+image: /posts/ai-project-structuring/card.webp
+---
+
+# Come strutturare un progetto per sfruttare al meglio gli strumenti AI di sviluppo
+
+> **per chi cerca "sviluppo‑AI"**: l’AI rende produttivi solo progetti **ordinati, documentati, testati e governati**. Servono: obiettivi chiari, repo modulare, glossario di dominio, test scaffolding, prompt standard, commit semantici, CI con qualità minima, gestione segreti, ADR per decisioni architetturali e una policy di manutenzione.
+
+In questa guida andiamo **in profondità** su ogni fase, con **obiettivi, output attesi, errori comuni e metriche** per misurare se il tuo *sviluppo‑AI* sta funzionando davvero.
+
+---
+
+## 1) Definizione chiara dell’obiettivo (fondazione del contesto)
+
+**Obiettivo**: dare all’AI un *brief* comprensibile che riduca ambiguità.
+
+**Cosa fare**
+
+* Scrivi 5–10 **user stories** prioritarie (formato: *Come \[ruolo] voglio \[azione] per \[valore]*).
+* Mappa 3–5 **vincoli non funzionali**: performance, browser target, budget cloud, compliance (GDPR/DORA).
+* Elenca **interfacce** previste (API esterne, DB, identity).
+
+**Output atteso**
+
+* `/docs/vision.md` con scopo, KPI e scelte non negoziabili.
+
+**Errori comuni**
+
+* Backlog “spesa della settimana”: eterogeneo e incoerente → *sviluppo‑AI* confuso.
+
+**Metriche**
+
+* % storie con criterio di accettazione (target ≥ 80%).
+
+---
+
+## 2) Scelta e spiegazione dello stack (ridurre la superficie di errore)
+
+**Obiettivo**: un *golden path* esplicito, così Cursor/Copilot non propongono pattern contraddittori.
+
+**Cosa fare**
+
+* Scegli **uno** stack per layer (es. *Astro+React* per web, *Node/Express* per API, *Postgres* per DB).
+* Documenta versioni e librerie nel `README.md` (es. Node 20, pnpm, Tailwind 3).
+* Preimposta **lint/format** (ESLint, Prettier, Stylelint) e **rules**.
+
+**Output atteso**
+
+* `README.md` → sezioni *Stack*, *Scripts*, *Convezioni*.
+* `.nvmrc`, `.editorconfig`, `eslint.config.*`.
+
+**Errori comuni**
+
+* Mix di framework senza motivazione; dipendenze duplicate.
+
+**Metriche**
+
+* Lint pass rate in CI (target 100%).
+
+---
+
+## 3) Strutturazione del repository (navigabilità per l’AI)
+
+**Obiettivo**: rendere il codice **prevedibile**. Gli strumenti di *sviluppo‑AI* ragionano per pattern e prossimità.
+
+**Cosa fare**
+
+```
+/src
+  /components      # UI o unità riusabili
+  /pages           # routing
+  /services        # integrazioni esterne
+  /domain          # modelli e logica dominio
+/tests             # unit/integration/e2e
+/docs              # specifiche e decisioni
+/scripts           # utility di build/dev
+```
+
+* Aggiungi `.env.example` e `ENVIRONMENT.md` (policy segreti).
+* Usa **alias di path** (es. `@/services`) per ridurre import fragili.
+
+**Output atteso**
+
+* Mappa cartelle nel `README.md`.
+
+**Errori comuni**
+
+* File “God object”, cross-import circolari, `utils.js` onnivoro.
+
+**Metriche**
+
+* Complessità media per file (es. < 15), coupling tra moduli in calo.
+
+---
+
+## 4) Documentazione del dominio (grounding semantico)
+
+**Obiettivo**: fornire **linguaggio e regole** del business che l’AI deve rispettare.
+
+**Cosa fare**
+
+* `/docs/glossario.md`: termini chiave, sinonimi, esempi.
+* `/docs/regole-dominio.md`: vincoli (es. ferie > 26 giorni → approvazione HR).
+* ADR (*Architecture Decision Records*) per scelte rilevanti: `/docs/adr/0001-tall-vs-astro.md`.
+
+**Output atteso**
+
+* Glossario linkato dai commenti e dai prompt.
+
+**Errori comuni**
+
+* Terminologia incoerente tra moduli → risposte AI divergenti.
+
+**Metriche**
+
+* Issue di chiarimento dominio/settimana (tendenza → 0).
+
+---
+
+## 5) Test e casi d’uso (far apprendere per esempi)
+
+**Obiettivo**: dare a Cursor/Copilot **pattern verificabili**.
+
+**Cosa fare**
+
+* Predisponi *scaffold* test (unit/integration). Anche vuoti ma **nominati**.
+* Scrivi **spec in plain text** vicino al codice (es. `service.spec.md`).
+* Copri funzioni “critiche” con test docstring (dato→atteso) che l’AI può leggere.
+
+**Output atteso**
+
+* `tests/**` diviso per layer; report coverage in CI.
+
+**Errori comuni**
+
+* Test reattivi (scritti *dopo* i bug); fixture giganti non riutilizzabili.
+
+**Metriche**
+
+* Coverage linee/branch (target iniziale 60% → 80%); tempo medio a verde PR.
+
+---
+
+## 6) Prompt engineering interno (istruzioni riutilizzabili)
+
+**Obiettivo**: standardizzare come chiedi aiuto all’AI per lo *sviluppo‑AI*.
+
+**Cosa fare**
+
+* Cartella `/prompts/` con template: `refactor.prompt.md`, `testgen.prompt.md`, `review.prompt.md`.
+* Struttura T‑C‑G‑O: **Task**, **Constraints**, **Grounding** (link file/glossario), **Output** (schema desiderato).
+* Crea una “**policy di commenti**” (es. docstring con esempi d’uso) per aumentare il contesto locale.
+
+**Output atteso**
+
+* Prompt riutilizzabili linkati nei PR.
+
+**Errori comuni**
+
+* Richieste vaghe (“migliora il codice”); output non deterministici.
+
+**Metriche**
+
+* % richieste AI che richiedono ritocchi > 2 (tendenza decrescente).
+
+---
+
+## 7) Commit semantici e changelog (tracce per l’AI)
+
+**Obiettivo**: trasformare la storia del repo in **segnali** che l’AI può usare.
+
+**Cosa fare**
+
+* Conventional Commits (`feat:`, `fix:`, `perf:`, `docs:` …).
+* Hook che aggiorna `CHANGELOG.md` (anche con AI) e mette in stage.
+* PR template con *contesto, soluzioni alternative scartate, rischi*.
+
+**Output atteso**
+
+* Changelog coerente e **leggibile** dall’AI e dagli umani.
+
+**Errori comuni**
+
+* Messaggi “update”; PR senza descrizione.
+
+**Metriche**
+
+* Tempo medio di code review; % PR con descrizione completa (target ≥ 90%).
+
+---
+
+## 8) Integrare l’AI nel ciclo di sviluppo (collaborazione controllata)
+
+**Obiettivo**: usare l’AI come *co‑developer* mantenendo **controllo umano**.
+
+**Cosa fare**
+
+* Chiedi **spiegazioni** sul codice generato prima di accettarlo.
+* Usa **feature flags** per rilasciare in sicurezza.
+* Limita le modifiche AI a **scope piccoli** (una funzione, un file, un test alla volta).
+
+**Output atteso**
+
+* PR piccoli, motivati, reversibili.
+
+**Errori comuni**
+
+* “Big bang refactor” generati dall’AI; lock‑in su decisioni opache.
+
+**Metriche**
+
+* Revert rate < 5%; difetti post‑merge/settimana in calo.
+
+---
+
+## 9) CI/CD, sicurezza e qualità (garanzie minime)
+
+**Obiettivo**: impedire che lo *sviluppo‑AI* introduca regressioni o rischi.
+
+**Cosa fare**
+
+* Pipeline con: lint + test + build + **type‑check** + **security scan** (es. `npm audit`, `trivy` per container).
+* **Segreti**: `.env` solo locale; in CI usa secrets manager (Netlify env, GitHub Actions secrets).
+* **SAST/DAST** base; policy di dipendenze (renovate dependabot).
+
+**Output atteso**
+
+* `DEPLOY.md` con ambienti, comandi, rollback; badge CI sul README.
+
+**Errori comuni**
+
+* Segreti committati; assenza di check di sicurezza.
+
+**Metriche**
+
+* Build pass rate (target ≥ 95%); vuln critiche = 0; tempo medio di deploy.
+
+---
+
+## 10) Manutenzione, governance e crescita (progetto che invecchia bene)
+
+**Obiettivo**: far sì che il progetto resti **AI‑friendly** nel tempo.
+
+**Cosa fare**
+
+* **ADR** per ogni decisione architetturale importante; rivedi trimestralmente.
+* **Roadmap** in `/docs/roadmap.md` con milestone e deprecazioni.
+* **Refactor budget**: 10–15% del tempo sprint per pulizia costante.
+
+**Output atteso**
+
+* Repo coerente, debito tecnico sotto controllo, *sviluppo‑AI* sempre efficace.
+
+**Errori comuni**
+
+* Crescita caotica, dipendenze non aggiornate, documenti obsoleti.
+
+**Metriche**
+
+* Issue di debito tecnico chiuse/sprint; dipendenze *outdated* < 10%.
+
+---
+
+## SEO per "sviluppo‑AI": dove e come usare la keyword
+
+* Inserisci **sviluppo‑AI** in: titolo H1/H2, `description`, `excerpt`, primo paragrafo, 2–3 heading sezione.
+* Usa varianti naturali: *sviluppo AI*, *strumenti AI per sviluppatori*, *AI nel ciclo di sviluppo*.
+* Linka internamente a: *RAG per codice*, *AI per changelog/README*, *Agentic AI in CI/CD*.
+* Aggiungi **FAQ** in fondo con schema markup (es. *Cos’è lo sviluppo‑AI?*, *Come preparare il repo per Cursor?*).
+
+---
+
+## Checklist operativa (stampabile e approfondita)
+
+Questa checklist è pensata come strumento pratico per i team che adottano strumenti di *sviluppo‑AI*. Ogni voce include **azione, obiettivo e metrica di successo**.
+
+* [ ] **Visione e KPI in `/docs/vision.md`**
+  *Obiettivo*: dare contesto strategico all’AI.
+  *Metrica*: % user stories con criteri di accettazione ≥ 80%.
+
+* [ ] **Stack e versioni nel `README.md`**
+  *Obiettivo*: ridurre ambiguità su framework/librerie.
+  *Metrica*: lint pass rate 100% in CI.
+
+* [ ] **Struttura cartelle standard + alias path**
+  *Obiettivo*: repo navigabile e pattern chiari.
+  *Metrica*: coupling medio tra moduli in calo, complessità file < 15.
+
+* [ ] **Glossario e regole di dominio**
+  *Obiettivo*: grounding semantico per risposte AI consistenti.
+  *Metrica*: issue di chiarimento dominio → 0.
+
+* [ ] **Scaffold test + coverage in CI**
+  *Obiettivo*: fornire esempi verificabili.
+  *Metrica*: coverage dal 60% all’80% entro 3 sprint.
+
+* [ ] **`/prompts/` con template T‑C‑G‑O**
+  *Obiettivo*: standardizzare richieste AI.
+  *Metrica*: % prompt da rifinire < 20%.
+
+* [ ] **Conventional Commits + CHANGELOG**
+  *Obiettivo*: storicità leggibile e sfruttabile dall’AI.
+  *Metrica*: % PR con descrizione completa ≥ 90%.
+
+* [ ] **Pipeline CI: lint/test/build/type/security**
+  *Obiettivo*: bloccare regressioni e vulnerabilità.
+  *Metrica*: build pass rate ≥ 95%, vuln critiche = 0.
+
+* [ ] **Gestione segreti e policy `.env`**
+  *Obiettivo*: evitare leak di credenziali.
+  *Metrica*: segreti committati = 0.
+
+* [ ] **ADR, roadmap e refactor budget**
+  *Obiettivo*: mantenere governance e crescita sostenibile.
+  *Metrica*: issue di debito tecnico chiuse/sprint, dipendenze outdated < 10%.
+
+---
+
+## Conclusione
+
+Uno *sviluppo‑AI* efficace nasce da **disciplina e chiarezza**. Ordinando il contesto (repo, dominio, test, prompt, governance) trasformi Cursor/Copilot in **colleghi digitali** affidabili, riduci errori e velocizzi il time‑to‑market.
+
+👉 Vuoi un audit del tuo repository per renderlo *AI‑ready* in 7 giorni? [Contattami](/contact).

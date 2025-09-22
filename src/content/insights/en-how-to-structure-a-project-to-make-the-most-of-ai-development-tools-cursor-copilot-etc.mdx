@@ -1,0 +1,350 @@
+---
+title: How to structure a project to make the most of AI development tools (Cursor, Copilot, etc.)
+slug: en-how-to-structure-a-project-to-make-the-most-of-ai-development-tools-cursor-copilot-etc
+lang: en
+status: publish
+excerpt: >-
+  Best practices for 'AI development': repo structure, documentation, testing, prompts, CI/CD, and governance to ensure
+  Cursor/Copilot work effectively and reduce errors and friction.
+date: 2025-09-22T00:00:00.000Z
+categories:
+  - ai-development
+  - best-practices
+tags:
+  - cursor
+  - copilot
+  - ai-development
+  - project-structure
+  - software-engineering
+  - sviluppo-ai
+description: >-
+  Practical and analytical guide on how to organize a software project to maximize the effectiveness of AI development
+  tools (Cursor, Copilot, etc.): from setup to governance, with checklists and metrics.
+ogImage: /posts/ai-project-structuring/og.webp
+image: /posts/ai-project-structuring/card.webp
+sourceFile: insights/ai-project-structuring.mdx
+sourceSlug: ai-project-structuring
+sourceLang: it
+---
+
+# How to Structure a Project to Make the Most of AI Development Tools
+
+**for those looking for "AI-development"**: AI only makes productive projects **organized, documented, tested, and governed**. The following are needed: clear objectives, modular repo, domain glossary, test scaffolding, standard prompts, semantic commits, CI with minimum quality, secret management, ADR for architectural decisions, and a maintenance policy.
+
+In this guide, we will go **in depth** into each phase, with **objectives, expected outputs, common errors, and metrics** to measure whether your *sviluppo‑AI* is really working.
+
+It seems that the text you wanted to translate is missing. Please provide the text you would like me to translate, and I'll be happy to assist you!
+
+## 1) Clear definition of the objective (foundation of the context)
+
+**Objective**: provide the AI with a comprehensible *brief* that reduces ambiguity.
+
+**What to do**
+
+* Write 5–10 **user stories** prioritized (format: *As a \[role] I want \[action] for \[value]*).
+* Map 3–5 **non-functional constraints**: performance, target browsers, cloud budget, compliance (GDPR/DORA).
+* List the expected **interfaces** (external APIs, DB, identity).
+
+**Expected Output**
+
+* `/docs/vision.md` with purpose, KPIs, and non-negotiable choices.
+
+**Common Errors**
+
+* Backlog "weekly spending": heterogeneous and inconsistent → *AI-development* confused.
+
+**Metrics**
+
+* % stories with acceptance criteria (target ≥ 80%).
+
+It seems that the text you want to translate is missing. Please provide the text you'd like translated, and I'll be happy to assist you!
+
+## 2) Choice and Explanation of the Stack (Reducing the Surface of Error)
+
+**Objective**: an explicit *golden path*, so Cursor/Copilot do not suggest contradictory patterns.
+
+**What to do**
+
+* Choose **one** stack per layer (e.g. *Astro+React* for web, *Node/Express* for API, *Postgres* for DB).
+* Document versions and libraries in the `README.md` (e.g. Node 20, pnpm, Tailwind 3).
+* Preconfigure **lint/format** (ESLint, Prettier, Stylelint) and **rules**.
+
+**Expected Output**
+
+* `README.md` → sections *Stack*, *Scripts*, *Conventions*.
+* `.nvmrc`, `.editorconfig`, `eslint.config.*`.
+
+**Common Errors**
+
+* Mix of frameworks without motivation; duplicate dependencies.
+
+**Metrics**
+
+* Lint pass rate in CI (target 100%).
+
+It seems that the text you wanted to translate is missing. Please provide the text you would like translated, and I'll be happy to assist you!
+
+## 3) Structuring the repository (navigability for AI)
+
+**Objective**: make the code **predictable**. The *AI-development* tools reason by patterns and proximity.
+
+**What to do**
+
+```
+/src
+  /components      # UI o unità riusabili
+  /pages           # routing
+  /services        # integrazioni esterne
+  /domain          # modelli e logica dominio
+/tests             # unit/integration/e2e
+/docs              # specifiche e decisioni
+/scripts           # utility di build/dev
+```
+
+
+
+* Add `.env.example` and `ENVIRONMENT.md` (secret policy).
+* Use **path aliases** (e.g. `@/services`) to reduce fragile imports.
+
+**Expected Output**
+
+* Folder map in the `README.md`.
+
+**Common Errors**
+
+* File "God object", cross-import circulars, `utils.js` omnivorous.
+
+**Metrics**
+
+* Average complexity per file (e.g. < 15), coupling between modules decreasing.
+
+It seems that you haven't provided the text you want to be translated. Please share the text, and I'll be happy to assist you with the translation!
+
+## 4) Domain Documentation (Semantic Grounding)
+
+**Objective**: provide **language and rules** of the business that the AI must adhere to.
+
+**What to do**
+
+* `/docs/glossario.md`: key terms, synonyms, examples.
+* `/docs/regole-dominio.md`: constraints (e.g. vacation > 26 days → HR approval).
+* ADR (*Architecture Decision Records*) for relevant choices: `/docs/adr/0001-tall-vs-astro.md`.
+
+**Expected Output**
+
+* Glossary linked from comments and prompts.
+
+**Common Errors**
+
+* Inconsistent terminology across modules → divergent AI responses.
+
+**Metrics**
+
+* Domain/week clarification issues (trend → 0).
+
+It seems that the text you wanted to translate is missing. Please provide the text you'd like me to translate, and I'll be happy to assist you!
+
+## 5) Testing and Use Cases (learning through examples)
+
+**Objective**: provide Cursor/Copilot with **verifiable patterns**.
+
+**What to do**
+
+* Set up *scaffold* tests (unit/integration). Even empty but **named**.
+* Write **spec in plain text** next to the code (e.g. `service.spec.md`).
+* Cover "critical" functions with docstring tests (input→expected) that the AI can read.
+
+**Expected Output**
+
+* `tests/**` divided by layer; report coverage in CI.
+
+**Common Errors**
+
+* Reactive tests (written *after* the bugs); giant fixtures not reusable.
+
+**Metrics**
+
+* Coverage lines/branch (initial target 60% → 80%); average time to green PR.
+
+It seems that there is no text provided for translation. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## 6) Internal prompt engineering (reusable instructions)
+
+**Objective**: standardize how you ask for help from AI for *sviluppo‑AI*.
+
+**What to do**
+
+* Folder `/prompts/` with templates: `refactor.prompt.md`, `testgen.prompt.md`, `review.prompt.md`.
+* T‑C‑G‑O structure: **Task**, **Constraints**, **Grounding** (link file/glossary), **Output** (desired schema).
+* Create a “**comment policy**” (e.g., docstring with usage examples) to enhance local context.
+
+**Expected Output**
+
+* Reusable prompts linked in the PR.
+
+**Common Errors**
+
+* Vague requests (“improve the code”); non-deterministic output.
+
+**Metrics**
+
+* % of AI requests requiring adjustments > 2 (decreasing trend).
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you'd like translated, and I'll be happy to assist!
+
+## 7) Semantic commits and changelog (traces for AI)
+
+**Objective**: transform the repo history into **signals** that AI can use.
+
+**What to do**
+
+* Conventional Commits (`feat:`, `fix:`, `perf:`, `docs:` …).
+* Hook that updates `CHANGELOG.md` (also with AI) and stages it.
+* PR template with *context, alternative solutions discarded, risks*.
+
+**Expected output**
+
+* Consistent and **readable** changelog for both AI and humans.
+
+**Common Errors**
+
+* "update" messages; PR without description.
+
+**Metrics**
+
+* Average code review time; % PR with complete description (target ≥ 90%).
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you'd like translated, and I'll be happy to assist you!
+
+## 8) Integrate AI into the development cycle (controlled collaboration)
+
+**Objective**: use AI as a *co-developer* while maintaining **human control**.
+
+**What to do**
+
+* Ask for **explanations** about the generated code before accepting it.
+* Use **feature flags** to release safely.
+* Limit AI changes to **small scopes** (one function, one file, one test at a time).
+
+**Expected Output**
+
+* PR small, motivated, reversible.
+
+**Common Errors**
+
+* "Big bang refactor" generated by AI; lock-in on opaque decisions.
+
+**Metrics**
+
+* Revert rate < 5%; post-merge/weekly defects decreasing.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you'd like me to translate, and I'll be happy to assist you!
+
+## 9) CI/CD, security and quality (minimum guarantees)
+
+**Objective**: prevent *AI development* from introducing regressions or risks.
+
+**What to do**
+
+* Pipeline with: lint + test + build + **type‑check** + **security scan** (e.g. `npm audit`, `trivy` for container).
+* **Secrets**: `.env` only local; in CI use secrets manager (Netlify env, GitHub Actions secrets).
+* **SAST/DAST** basic; dependency policy (renovate dependabot).
+
+**Expected Output**
+
+* `DEPLOY.md` with environments, commands, rollback; CI badge on the README.
+
+**Common Errors**
+
+* Committed secrets; absence of security checks.
+
+**Metrics**
+
+* Build pass rate (target ≥ 95%); critical vulnerabilities = 0; average deployment time.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## 10) Maintenance, governance, and growth (a project that ages well)
+
+**Objective**: to ensure that the project remains **AI‑friendly** over time.
+
+**What to do**
+
+* **ADR** for every important architectural decision; review quarterly.
+* **Roadmap** in `/docs/roadmap.md` with milestones and deprecations.
+* **Refactor budget**: 10–15% of sprint time for ongoing cleanup.
+
+**Expected Output**
+
+* Consistent repo, technical debt under control, *AI-development* always effective.
+
+**Common Errors**
+
+* Chaotic growth, outdated dependencies, obsolete documents.
+
+**Metrics**
+
+* Technical debt issues closed/sprint; dependencies *outdated* < 10%.
+
+It seems that the text you wanted to translate is missing. Please provide the text you would like translated, and I'll be happy to assist you!
+
+## SEO for "AI development": where and how to use the keyword
+
+* Insert **sviluppo‑AI** in: title H1/H2, `description`, `excerpt`, first paragraph, 2–3 section headings.
+* Use natural variants: *sviluppo AI*, *strumenti AI per sviluppatori*, *AI nel ciclo di sviluppo*.
+* Internally link to: *RAG per codice*, *AI per changelog/README*, *Agentic AI in CI/CD*.
+* Add **FAQ** at the bottom with schema markup (e.g. *Cos’è lo sviluppo‑AI?*, *Come preparare il repo per Cursor?*).
+
+It seems that the text you wanted to translate is missing. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## Operational Checklist (Printable and Detailed)
+
+This checklist is designed as a practical tool for teams adopting *AI development* tools. Each item includes **action, objective, and success metric**.
+
+* [ ] **Vision and KPI in `/docs/vision.md`**
+  *Objective*: provide strategic context to AI.
+  *Metric*: % user stories with acceptance criteria ≥ 80%.
+
+* [ ] **Stack and versions in the `README.md`**
+  *Objective*: reduce ambiguity on frameworks/libraries.
+  *Metric*: lint pass rate 100% in CI.
+
+* [ ] **Standard folder structure + path alias**
+  *Objective*: navigable repo and clear patterns.
+  *Metric*: average coupling between modules decreasing, file complexity < 15.
+
+* [ ] **Glossary and Domain Rules**
+  *Objective*: semantic grounding for consistent AI responses.
+  *Metric*: domain clarification issues → 0.
+
+* [ ] **Scaffold test + coverage in CI**
+  *Objective*: provide verifiable examples.
+  *Metric*: coverage from 60% to 80% within 3 sprints.
+
+* [ ] **`/prompts/` with template T‑C‑G‑O**
+  *Objective*: standardize AI requests.
+  *Metric*: % prompts to refine < 20%.
+
+* [ ] **Conventional Commits + CHANGELOG**
+  *Objective*: readable history usable by AI.
+  *Metric*: % PR with complete description ≥ 90%.
+
+* [ ] **Pipeline CI: lint/test/build/type/security**
+  *Objective*: block regressions and vulnerabilities.
+  *Metric*: build pass rate ≥ 95%, critical vulnerabilities = 0.
+
+* [ ] **Secret Management and `.env` Policy**
+  *Objective*: prevent credential leaks.
+  *Metric*: committed secrets = 0.
+
+* [ ] **ADR, roadmap and refactor budget**
+  *Objective*: maintain governance and sustainable growth.
+  *Metric*: closed technical debt issues/sprint, outdated dependencies < 10%.
+
+It seems that there is no text provided for translation. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## Conclusion
+
+An effective *AI development* arises from **discipline and clarity**. By organizing the context (repo, domain, test, prompt, governance), you transform Cursor/Copilot into **reliable digital colleagues**, reduce errors, and accelerate time-to-market.
+
+👉 Do you want an audit of your repository to make it *AI‑ready* in 7 days? [Contact me](/contact).

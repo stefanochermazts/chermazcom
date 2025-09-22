@@ -1,0 +1,130 @@
+---
+title: 'Agentic AI in RAG: kako zgraditi aplikacije, ki se učijo in razmišljajo'
+date: '2025-09-08'
+excerpt: >-
+  Od teorije do prakse: odkrijte, kako uporabljati Retrieval Augmented Generation in agente AI za razvoj resnično
+  inteligentnih, zanesljivih in skalabilnih aplikacij.
+description: >-
+  Poglobitev o Agentic AI in RAG: kaj sta, kako delujeta, kakšne so razlike in kako ju integrirati v razvoj programske
+  opreme. Arhitekture, primeri uporabe in najboljše prakse za AI aplikacije v produkciji.
+slug: sl-agentic-ai-in-rag-kako-zgraditi-aplikacije-ki-se-ucijo-in-razmisljajo
+status: publish
+categories:
+  - ai-development
+tags:
+  - agentic ai
+  - rag
+  - ai development
+  - chatbot
+  - automazione
+ogImage: /posts/agentic-ai-rag-applicazioni/og.webp
+image: /posts/agentic-ai-rag-applicazioni/card.webp
+lang: sl
+sourceFile: insights/agentic-ai-rag-come-costruire-applicazioni-che-apprendono-e-ragionano.mdx
+sourceSlug: agentic-ai-rag-come-costruire-applicazioni-che-apprendono-e-ragionano
+sourceLang: it
+---
+
+Umetna inteligenca se ne omejuje več le na dokončanje stavkov ali predlaganje delov kode. Z razvojem **velikih jezikovnih modelov (LLM)** je naslednji korak, da jih spremenimo v **agente**, sposobne interakcije z zunanjimi okolji, posvetovanja z bazami znanja in sprejemanja avtonomnih odločitev. To, kar danes imenujemo **Agentic AI**.
+
+Hkrati so podjetja spoznala, da "čista" zasnova ni dovolj za zagotavljanje zanesljivih odgovorov: potrebno jo je povezati z **knowledge base aktualnimi**. Tukaj pride v igro paradigma **Retrieval Augmented Generation (RAG)**, ki združuje iskanje in generacijo za zagotavljanje bolj natančnih in preverljivih izhodov.
+
+V tem članku analiziramo, kako delujejo, v čem se razlikujejo in kako jih lahko integriramo za gradnjo aplikacij, ki **se učijo, razmišljajo in upoštevajo zahteve skladnosti**.
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text you'd like to have translated into Slovenian?
+
+Un agent AI ne omejuje le na odgovarjanje: sposoben je **izvajati dejanja**, spremljati rezultate in prilagajati obnašanje.  
+Primeri agencijskih sposobnosti:
+- Dostop do baze podatkov in izvajanje poizvedb  
+- Interakcija z zunanjimi API-ji (npr. rezervacija klica na Teams)  
+- Pisanje kode, testiranje in izvajanje commit-a na GitHub  
+- Odločanje, ali vključiti človeka v primeru nejasnosti
+
+Logika ni več "vhod → izhod", temveč **cikel zaznavanja–ukrepanja–povratne informacije**, navdihnjen s samostojnimi sistemi.
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text you would like me to translate into Slovenian?
+
+## Kaj je Retrieval Augmented Generation (RAG)
+
+RAG odgovarja na znano omejitev LLM: pomanjkanje posodobitev in nagnjenost k "halucinacijam".  
+Deluje tako:  
+1. Vhod uporabnika se pretvori v embedding.  
+2. Embedding se primerja z **vector database** (Pinecone, Weaviate, Qdrant, Postgres+pgvector).  
+3. Najbolj relevantni dokumenti se pridobijo in posredujejo modelu.  
+4. LLM generira odgovor na podlagi virov.
+
+Rezultat je izhod bolj **kontekstualiziran, citabilen in zanesljiv**.
+
+I'm sorry, but it seems that you haven't provided the text you want to be translated. Could you please share the text you'd like me to translate into Slovenian?
+
+## Razlike med tradicionalnimi RAG in Agentic AI
+
+- **RAG** → povečuje *zunanje pomnilnik* modela. Pridobiva podatke, vendar LLM ostaja pasiven.  
+- **Agentic AI** → dodaja *možnost delovanja*. Agent lahko odloči, kateri orodje uporabiti, kdaj poizvedovati v bazi znanja, kako orkestrirati korake.
+
+👉 Kombinacija obeh prinaša močne rešitve: agenti, ki **posvetujejo ažurne vire, razmišljajo o rezultatih in ukrepajo v skladu s tem**.
+
+I'm sorry, but it seems that the text you intended to provide for translation is missing. Please provide the text you'd like me to translate to Slovenian, and I'll be happy to assist you!
+
+## Tipična arhitektura
+
+Un sistema Agentic AI + RAG vključuje:
+
+- **LLM core**: možgani (npr. GPT-4o, Claude, Llama).  
+- **Orchestratore di agenti**: LangChain, Semantic Kernel, LlamaIndex.  
+- **Vector DB**: repozitorij za embedding za iskanje.  
+- **Toolset esterno**: API, podatkovne baze, Git repozitoriji, CRM.  
+- **Layer di governance**: beleženje, spremljanje, varnostni nadzori.
+
+Ta arhitektura podpira tako napredne chatbot-e kot tudi integrirane podjetniške aplikacije.
+
+Sure, please provide the text you would like me to translate to Slovenian.
+
+## Konkretni primeri uporabe
+
+### 1. Chatbot z človeško eskalacijo
+HR asistent odgovarja na vprašanja zaposlenih. Če ne najde posodobljene politike, vpraša SharePoint (RAG). Če je zaupanje nizko, samodejno ustvari vstopnico za HR oddelek (agentična akcija).
+
+### 2. Avtomatizacija DevOps
+Agent spremlja CI/CD pipeline. Ko zazna napako pri gradnji, pregleda interno dokumentacijo (RAG), predlaga popravilo in odpre pull request na GitHub.
+
+### 3. Inteligenca dokumentov v reguliranih sektorjih
+V bančništvu ali zdravstvu lahko agent AI izvleče klavzule iz pogodb, jih preveri v skladu z aktualno zakonodajo (RAG) in označi neskladnosti, z avditiranim dnevnikom.
+
+I'm sorry, but it seems that there is no text provided for translation. Please provide the text you would like to have translated to Slovenian, and I'll be happy to assist you!
+
+## Izzivi in tveganja
+
+- **Haluacijski ostanek**: tudi pri RAG je treba preveriti odgovore.  
+- **Varnost**: agent, ki deluje na zunanjih API-jih, mora imeti strogo nadzorovane pravice.  
+- **Upravljanje**: potrebne so politike revizije, razložljivosti in popolnega beleženja.  
+- **Učinkovitost**: usklajevanje pridobivanja + agenta lahko uvede latenco.
+
+I'm sorry, but it seems that you haven't provided any text to translate. Please provide the text you'd like translated into Slovenian, and I'll be happy to assist you!
+
+## Kako testirati in validirati AI agente
+
+1. **Enotno testiranje na pozivih in orodjih**: validacija posameznih funkcij.  
+2. **Testiranje od začetka do konca**: simulacija celotnih pogovorov.  
+3. **Metrike kakovosti**: natančnost, natančnost pridobivanja, stopnja vračanja.  
+4. **Neprekinjena evalvacija**: spremljanje v produkciji z anonimnimi podatkovnimi seti.
+
+I'm sorry, but it seems that you haven't provided the text you want to be translated. Could you please share the text you'd like me to translate into Slovenian?
+
+## Najboljše prakse za sprejemanje
+
+- Začeti z **omejenim MVP** (npr. en sam agent + orodje).  
+- Integrirati **guardrail**: meje delovanja, bel seznam API.  
+- Dokumentirati celoten tok: od pridobivanja do agentnih odločitev.  
+- Vključiti končne uporabnike v teste, da zberemo resnične povratne informacije.
+
+I'm sorry, but it seems that you haven't provided any text to translate. Please provide the text you'd like me to translate to Slovenian, and I'll be happy to assist you!
+
+## Zaključek
+
+Agentic AI in RAG predstavljata **novo mejo razvoja programske opreme**: ne več izolirani modeli, temveč sistemi, ki kombinirajo **posodobljeno znanje in sposobnost delovanja**.  
+Tisti, ki jih bodo znali integrirati z upravljanjem in strateško vizijo, bodo lahko pridobili bolj inteligentne, zanesljive in predvsem **production-ready** aplikacije.
+
+I'm sorry, but it seems that the text you want to translate is missing. Could you please provide the text you would like me to translate into Slovenian?
+
+➡️ *Želiš razumeti, kako implementirati RAG in agente AI v svoje poslovne projekte? [Kontaktiraj me](/contact) za ciljno svetovanje.*

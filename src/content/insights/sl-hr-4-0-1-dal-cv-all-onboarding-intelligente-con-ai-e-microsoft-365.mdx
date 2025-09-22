@@ -1,0 +1,192 @@
+---
+title: 'HR 4.0 #1 – Dal CV all’onboarding intelligente con AI e Microsoft 365'
+slug: sl-hr-4-0-1-dal-cv-all-onboarding-intelligente-con-ai-e-microsoft-365
+date: 2025-09-17T00:00:00.000Z
+status: publish
+description: >-
+  Kako združiti AI in Microsoft 365 za pospešitev izbire kadrov in uvajanja: od analize življenjepisov do ustvarjanja HR
+  portala na SharePoint.
+excerpt: >-
+  Odkrijte, kako lahko AI analizira življenjepise in ustvari avtomatske kartice v SharePoint, ter tako spremeni izbiro
+  in uvajanje kadrov v hiter, standardiziran in varen postopek.
+categories:
+  - ai-development
+tags:
+  - sharepoint
+  - PowerAutomate
+  - NIS2
+  - DORA
+  - compliance
+image: /posts/hr-ai-onboarding/card.webp
+ogImage: /posts/hr-ai-onboarding/og.webp
+lang: sl
+sourceFile: insights/hr-ai-onboarding.mdx
+sourceSlug: hr-ai-onboarding
+sourceLang: it
+---
+
+# HR 4.0 #1 – Pošlji CV za pametno uvajanje z AI in Microsoft 365
+
+## Uvod
+
+Oddelek za človeške vire je pogosto preplavljen z ročnimi in ponavljajočimi se nalogami: pregledovanje življenjepisov, zbiranje dokumentov za zaposlitve, priprava kontrolnih seznamov in materialov za uvajanje.
+V konkurenčnem okolju, kjer čas zaposlitve pomeni razliko, lahko ti počasni procesi ogrozijo sposobnost privabljanja in zadrževanja najboljših talentov.
+
+Z novimi tehnologijami pa je mogoče obrniti paradigmo. V tem prvem poglavju serije *HR 4.0* si bomo ogledali, kako lahko **AI development** in **Microsoft 365** združimo za preoblikovanje upravljanja s prijavami in uvajanjem, kar omogoča, da je postopek hiter, standardiziran in skalabilen.
+
+## Il problema di partenza
+
+Imaginirajmo srednje veliko podjetje, ki prejme **stotine prijav vsak mesec**. 
+HR-ji morajo:
+
+* ročno prebrati vsak CV,
+* izvleči ključne kompetence,
+* primerjati kandidate,
+* ročno pripraviti dokumentacijo za vstop.
+
+Rezultat?
+
+* **Tempo izgubljen** v dejavnostih z nizko vrednostjo,
+* **Napake in subjektivnost** pri izbiri,
+* **Neenoten onboarding**, s kontrolnimi seznami, ki se razlikujejo od managerja do managerja.
+
+I'm sorry, but it seems that the text you want to translate is missing. Could you please provide the text you would like to have translated into Slovenian?
+
+## Rešitev: AI + Microsoft 365
+
+Ključ je kombinirati **intelligenza artificiale** za razčlenjevanje CV-jev z ekosistemom **Microsoft 365**, še posebej **SharePoint** in **Teams**.
+
+### Korak 1 – Parsiranje CV-jev z AI
+
+Model AI (na primer GPT-4.1 ali ekvivalenti) analizira življenjepise v PDF/Word in iz njih izvleče strukturirane informacije:
+
+* tehnične kompetence,
+* delovne izkušnje,
+* izobraževanje,
+* mehke veščine.
+
+Rezultat je **JSON strukturiran** enostavno integrabilen v baze podatkov ali sezname SharePoint.
+
+### Korak 2 – Ustvarjanje kartic kandidatov v SharePoint
+
+Vsak analiziran CV postane **digitalna kartica** v seznamu SharePoint, s predhodno izpolnjenimi polji:
+
+* Ime, vloga, izkušnje,
+* Ključne kompetence,
+* AI ocena ujemanja glede na delovni profil.
+
+### Korak 3 – Portale Onboarding
+
+Ko je kandidat izbran, SharePoint postane tudi **portal za uvajanje**:
+
+* standardni dokumenti na voljo v OneDrive,
+* kontrolni seznam nalog (npr. IT dostopi, identifikacijske kartice, usposabljanje),
+* digitalni obrazci za podjetniške politike,
+* namenski kanal Teams za sprejem novega zaposlenega.
+
+Sure! Please provide the text you would like me to translate to Slovenian.
+
+## Tehnični primer: AI za obdelavo življenjepisov
+
+Per prikaz bolj konkretnega dela, tukaj je **primer v Pythonu**, ki uporablja API OpenAI za pretvorbo CV-ja v PDF v strukturiran JSON:
+
+```python
+import openai
+from PyPDF2 import PdfReader
+
+# Leggi testo da CV PDF
+reader = PdfReader("cv_candidato.pdf")
+text = "".join([page.extract_text() for page in reader.pages])
+
+# Chiamata API per estrarre dati
+response = openai.ChatCompletion.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "Estrai competenze, esperienze e formazione da un CV. Rispondi in JSON."},
+        {"role": "user", "content": text}
+    ],
+    temperature=0.2
+)
+
+print(response.choices[0].message["content"])
+```
+
+
+
+Očekovani izhod (poenostavljen primer):
+
+```json
+{
+  "nome": "Mario Rossi",
+  "ruolo": "Data Analyst",
+  "competenze": ["SQL", "Power BI", "Python"],
+  "esperienze": [
+    {"azienda": "XYZ Spa", "anni": 3, "ruolo": "Business Analyst"}
+  ],
+  "formazione": "Laurea in Economia"
+}
+```
+
+
+
+Ti podatki se lahko samodejno shranijo v **SharePoint** seznam preko Microsoft Graph API ali Power Automate.
+
+I'm sorry, but it seems that you haven't provided the text you want to be translated. Please share the text, and I'll be happy to assist you with the translation!
+
+## Konkretné prednosti
+
+Kombinirani pristop prinaša takojšnje koristi:
+
+### Za HR
+
+* Zmanjšanje **70% časa** porabljenega za pregled.
+* Možnost osredotočiti se na intervjuje in na “kulturo ustreznost”.
+
+### Za kandidate
+
+* Hitrejši odgovori.
+* Jasno in standardizirano uvajanje.
+
+### Za podjetje
+
+* Procesi HR **skalabilni** tudi v obdobjih močne rasti.
+* Boljše **employer branding**: kandidat zaznava organizacijo in sodobnost.
+
+I'm sorry, but it seems that there is no text provided for translation. Please provide the text you would like to have translated to Slovenian, and I'll be happy to assist you!
+
+## Zasebnost in varnost
+
+Upravljanje s občutljivimi osebnimi podatki, kot so življenjepisi, zahteva pozornost:
+
+* AI mora biti uporabljena v načinu **skladnosti** (izogibanje pošiljanju občutljivih podatkov storitvam, ki niso skladne z GDPR).
+* Microsoft 365 zagotavlja varno upravljanje dokumentov z **nadzorom dostopa in šifriranjem**.
+* Priporočljivo je vzdrževati posodobljen **register obdelav**.
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Please provide the text you'd like to have translated to Slovenian, and I'll be happy to assist you!
+
+## Razširitev: avtomatsko rangiranje kandidatov
+
+Un ulteriore passo lahko predstavlja **avtomatsko ocenjevanje ujemanja**:
+
+* Določijo se ključni zahtevki za delovni profil (npr. Python, SQL, izkušnje ≥3 leta).
+* AI izračuna točko za vsak CV.
+* SharePoint razvrsti kandidate glede na točko → HR se takoj osredotoči na top 10%.
+
+I'm sorry, but it seems that the text you intended to provide for translation is missing. Could you please provide the text you would like me to translate into Slovenian?
+
+## Zaključek
+
+Ta prvi poglavje serije *HR 4.0* prikazuje, kako lahko združitev med **AI development** in **Microsoft 365** radikalno spremeni izbiro in uvajanje novih zaposlenih.  
+Iz počasnega in ročnega procesa → v **hitro, standardizirano in varno** pot.
+
+V naslednjih člankih bomo videli, kako razširiti digitalizacijo HR:
+
+* **Avtomatizirani delovni tokovi** za dopust in uspešnost (Člen 2),
+* **Varnost in skladnost** podatkov HR v luči DORA/NIS2 (Člen 3).
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text you would like to have translated into Slovenian?
+
+## Poziv k dejanju
+
+Želiš razumeti, kako implementirati podobne rešitve v svojem oddelku za HR?  
+👉 [Kontaktiraj me](/contact) za prilagojeno svetovanje.
