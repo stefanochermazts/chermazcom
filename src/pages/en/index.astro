@@ -20,6 +20,13 @@ const recentInsights = latestInsights
   .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
   .slice(0, 3)
 
+// Series: category "series"
+const seriesInsights = latestInsights
+  .filter(post => post.data.status === 'publish')
+  .filter(post => Array.isArray(post.data.categories) && post.data.categories.some((c) => `${c}`.toLowerCase() === 'series'))
+  .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
+  .slice(0, 3)
+
 const featuredCaseStudies = await getCollection('caseStudies', ({ id }) => 
   id.startsWith('en-')
 )
@@ -59,6 +66,14 @@ const recentCaseStudies = featuredCaseStudies
     ctaText={en.pages.home.expertise.ctaText}
     ctaHref={en.pages.home.expertise.ctaHref}
     areas={en.pages.home.expertise.areas}
+  />
+  <LatestInsights 
+    items={seriesInsights} 
+    baseUrl="/en/insights" 
+    title="Featured series"
+    subtitle="Curated multi-part deep dives to master each topic"
+    allArticlesLabel="All series"
+    locale={en.pages.home.latestInsights.locale}
   />
   <CaseStudies 
     items={recentCaseStudies} 

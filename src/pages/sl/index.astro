@@ -20,6 +20,13 @@ const recentInsights = latestInsights
   .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
   .slice(0, 3)
 
+// Series: category "series"
+const seriesInsights = latestInsights
+  .filter(post => post.data.status === 'publish')
+  .filter(post => Array.isArray(post.data.categories) && post.data.categories.some((c) => `${c}`.toLowerCase() === 'series'))
+  .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
+  .slice(0, 3)
+
 const featuredCaseStudies = await getCollection('caseStudies', ({ id }) => 
   id.startsWith('sl-')
 )
@@ -59,6 +66,14 @@ const recentCaseStudies = featuredCaseStudies
     ctaText={sl.pages.home.expertise.ctaText}
     ctaHref={sl.pages.home.expertise.ctaHref}
     areas={sl.pages.home.expertise.areas}
+  />
+  <LatestInsights 
+    items={seriesInsights} 
+    baseUrl="/sl/insights" 
+    title="Izbrane serije"
+    subtitle="Tematske večdelne vodnike za poglobljeno razumevanje"
+    allArticlesLabel="Vse serije"
+    locale={sl.pages.home.latestInsights.locale}
   />
   <CaseStudies 
     items={recentCaseStudies} 

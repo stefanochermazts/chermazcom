@@ -6,6 +6,7 @@ import Services from '../../components/Home/Services.astro'
 import Expertise from '../../components/Home/Expertise.astro'
 import CaseStudies from '../../components/Home/CaseStudies.astro'
 import LatestInsights from '../../components/Home/LatestInsights.astro'
+// Sezione Series: articoli con categoria "series"
 import AIDemos from '../../components/Home/AIDemos.astro'
 import Testimonials from '../../components/Home/Testimonials.astro'
 import Contact from '../../components/Home/Contact.astro'
@@ -18,6 +19,13 @@ const latestInsights = await getCollection('insights', ({ id }) =>
 )
 const recentInsights = latestInsights
   .filter(post => post.data.status === 'publish')
+  .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
+  .slice(0, 3)
+
+// Series: filtra gli insights che contengono la categoria "series"
+const seriesInsights = latestInsights
+  .filter(post => post.data.status === 'publish')
+  .filter(post => Array.isArray(post.data.categories) && post.data.categories.some((c) => `${c}`.toLowerCase() === 'series'))
   .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
   .slice(0, 3)
 
@@ -60,6 +68,14 @@ const recentCaseStudies = featuredCaseStudies
     ctaText={it.pages.home.expertise.ctaText}
     ctaHref={it.pages.home.expertise.ctaHref}
     areas={it.pages.home.expertise.areas}
+  />
+  <LatestInsights 
+    items={seriesInsights} 
+    baseUrl="/it/insights" 
+    title="Serie in evidenza"
+    subtitle="Percorsi tematici per approfondire un argomento, step-by-step"
+    allArticlesLabel="Tutte le serie"
+    locale={it.pages.home.latestInsights.locale}
   />
   <CaseStudies 
     items={recentCaseStudies} 
