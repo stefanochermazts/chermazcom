@@ -20,6 +20,10 @@ const insights = defineCollection({
     featuredImage: z.string().optional(),
     slug: z.string().optional(),
     lang: z.string().optional(),
+    // mapping i18n
+    sourceFile: z.string().optional(),
+    sourceSlug: z.string().optional(),
+    sourceLang: z.string().optional(),
   }),
 })
 

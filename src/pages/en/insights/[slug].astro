@@ -6,8 +6,24 @@ import { getRelatedPostsSimple, getFallbackPosts } from '../../../utils/relatedP
 export const prerender = true;
 
 const { slug } = Astro.params
-const entry = await getEntry('insights', `en-${slug}`)
-if (!entry) throw new Error('Not found')
+console.log('[EN insights] request slug:', slug)
+let entry = await getEntry('insights', `en-${slug}`)
+if (!entry) {
+  // Fallback: cerca la traduzione EN usando sourceSlug e redirigi
+  const enPosts = await getCollection('insights', ({ id }) => id.startsWith('en-'))
+  console.log('[EN insights] fallback search among', enPosts.length, 'posts')
+  const fallback = enPosts.find((e) => (e.data?.sourceSlug ?? '') === slug)
+  if (!fallback) {
+    console.warn('[EN insights] no fallback found for sourceSlug:', slug)
+  }
+  if (fallback) {
+    const full = fallback.slug ?? fallback.id.replace(/\.mdx?$/, '')
+    const local = full.replace(/^en-/, '')
+    console.log('[EN insights] redirecting to localized slug:', local)
+    return Astro.redirect(`/en/insights/${local}/`, 301)
+  }
+  throw new Error('Not found')
+}
 const { Content } = await render(entry)
 
 // Carica tutti i post inglesi per calcolare i correlati
@@ -24,14 +40,25 @@ if (relatedPosts.length < 2) {
   relatedPosts = [...relatedPosts, ...additionalPosts].slice(0, 3)
 }
 export async function getStaticPaths() {
-  const collection = (await getCollection('insights')).filter((e)=> e.id.startsWith('en-'))
-  return collection
-    .filter((e) => (e.data?.status ?? 'publish') === 'publish')
-    .map((e) => {
-      const full = e.slug ?? e.id.replace(/\.mdx?$/, '')
-      const local = full.replace(/^en-/, '')
-      return { params: { slug: local } }
-    })
+  const collection = (await getCollection('insights')).filter((e) => e.id.startsWith('en-'))
+  const paths = []
+  for (const e of collection.filter((e) => (e.data?.status ?? 'publish') === 'publish')) {
+    const full = e.slug ?? e.id.replace(/\.mdx?$/, '')
+    const local = full.replace(/^en-/, '')
+    paths.push({ params: { slug: local } })
+    const sourceSlug = e.data?.sourceSlug
+    if (sourceSlug && sourceSlug !== local) {
+      paths.push({ params: { slug: sourceSlug } })
+    }
+  }
+  console.log('[EN insights] getStaticPaths candidates:', paths.map(p => p.params.slug))
+  const seen = new Set()
+  return paths.filter((p) => {
+    const key = p.params.slug
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
 }
 ---
 <PostLayout frontmatter={entry.data} slug={slug} relatedPosts={relatedPosts}>

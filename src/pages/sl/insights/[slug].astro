@@ -9,18 +9,44 @@ export async function getStaticPaths() {
   const collection = await getCollection('insights', ({ id }) => 
     id.startsWith('sl-')
   )
-  return collection
-    .filter((e) => (e.data?.status ?? 'publish') === 'publish')
-    .map((e) => {
-      const full = e.slug ?? e.id.replace(/\.mdx?$/, '')
-      const local = full.replace(/^sl-/, '')
-      return { params: { slug: local } }
-    })
+  const paths = []
+  for (const e of collection.filter((e) => (e.data?.status ?? 'publish') === 'publish')) {
+    const full = e.slug ?? e.id.replace(/\.mdx?$/, '')
+    const local = full.replace(/^sl-/, '')
+    paths.push({ params: { slug: local } })
+    const sourceSlug = e.data?.sourceSlug
+    if (sourceSlug && sourceSlug !== local) {
+      paths.push({ params: { slug: sourceSlug } })
+    }
+  }
+  const seen = new Set()
+  return paths.filter((p) => {
+    const key = p.params.slug
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
 }
 
 const { slug } = Astro.params
-const entry = await getEntry('insights', `sl-${slug}`)
-if (!entry) throw new Error('Not found')
+console.log('[SL insights] request slug:', slug)
+let entry = await getEntry('insights', `sl-${slug}`)
+if (!entry) {
+  // Fallback: cerca la traduzione SL usando sourceSlug e redirigi
+  const slPosts = await getCollection('insights', ({ id }) => id.startsWith('sl-'))
+  console.log('[SL insights] fallback search among', slPosts.length, 'posts')
+  const fallback = slPosts.find((e) => (e.data?.sourceSlug ?? '') === slug)
+  if (!fallback) {
+    console.warn('[SL insights] no fallback found for sourceSlug:', slug)
+  }
+  if (fallback) {
+    const full = fallback.slug ?? fallback.id.replace(/\.mdx?$/, '')
+    const local = full.replace(/^sl-/, '')
+    console.log('[SL insights] redirecting to localized slug:', local)
+    return Astro.redirect(`/sl/insights/${local}/`, 301)
+  }
+  throw new Error('Not found')
+}
 const { Content } = await render(entry)
 
 // Carica tutti i post sloveni per calcolare i correlati
