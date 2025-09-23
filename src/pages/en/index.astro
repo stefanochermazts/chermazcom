@@ -12,18 +12,23 @@ import { getCollection } from 'astro:content'
 import en from '../../i18n/en.json'
 
 // Dati per la pillar page - contenuti inglesi
-const latestInsights = await getCollection('insights', ({ id }) => 
-  id.startsWith('en-')
-)
+const latestInsights = await getCollection('insights', ({ id }) => id.startsWith('en-'))
+const itInsights = await getCollection('insights', ({ id }) => !id.startsWith('en-') && !id.startsWith('sl-'))
 const recentInsights = latestInsights
   .filter(post => post.data.status === 'publish')
   .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
   .slice(0, 3)
 
-// Series: category "series"
-const seriesInsights = latestInsights
+// Series: prendi i post IT con categoria "series" e mappa le corrispondenti traduzioni EN via sourceSlug
+const italianSeries = itInsights
   .filter(post => post.data.status === 'publish')
   .filter(post => Array.isArray(post.data.categories) && post.data.categories.some((c) => `${c}`.toLowerCase() === 'series'))
+
+const italianSeriesSlugs = italianSeries.map((post) => (post.slug ?? post.id.replace(/\.mdx?$/, '')))
+
+const seriesInsights = latestInsights
+  .filter(post => post.data.status === 'publish')
+  .filter(post => italianSeriesSlugs.includes(post.data?.sourceSlug ?? ''))
   .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
   .slice(0, 3)
 
@@ -67,14 +72,16 @@ const recentCaseStudies = featuredCaseStudies
     ctaHref={en.pages.home.expertise.ctaHref}
     areas={en.pages.home.expertise.areas}
   />
-  <LatestInsights 
-    items={seriesInsights} 
-    baseUrl="/en/insights" 
-    title="Featured series"
-    subtitle="Curated multi-part deep dives to master each topic"
-    allArticlesLabel="All series"
-    locale={en.pages.home.latestInsights.locale}
-  />
+  {seriesInsights.length > 0 && (
+    <LatestInsights 
+      items={seriesInsights} 
+      baseUrl="/en/insights" 
+      title="Featured series"
+      subtitle="Curated multi-part deep dives to master each topic"
+      allArticlesLabel="All series"
+      locale={en.pages.home.latestInsights.locale}
+    />
+  )}
   <CaseStudies 
     items={recentCaseStudies} 
     baseUrl="/en/case-studies" 
