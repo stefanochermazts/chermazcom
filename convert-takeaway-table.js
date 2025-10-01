@@ -12,7 +12,8 @@ import path from 'path';
 function convertMarkdownTable(content, customTitle = null, componentType = 'auto') {
   // Pattern generico per trovare tabelle markdown con N colonne
   // Cerca: header opzionale + tabella con header + separatori + righe dati
-  const tablePattern = /((?:^##?\s+(.+)\n)?)\|([^|\n]+(?:\|[^|\n]+)*)\|\n\|([^|\n]*(?:\|[^|\n]*)*)\|\n((?:\|[^|\n]*(?:\|[^|\n]*)*\|\n?)+)/gm;
+  // Supporta sia Unix (\n) che Windows (\r\n) line endings
+  const tablePattern = /((?:^##?\s+(.+)[\r\n]+)?)\|([^|\r\n]+(?:\|[^|\r\n]+)*)\|[\r\n]+\|([^|\r\n]*(?:\|[^|\r\n]*)*)\|[\r\n]+((?:\|[^|\r\n]*(?:\|[^|\r\n]*)*\|(?:[\r\n]+|$))+)/gm;
   
   return content.replace(tablePattern, (match, headerSection, headerTitle, headerRow, separatorRow, tableRows) => {
     // Estrai gli header delle colonne
