@@ -12,11 +12,19 @@
 
   *:focus,
   *:focus-visible {
-    outline: 2px dashed light-dark(black, white);
-    outline-color: light-dark(black, white);
+    outline: 2px dashed black;
+    outline-color: black;
     outline-offset: 0;
-    -webkit-box-shadow: 0 0 0 2px light-dark(white, black);
-    box-shadow: 0 0 0 2px light-dark(white, black);
+    -webkit-box-shadow: 0 0 0 2px white;
+    box-shadow: 0 0 0 2px white;
+    
+    .dark &,
+    .darkmode & {
+      outline: 2px dashed white;
+      outline-color: white;
+      -webkit-box-shadow: 0 0 0 2px black;
+      box-shadow: 0 0 0 2px black;
+    }
   }
 
   *:focus:not(:focus-visible) {
@@ -73,7 +81,12 @@
 
   input,
   textarea {
-    border: 1px solid light-dark(gray, #64748b);
+    border: 1px solid gray;
+    
+    .dark &,
+    .darkmode & {
+      border-color: #64748b;
+    }
   }
 
   button:not([class]) {

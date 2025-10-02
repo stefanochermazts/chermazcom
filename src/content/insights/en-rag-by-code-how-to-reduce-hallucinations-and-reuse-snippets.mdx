@@ -1,0 +1,162 @@
+---
+title: 'RAG by code: how to reduce hallucinations and reuse snippets'
+slug: en-rag-by-code-how-to-reduce-hallucinations-and-reuse-snippets
+date: 2025-10-02T00:00:00.000Z
+lang: en
+status: publish
+description: Discover how to apply RAG for code to reduce hallucinations in LLMs and reuse existing snippets in your projects.
+excerpt: >-
+  The RAG for code is the new frontier of AI development: it reduces hallucinations and improves the reuse of snippets,
+  enhancing quality and productivity.
+categories:
+  - ai-development
+tags:
+  - ai
+  - sviluppo-ai
+  - rag
+  - codice
+  - snippet
+ogImage: /posts/rag-per-codice/og.webp
+image: /posts/rag-per-codice/card.webp
+sourceFile: insights/rag-per-codice.mdx
+sourceSlug: rag-per-codice
+sourceLang: it
+---
+
+# RAG by code: how to reduce hallucinations and reuse snippets
+
+## Introduction
+
+One of the most discussed issues in the use of AI in software development concerns **hallucinations**: the model generates syntactically correct code but logically incorrect or out-of-context. This happens because AI does not have direct access to the repository and bases its responses solely on training data. The solution is **RAG for code** (Retrieval Augmented Generation), an approach that integrates a semantic search engine with the language model to retrieve real snippets and functions from the project.
+
+The RAG for code represents one of the most interesting applications of [sviluppo-AI](/sviluppo-ai), as it combines the power of generative models with the practicality of existing code.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you would like me to translate, and I'll be happy to assist you!
+
+## What is RAG for code
+
+The **Retrieval Augmented Generation (RAG)** is a technique that combines two phases:
+
+1. **Retrieval** → the system searches the archives (repository, database, documentation) for the most relevant code snippets.
+2. **Generation** → the AI model uses these snippets as context to produce a coherent and accurate response.
+
+In the context of software development, the RAG for code allows for:
+
+* Reduce logical and syntactical errors.
+* Reuse already tested snippets.
+* Obtain responses that are more aligned with the style and libraries used by the team.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you'd like translated, and I'll be happy to assist!
+
+## How it works in practice
+
+Let's imagine a team using Cursor or GitHub Copilot. Without RAG, the AI suggests "generic" solutions based on training. With RAG for code instead:
+
+* The developer asks a question → e.g. *“How do I implement a connection to PostgreSQL with pooling?”*
+* The RAG engine searches the snippets in the repository and finds a similar function already used.
+* The AI combines the found context with generation and proposes a solution that adheres to the actual project.
+
+In this way, the result is not only syntactically correct but also aligned with the **business stack**.
+
+It seems that there is no text provided for translation. Please provide the text you would like to have translated to English, and I'll be happy to assist you!
+
+## Implementation Example
+
+Here is a basic template in Python for building a RAG prototype for code:
+
+```python
+from openai import OpenAI
+from my_vector_db import search_snippets  # funzione che interroga un DB vettoriale
+
+client = OpenAI(api_key="API_KEY")
+
+query = "Funzione Python per leggere da un file CSV e inserire in PostgreSQL"
+
+# Recupero snippet rilevanti
+docs = search_snippets(query, top_k=3)
+
+context = "\n".join([d["content"] for d in docs])
+
+prompt = f"Usa i seguenti snippet come contesto e genera una funzione ottimizzata:\n{context}\n\nDomanda: {query}"
+
+response = client.chat.completions.create(
+    model="gpt-4.1",
+    messages=[{"role": "user", "content": prompt}]
+)
+
+print(response.choices[0].message.content)
+```
+
+
+
+In this example, the RAG for code retrieves snippets from a vector database (e.g., based on **Pinecone**, **Weaviate**, or PostgreSQL with the **pgvector** extension) and provides them to the OpenAI model as context.
+
+It seems that the text you want to translate is missing. Please provide the text you would like me to translate to English, and I'll be happy to assist you!
+
+## Benefits of RAG for Code
+
+The main advantages are:
+
+* **Reduction of hallucinations**: AI is based on real code.
+* **Reuse**: maximizes the value of already validated snippets and functions.
+* **Consistency**: maintains the style and conventions of the team.
+* **Efficiency**: accelerates writing, debugging, and maintenance.
+
+These benefits strengthen the role of the RAG as an essential component in [AI-development](/sviluppo-ai) pipelines.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you'd like me to translate, and I'll be happy to assist you!
+
+## Limits and Considerations
+
+Despite the advantages, RAG for code presents some challenges:
+
+* **Knowledge Base Management** → duplicate or poorly documented snippets reduce the quality of responses.
+* **Performance** → semantic search on large repositories requires efficient indexing.
+* **Privacy and Security** → be careful not to send sensitive code to non-compliant cloud services.
+
+It is therefore essential to have solid governance, which is an integral part of [sviluppo-AI](/sviluppo-ai) practices.
+
+It seems that there is no text provided for translation. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## Integration into the DevOps Flow
+
+To make the RAG part of the software lifecycle:
+
+* **Automatically index the repository** on every commit.
+* **Integrate the RAG engine** with tools like Cursor or Copilot.
+* **Use CI/CD** to validate that the generated responses are compliant.
+* **Monitor quality metrics** (precision, recall, developer feedback).
+
+Thus, the RAG for code becomes a living practice, not an isolated experiment.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you would like translated, and I'll be happy to assist you!
+
+## Consulting and Services
+
+Implementing a RAG system for code requires expertise in AI, vector databases, and DevOps. As an IT consultant, I offer:
+
+* Audit of repositories and creation of the snippet base.
+* Setup of vector databases (pgvector, Pinecone, Weaviate).
+* Integration of RAG with AI such as OpenAI, Claude, or LLaMA.
+* Training of teams on governance and security in [sviluppo-AI](/sviluppo-ai).
+
+It seems that there is no text provided for translation. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## Conclusion
+
+The **RAG per codice** is the concrete answer to the problem of hallucinations and a powerful tool for reusing existing assets. Integrating it into DevOps workflows means increasing productivity, consistency, and software quality.
+
+👉 Want to understand how to apply RAG to your repository? Learn more in our [complete guide to AI development](/sviluppo-ai) or [contact me](/contact) for a personalized consultation.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you would like translated, and I will be happy to assist you!
+
+## FAQ
+
+**What is RAG for code?**  
+It is a technique that combines semantic search and AI generation to reduce hallucinations and reuse snippets.
+
+**How to implement a RAG for code?**  
+By indexing the repository in a vector database and providing snippets to the AI model as context.
+
+**Is the RAG for code secure?**  
+Yes, if managed in compliant environments (e.g., on-premise or certified cloud) and with governance of [sviluppo-AI](/sviluppo-ai).

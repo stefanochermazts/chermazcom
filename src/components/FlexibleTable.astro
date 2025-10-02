@@ -19,9 +19,9 @@ const getColumnWidth = (colCount: number) => {
 const columnWidth = getColumnWidth(headers.length);
 ---
 
-<div class="flexible-table-container my-8 overflow-hidden rounded-lg border border-gray-200 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-lg">
+<div class="flexible-table-container my-8 overflow-hidden rounded-lg border border-gray-200 dark:border-zinc-700 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-zinc-800 dark:to-zinc-900 shadow-lg">
   {title && (
-    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4">
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-indigo-700 dark:to-blue-800 px-6 py-4">
       <h3 class="text-lg font-semibold text-white flex items-center gap-2">
         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -32,12 +32,12 @@ const columnWidth = getColumnWidth(headers.length);
   )}
   
   <!-- Header -->
-  <div class="bg-gray-100 border-b border-gray-200">
+  <div class="bg-gray-100 dark:bg-zinc-800 border-b border-gray-200 dark:border-zinc-700">
     <div class="px-6 py-4">
       <div class={`flex flex-col ${headers.length > 2 ? 'lg:flex-row' : 'lg:flex-row'} gap-4`}>
         {headers.map((header, index) => (
-          <div class={`${columnWidth} ${index > 0 && headers.length > 2 ? 'lg:border-l lg:border-gray-300 lg:pl-4' : ''}`}>
-            <h4 class="font-semibold text-gray-800 text-sm uppercase tracking-wide" set:html={header} />
+          <div class={`${columnWidth} ${index > 0 && headers.length > 2 ? 'lg:border-l lg:border-gray-300 dark:border-zinc-600 lg:pl-4' : ''}`}>
+            <h4 class="font-semibold text-gray-800 dark:text-zinc-100 text-sm uppercase tracking-wide" set:html={header} />
           </div>
         ))}
       </div>
@@ -45,18 +45,18 @@ const columnWidth = getColumnWidth(headers.length);
   </div>
   
   <!-- Rows -->
-  <div class={`divide-y divide-gray-200 bg-white ${variant === 'striped' ? 'divide-y-0' : ''}`}>
+  <div class={`divide-y divide-gray-200 dark:divide-zinc-700 bg-white dark:bg-zinc-900 ${variant === 'striped' ? 'divide-y-0' : ''}`}>
     {rows.map((row, rowIndex) => (
-      <div class={`group hover:bg-gray-50 transition-colors duration-200 ${variant === 'striped' && rowIndex % 2 === 1 ? 'bg-gray-25' : ''}`}>
+      <div class={`group hover:bg-gray-50 dark:hover:bg-zinc-800 transition-colors duration-200 ${variant === 'striped' && rowIndex % 2 === 1 ? 'bg-gray-50 dark:bg-zinc-850' : ''}`}>
         <div class="px-6 py-5">
           <div class={`flex flex-col ${headers.length > 2 ? 'lg:flex-row' : 'lg:flex-row'} gap-4`}>
             {row.map((cell, cellIndex) => (
-              <div class={`${columnWidth} ${cellIndex > 0 && headers.length > 2 ? 'lg:border-l lg:border-gray-200 lg:pl-4' : ''}`}>
-                <div class={`${cellIndex === 0 ? 'font-semibold text-gray-900' : 'text-gray-700'} leading-relaxed`}>
+              <div class={`${columnWidth} ${cellIndex > 0 && headers.length > 2 ? 'lg:border-l lg:border-gray-200 dark:border-zinc-700 lg:pl-4' : ''}`}>
+                <div class={`${cellIndex === 0 ? 'font-semibold text-gray-900 dark:text-zinc-50' : 'text-gray-700 dark:text-zinc-300'} leading-relaxed`}>
                   {cellIndex === 0 && (
                     <div class="flex items-start gap-3">
                       <div class="flex-shrink-0 mt-1">
-                        <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                        <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-indigo-600 dark:to-blue-700 rounded-full flex items-center justify-center text-white text-xs font-bold">
                           {rowIndex + 1}
                         </div>
                       </div>
@@ -75,8 +75,8 @@ const columnWidth = getColumnWidth(headers.length);
     ))}
   </div>
   
-  <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
-    <p class="text-xs text-gray-500 text-center">
+  <div class="bg-gray-50 dark:bg-zinc-800 px-6 py-3 border-t border-gray-200 dark:border-zinc-700">
+    <p class="text-xs text-gray-500 dark:text-zinc-400 text-center">
       {rows.length} {rows.length === 1 ? 'elemento' : 'elementi'} • {headers.length} {headers.length === 1 ? 'colonna' : 'colonne'}
     </p>
   </div>

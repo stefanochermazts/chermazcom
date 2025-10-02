@@ -1,0 +1,164 @@
+---
+title: 'RAG per codice: kako zmanjšati halucinacije in ponovno uporabiti delčke kode'
+slug: sl-rag-per-codice-kako-zmanjsati-halucinacije-in-ponovno-uporabiti-delcke-kode
+date: 2025-10-02T00:00:00.000Z
+lang: sl
+status: publish
+description: >-
+  Odkrijte, kako uporabiti RAG za kodo, da zmanjšate halucinacije LLM in ponovno uporabite že obstoječe delčke kode v
+  svojih projektih.
+excerpt: >-
+  Il RAG za kodo je nova meja razvoja-AI: zmanjšuje halucinacije in izboljšuje ponovno uporabo delov kode, kar povečuje
+  kakovost in produktivnost.
+categories:
+  - ai-development
+tags:
+  - ai
+  - sviluppo-ai
+  - rag
+  - codice
+  - snippet
+ogImage: /posts/rag-per-codice/og.webp
+image: /posts/rag-per-codice/card.webp
+sourceFile: insights/rag-per-codice.mdx
+sourceSlug: rag-per-codice
+sourceLang: it
+---
+
+# RAG per codice: kako zmanjšati halucinacije in ponovno uporabiti delčke kode
+
+## Uvod
+
+Eden od najbolj razpravljenih problemov pri uporabi AI v razvoju programske opreme se nanaša na **halucinacije**: model generira sintaktično pravilen, a logično napačen ali izven konteksta kodo. To se zgodi, ker AI nima neposrednega dostopa do repozitorija in svoje odgovore temelji le na podatkih za usposabljanje. Rešitev je **RAG za kodo** (Retrieval Augmented Generation), pristop, ki integrira semantični iskalnik z jezikovnim modelom za pridobivanje dejanskih delov kode in funkcij iz projekta.
+
+Il RAG za kodo predstavlja eno najbolj zanimivih aplikacij [sviluppo-AI](/sviluppo-ai), saj združuje moč generativnih modelov s konkretnostjo obstoječe kode.
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text that you would like me to translate to Slovenian?
+
+## Kaj je RAG za kodo
+
+Il **Retrieval Augmented Generation (RAG)** je tehnika, ki združuje dve fazi:
+
+1. **Retrieval** → sistem išče v arhivih (repository, database, dokumentacija) najbolj relevantne delčke kode.  
+2. **Generation** → model AI uporablja te delčke kot kontekst za ustvarjanje doslednega in natančnega odgovora.
+
+V kontekstu razvoja programske opreme RAG za kodo omogoča:
+
+* Zmanjšati logične in sintaktične napake.
+* Ponovno uporabiti že preizkušene delčke kode.
+* Pridobiti odgovore, ki so bolj skladni s stilom in knjižnicami, ki jih uporablja ekipa.
+
+I'm sorry, but it seems that you haven't provided the text you want to be translated. Please share the text, and I'll be happy to assist you with the translation to Slovenian.
+
+## Kako deluje v praksi
+
+Imaginirajmo ekipo, ki uporablja Cursor ali GitHub Copilot. Brez RAG AI predlaga "splošne" rešitve, ki temeljijo na usposabljanju. S RAG za kodo pa:
+
+* Razvijalec postavi vprašanje → npr. *“Kako implementiram povezavo na PostgreSQL s poolingom?”*
+* Motor RAG išče v delih repozitorija in najde podobno funkcijo, ki je že bila uporabljena.
+* AI združi najdeni kontekst z generacijo in predlaga rešitev, ki ustreza dejanskemu projektu.
+
+Na ta način rezultat ni le sintaktično pravilen, ampak je tudi usklajen z **stackom podjetja**.
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text that you would like to have translated into Slovenian?
+
+## Primer implementacije
+
+Evo osnovni načrt v Pythonu za izdelavo prototipa RAG za kodo:
+
+```python
+from openai import OpenAI
+from my_vector_db import search_snippets  # funzione che interroga un DB vettoriale
+
+client = OpenAI(api_key="API_KEY")
+
+query = "Funzione Python per leggere da un file CSV e inserire in PostgreSQL"
+
+# Recupero snippet rilevanti
+docs = search_snippets(query, top_k=3)
+
+context = "\n".join([d["content"] for d in docs])
+
+prompt = f"Usa i seguenti snippet come contesto e genera una funzione ottimizzata:\n{context}\n\nDomanda: {query}"
+
+response = client.chat.completions.create(
+    model="gpt-4.1",
+    messages=[{"role": "user", "content": prompt}]
+)
+
+print(response.choices[0].message.content)
+```
+
+
+
+V tem primeru RAG za kodo pridobiva sklope iz vektorskega podatkovnega skladišča (npr. temelji na **Pinecone**, **Weaviate** ali PostgreSQL z razširitvijo **pgvector**) in jih zagotavlja modelu OpenAI kot kontekst.
+
+I'm sorry, but it seems that you haven't provided the text you want to be translated. Could you please provide the text that needs translation?
+
+## Koristi RAG za kodo
+
+Glavne prednosti so:
+
+* **Zmanjšanje halucinacij**: AI se temelji na dejanskem kodi.
+* **Ponovna uporaba**: maksimizira vrednost že validiranih delov in funkcij.
+* **Konsistentnost**: ohranja slog in konvencije ekipe.
+* **Učinkovitost**: pospešuje pisanje, odpravljanje napak in vzdrževanje.
+
+Ti koristi krepijo vlogo RAG-a kot bistvenega sestavnega dela v [sviluppo-AI](/sviluppo-ai) cevovodih.
+
+I'm sorry, but it seems that you haven't provided the text you want to translate. Please share the text, and I'll be happy to assist you with the translation to Slovenian.
+
+## Omejitve in pozornosti
+
+Kljub prednostim RAG za kodo prinaša nekatere izzive:
+
+* **Upravljanje s podatkovno bazo znanja** → podvojeni ali slabo dokumentirani odseki zmanjšujejo kakovost odgovorov.
+* **Učinkovitost** → semantično iskanje v velikih repozitorijih zahteva učinkovito indeksiranje.
+* **Zasebnost in varnost** → pozor, da ne pošiljate občutljivega kode na neustrezne oblačne storitve.
+
+Zato je potrebna trdna upravljavska struktura, ki je sestavni del praks [sviluppo-AI](/sviluppo-ai).
+
+I'm sorry, but it seems like you haven't provided the text that you want to be translated. Could you please share the text you'd like me to translate to Slovenian?
+
+## Integracija v DevOps tok
+
+Da bi RAG vključili v cikel življenja programske opreme:
+
+* **Samodejno indeksirati repozitorij** ob vsakem commit-u.
+* **Integrirati RAG motor** z orodji, kot sta Cursor ali Copilot.
+* **Uporabiti CI/CD** za preverjanje, da so generirani odgovori skladni.
+* **Spremljati metrike kakovosti** (natančnost, priklic, povratne informacije razvijalcev).
+
+Tako RAG za kodo postane živa praksa, ne izoliran eksperiment.
+
+It seems that you haven't provided the text you want to translate. Please share the text, and I'll be happy to assist you with the translation to Slovenian.
+
+## Svetovanje in storitve
+
+Implementacija sistema RAG za kodo zahteva izkušnje na področju AI, vektorskih podatkovnih baz in DevOps. Kot IT svetovalec ponujam:
+
+* Revizija repozitorijev in ustvarjanje baze snippetov.
+* Nastavitev vektorskih baz podatkov (pgvector, Pinecone, Weaviate).
+* Integracija RAG z AI, kot sta OpenAI, Claude ali LLaMA.
+* Usposabljanje ekip o upravljanju in varnosti pri [sviluppo-AI](/sviluppo-ai).
+
+I'm sorry, but it seems that you haven't provided any text to translate. Please provide the text you'd like me to translate to Slovenian, and I'll be happy to assist you!
+
+## Zaključek
+
+Il **RAG per codice** je konkretna rešitev za problem halucinacij in močno orodje za ponovno uporabo že obstoječih sredstev. Njegova integracija v DevOps tokove pomeni povečanje produktivnosti, doslednosti in kakovosti programske opreme.
+
+👉 Želiš razumeti, kako uporabiti RAG v svojem repozitoriju? Odkrij več v naši [celoviti vodi za razvoj-AI](/sviluppo-ai) ali [kontaktiraj me](/contact) za osebno svetovanje.
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text you'd like me to translate to Slovenian?
+
+## Pogosta vprašanja
+
+**Kaj je RAG za kodo?**  
+To je tehnika, ki združuje semantično iskanje in generacijo AI za zmanjšanje halucinacij in ponovno uporabo delov kode.
+
+**Kako implementirati RAG za kodo?**  
+Indeksiranje repozitorija v vektorski bazi podatkov in zagotavljanje delov kode modelu AI kot konteksta.
+
+**Je RAG za kodo varen?**  
+Da, če se upravlja v skladnih okoljih (npr. on-premise ali certificiran oblak) in z upravljanjem [razvoja-AI](/sviluppo-ai).

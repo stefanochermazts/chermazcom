@@ -18,6 +18,7 @@ export default defineConfig({
         light: 'github-light',
         dark: 'github-dark'
       },
+      defaultColor: false, // Genera entrambi i temi come CSS custom properties
       wrap: true
     }
   },

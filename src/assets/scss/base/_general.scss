@@ -54,14 +54,24 @@ blockquote {
   border-inline-start: 4px solid var(--brand-500, #1f63ff);
   padding-inline-start: 1rem;
   margin-block: 1.25em;
-  color: light-dark(var(--color-neutral-800), var(--color-neutral-300));
+  color: var(--color-neutral-800);
+  
+  .dark &,
+  .darkmode & {
+    color: var(--color-neutral-300);
+  }
 }
 
 hr {
   border: none;
   height: 1px;
-  background: light-dark(var(--color-neutral-300), var(--color-neutral-700));
+  background: var(--color-neutral-300);
   margin-block: 2rem;
+  
+  .dark &,
+  .darkmode & {
+    background: var(--color-neutral-700);
+  }
 }
 
 pre,
@@ -69,20 +79,66 @@ code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 code {
-  background: light-dark(var(--color-neutral-200), var(--color-neutral-800));
+  background: var(--color-neutral-200);
   border-radius: 0.375rem;
   padding: 0.15em 0.35em;
+  
+  .dark &,
+  .darkmode & {
+    background: var(--color-neutral-800);
+  }
 }
 pre {
-  background: light-dark(var(--color-neutral-200), var(--color-neutral-800));
+  background: var(--color-neutral-200);
   border-radius: 0.5rem;
   padding: 1rem;
   overflow: auto;
+  
+  .dark &,
+  .darkmode & {
+    background: var(--color-neutral-800);
+  }
 }
 
-// Ensure shiki blocks are legible in light mode
+// Ensure shiki blocks are legible in both light and dark mode
 :root :where(.astro-code, pre code) {
   color: inherit;
+}
+
+// Supporto dark mode per Shiki code blocks
+// Con defaultColor: false, Shiki genera --shiki-light e --shiki-dark
+.astro-code {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow: auto;
+  background-color: var(--shiki-light-bg, #fff);
+  color: var(--shiki-light, #24292e);
+  
+  .dark &,
+  .darkmode & {
+    background-color: var(--shiki-dark-bg, #0d1117);
+    color: var(--shiki-dark, #e6edf3);
+  }
+  
+  // Ogni span ha --shiki-light e --shiki-dark inline
+  & span {
+    color: var(--shiki-light);
+    
+    .dark &,
+    .darkmode & {
+      color: var(--shiki-dark);
+    }
+  }
+}
+
+// Assicura che i blocchi pre dentro .prose usino gli stili corretti
+.prose pre:has(.astro-code) {
+  padding: 0;
+  background: transparent;
+}
+
+.prose .astro-code {
+  margin: 0;
 }
 
 a {
@@ -175,8 +231,21 @@ footer a {
   li { margin-block: 0.35em; }
   blockquote { border-inline-start: 4px solid var(--brand-500, #1f63ff); padding-inline-start: 1rem; color: inherit; }
   hr { margin-block: 2rem; }
-  code { background: light-dark(var(--color-neutral-200), var(--color-neutral-800)); border-radius: 0.375rem; padding: 0.15em 0.35em; }
-  pre { background: light-dark(var(--color-neutral-200), var(--color-neutral-800)); border-radius: 0.5rem; padding: 1rem; overflow: auto; }
+  code { 
+    background: var(--color-neutral-200); 
+    border-radius: 0.375rem; 
+    padding: 0.15em 0.35em;
+    .dark &,
+    .darkmode & { background: var(--color-neutral-800); }
+  }
+  pre { 
+    background: var(--color-neutral-200); 
+    border-radius: 0.5rem; 
+    padding: 1rem; 
+    overflow: auto;
+    .dark &,
+    .darkmode & { background: var(--color-neutral-800); }
+  }
 }
 
 *:focus,

@@ -10,8 +10,8 @@ interface Props {
 const { title = "Riepilogo Veloce", items } = Astro.props;
 ---
 
-<div class="takeaway-table-container my-8 overflow-hidden rounded-lg border border-gray-200 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-lg">
-  <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4">
+<div class="takeaway-table-container my-8 overflow-hidden rounded-lg border border-gray-200 dark:border-zinc-700 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-zinc-800 dark:to-zinc-900 shadow-lg">
+  <div class="bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-indigo-700 dark:to-blue-800 px-6 py-4">
     <h3 class="text-lg font-semibold text-white flex items-center gap-2">
       <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -20,24 +20,24 @@ const { title = "Riepilogo Veloce", items } = Astro.props;
     </h3>
   </div>
   
-  <div class="divide-y divide-gray-200 bg-white">
+  <div class="divide-y divide-gray-200 dark:divide-zinc-700 bg-white dark:bg-zinc-900">
     {items.map((item, index) => (
-      <div class="group hover:bg-gray-50 transition-colors duration-200">
+      <div class="group hover:bg-gray-50 dark:hover:bg-zinc-800 transition-colors duration-200">
         <div class="px-6 py-5">
           <div class="flex flex-col lg:flex-row lg:items-start gap-4">
             <div class="lg:w-2/5">
               <div class="flex items-start gap-3">
                 <div class="flex-shrink-0 mt-1">
-                  <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                  <div class="w-6 h-6 bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-indigo-600 dark:to-blue-700 rounded-full flex items-center justify-center text-white text-xs font-bold">
                     {index + 1}
                   </div>
                 </div>
-                <div class="font-semibold text-gray-900 leading-tight" set:html={item.takeaway} />
+                <div class="font-semibold text-gray-900 dark:text-zinc-50 leading-tight" set:html={item.takeaway} />
               </div>
             </div>
             
-            <div class="lg:w-3/5 lg:pl-4 lg:border-l lg:border-gray-200">
-              <p class="text-gray-700 leading-relaxed" set:html={item.explanation} />
+            <div class="lg:w-3/5 lg:pl-4 lg:border-l lg:border-gray-200 dark:border-zinc-700">
+              <p class="text-gray-700 dark:text-zinc-300 leading-relaxed" set:html={item.explanation} />
             </div>
           </div>
         </div>
@@ -45,8 +45,8 @@ const { title = "Riepilogo Veloce", items } = Astro.props;
     ))}
   </div>
   
-  <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
-    <p class="text-xs text-gray-500 text-center">
+  <div class="bg-gray-50 dark:bg-zinc-800 px-6 py-3 border-t border-gray-200 dark:border-zinc-700">
+    <p class="text-xs text-gray-500 dark:text-zinc-400 text-center">
       {items.length} punti chiave identificati
     </p>
   </div>
