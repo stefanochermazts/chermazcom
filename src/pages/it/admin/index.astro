@@ -1,0 +1,733 @@
+---
+import '../../../styles/tailwind.css'
+import { Icon } from 'astro-icon/components'
+
+export const prerender = true
+---
+
+<!DOCTYPE html>
+<html lang="it" class="h-full" data-admin-root="true">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin CMS - Chermaz.com</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+</head>
+
+<body class="h-full bg-zinc-50 dark:bg-zinc-900">
+  <!-- Login Screen -->
+  <div id="login-screen" class="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md space-y-8">
+      <!-- Warning Banner -->
+      <div class="rounded-lg bg-blue-50 dark:bg-blue-900/20 p-4 border border-blue-200 dark:border-blue-800">
+        <div class="flex items-start gap-3">
+          <Icon name="lucide:info" class="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+          <div class="text-sm">
+            <p class="font-semibold text-blue-900 dark:text-blue-100 mb-1">ℹ️ Setup Richiesto</p>
+            <p class="text-blue-800 dark:text-blue-200 mb-2">
+              <strong>1.</strong> Avvia con:
+            </p>
+            <code class="block bg-blue-100 dark:bg-blue-900/50 px-3 py-2 rounded text-blue-900 dark:text-blue-100 font-mono text-xs mb-2">
+              npm run dev:netlify
+            </code>
+            <p class="text-blue-800 dark:text-blue-200 mb-1">
+              <strong>2.</strong> Usa la porta corretta:
+            </p>
+            <div class="flex gap-2 items-center mb-2">
+              <code class="bg-green-100 dark:bg-green-900/50 px-2 py-1 rounded text-green-900 dark:text-green-100 font-mono text-xs">
+                ✅ http://localhost:8888/it/admin
+              </code>
+              <span class="text-blue-700 dark:text-blue-300 text-xs">(consigliato)</span>
+            </div>
+            <p class="text-blue-700 dark:text-blue-300 text-xs">
+              Oppure <code class="bg-blue-100 dark:bg-blue-900/50 px-1 rounded">http://localhost:4321/it/admin</code> (rileva automaticamente)
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <Icon name="lucide:lock" class="mx-auto h-12 w-12 text-brand-600" />
+        <h2 class="mt-6 text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+          Admin CMS
+        </h2>
+        <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+          Accedi per gestire i contenuti
+        </p>
+      </div>
+      
+      <form id="login-form" class="mt-8 space-y-6">
+        <div class="rounded-md shadow-sm">
+          <label for="admin-password" class="sr-only">Password Admin</label>
+          <input
+            id="admin-password"
+            name="password"
+            type="password"
+            required
+            class="relative block w-full appearance-none rounded-md border border-zinc-300 dark:border-zinc-700 px-3 py-3 text-zinc-900 dark:text-zinc-50 placeholder-zinc-500 dark:placeholder-zinc-400 bg-white dark:bg-zinc-800 focus:z-10 focus:border-brand-500 focus:outline-none focus:ring-brand-500"
+            placeholder="Password admin"
+          />
+        </div>
+
+        <div id="login-error" class="hidden rounded-md bg-red-50 dark:bg-red-900/30 p-4 text-sm text-red-800 dark:text-red-300"></div>
+
+        <button
+          type="submit"
+          class="group relative flex w-full justify-center rounded-md bg-brand-600 px-3 py-3 text-sm font-semibold text-white hover:bg-brand-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
+        >
+          <Icon name="lucide:log-in" class="mr-2 h-5 w-5" />
+          Accedi
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Admin Interface (hidden by default) -->
+  <div id="admin-interface" class="hidden min-h-full">
+    <!-- Header -->
+    <header class="bg-white dark:bg-zinc-800 shadow-sm">
+      <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <Icon name="lucide:file-edit" class="h-8 w-8 text-brand-600" />
+            <h1 class="text-2xl font-bold text-zinc-900 dark:text-zinc-50">CMS Admin</h1>
+          </div>
+          <button
+            id="logout-btn"
+            class="flex items-center gap-2 rounded-md bg-zinc-100 dark:bg-zinc-700 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-600"
+          >
+            <Icon name="lucide:log-out" class="h-4 w-4" />
+            Esci
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <!-- Left Column: Form -->
+        <div class="space-y-6">
+          <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-sm p-6">
+            <h2 class="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-6">Nuovo Articolo</h2>
+            
+            <form id="article-form" class="space-y-6">
+              <!-- Tipo Contenuto -->
+              <div>
+                <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+                  Tipo Contenuto
+                </label>
+                <select
+                  id="content-type"
+                  class="block w-full rounded-md border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-50 shadow-sm focus:border-brand-500 focus:ring-brand-500 px-3 py-2"
+                >
+                  <option value="insights">Insight (Blog)</option>
+                  <option value="case-studies">Case Study</option>
+                  <option value="pages">Pagina Statica</option>
+                </select>
+              </div>
+
+              <!-- Titolo -->
+              <div>
+                <label for="title" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+                  Titolo *
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  required
+                  placeholder="Titolo dell'articolo"
+                  class="block w-full rounded-md border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-50 shadow-sm focus:border-brand-500 focus:ring-brand-500 px-3 py-2"
+                />
+              </div>
+
+              <!-- Slug (auto-generato) -->
+              <div>
+                <label for="slug" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+                  Slug (auto-generato)
+                </label>
+                <input
+                  type="text"
+                  id="slug"
+                  readonly
+                  placeholder="slug-auto-generato"
+                  class="block w-full rounded-md border-zinc-300 dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 px-3 py-2"
+                />
+              </div>
+
+              <!-- Excerpt -->
+              <div>
+                <label for="excerpt" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+                  Excerpt (descrizione breve) *
+                </label>
+                <textarea
+                  id="excerpt"
+                  required
+                  rows="2"
+                  placeholder="Breve descrizione per SEO e card"
+                  class="block w-full rounded-md border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-50 shadow-sm focus:border-brand-500 focus:ring-brand-500 px-3 py-2"
+                ></textarea>
+              </div>
+
+              <!-- Description (SEO) -->
+              <div>
+                <label for="description" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+                  Meta Description (SEO)
+                </label>
+                <textarea
+                  id="description"
+                  rows="2"
+                  placeholder="Descrizione per motori di ricerca (opzionale)"
+                  class="block w-full rounded-md border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-50 shadow-sm focus:border-brand-500 focus:ring-brand-500 px-3 py-2"
+                ></textarea>
+              </div>
+
+              <!-- Categorie -->
+              <div>
+                <label for="categories" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+                  Categorie (separate da virgola)
+                </label>
+                <input
+                  type="text"
+                  id="categories"
+                  placeholder="AI, Development, Tutorial"
+                  class="block w-full rounded-md border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-50 shadow-sm focus:border-brand-500 focus:ring-brand-500 px-3 py-2"
+                />
+              </div>
+
+              <!-- Tags -->
+              <div>
+                <label for="tags" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+                  Tags (separati da virgola)
+                </label>
+                <input
+                  type="text"
+                  id="tags"
+                  placeholder="python, machine-learning, api"
+                  class="block w-full rounded-md border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-50 shadow-sm focus:border-brand-500 focus:ring-brand-500 px-3 py-2"
+                />
+              </div>
+
+              <!-- Contenuto -->
+              <div>
+                <label for="content" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+                  Contenuto (Markdown/MDX) *
+                </label>
+                <textarea
+                  id="content"
+                  required
+                  rows="12"
+                  placeholder="Scrivi qui il contenuto in Markdown..."
+                  class="block w-full rounded-md border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-50 shadow-sm focus:border-brand-500 focus:ring-brand-500 px-3 py-2 font-mono text-sm"
+                ></textarea>
+              </div>
+
+              <!-- Status -->
+              <div>
+                <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+                  Status
+                </label>
+                <select
+                  id="status"
+                  class="block w-full rounded-md border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-700 text-zinc-900 dark:text-zinc-50 shadow-sm focus:border-brand-500 focus:ring-brand-500 px-3 py-2"
+                >
+                  <option value="draft">Bozza</option>
+                  <option value="publish">Pubblicato</option>
+                </select>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-col gap-3 pt-4 border-t border-zinc-200 dark:border-zinc-700">
+                <!-- Salva (primario) -->
+                <button
+                  id="save-btn"
+                  type="submit"
+                  class="flex items-center justify-center gap-2 rounded-md bg-brand-600 bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-brand-500 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 focus-visible:outline-blue-600"
+                >
+                  <Icon name="lucide:save" class="h-5 w-5" />
+                  Salva Articolo (IT)
+                </button>
+
+                <!-- Genera immagine (disabilitato finché non salvato) -->
+                <button
+                  type="button"
+                  id="generate-image-btn"
+                  disabled
+                  class="flex items-center justify-center gap-2 rounded-md bg-purple-600 px-4 py-3 text-sm font-semibold text-white hover:bg-purple-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Icon name="lucide:image" class="h-5 w-5" />
+                  Genera Immagine (DALL-E)
+                </button>
+
+                <!-- Traduzioni (disabilitate finché non salvato) -->
+                <div class="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    id="translate-en-btn"
+                    disabled
+                    class="flex items-center justify-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Icon name="lucide:languages" class="h-5 w-5" />
+                    Traduci EN
+                  </button>
+
+                  <button
+                    type="button"
+                    id="translate-sl-btn"
+                    disabled
+                    class="flex items-center justify-center gap-2 rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Icon name="lucide:languages" class="h-5 w-5" />
+                    Traduci SL
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right Column: Preview & Status -->
+        <div class="space-y-6">
+          <!-- Status Messages -->
+          <div id="status-messages" class="space-y-3">
+            <!-- Success/Error messages will be inserted here -->
+          </div>
+
+          <!-- Preview -->
+          <div class="bg-white dark:bg-zinc-800 rounded-lg shadow-sm p-6">
+            <h2 class="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">Preview</h2>
+            
+            <div id="preview-content" class="prose dark:prose-invert max-w-none">
+              <p class="text-zinc-500 dark:text-zinc-400 italic">
+                Il preview apparirà qui dopo aver compilato i campi...
+              </p>
+            </div>
+          </div>
+
+          <!-- File Info -->
+          <div id="file-info" class="hidden bg-zinc-100 dark:bg-zinc-700/50 rounded-lg p-4">
+            <h3 class="text-sm font-semibold text-zinc-700 dark:text-zinc-300 mb-2">File Salvato</h3>
+            <code id="file-path" class="block text-xs text-zinc-600 dark:text-zinc-400 bg-white dark:bg-zinc-800 px-3 py-2 rounded break-all"></code>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Floating Save Button (always visible dopo login) -->
+  <button
+    id="floating-save-btn"
+    class="hidden fixed bottom-6 right-6 z-50 rounded-full bg-brand-600 bg-blue-600 px-6 py-4 text-white shadow-lg hover:bg-brand-500 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 focus-visible:outline-blue-600"
+    aria-label="Salva articolo"
+  >
+    Salva Articolo (IT)
+  </button>
+
+  <script>
+    // State Management
+    let isAuthenticated = false
+    let savedFilePath = ''
+
+    // Elements
+    const loginScreen = document.getElementById('login-screen')
+    const adminInterface = document.getElementById('admin-interface')
+    const loginForm = document.getElementById('login-form')
+    const loginError = document.getElementById('login-error')
+    const logoutBtn = document.getElementById('logout-btn')
+    const articleForm = document.getElementById('article-form')
+    const titleInput = document.getElementById('title')
+    const slugInput = document.getElementById('slug')
+    const excerptInput = document.getElementById('excerpt')
+    const contentInput = document.getElementById('content')
+    const previewContent = document.getElementById('preview-content')
+    const statusMessages = document.getElementById('status-messages')
+    const fileInfo = document.getElementById('file-info')
+    const filePath = document.getElementById('file-path')
+    const generateImageBtn = document.getElementById('generate-image-btn')
+    const translateEnBtn = document.getElementById('translate-en-btn')
+    const translateSlBtn = document.getElementById('translate-sl-btn')
+    const floatingSaveBtn = document.getElementById('floating-save-btn')
+    const FORM_DRAFT_KEY = 'adminFormDraft'
+    const LAST_SAVED_KEY = 'adminLastSaved'
+
+    // Check for saved session
+    if (localStorage.getItem('adminAuth') === 'true') {
+      showAdminInterface()
+    }
+
+    // Restore draft and last saved state on load
+    restoreDraftFromStorage()
+    restoreLastSavedFromStorage()
+
+    // Rileva la porta corretta per le Netlify Functions
+    const getFunctionUrl = (functionName) => {
+      // Se siamo su porta 4321 (Astro dev), le functions sono su 8888
+      if (window.location.port === '4321') {
+        return `http://localhost:8888/.netlify/functions/${functionName}`
+      }
+      // Altrimenti usa il path relativo (funziona su porta 8888 e in produzione)
+      return `/.netlify/functions/${functionName}`
+    }
+
+    // Login Handler
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      const password = document.getElementById('admin-password').value
+
+      try {
+        console.log('🔐 Tentativo login...')
+        const authUrl = getFunctionUrl('admin-auth')
+        console.log('📍 URL:', authUrl)
+        
+        const response = await fetch(authUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password })
+        })
+
+        console.log('📡 Response status:', response.status)
+
+        if (response.ok) {
+          const data = await response.json()
+          console.log('📦 Response data:', data)
+          
+          if (data.success) {
+            localStorage.setItem('adminAuth', 'true')
+            localStorage.setItem('adminToken', data.token)
+            showAdminInterface()
+          } else {
+            showLoginError('Password errata')
+          }
+        } else if (response.status === 404) {
+          showLoginError('⚠️ Netlify Functions non attive! Usa: npm run dev:netlify')
+        } else {
+          const errorText = await response.text()
+          console.error('Error response:', errorText)
+          showLoginError(`Errore di autenticazione (${response.status})`)
+        }
+      } catch (error) {
+        console.error('❌ Login error:', error)
+        showLoginError('⚠️ Errore connessione. Verifica che "npm run dev:netlify" sia attivo!')
+      }
+    })
+
+    // Logout Handler
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('adminAuth')
+      localStorage.removeItem('adminToken')
+      hideAdminInterface()
+    })
+
+    // Auto-generate slug from title
+    titleInput.addEventListener('input', () => {
+      const title = titleInput.value
+      const slug = title
+        .toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // Remove accents
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+      slugInput.value = slug
+      updatePreview()
+      saveDraftToStorage()
+    })
+
+    // Update preview on content change
+    contentInput.addEventListener('input', () => { updatePreview(); saveDraftToStorage() })
+    excerptInput.addEventListener('input', () => { updatePreview(); saveDraftToStorage() })
+    document.getElementById('description').addEventListener('input', saveDraftToStorage)
+    document.getElementById('categories').addEventListener('input', saveDraftToStorage)
+    document.getElementById('tags').addEventListener('input', saveDraftToStorage)
+    document.getElementById('status').addEventListener('change', saveDraftToStorage)
+    document.getElementById('content-type').addEventListener('change', saveDraftToStorage)
+
+    // Article Form Submit
+    articleForm.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      await saveArticle()
+    })
+
+    // Floating Save Button → submit form
+    if (floatingSaveBtn) {
+      floatingSaveBtn.addEventListener('click', () => {
+        if (articleForm) articleForm.requestSubmit()
+      })
+    }
+
+    // Generate Image
+    generateImageBtn.addEventListener('click', async () => {
+      await generateImage()
+    })
+
+    // Translate buttons
+    translateEnBtn.addEventListener('click', async () => {
+      await translateArticle('en')
+    })
+
+    translateSlBtn.addEventListener('click', async () => {
+      await translateArticle('sl')
+    })
+
+    // Functions
+    function showAdminInterface() {
+      isAuthenticated = true
+      loginScreen.classList.add('hidden')
+      adminInterface.classList.remove('hidden')
+      if (floatingSaveBtn) floatingSaveBtn.classList.remove('hidden')
+    }
+
+    function hideAdminInterface() {
+      isAuthenticated = false
+      loginScreen.classList.remove('hidden')
+      adminInterface.classList.add('hidden')
+      if (floatingSaveBtn) floatingSaveBtn.classList.add('hidden')
+    }
+
+    function showLoginError(message) {
+      loginError.textContent = message
+      loginError.classList.remove('hidden')
+    }
+
+    function updatePreview() {
+      const title = titleInput.value || 'Titolo non impostato'
+      const excerpt = excerptInput.value || ''
+      const content = contentInput.value || ''
+
+      previewContent.innerHTML = `
+        <h1 class="text-2xl font-bold mb-2">${escapeHtml(title)}</h1>
+        ${excerpt ? `<p class="text-lg text-zinc-600 dark:text-zinc-400 mb-4">${escapeHtml(excerpt)}</p>` : ''}
+        <div class="mt-6">${marked(content)}</div>
+      `
+    }
+
+    async function saveArticle() {
+      const token = localStorage.getItem('adminToken')
+      if (!token) return
+
+      const formData = {
+        contentType: document.getElementById('content-type').value,
+        title: titleInput.value,
+        slug: slugInput.value,
+        excerpt: excerptInput.value,
+        description: document.getElementById('description').value,
+        categories: document.getElementById('categories').value.split(',').map(c => c.trim()).filter(Boolean),
+        tags: document.getElementById('tags').value.split(',').map(t => t.trim()).filter(Boolean),
+        content: contentInput.value,
+        status: document.getElementById('status').value,
+        lang: 'it'
+      }
+
+      showStatusMessage('Salvataggio in corso...', 'info')
+
+      try {
+        const response = await fetch(getFunctionUrl('admin-save-article'), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Admin-Token': token
+          },
+          body: JSON.stringify(formData)
+        })
+
+        const data = await response.json()
+
+        if (response.ok && data.success) {
+          savedFilePath = data.filePath
+          showStatusMessage(`✅ Articolo salvato: ${data.filePath}`, 'success')
+          fileInfo.classList.remove('hidden')
+          filePath.textContent = data.filePath
+          
+          // Abilita azioni successive
+          const genBtn = document.getElementById('generate-image-btn')
+          if (genBtn) genBtn.removeAttribute('disabled')
+          if (translateEnBtn) translateEnBtn.removeAttribute('disabled')
+          if (translateSlBtn) translateSlBtn.removeAttribute('disabled')
+
+          // Persist last saved info per sopravvivere al reload dell'HMR
+          localStorage.setItem(LAST_SAVED_KEY, JSON.stringify({ filePath: savedFilePath, ts: Date.now() }))
+          saveDraftToStorage() // mantieni il contenuto corrente
+        } else {
+          showStatusMessage(`❌ Errore: ${data.error || 'Salvataggio fallito'}`, 'error')
+        }
+      } catch (error) {
+        console.error('Save error:', error)
+        showStatusMessage('❌ Errore di connessione', 'error')
+      }
+    }
+
+    async function generateImage() {
+      const token = localStorage.getItem('adminToken')
+      const title = titleInput.value
+      
+      if (!token || !title) {
+        showStatusMessage('⚠️ Inserisci un titolo prima di generare l\'immagine', 'warning')
+        return
+      }
+
+      generateImageBtn.disabled = true
+      showStatusMessage('🎨 Generazione immagine in corso (può richiedere 10-30 secondi)...', 'info')
+
+      try {
+        const response = await fetch(getFunctionUrl('admin-generate-image'), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Admin-Token': token
+          },
+          body: JSON.stringify({ 
+            title,
+            slug: slugInput.value 
+          })
+        })
+
+        const data = await response.json()
+
+        if (response.ok && data.success) {
+          showStatusMessage(`✅ Immagine generata: ${data.imagePath}`, 'success')
+        } else {
+          showStatusMessage(`❌ Errore generazione immagine: ${data.error}`, 'error')
+        }
+      } catch (error) {
+        console.error('Image generation error:', error)
+        showStatusMessage('❌ Errore di connessione', 'error')
+      } finally {
+        generateImageBtn.disabled = false
+      }
+    }
+
+    async function translateArticle(targetLang) {
+      const token = localStorage.getItem('adminToken')
+      
+      if (!token || !savedFilePath) {
+        showStatusMessage('⚠️ Salva prima l\'articolo italiano', 'warning')
+        return
+      }
+
+      const btn = targetLang === 'en' ? translateEnBtn : translateSlBtn
+      btn.disabled = true
+      showStatusMessage(`🌍 Traduzione in ${targetLang.toUpperCase()} in corso...`, 'info')
+
+      try {
+        const response = await fetch(getFunctionUrl('admin-translate-article'), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Admin-Token': token
+          },
+          body: JSON.stringify({ 
+            filePath: savedFilePath,
+            targetLang 
+          })
+        })
+
+        const data = await response.json()
+
+        if (response.ok && data.success) {
+          showStatusMessage(`✅ Traduzione ${targetLang.toUpperCase()} completata: ${data.translatedPath}`, 'success')
+        } else {
+          showStatusMessage(`❌ Errore traduzione: ${data.error}`, 'error')
+        }
+      } catch (error) {
+        console.error('Translation error:', error)
+        showStatusMessage('❌ Errore di connessione', 'error')
+      } finally {
+        btn.disabled = false
+      }
+    }
+
+    function showStatusMessage(message, type) {
+      const colors = {
+        success: 'bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-300',
+        error: 'bg-red-50 dark:bg-red-900/30 text-red-800 dark:text-red-300',
+        info: 'bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300',
+        warning: 'bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300'
+      }
+
+      const msgDiv = document.createElement('div')
+      msgDiv.className = `rounded-md p-4 text-sm ${colors[type]}`
+      msgDiv.textContent = message
+      
+      statusMessages.innerHTML = ''
+      statusMessages.appendChild(msgDiv)
+
+      if (type === 'success' || type === 'info') {
+        setTimeout(() => msgDiv.remove(), 5000)
+      }
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div')
+      div.textContent = text
+      return div.innerHTML
+    }
+
+    // Simple markdown parser (basic support)
+    function marked(text) {
+      return text
+        .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold mt-6 mb-3">$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold mt-8 mb-4">$1</h2>')
+        .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold mt-10 mb-5">$1</h1>')
+        .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+        .replace(/\n\n/g, '</p><p class="mb-4">')
+        .replace(/\n/g, '<br>')
+        .replace(/^(.+)$/gm, '<p class="mb-4">$1</p>')
+    }
+
+    // Draft persistence helpers
+    function saveDraftToStorage() {
+      try {
+        const draft = {
+          contentType: document.getElementById('content-type').value,
+          title: titleInput.value,
+          slug: slugInput.value,
+          excerpt: excerptInput.value,
+          description: document.getElementById('description').value,
+          categories: document.getElementById('categories').value,
+          tags: document.getElementById('tags').value,
+          content: contentInput.value,
+          status: document.getElementById('status').value
+        }
+        localStorage.setItem(FORM_DRAFT_KEY, JSON.stringify(draft))
+      } catch {}
+    }
+
+    function restoreDraftFromStorage() {
+      try {
+        const raw = localStorage.getItem(FORM_DRAFT_KEY)
+        if (!raw) return
+        const d = JSON.parse(raw)
+        if (d.contentType) document.getElementById('content-type').value = d.contentType
+        if (d.title) titleInput.value = d.title
+        if (d.slug) slugInput.value = d.slug
+        if (d.excerpt) excerptInput.value = d.excerpt
+        if (d.description) document.getElementById('description').value = d.description
+        if (d.categories) document.getElementById('categories').value = d.categories
+        if (d.tags) document.getElementById('tags').value = d.tags
+        if (d.content) contentInput.value = d.content
+        if (d.status) document.getElementById('status').value = d.status
+        updatePreview()
+      } catch {}
+    }
+
+    function restoreLastSavedFromStorage() {
+      try {
+        const raw = localStorage.getItem(LAST_SAVED_KEY)
+        if (!raw) return
+        const last = JSON.parse(raw)
+        if (last && last.filePath) {
+          savedFilePath = last.filePath
+          const genBtn = document.getElementById('generate-image-btn')
+          if (genBtn) genBtn.removeAttribute('disabled')
+          if (translateEnBtn) translateEnBtn.removeAttribute('disabled')
+          if (translateSlBtn) translateSlBtn.removeAttribute('disabled')
+          fileInfo.classList.remove('hidden')
+          filePath.textContent = savedFilePath
+        }
+      } catch {}
+    }
+  </script>
+</body>
+</html>
+
+

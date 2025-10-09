@@ -14,6 +14,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import yaml from 'yaml'
 import OpenAI from 'openai'
+import slugify from 'slugify'
 
 const args = Object.fromEntries(process.argv.slice(2).reduce((acc, cur, idx, arr) => {
   if (cur.startsWith('--')) {
@@ -60,15 +61,15 @@ function buildPrefixedSlug(originalSlug) {
   return `${PREFIX}${String(originalSlug || '')}`
 }
 
-async function openaiTranslate({ sourceLang, targetLang, title, description, excerpt, body }) {
+async function openaiTranslate({ sourceLang, targetLang, title, description, excerpt, body, slugBase, categories, tags }) {
   const client = new OpenAI({ apiKey: OPENAI_API_KEY })
   const system = {
     role: 'system',
-    content: 'You are a professional translator. Translate Italian MDX into the target language, preserving Markdown/MDX structure, code, links, and components. Translate only human-readable text. Return strict JSON.'
+    content: 'You are a professional translator. Translate Italian MDX into the target language, preserving Markdown/MDX structure, code, links, and components. Translate only human-readable text. Return strict JSON. Besides body/title/description/excerpt, translate also slugBase (not hyphenated), categories (array of short labels), and tags (array). Keep arrays length.'
   }
   const user = {
     role: 'user',
-    content: JSON.stringify({ sourceLang, targetLang, fields: { title, description, excerpt }, body })
+    content: JSON.stringify({ sourceLang, targetLang, fields: { title, description, excerpt, slugBase, categories, tags }, body })
   }
   const resp = await client.chat.completions.create({
     model: MODEL,
@@ -83,7 +84,10 @@ async function openaiTranslate({ sourceLang, targetLang, title, description, exc
     title: parsed.title ?? title,
     description: parsed.description ?? description,
     excerpt: parsed.excerpt ?? excerpt,
-    body: parsed.body ?? body
+    body: parsed.body ?? body,
+    slugBase: parsed.slugBase ?? slugBase,
+    categories: Array.isArray(parsed.categories) ? parsed.categories : categories,
+    tags: Array.isArray(parsed.tags) ? parsed.tags : tags,
   }
 }
 
@@ -99,7 +103,8 @@ async function main() {
   const baseName = path.basename(SOURCE_FILE, '.mdx')
 
   // Calcola destinazione secondo regole (nessuna sottocartella; prefisso nel filename)
-  const targetSlugPrefixed = buildPrefixedSlug(fm.slug || baseName)
+  const originalSlugBase = String(fm.slug || baseName).replace(/^en-|^sl-/, '')
+  const targetSlugPrefixed = buildPrefixedSlug(originalSlugBase)
   const targetPath = path.join(dir, `${targetSlugPrefixed}.mdx`)
 
   if (!FORCE) {
@@ -116,24 +121,47 @@ async function main() {
     title: fm.title || '',
     description: fm.description || '',
     excerpt: fm.excerpt || '',
-    body
+    body,
+    slugBase: originalSlugBase.replace(/-/g, ' '),
+    categories: Array.isArray(fm.categories) ? fm.categories : [],
+    tags: Array.isArray(fm.tags) ? fm.tags : [],
   })
 
-  // Aggiorna frontmatter secondo regole repo
-  const newFm = { ...fm, title: t.title, description: t.description, excerpt: t.excerpt, lang: TARGET_LANG, slug: targetSlugPrefixed }
+  // Costruisci slug tradotto
+  const translatedBaseSlug = t.slugBase
+    ? slugify(String(t.slugBase), { lower: true, strict: true })
+    : originalSlugBase
+  const finalSlug = buildPrefixedSlug(translatedBaseSlug)
+
+  // Aggiorna frontmatter secondo regole repo (includi categorie e tag tradotti)
+  const newFm = {
+    ...fm,
+    title: t.title,
+    description: t.description,
+    excerpt: t.excerpt,
+    categories: t.categories && t.categories.length ? t.categories : fm.categories,
+    tags: t.tags && t.tags.length ? t.tags : fm.tags,
+    lang: TARGET_LANG,
+    slug: finalSlug,
+  }
   // Serializza YAML mantenendo ordine basilare
   const yamlText = yaml.stringify(newFm).trimEnd()
   const outBody = t.body.trimStart()
   const finalText = `---\n${yamlText}\n---\n${outBody.startsWith('\n') ? outBody : '\n' + outBody}`
 
-  await fs.writeFile(targetPath, finalText, 'utf8')
-  console.log(`✅ Creato: ${targetPath}`)
+  // Scrivi nel path calcolato in base al nuovo slug
+  const outPath = path.join(dir, `${newFm.slug}.mdx`)
+  await fs.writeFile(outPath, finalText, 'utf8')
+  console.log(`✅ Creato: ${outPath}`)
 }
 
 main().catch((err) => {
   console.error('❌ Errore traduzione:', err.message)
   process.exit(1)
 })
+
+
+
 
 
 

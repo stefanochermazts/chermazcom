@@ -1,0 +1,149 @@
+---
+title: "AI incident classification: AI applied to security and incident management"
+slug: en-ai-incident-classification-l-ai-applicata-alla-sicurezza-e-alla-gestione-degli-incidenti
+lang: en
+status: draft
+excerpt: "AI is revolutionizing security incident classification and management:
+  learn how to implement it in your SOC or DevSecOps."
+description: Discover how AI transforms incident classification and security
+  incident management by automating logs and improving response.
+date: 2025-10-09
+categories:
+  - ai-development
+tags:
+  - ai
+  - security
+  - incidents
+  - management
+  - analysis
+image: /images/covers/ai-incident-classification-l-ai-applicata-alla-sicurezza-e-alla-gestione-degli-incidenti-cover.jpg
+ogImage: /images/covers/ai-incident-classification-l-ai-applicata-alla-sicurezza-e-alla-gestione-degli-incidenti-cover.jpg
+---
+
+import BreakoutImage from '../../components/BreakoutImage.astro'
+
+<BreakoutImage src="/images/covers/ai-incident-classification-l-ai-applicata-alla-sicurezza-e-alla-gestione-degli-incidenti-cover.jpg" alt="Cover — AI incident classification" />
+
+# AI incident classification: AI applied to security and incident management
+
+## Introduction
+
+The **security incident management** is one of the most complex and critical activities for any IT organization. Every day, systems and applications generate a huge amount of logs, alerts, and notifications. Being able to distinguish between false positives and real threats is an ongoing challenge. This is where **AI incident classification** comes into play, applying artificial intelligence to automatically classify, correlate, and prioritize incidents.
+
+Thanks to **machine learning** and **NLP (Natural Language Processing)** techniques, AI can read, understand, and categorize security events with speed and accuracy, enhancing the response capability of the SOC (Security Operations Center) team. This is one of the most advanced applications of [AI development](/sviluppo-ai) in cybersecurity.
+
+---
+
+## What is incident classification and how AI enhances it
+
+**Incident classification** is the process that automatically assigns a category, priority, and risk level to a security event. Traditionally, this work was performed by SOC analysts, who manually interpreted logs and decided whether an event was an unauthorized access attempt, malware, configuration vulnerability, or network anomaly.
+
+With AI, this process is **automated and adaptive**. Algorithms analyze log content, correlate events with historical data, and dynamically update classification models. This allows to:
+
+* Reduce triage and analysis times.
+* Identify correlations between seemingly independent events.
+* Reduce false positives and improve response prioritization.
+
+A well-trained **AI incident classification** engine can continuously learn from new incidents, updating its decision model based on the business context.
+
+---
+
+## The importance of incident logs
+
+The **incident log** is the operational core of security management. It contains information on every event: date, incident type, involved assets, corrective actions. Automating the compilation and updating of this log via AI means having:
+
+* Complete and real-time traceability.
+* A historical record aligned with the company's security KPIs.
+* Compliance with regulations such as **DORA** and **NIS2**, which require documented evidence of **security incidents**.
+
+An **AI technical documentation** system (see [AI for technical documentation](/ai-documentazione-tecnica)) can be integrated to automatically generate periodic reports or incident changelogs.
+
+---
+
+## Practical example: AI classification in a SOC
+
+Imagine a SOC managing thousands of daily events. With an **incident classification** system based on AI:
+
+* Logs are collected from SIEM (e.g., Splunk, Sentinel, QRadar).
+* An NLP module extracts key entities (IP, users, timestamps, severity).
+* An ML model evaluates similarity with previous incidents and assigns a category (e.g., phishing, brute force, data exfiltration).
+* Results are sent to the **incident log** for automatic auditing.
+
+Here is a simplified Python example:
+
+```python
+from openai import OpenAI
+client = OpenAI(api_key="API_KEY")
+
+incident_log = "Suspicious login from unknown IP 185.123.44.2 detected by firewall at 03:42."
+
+prompt = f"Classify the following security event: {incident_log}. Indicate attack type, priority, and suggested action."
+
+response = client.chat.completions.create(
+    model="gpt-4.1",
+    messages=[{"role": "user", "content": prompt}]
+)
+
+print(response.choices[0].message.content)
+```
+
+This approach can be integrated into **SIEM** or **SOAR** pipelines, providing a higher level of automation in incident triage.
+
+---
+
+## Integration with DevSecOps and incident management
+
+AI is not limited to SOC: it can be integrated into **DevSecOps** workflows, where **incident management** is part of the software lifecycle. In this context:
+
+* Security incidents related to code are automatically classified and linked to specific commits or branches.
+* The **incident log** is populated consistently with CI/CD pipelines.
+* Information is shared in real-time among development, security, and compliance teams.
+
+This ensures continuous traceability between source code and vulnerabilities found in production, improving **operational resilience** in line with DORA/NIS2.
+
+---
+
+## Benefits and limitations of the AI-based approach
+
+The advantages of **AI in incident classification** are clear:
+
+* **Speed**: reduced triage times.
+* **Accuracy**: classification based on context and history.
+* **Scalability**: automatic management of thousands of events daily.
+* **Compliance**: support for regulatory documentation.
+
+But there are also limitations:
+
+* Need for **labeled datasets** of quality for training.
+* **Algorithmic bias** if data does not represent all cases.
+* Human oversight still necessary for critical cases.
+
+As with any **AI development** process, success depends on governance and constant monitoring.
+
+---
+
+## Consulting and implementation
+
+As an IT consultant, I support companies in designing and implementing **incident classification** solutions based on AI. Services include:
+
+* Integration with existing SIEM platforms.
+* Creation and maintenance of the automated **incident log**.
+* Training of customized models for the business context.
+* Validation of compliance according to DORA/NIS2.
+
+Want to understand how to introduce automatic classification into your security process? Discover the [full AI development guide](/sviluppo-ai) or [contact me](/contact) for personalized consulting.
+
+---
+
+## FAQ
+
+**What is incident classification?**
+It is the automated process of categorizing and prioritizing security events based on AI and machine learning.
+
+**What is an incident log?**
+It is a structured archive documenting all **security incidents**, with details on actions taken and results.
+
+**How to implement incident management with AI?**
+By integrating NLP models into SIEM/SOAR workflows and DevSecOps pipelines, improving speed and response quality.
+
+---

@@ -10,7 +10,9 @@
 [functions]
   node_bundler = "esbuild"
 
-# Variabili ambiente per le functions (da configurare nel dashboard Netlify)
+# Variabili ambiente:
+# - Sviluppo locale: usa file .env nella root (già ignorato da git)
+# - Produzione: configura nel Dashboard Netlify → Site Settings → Environment Variables
 # WEBHOOK_SECRET = "your-secure-webhook-secret"
 # GITHUB_TOKEN = "ghp_your-github-token"
 # GITHUB_OWNER = "your-github-username"
@@ -25,6 +27,33 @@
 [[redirects]]
   from = "/api/webhook/test"
   to = "/.netlify/functions/webhook-test"
+  status = 200
+
+# Admin UI route (convenience)
+[[redirects]]
+  from = "/admin"
+  to = "/it/admin"
+  status = 301
+
+# Admin API endpoints
+[[redirects]]
+  from = "/api/admin/auth"
+  to = "/.netlify/functions/admin-auth"
+  status = 200
+
+[[redirects]]
+  from = "/api/admin/save-article"
+  to = "/.netlify/functions/admin-save-article"
+  status = 200
+
+[[redirects]]
+  from = "/api/admin/generate-image"
+  to = "/.netlify/functions/admin-generate-image"
+  status = 200
+
+[[redirects]]
+  from = "/api/admin/translate-article"
+  to = "/.netlify/functions/admin-translate-article"
   status = 200
 
 # Headers di sicurezza

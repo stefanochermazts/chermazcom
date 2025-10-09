@@ -1,0 +1,151 @@
+---
+title: "Razvrščanje incidentov AI: AI uporabljena za varnost in upravljanje
+  incidentov"
+slug: sl-razvrscanje-incidentov-ai-ai-uporabljena-za-varnost-in-upravljanje-incidentov
+lang: sl
+status: draft
+excerpt: "AI revolucionira razvrščanje incidentov in upravljanje varnostnih
+  incidentov: odkrijte, kako jo implementirati v vašem SOC ali DevSecOps."
+description: Odkrijte, kako AI preoblikuje razvrščanje incidentov in upravljanje
+  varnostnih incidentov, avtomatizira evidenco in izboljšuje odziv.
+date: 2025-10-09
+categories:
+  - ai-development
+tags:
+  - ai
+  - varnost
+  - incidenti
+  - upravljanje
+  - analiza
+image: /images/covers/ai-incident-classification-l-ai-applicata-alla-sicurezza-e-alla-gestione-degli-incidenti-cover.jpg
+ogImage: /images/covers/ai-incident-classification-l-ai-applicata-alla-sicurezza-e-alla-gestione-degli-incidenti-cover.jpg
+---
+
+import BreakoutImage from '../../components/BreakoutImage.astro'
+
+<BreakoutImage src="/images/covers/ai-incident-classification-l-ai-applicata-alla-sicurezza-e-alla-gestione-degli-incidenti-cover.jpg" alt="Naslovnica — Razvrščanje incidentov AI" />
+
+# Razvrščanje incidentov AI: AI uporabljena za varnost in upravljanje incidentov
+
+## Uvod
+
+P **upravljanje varnostnih incidentov** je ena izmed najbolj zapletenih in kritičnih dejavnosti za katerokoli IT organizacijo. Vsak dan sistemi in aplikacije ustvarjajo ogromno količino logov, opozoril in obvestil. Uspešno razlikovanje med lažnim alarmom in resno grožnjo je nenehni izziv. Tu pride v poštev **razvrščanje incidentov AI**, torej uporaba umetne inteligence za avtomatsko razvrščanje, korelacijo in prioritetno obravnavo incidentov.
+
+Z uporabo tehnik **strojnega učenja** in **NLP (obdelava naravnega jezika)**, AI lahko bere, razume in kategorizira varnostne dogodke z hitrostjo in natančnostjo, s čimer izboljša odzivnost ekipe SOC (Center za varnostne operacije). To je ena izmed najnaprednejših aplikacij [razvoja AI](/sviljupo-ai) na področju kibernetske varnosti.
+
+---
+
+## Kaj je razvrščanje incidentov in kako ga AI nadgrajuje
+
+**Razvrščanje incidentov** je proces, ki omogoča samodejno dodeljevanje kategorije, prioritet in ravni tveganja varnostnemu dogodku. Tradicionalno so to delo opravljali analitiki SOC, ki so ročno interpretirali loge in odločali, ali je dogodek poskus nepooblaščenega dostopa, zlonamerno programsko opremo, ranljivost konfiguracije ali nenormalnost v omrežju.
+
+Z AI se ta proces **avtomatizira in prilagodi**. Algoritmi analizirajo vsebino logov, korelirajo dogodke s podatki iz preteklosti in dinamično posodabljajo modele razvrščanja. S tem je mogoče:
+
+* Zmanjšati čas triage in analize.
+* Prepoznati korelacije med dogodki, ki se zdijo nepovezani.
+* Zmanjšati lažne alarme in izboljšati prioritetno obravnavo.
+
+Dobro usposobljen motor **razvrščanja incidentov AI** se lahko nenehno uči iz novih incidentov, posodabljajoč svoj model odločanja glede na poslovni kontekst.
+
+---
+
+## Pomen registra incidentov
+
+**Register incidentov** je operativno srce varnostnega upravljanja. Vsebuje informacije o vsakem dogodku: datum, vrsta incidenta, vpleteni viri, ukrepi. Avtomatizacija sestave in posodabljanja tega registra z AI pomeni, da imate:
+
+* Popolno in ažurno sledljivost v realnem času.
+* Koherentno zgodovino z varnostnimi KPI-ji podjetja.
+* Usklajenost z zakonodajo, kot sta **DORA** in **NIS2**, ki zahtevata dokumentirane dokaze o **varnostnih incidentih**.
+
+Sistem **tehnične dokumentacije AI** (glej [AI za tehnično dokumentacijo](/ai-dokumentacija-tehnicna)) se lahko integrira za avtomatsko generiranje rednih poročil ali spremembnih dnevnikov incidentov.
+
+---
+
+## Praktičen primer: AI razvrščanje v SOC
+
+Predstavljajmo si SOC, ki upravlja tisoče dnevnih dogodkov. Z uporabo sistema **razvrščanja incidentov** na osnovi AI:
+
+* Logi se zbirajo iz SIEM (npr. Splunk, Sentinel, QRadar).
+* Modul NLP izvleče ključne entitete (IP, uporabniki, časovni žigi, resnost).
+* Model ML oceni podobnost z preteklimi incidenti in dodeli kategorijo (npr. phishing, brute force, iztekanje podatkov).
+* Rezultati se pošljejo v **register incidentov** za avtomatski nadzor.
+
+Tukaj je poenostavljen primer v Pythonu:
+
+```python
+from openai import OpenAI
+client = OpenAI(api_key="API_KEY")
+
+incident_log = "Sumljivo prijavo iz neznanega IP 185.123.44.2 zaznali požarni zid ob 03:42."
+
+prompt = f"Razvrsti naslednji varnostni dogodek: {incident_log}. Povej vrsto napada, prioritet in predlagano ukrepanje."
+
+response = client.chat.completions.create(
+    model="gpt-4.1",
+    messages=[{"role": "user", "content": prompt}]
+)
+
+print(response.choices[0].message.content)
+```
+
+Ta pristop se lahko integrira v pipeline **SIEM** ali **SOAR**, zagotavlja višjo raven avtomatizacije pri triage-u incidentov.
+
+---
+
+## Integracija z DevSecOps in upravljanje incidentov
+
+AI ni omejena le na SOC: lahko se integrira v tokove **DevSecOps**, kjer je **upravljanje incidentov** del življenjskega cikla programske opreme. V tem kontekstu:
+
+* Varnostni incidenti, povezani s kodo, se samodejno razvrstijo in povežejo s specifičnimi commit-i ali branch-i.
+* Register incidentov se polni skladno s CI/CD pipeline-i.
+* Informacije se delijo v realnem času med razvojnimi, varnostnimi in skladnostnimi ekipami.
+
+To zagotavlja stalno sledljivost med izvorno kodo in ranljivostmi v produkciji, izboljšuje **operativno odpornost** v skladu z DORA/NIS2.
+
+---
+
+## Prednosti in omejitve pristopa AI
+
+Prednosti uporabe AI pri **razvrščanju incidentov** so očitne:
+
+* **Hitrost**: skrajša čas triage.
+* **Natančnost**: razvrščanje na podlagi konteksta in zgodovine.
+* **Razširljivost**: avtomatizirano upravljanje tisočev dogodkov na dan.
+* **Usklajenost**: podpora zakonodajni dokumentaciji.
+
+Vendar obstajajo tudi omejitve:
+
+* Potreba po **označenih podatkih** visoke kakovosti za učenje.
+* **Algoritmični pristranskosti** če podatki ne zajemajo vseh primerov.
+* Človeški nadzor je še vedno potreben za kritične primere.
+
+Kot pri vsakem procesu [razvoja AI](/sviljupo-ai), je uspeh odvisen od upravljanja in stalnega spremljanja.
+
+---
+
+## Svetovanje in implementacija
+
+Kot IT svetovalec podpiram podjetja pri načrtovanju in izvajanju rešitev za **razvrščanje incidentov** na osnovi AI. Storitve vključujejo:
+
+* Integracijo z obstoječimi platformami SIEM.
+* Ustvarjanje in vzdrževanje avtomatiziranega **registra incidentov**.
+* Usposabljanje prilagojenih modelov za poslovni kontekst.
+* Validacijo skladnosti v skladu z DORA/NIS2.
+
+Želite izvedeti, kako uvajati avtomatsko razvrščanje v vaš varnostni proces? Odkrijte [popoln vodnik za razvoj AI](/sviljupo-ai) ali [kontaktirajte me](/contact) za osebno svetovanje.
+
+---
+
+## Pogosta vprašanja
+
+**Kaj je razvrščanje incidentov?**
+Je avtomatiziran proces kategorizacije in prioritetne obravnave varnostnih dogodkov na osnovi AI in strojnega učenja.
+
+**Kaj pomeni register incidentov?**
+Je strukturiran arhiv, ki dokumentira vse **varnostne incidente**, z detajli o ukrepih in rezultatih.
+
+**Kako implementirati upravljanje incidentov z AI?**
+Z integracijo modelov NLP v tokove SIEM/SOAR in pipeline DevSecOps, za izboljšanje hitrosti in kakovosti odziva.
+
+---
+

@@ -6,12 +6,56 @@ Nota: molti script lavorano sui contenuti MDX in `src/content/**`. Eseguire prim
 
 ## 📋 Indice Rapido
 
+- [🎨 Admin CMS](#-admin-cms-interfaccia-web) - **NUOVO!** Interfaccia web per gestire articoli
 - [🚀 Script Raccomandati (Veloci)](#-script-raccomandati-veloci) - I comandi più usati con cache
 - [Traduzione contenuti](#traduzione-contenuti-dettagli-tecnici) - Dettagli tecnici script traduzione
 - [Generazione immagini](#generazione-immagini-coversogcard) - Script per covers e immagini
 - [Formattazione automatica MDX](#formattazione-automatica-mdx) - Bold, italic, emoji automatici
 - [Repair e Manutenzione](#repair-e-manutenzione) - Fix di file corrotti
 - [Troubleshooting](#troubleshooting-traduzioni) - Risoluzione problemi comuni
+
+---
+
+## 🎨 Admin CMS (Interfaccia Web)
+
+### ⭐ Metodo Consigliato per Creare Nuovi Articoli
+
+**Interfaccia web moderna** per gestire i contenuti senza usare terminale.
+
+```bash
+# Avvia il CMS Admin locale
+npm run dev:netlify
+
+# Poi apri nel browser:
+# http://localhost:4321/admin
+```
+
+**Funzionalità:**
+- ✅ Form wizard per creare articoli (insights, case studies, pagine)
+- ✅ Generazione automatica frontmatter e slug
+- ✅ Preview markdown in tempo reale
+- ✅ Generazione immagini cover con DALL-E 3
+- ✅ Traduzione automatica EN/SL con un click
+- ✅ Protezione password
+
+**Setup richiesto (una volta):**
+
+Crea file `.env` nella root:
+```bash
+ADMIN_PASSWORD=tua-password-sicura
+OPENAI_API_KEY=sk-your-openai-key
+```
+
+**Workflow completo:**
+1. Login con password admin
+2. Compila form articolo (titolo, contenuto, categorie, etc)
+3. Click "Salva Articolo (IT)" → Crea `src/content/insights/{slug}.mdx`
+4. Click "Genera Immagine" → Crea cover con DALL-E 3
+5. Click "Traduci EN" / "Traduci SL" → Crea versioni tradotte
+6. Verifica su `http://localhost:4321/it/insights/{slug}`
+7. `git add . && git commit && git push`
+
+📚 **Documentazione completa**: Vedi [ADMIN-CMS-README.md](./ADMIN-CMS-README.md)
 
 ---
 
