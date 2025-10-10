@@ -30,33 +30,33 @@ const contactUrl = getLocalizedRoute('/contatti/', locale)
         <div class="footer-section">
           <h4 class="footer-section-title">Servizi</h4>
           <ul class="footer-nav">
-            <li><a href={getLocalizedRoute('/servizi/', locale)}>Consulenza IT</a></li>
-            <li><a href={getLocalizedRoute('/servizi/', locale)}>Microsoft 365</a></li>
-            <li><a href={getLocalizedRoute('/servizi/', locale)}>AI & Automazione</a></li>
-            <li><a href={getLocalizedRoute('/servizi/', locale)}>Compliance GDPR</a></li>
+            <li><a class="btn btn-ghost" href={getLocalizedRoute('/servizi/', locale)}>Consulenza IT</a></li>
+            <li><a class="btn btn-ghost" href={getLocalizedRoute('/servizi/', locale)}>Microsoft 365</a></li>
+            <li><a class="btn btn-ghost" href={getLocalizedRoute('/servizi/', locale)}>AI & Automazione</a></li>
+            <li><a class="btn btn-ghost" href={getLocalizedRoute('/servizi/', locale)}>Compliance GDPR</a></li>
           </ul>
         </div>
         
         <div class="footer-section">
           <h4 class="footer-section-title">Risorse</h4>
           <ul class="footer-nav">
-            <li><a href={getLocalizedRoute('/insights/', locale)}>Blog & Insights</a></li>
-            <li><a href={getLocalizedRoute('/case-studies/', locale)}>Case Studies</a></li>
-            <li><a href={getLocalizedRoute('/chi-sono/', locale)}>Chi sono</a></li>
-            <li><a href={contactUrl}>Contatti</a></li>
+            <li><a class="btn btn-ghost" href={getLocalizedRoute('/insights/', locale)}>Blog & Insights</a></li>
+            <li><a class="btn btn-ghost" href={getLocalizedRoute('/case-studies/', locale)}>Case Studies</a></li>
+            <li><a class="btn btn-ghost" href={getLocalizedRoute('/chi-sono/', locale)}>Chi sono</a></li>
+            <li><a class="btn btn-ghost" href={contactUrl}>Contatti</a></li>
           </ul>
         </div>
         
         <div class="footer-section">
           <h4 class="footer-section-title">Legale & Privacy</h4>
           <ul class="footer-nav">
-            <li><a href={privacyUrl}>Privacy Policy</a></li>
-            <li><a href={cookiePolicyUrl}>Cookie Policy</a></li>
+            <li><a class="btn btn-ghost" href={privacyUrl}>Privacy Policy</a></li>
+            <li><a class="btn btn-ghost" href={cookiePolicyUrl}>Cookie Policy</a></li>
             <li>
               <button 
                 type="button" 
                 onclick="if(typeof showCookiePreferences === 'function') { showCookiePreferences(); }" 
-                class="footer-cookie-btn"
+                class="btn btn-ghost footer-cookie-btn"
                 title="Gestisci le tue preferenze cookie"
               >
                 🍪 Gestisci Cookie
@@ -66,7 +66,7 @@ const contactUrl = getLocalizedRoute('/contatti/', locale)
               <button 
                 type="button" 
                 onclick="if(typeof revokeCookieConsent === 'function') { revokeCookieConsent(); }" 
-                class="footer-revoke-btn"
+                class="btn btn-ghost footer-revoke-btn"
                 title="Revoca il consenso per tutti i cookie non necessari"
               >
                 ❌ Revoca Consenso
@@ -172,7 +172,7 @@ const contactUrl = getLocalizedRoute('/contatti/', locale)
   }
 
   .footer-nav a {
-    color: rgb(209 213 219);
+    color: #fff;
     text-decoration: none;
     transition: color 0.2s ease;
     font-size: 0.875rem;
@@ -180,14 +180,14 @@ const contactUrl = getLocalizedRoute('/contatti/', locale)
   }
 
   .footer-nav a:hover {
-    color: rgb(249 250 251);
+    color: #fff;
   }
 
   .footer-cookie-btn,
   .footer-revoke-btn {
     background: none;
     border: none;
-    color: rgb(209 213 219);
+    color: #fff;
     cursor: pointer;
     font-size: 0.875rem;
     text-align: left;
@@ -197,9 +197,7 @@ const contactUrl = getLocalizedRoute('/contatti/', locale)
   }
 
   .footer-cookie-btn:hover,
-  .footer-revoke-btn:hover {
-    color: rgb(249 250 251);
-  }
+  .footer-revoke-btn:hover { color: #fff; }
 
   .footer-bottom {
     border-top: 1px solid rgb(55 65 81);

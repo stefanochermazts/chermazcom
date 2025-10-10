@@ -3,8 +3,8 @@
   interpolate-size: allow-keywords;
 
   // brand colors (custom)
-  --brand-primary: #1f63ff; // brand-500
-  --brand-secondary: #164cd6; // brand-600
+  --brand-primary: #263f78; // brand-500 (light)
+  --brand-secondary: #1f2f63; // brand-600 (hover/darker)
   --brand-neutral: #b9bec4;
 
   // pallet brand
@@ -36,11 +36,15 @@
   --background-color: var(--color-neutral-100);
   --icon-color: var(--color-neutral-900);
   --link-color: var(--color-primary-500);
-  --link-hover-color: var(--color-primary-400);
+  --link-hover-color: var(--color-primary-500);
   --border-color: var(--color-neutral-900);
   --border-color-subtle: var(--color-neutral-300);
   --text-decoration-color: var(--color-neutral-800);
   --text-decoration-color-hover: var(--color-neutral-100);
+  
+  /* Section alternating backgrounds (light) */
+  --section-bg-odd: var(--background-color);
+  --section-bg-even: var(--color-neutral-200);
 
   // theme settings
   --radius-small: 3px;
@@ -154,12 +158,16 @@
   --foreground-color: var(--color-neutral-100);
   --background-color: var(--color-neutral-900);
   --icon-color: var(--color-neutral-100);
-  --link-color: var(--color-secondary-100);
-  --link-hover-color: var(--color-secondary-200);
+  --link-color: var(--color-secondary-200);
+  --link-hover-color: var(--color-secondary-100);
   --border-color: var(--color-neutral-100);
   --border-color-subtle: var(--color-neutral-800);
   --text-decoration-color: var(--color-neutral-100);
   --text-decoration-color-hover: var(--color-neutral-200);
+  
+  /* Section alternating backgrounds (dark) */
+  --section-bg-odd: var(--background-color);
+  --section-bg-even: var(--color-neutral-800);
   
   // kbd dark overrides
   --kbd-color-text: var(--color-neutral-800);

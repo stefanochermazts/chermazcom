@@ -62,7 +62,7 @@ if (sortParam === 'oldest') {
 
     <h2 class="text-4xl mb-6">All articles</h2>
     <section aria-label="All articles">
-      <ul role="list" class="list-none pl-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <ul role="list" class="list-none pl-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 list-perf">
         {posts.map(p => (
           <li>
             <ArticleCard post={p} baseUrl="/en/insights" />

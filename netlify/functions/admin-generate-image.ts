@@ -110,9 +110,9 @@ Aspect ratio: 16:9, suitable for web article header.
     await fs.mkdir(coversDir, { recursive: true })
 
     const fileName = `${slug}-cover.jpg`
-    const filePath = path.join(coversDir, fileName)
+    const coverFilePath = path.join(coversDir, fileName)
 
-    await fs.writeFile(filePath, optimizedImage)
+    await fs.writeFile(coverFilePath, optimizedImage)
 
     const publicPath = `/images/covers/${fileName}`
 

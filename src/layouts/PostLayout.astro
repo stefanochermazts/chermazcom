@@ -97,7 +97,7 @@ const formatDate = (iso?: string) => {
           <ol class="space-y-1" id="toc-mobile-list">
             {hasToc && toc.filter(h=>h.depth===2||h.depth===3).map((h) => (
               <li>
-                <a href={`#${h.slug}`} class="block rounded px-2 py-1 hover:bg-zinc-50 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">{h.text}</a>
+          <a href={`#${h.slug}`} class="block rounded px-2 py-1 hover:bg-zinc-50 dark:hover:bg-zinc-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">{h.text}</a>
               </li>
             ))}
           </ol>
@@ -171,7 +171,7 @@ const formatDate = (iso?: string) => {
     ) : null}
 
     <div class="not-prose my-12 text-center">
-      <a href={`/${lang}/contact`} class="inline-flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-white hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-500">Vuoi un assessment? → Contattami</a>
+      <a href={`/${lang}/contact`} class="btn btn-primary">Vuoi un assessment? → Contattami</a>
     </div>
     
     <!-- Articoli correlati -->
@@ -243,7 +243,7 @@ const formatDate = (iso?: string) => {
 
   <style is:global>
     /* Barra di progresso in alto (solo CSS) */
-    #reading-progress { position: fixed; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, #1f63ff 0 var(--progress), transparent var(--progress) 100%); z-index: 60; }
+    #reading-progress { position: fixed; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, #263f78 0 var(--progress), transparent var(--progress) 100%); z-index: 60; }
 
     /* Stili callout per > **Nota:** */
     .prose blockquote strong:first-child { display: inline-block; margin-right: .25rem; }

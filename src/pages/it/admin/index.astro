@@ -93,6 +93,16 @@ export const prerender = true
             <Icon name="lucide:file-edit" class="h-8 w-8 text-brand-600" />
             <h1 class="text-2xl font-bold text-zinc-900 dark:text-zinc-50">CMS Admin</h1>
           </div>
+          <div class="flex items-center gap-2">
+            <select id="collection-select" class="rounded-md border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-700 text-sm px-3 py-2 text-zinc-900 dark:text-zinc-50">
+              <option value="insights">insights</option>
+              <option value="case-studies">case-studies</option>
+              <option value="pages">pages</option>
+            </select>
+            <select id="file-select" class="rounded-md border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-700 text-sm px-3 py-2 text-zinc-900 dark:text-zinc-50">
+              <option value="">— Seleziona file —</option>
+            </select>
+            <button id="new-btn" class="rounded-md bg-zinc-100 dark:bg-zinc-700 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-600">Nuovo</button>
           <button
             id="logout-btn"
             class="flex items-center gap-2 rounded-md bg-zinc-100 dark:bg-zinc-700 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-600"
@@ -100,6 +110,7 @@ export const prerender = true
             <Icon name="lucide:log-out" class="h-4 w-4" />
             Esci
           </button>
+          </div>
         </div>
       </div>
     </header>
@@ -348,6 +359,9 @@ export const prerender = true
     const translateEnBtn = document.getElementById('translate-en-btn')
     const translateSlBtn = document.getElementById('translate-sl-btn')
     const floatingSaveBtn = document.getElementById('floating-save-btn')
+    const collectionSelect = document.getElementById('collection-select')
+    const fileSelect = document.getElementById('file-select')
+    const newBtn = document.getElementById('new-btn')
     const FORM_DRAFT_KEY = 'adminFormDraft'
     const LAST_SAVED_KEY = 'adminLastSaved'
 
@@ -359,6 +373,9 @@ export const prerender = true
     // Restore draft and last saved state on load
     restoreDraftFromStorage()
     restoreLastSavedFromStorage()
+
+    // Load list for selected collection on startup
+    await refreshFileList()
 
     // Rileva la porta corretta per le Netlify Functions
     const getFunctionUrl = (functionName) => {
@@ -453,6 +470,26 @@ export const prerender = true
         if (articleForm) articleForm.requestSubmit()
       })
     }
+
+    // Collection change → refresh list
+    collectionSelect.addEventListener('change', async () => {
+      await refreshFileList()
+    })
+
+    // Load selected file
+    fileSelect.addEventListener('change', async () => {
+      const fp = fileSelect.value
+      if (!fp) return
+      await loadArticleFromPath(fp)
+    })
+
+    // New article → clear draft and form
+    newBtn.addEventListener('click', () => {
+      localStorage.removeItem(FORM_DRAFT_KEY)
+      localStorage.removeItem(LAST_SAVED_KEY)
+      clearForm()
+      showStatusMessage('🆕 Nuovo articolo: bozza vuota pronta', 'info')
+    })
 
     // Generate Image
     generateImageBtn.addEventListener('click', async () => {
@@ -672,6 +709,91 @@ export const prerender = true
         .replace(/\n\n/g, '</p><p class="mb-4">')
         .replace(/\n/g, '<br>')
         .replace(/^(.+)$/gm, '<p class="mb-4">$1</p>')
+    }
+
+    async function refreshFileList() {
+      const token = localStorage.getItem('adminToken')
+      if (!token) return
+      fileSelect.innerHTML = '<option value="">Carico…</option>'
+      try {
+        const res = await fetch(`/api/admin/list?collection=${collectionSelect.value}`, { headers: { 'X-Admin-Token': token } })
+        const data = await res.json()
+        if (data.success) {
+          fileSelect.innerHTML = '<option value="">— Seleziona file —</option>'
+          for (const f of data.files) {
+            const opt = document.createElement('option')
+            opt.value = f.path
+            opt.textContent = f.name
+            fileSelect.appendChild(opt)
+          }
+        } else {
+          fileSelect.innerHTML = '<option value="">Errore caricamento</option>'
+        }
+      } catch {
+        fileSelect.innerHTML = '<option value="">Errore rete</option>'
+      }
+    }
+
+    async function loadArticleFromPath(fp) {
+      const token = localStorage.getItem('adminToken')
+      if (!token) return
+      try {
+        const res = await fetch(`/api/admin/load?filePath=${encodeURIComponent(fp)}`, { headers: { 'X-Admin-Token': token } })
+        const data = await res.json()
+        if (!data.success) return showStatusMessage('❌ Errore caricamento file', 'error')
+        const text = data.text || ''
+        // Parse frontmatter semplice
+        const fmMatch = text.startsWith('---') ? text.indexOf('\n---', 3) : -1
+        let fm = {}
+        let body = text
+        if (fmMatch !== -1) {
+          const fmRaw = text.slice(3, fmMatch + 1)
+          body = text.slice(fmMatch + 4)
+          try { fm = YAML.parse(fmRaw) } catch {}
+        }
+        // Popola form
+        document.getElementById('content-type').value = collectionSelect.value
+        titleInput.value = fm.title || ''
+        slugInput.value = fm.slug || ''
+        excerptInput.value = fm.excerpt || ''
+        document.getElementById('description').value = fm.description || ''
+        document.getElementById('categories').value = Array.isArray(fm.categories) ? fm.categories.join(', ') : ''
+        document.getElementById('tags').value = Array.isArray(fm.tags) ? fm.tags.join(', ') : ''
+        document.getElementById('status').value = fm.status || 'draft'
+        contentInput.value = body.trimStart()
+        updatePreview()
+        savedFilePath = fp
+        localStorage.setItem(LAST_SAVED_KEY, JSON.stringify({ filePath: savedFilePath, ts: Date.now() }))
+        saveDraftToStorage()
+        showStatusMessage(`✍️ Modifica file: ${fp}`, 'info')
+        // abilita azioni
+        const genBtn = document.getElementById('generate-image-btn')
+        if (genBtn) genBtn.removeAttribute('disabled')
+        if (translateEnBtn) translateEnBtn.removeAttribute('disabled')
+        if (translateSlBtn) translateSlBtn.removeAttribute('disabled')
+      } catch {
+        showStatusMessage('❌ Errore rete', 'error')
+      }
+    }
+
+    function clearForm() {
+      document.getElementById('content-type').value = 'insights'
+      titleInput.value = ''
+      slugInput.value = ''
+      excerptInput.value = ''
+      document.getElementById('description').value = ''
+      document.getElementById('categories').value = ''
+      document.getElementById('tags').value = ''
+      document.getElementById('status').value = 'draft'
+      contentInput.value = ''
+      updatePreview()
+      savedFilePath = ''
+      const genBtn = document.getElementById('generate-image-btn')
+      if (genBtn) genBtn.setAttribute('disabled', 'true')
+      if (translateEnBtn) translateEnBtn.setAttribute('disabled', 'true')
+      if (translateSlBtn) translateSlBtn.setAttribute('disabled', 'true')
+      fileInfo.classList.add('hidden')
+      filePath.textContent = ''
     }
 
     // Draft persistence helpers

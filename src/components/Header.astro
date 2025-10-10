@@ -36,7 +36,11 @@ const navItems = [
           <a 
             href={localizedHref} 
             aria-current={isActive(localizedHref) ? 'page' : undefined} 
-            class:list={{'is-active': isActive(localizedHref)}}
+            class:list={[
+              {'is-active': isActive(localizedHref)},
+              'btn',
+              item.key === 'contact' ? 'btn-primary' : 'btn-secondary'
+            ]}
           >
             {t(`nav.${item.key}`, locale)}
           </a>
@@ -59,8 +63,8 @@ const navItems = [
 
 <style lang="scss" is:global>
   header {
-    .menu-item a.is-active {
-      color: #1f63ff;
+    .menu-item a.is-active:not(.btn) {
+      color: #263f78;
       font-weight: 600;
     }
     .type-icon {

@@ -214,14 +214,8 @@ const cookiePolicyUrl = `/${locale}/cookie-policy/`
     color: rgb(156 163 175);
   }
 
-  .cookie-banner-link {
-    color: #1f63ff;
-    text-decoration: underline;
-  }
-
-  .cookie-banner-link:hover {
-    color: #164cd6;
-  }
+  .cookie-banner-link { color: var(--link-color); text-decoration: underline; }
+  .cookie-banner-link:hover { color: var(--link-hover-color); }
 
   .cookie-banner-actions {
     display: flex;
@@ -443,17 +437,13 @@ const cookiePolicyUrl = `/${locale}/cookie-policy/`
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   }
 
-  .cookie-toggle-input:checked + .cookie-toggle-switch {
-    background-color: #1f63ff;
-  }
+  .cookie-toggle-input:checked + .cookie-toggle-switch { background-color: var(--link-color); }
 
   .cookie-toggle-input:checked + .cookie-toggle-switch:before {
     transform: translateX(20px);
   }
 
-  .cookie-toggle-on {
-    background-color: #1f63ff !important;
-  }
+  .cookie-toggle-on { background-color: var(--link-color) !important; }
 
   .cookie-toggle-on:before {
     transform: translateX(20px) !important;
@@ -483,14 +473,8 @@ const cookiePolicyUrl = `/${locale}/cookie-policy/`
     white-space: nowrap;
   }
 
-  .cookie-btn-primary {
-    background: #1f63ff;
-    color: white;
-  }
-
-  .cookie-btn-primary:hover {
-    background: #164cd6;
-  }
+  .cookie-btn-primary { background: var(--brand-primary); color: white; }
+  .cookie-btn-primary:hover { background: var(--brand-secondary); }
 
   .cookie-btn-secondary {
     background: rgb(243 244 246);

@@ -2,9 +2,9 @@
   $color: var(--text-decoration-color),
   $hoverColor: var(--text-decoration-hover-color),
   $thickness: 2px,
-  $hoverThickness: 1px,
+  $hoverThickness: 3px,
   $underlineOffset: 4px,
-  $hoverUnderlineOffset: 2px
+  $hoverUnderlineOffset: 3px
 ) {
   transition: text-decoration, text-underline-offset, text-decoration-color, text-decoration-thickness;
   transition-duration: var(--animation-speed-fast);
@@ -24,7 +24,7 @@
 }
 
 @mixin outline {
-  outline: 2px solid #1f63ff;
+  outline: 2px solid #263f78;
   outline-offset: 2px;
 }
 

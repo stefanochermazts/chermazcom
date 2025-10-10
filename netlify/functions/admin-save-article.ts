@@ -11,6 +11,8 @@ import yaml from 'yaml'
 
 interface ArticleData {
   contentType: 'insights' | 'case-studies' | 'pages'
+  // se presente, percorso relativo file esistente da sovrascrivere/aggiornare
+  filePath?: string
   title: string
   slug: string
   excerpt: string
@@ -83,27 +85,34 @@ ${data.content.trim()}
     const fileName = `${data.slug}.mdx`
     const filePath = path.join(contentDir, fileName)
 
-    // Verifica se esiste già
-    try {
-      await fs.access(filePath)
-      return {
-        statusCode: 409,
-        body: JSON.stringify({
-          success: false,
-          error: `File già esistente: ${fileName}. Usa un altro slug.`
-        })
-      }
-    } catch {
-      // File non esiste, ok per continuare
+    // Modalità modifica: se filePath è presente, ignora controllo esistenza e scrivi su quel path
+    let finalPath = filePath
+    if (data.filePath && data.filePath.endsWith('.mdx')) {
+      finalPath = path.join(process.cwd(), data.filePath)
+    } else {
+      // Creazione nuovo: errore se esiste già
+      try {
+        await fs.access(filePath)
+        return {
+          statusCode: 409,
+          body: JSON.stringify({
+            success: false,
+            error: `File già esistente: ${fileName}. Usa un altro slug.`
+          })
+        }
+      } catch {}
+      finalPath = filePath
     }
 
     // Crea la directory se non esiste
     await fs.mkdir(contentDir, { recursive: true })
 
     // Salva il file
-    await fs.writeFile(filePath, mdxContent, 'utf-8')
+    await fs.writeFile(finalPath, mdxContent, 'utf-8')
 
-    const relativePath = `src/content/${data.contentType}/${fileName}`
+    const relativePath = data.filePath && data.filePath.endsWith('.mdx')
+      ? data.filePath
+      : `src/content/${data.contentType}/${fileName}`
 
     return {
       statusCode: 200,

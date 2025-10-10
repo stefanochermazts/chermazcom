@@ -10,7 +10,7 @@ const Content = page ? (await render(page)).Content : null
 
 <UnifiedLayout title={page?.data?.title ?? 'Servizi'} description={page?.data?.excerpt ?? 'Servizi di consulenza IT'} structuredDataType="Service">
   {Content && (
-    <section class="py-16 sm:py-20">
+    <section class="pt-16 sm:pt-20">
       <div class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8">
         <Content />
       </div>

@@ -243,6 +243,21 @@ const locale = getLocaleFromUrl(Astro.url)
           .border-zinc-200 { border-color: rgb(228 228 231) !important; }
         }
       }
+
+      /* Alterna sfondo sezioni: solo per sezioni senza classi bg- esplicite */
+      main > section:not([class*="bg-"]) {
+        background: var(--section-bg-odd);
+      }
+      main > section:nth-of-type(even):not([class*="bg-"]) {
+        background: var(--section-bg-even);
+      }
+      /* Corregge padding riducendo doppio contrasto sui bordi tra sezioni */
+      main > section:not([class*="bg-"]) + section:not([class*="bg-"]) {
+        border-top: 1px solid var(--border-color-subtle);
+      }
+
+      /* Padding-bottom uniforme per tutte le sezioni */
+      main > section { padding-bottom: 10px; }
     </style>
   </body>
 </html>

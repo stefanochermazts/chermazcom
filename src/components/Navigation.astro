@@ -292,8 +292,8 @@ import Logo from './Logo.astro'
       gap: var(--space-m);
     }
 
-    a,
-    button {
+    a:not(.btn),
+    button:not(.btn) {
       color: var(--foreground-color);
     }
 
@@ -307,9 +307,9 @@ import Logo from './Logo.astro'
           align-content: center;
         }
 
-        a:hover,
-        a:focus-visible,
-        .is-active,
+        a:not(.btn):hover,
+        a:not(.btn):focus-visible,
+        .is-active:not(.btn),
         button[aria-expanded='true'],
         .has-dropdown > button:hover,
         .has-dropdown > button:focus-visible {
