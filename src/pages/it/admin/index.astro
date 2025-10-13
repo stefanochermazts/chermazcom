@@ -57,7 +57,7 @@ export const prerender = true
         </p>
       </div>
       
-      <form id="login-form" class="mt-8 space-y-6">
+      <form id="login-form" method="post" class="mt-8 space-y-6" autocomplete="off">
         <div class="rounded-md shadow-sm">
           <label for="admin-password" class="sr-only">Password Admin</label>
           <input
@@ -67,6 +67,7 @@ export const prerender = true
             required
             class="relative block w-full appearance-none rounded-md border border-zinc-300 dark:border-zinc-700 px-3 py-3 text-zinc-900 dark:text-zinc-50 placeholder-zinc-500 dark:placeholder-zinc-400 bg-white dark:bg-zinc-800 focus:z-10 focus:border-brand-500 focus:outline-none focus:ring-brand-500"
             placeholder="Password admin"
+            autocomplete="new-password"
           />
         </div>
 
@@ -335,7 +336,8 @@ export const prerender = true
     Salva Articolo (IT)
   </button>
 
-  <script>
+  <script type="module">
+    console.log('[Admin] JS loaded')
     // State Management
     let isAuthenticated = false
     let savedFilePath = ''
@@ -371,6 +373,14 @@ export const prerender = true
     }
 
     // Restore draft and last saved state on load
+    window.addEventListener('error', (e) => {
+      console.error('Admin runtime error:', e?.message)
+      const loginError = document.getElementById('login-error')
+      if (loginError) {
+        loginError.textContent = 'Errore runtime: vedi console. Assicurati di avviare con npm run dev:netlify'
+        loginError.classList.remove('hidden')
+      }
+    })
     restoreDraftFromStorage()
     restoreLastSavedFromStorage()
 
@@ -379,17 +389,20 @@ export const prerender = true
 
     // Rileva la porta corretta per le Netlify Functions
     const getFunctionUrl = (functionName) => {
-      // Se siamo su porta 4321 (Astro dev), le functions sono su 8888
-      if (window.location.port === '4321') {
-        return `http://localhost:8888/.netlify/functions/${functionName}`
-      }
-      // Altrimenti usa il path relativo (funziona su porta 8888 e in produzione)
-      return `/.netlify/functions/${functionName}`
+      const origin = window.location.origin
+      // Se stai su 8888 (netlify dev) oppure su 4321 (astro dev), monta sempre su 8888
+      if (origin.includes(':4321')) return 'http://localhost:8888/.netlify/functions/' + functionName
+      if (origin.includes(':8888')) return '/.netlify/functions/' + functionName
+      // fallback: path relativo
+      return '/.netlify/functions/' + functionName
     }
 
     // Login Handler
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault()
+      try { history.replaceState({}, document.title, location.pathname) } catch {}
+      const submitBtn = document.querySelector('#login-form button[type="submit"]')
+      if (submitBtn) submitBtn.setAttribute('disabled', 'true')
       const password = document.getElementById('admin-password').value
 
       try {
@@ -406,10 +419,11 @@ export const prerender = true
         console.log('📡 Response status:', response.status)
 
         if (response.ok) {
-          const data = await response.json()
+          let data = null
+          try { data = await response.json() } catch {}
           console.log('📦 Response data:', data)
           
-          if (data.success) {
+          if (data && data.success) {
             localStorage.setItem('adminAuth', 'true')
             localStorage.setItem('adminToken', data.token)
             showAdminInterface()
@@ -426,8 +440,28 @@ export const prerender = true
       } catch (error) {
         console.error('❌ Login error:', error)
         showLoginError('⚠️ Errore connessione. Verifica che "npm run dev:netlify" sia attivo!')
-      }
+      } finally { if (submitBtn) submitBtn.removeAttribute('disabled') }
     })
+
+    // Forza submit con Invio nel campo password
+    const pwd = document.getElementById('admin-password')
+    if (pwd) {
+      pwd.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          if (loginForm) loginForm.requestSubmit()
+        }
+      })
+    }
+
+    // Banner diagnostico opzionale
+    try {
+      const dbg = document.createElement('div')
+      dbg.textContent = 'Admin JS attivo'
+      dbg.style.cssText = 'position:fixed;bottom:10px;left:10px;font:12px monospace;padding:2px 6px;background:rgba(0,128,0,.08);border:1px solid rgba(0,128,0,.3);color:rgba(0,128,0,.9);z-index:9999;border-radius:4px;'
+      document.body.appendChild(dbg)
+      setTimeout(()=>dbg.remove(), 1500)
+    } catch {}
 
     // Logout Handler
     logoutBtn.addEventListener('click', () => {
@@ -506,6 +540,111 @@ export const prerender = true
     })
 
     // Functions
+    function saveDraftToStorage() {
+      const draft = {
+        title: titleInput.value,
+        excerpt: excerptInput.value,
+        content: contentInput.value,
+        description: document.getElementById('description').value,
+        categories: document.getElementById('categories').value,
+        tags: document.getElementById('tags').value,
+        status: document.getElementById('status').value,
+        contentType: document.getElementById('content-type').value
+      }
+      localStorage.setItem(FORM_DRAFT_KEY, JSON.stringify(draft))
+    }
+
+    function restoreDraftFromStorage() {
+      const raw = localStorage.getItem(FORM_DRAFT_KEY)
+      if (!raw) return
+      try {
+        const d = JSON.parse(raw)
+        if (d.title) titleInput.value = d.title
+        if (d.excerpt) excerptInput.value = d.excerpt
+        if (d.content) contentInput.value = d.content
+        if (d.description) document.getElementById('description').value = d.description
+        if (d.categories) document.getElementById('categories').value = d.categories
+        if (d.tags) document.getElementById('tags').value = d.tags
+        if (d.status) document.getElementById('status').value = d.status
+        if (d.contentType) document.getElementById('content-type').value = d.contentType
+        updatePreview()
+      } catch {}
+    }
+
+    function restoreLastSavedFromStorage() {
+      const raw = localStorage.getItem(LAST_SAVED_KEY)
+      if (!raw) return
+      try {
+        const info = JSON.parse(raw)
+        if (info?.filePath) {
+          const el = document.getElementById('file-path')
+          const box = document.getElementById('file-info')
+          if (el) el.textContent = info.filePath
+          if (box) box.classList.remove('hidden')
+        }
+      } catch {}
+    }
+
+    function clearForm() {
+      titleInput.value = ''
+      slugInput.value = ''
+      excerptInput.value = ''
+      contentInput.value = ''
+      document.getElementById('description').value = ''
+      document.getElementById('categories').value = ''
+      document.getElementById('tags').value = ''
+      document.getElementById('status').value = 'draft'
+      updatePreview()
+    }
+
+    async function refreshFileList() {
+      const token = localStorage.getItem('adminToken') || 'dev'
+      const collection = document.getElementById('collection-select').value
+      try {
+        const url = `${getFunctionUrl('admin-list-content')}?collection=${encodeURIComponent(collection)}`
+        const res = await fetch(url, { headers: { 'X-Admin-Token': token } })
+        const data = await res.json()
+        if (res.ok && data.success) {
+          fileSelect.innerHTML = '<option value="">— Seleziona file —</option>'
+          for (const f of data.files) {
+            const opt = document.createElement('option')
+            opt.value = f.path
+            opt.textContent = f.name
+            fileSelect.appendChild(opt)
+          }
+        }
+      } catch (e) {
+        console.warn('refreshFileList error', e)
+      }
+    }
+
+    async function loadArticleFromPath(fp) {
+      const token = localStorage.getItem('adminToken') || 'dev'
+      try {
+        const res = await fetch(getFunctionUrl('admin-load-article'), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Admin-Token': token },
+          body: JSON.stringify({ filePath: fp })
+        })
+        const data = await res.json()
+        if (res.ok && data.success) {
+          // Popola form basilare (title, slug, excerpt, content) se presenti nel frontmatter
+          const fm = data.frontmatter || {}
+          if (fm.title) titleInput.value = fm.title
+          if (fm.slug) slugInput.value = fm.slug
+          if (fm.excerpt) excerptInput.value = fm.excerpt
+          if (typeof data.content === 'string') contentInput.value = data.content
+          updatePreview()
+          saveDraftToStorage()
+          showStatusMessage(`📄 Caricato: ${fp}`, 'info')
+        } else {
+          showStatusMessage(`❌ Errore caricamento: ${data.error || 'Impossibile leggere il file'}`, 'error')
+        }
+      } catch (e) {
+        console.error('loadArticleFromPath error', e)
+        showStatusMessage('❌ Errore di connessione', 'error')
+      }
+    }
     function showAdminInterface() {
       isAuthenticated = true
       loginScreen.classList.add('hidden')
@@ -662,7 +801,7 @@ export const prerender = true
         if (response.ok && data.success) {
           showStatusMessage(`✅ Traduzione ${targetLang.toUpperCase()} completata: ${data.translatedPath}`, 'success')
         } else {
-          showStatusMessage(`❌ Errore traduzione: ${data.error}`, 'error')
+          showStatusMessage(`❌ Errore traduzione: ${data.error || 'Operazione fallita'}`, 'error')
         }
       } catch (error) {
         console.error('Translation error:', error)
@@ -679,14 +818,11 @@ export const prerender = true
         info: 'bg-blue-50 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300',
         warning: 'bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300'
       }
-
       const msgDiv = document.createElement('div')
       msgDiv.className = `rounded-md p-4 text-sm ${colors[type]}`
       msgDiv.textContent = message
-      
       statusMessages.innerHTML = ''
       statusMessages.appendChild(msgDiv)
-
       if (type === 'success' || type === 'info') {
         setTimeout(() => msgDiv.remove(), 5000)
       }
@@ -698,7 +834,6 @@ export const prerender = true
       return div.innerHTML
     }
 
-    // Simple markdown parser (basic support)
     function marked(text) {
       return text
         .replace(/^### (.*$)/gim, '<h3 class="text-xl font-bold mt-6 mb-3">$1</h3>')
@@ -710,146 +845,6 @@ export const prerender = true
         .replace(/\n/g, '<br>')
         .replace(/^(.+)$/gm, '<p class="mb-4">$1</p>')
     }
-
-    async function refreshFileList() {
-      const token = localStorage.getItem('adminToken')
-      if (!token) return
-      fileSelect.innerHTML = '<option value="">Carico…</option>'
-      try {
-        const res = await fetch(`/api/admin/list?collection=${collectionSelect.value}`, { headers: { 'X-Admin-Token': token } })
-        const data = await res.json()
-        if (data.success) {
-          fileSelect.innerHTML = '<option value="">— Seleziona file —</option>'
-          for (const f of data.files) {
-            const opt = document.createElement('option')
-            opt.value = f.path
-            opt.textContent = f.name
-            fileSelect.appendChild(opt)
-          }
-        } else {
-          fileSelect.innerHTML = '<option value="">Errore caricamento</option>'
-        }
-      } catch {
-        fileSelect.innerHTML = '<option value="">Errore rete</option>'
-      }
-    }
-
-    async function loadArticleFromPath(fp) {
-      const token = localStorage.getItem('adminToken')
-      if (!token) return
-      try {
-        const res = await fetch(`/api/admin/load?filePath=${encodeURIComponent(fp)}`, { headers: { 'X-Admin-Token': token } })
-        const data = await res.json()
-        if (!data.success) return showStatusMessage('❌ Errore caricamento file', 'error')
-        const text = data.text || ''
-        // Parse frontmatter semplice
-        const fmMatch = text.startsWith('---') ? text.indexOf('\n---', 3) : -1
-        let fm = {}
-        let body = text
-        if (fmMatch !== -1) {
-          const fmRaw = text.slice(3, fmMatch + 1)
-          body = text.slice(fmMatch + 4)
-          try { fm = YAML.parse(fmRaw) } catch {}
-        }
-        // Popola form
-        document.getElementById('content-type').value = collectionSelect.value
-        titleInput.value = fm.title || ''
-        slugInput.value = fm.slug || ''
-        excerptInput.value = fm.excerpt || ''
-        document.getElementById('description').value = fm.description || ''
-        document.getElementById('categories').value = Array.isArray(fm.categories) ? fm.categories.join(', ') : ''
-        document.getElementById('tags').value = Array.isArray(fm.tags) ? fm.tags.join(', ') : ''
-        document.getElementById('status').value = fm.status || 'draft'
-        contentInput.value = body.trimStart()
-        updatePreview()
-        savedFilePath = fp
-        localStorage.setItem(LAST_SAVED_KEY, JSON.stringify({ filePath: savedFilePath, ts: Date.now() }))
-        saveDraftToStorage()
-        showStatusMessage(`✍️ Modifica file: ${fp}`, 'info')
-        // abilita azioni
-        const genBtn = document.getElementById('generate-image-btn')
-        if (genBtn) genBtn.removeAttribute('disabled')
-        if (translateEnBtn) translateEnBtn.removeAttribute('disabled')
-        if (translateSlBtn) translateSlBtn.removeAttribute('disabled')
-      } catch {
-        showStatusMessage('❌ Errore rete', 'error')
-      }
-    }
-
-    function clearForm() {
-      document.getElementById('content-type').value = 'insights'
-      titleInput.value = ''
-      slugInput.value = ''
-      excerptInput.value = ''
-      document.getElementById('description').value = ''
-      document.getElementById('categories').value = ''
-      document.getElementById('tags').value = ''
-      document.getElementById('status').value = 'draft'
-      contentInput.value = ''
-      updatePreview()
-      savedFilePath = ''
-      const genBtn = document.getElementById('generate-image-btn')
-      if (genBtn) genBtn.setAttribute('disabled', 'true')
-      if (translateEnBtn) translateEnBtn.setAttribute('disabled', 'true')
-      if (translateSlBtn) translateSlBtn.setAttribute('disabled', 'true')
-      fileInfo.classList.add('hidden')
-      filePath.textContent = ''
-    }
-
-    // Draft persistence helpers
-    function saveDraftToStorage() {
-      try {
-        const draft = {
-          contentType: document.getElementById('content-type').value,
-          title: titleInput.value,
-          slug: slugInput.value,
-          excerpt: excerptInput.value,
-          description: document.getElementById('description').value,
-          categories: document.getElementById('categories').value,
-          tags: document.getElementById('tags').value,
-          content: contentInput.value,
-          status: document.getElementById('status').value
-        }
-        localStorage.setItem(FORM_DRAFT_KEY, JSON.stringify(draft))
-      } catch {}
-    }
-
-    function restoreDraftFromStorage() {
-      try {
-        const raw = localStorage.getItem(FORM_DRAFT_KEY)
-        if (!raw) return
-        const d = JSON.parse(raw)
-        if (d.contentType) document.getElementById('content-type').value = d.contentType
-        if (d.title) titleInput.value = d.title
-        if (d.slug) slugInput.value = d.slug
-        if (d.excerpt) excerptInput.value = d.excerpt
-        if (d.description) document.getElementById('description').value = d.description
-        if (d.categories) document.getElementById('categories').value = d.categories
-        if (d.tags) document.getElementById('tags').value = d.tags
-        if (d.content) contentInput.value = d.content
-        if (d.status) document.getElementById('status').value = d.status
-        updatePreview()
-      } catch {}
-    }
-
-    function restoreLastSavedFromStorage() {
-      try {
-        const raw = localStorage.getItem(LAST_SAVED_KEY)
-        if (!raw) return
-        const last = JSON.parse(raw)
-        if (last && last.filePath) {
-          savedFilePath = last.filePath
-          const genBtn = document.getElementById('generate-image-btn')
-          if (genBtn) genBtn.removeAttribute('disabled')
-          if (translateEnBtn) translateEnBtn.removeAttribute('disabled')
-          if (translateSlBtn) translateSlBtn.removeAttribute('disabled')
-          fileInfo.classList.remove('hidden')
-          filePath.textContent = savedFilePath
-        }
-      } catch {}
-    }
   </script>
 </body>
 </html>
-
-
