@@ -27,13 +27,103 @@ const insights = defineCollection({
   }),
 })
 
+const homeHero = z.object({
+  eyebrow: z.string().optional(),
+  title: z.string().optional(),
+  subtitle: z.string().optional(),
+  primaryLabel: z.string().optional(),
+  secondaryLabel: z.string().optional(),
+  afterButtons: z.string().optional(),
+}).optional()
+
+const homeAbout = z.object({
+  title: z.string().optional(),
+  lead: z.string().optional(),
+  paragraph: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  linkHref: z.string().optional(),
+  linkText: z.string().optional(),
+  photoLabel: z.string().optional(),
+  photoName: z.string().optional(),
+  yearsBadgeValue: z.string().optional(),
+  yearsBadgeSubtitle: z.string().optional(),
+  imageSrc: z.string().optional(),
+  imageAlt: z.string().optional(),
+  imageAspectClass: z.string().optional(),
+}).optional()
+
+const homeServiceItem = z.object({
+  icon: z.string().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  features: z.array(z.string()).optional(),
+  cta: z.string().optional(),
+})
+
+const homeServices = z.object({
+  title: z.string().optional(),
+  subtitle: z.string().optional(),
+  servicesLinkBase: z.string().optional(),
+  bottomCtaText: z.string().optional(),
+  bottomCtaHref: z.string().optional(),
+  items: z.array(homeServiceItem).optional(),
+  afterCta: z.string().optional(),
+}).optional()
+
+const homeExpertise = z.object({
+  title: z.string().optional(),
+  subtitle: z.string().optional(),
+  ctaText: z.string().optional(),
+  ctaHref: z.string().optional(),
+  areas: z.array(z.object({
+    icon: z.string().optional(),
+    title: z.string().optional(),
+    description: z.string().optional(),
+    highlights: z.array(z.string()).optional(),
+  })).optional(),
+}).optional()
+
+const homeCaseStudies = z.object({
+  title: z.string().optional(),
+  subtitle: z.string().optional(),
+  allProjectsLabel: z.string().optional(),
+}).optional()
+
+const homeLatestInsights = z.object({
+  title: z.string().optional(),
+  subtitle: z.string().optional(),
+  allArticlesLabel: z.string().optional(),
+  locale: z.string().optional(),
+}).optional()
+
+const testimonialItem = z.object({
+  author: z.string().optional(),
+  quote: z.string().optional(),
+})
+
+const homeTestimonials = z.object({
+  title: z.string().optional(),
+  items: z.array(testimonialItem).optional(),
+}).optional()
+
 const pages = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/pages' }),
   schema: z.object({
     title: z.string(),
+    description: z.string().optional(),
     slug: z.string().optional(),
     date: z.string().or(z.date()).optional(),
     excerpt: z.string().optional(),
+    lang: z.string().optional(),
+    status: z.string().optional(),
+    // Sezioni home (opzionali)
+    hero: homeHero,
+    about: homeAbout,
+    services: homeServices,
+    expertise: homeExpertise,
+    caseStudies: homeCaseStudies,
+    latestInsights: homeLatestInsights,
+    testimonials: homeTestimonials,
   }),
 })
 

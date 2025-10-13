@@ -5,7 +5,9 @@ const {
   subtitle = 'Modern Workplace, automazioni, chatbot e governance. Sicurezza e performance al primo posto.',
   primary = { href: '/services/', label: 'Servizi' },
   secondary = { href: '/case-studies/', label: 'Case studies' },
+  afterButtons,
 } = Astro.props
+// No external Markdown renderer here; use slot for MDX body content
 import projectImage from '../../assets/images/projects/project-image-7.png'
 ---
 <section class="relative isolate pt-16 sm:pt-20" data-reduce-motion="(prefers-reduced-motion: reduce)">
@@ -32,6 +34,12 @@ import projectImage from '../../assets/images/projects/project-image-7.png'
         </div>
       </div>
     </div>
+    {typeof afterButtons === 'string' && afterButtons.trim().length > 0 && (
+      <div class="mt-6 max-w-3xl lg:max-w-none text-base leading-7 text-zinc-700 dark:text-zinc-300">
+        <div set:html={afterButtons} />
+      </div>
+    )}
+    <slot name="after" />
   </div>
 </section>
 <script>
@@ -57,3 +65,4 @@ import projectImage from '../../assets/images/projects/project-image-7.png'
     }
   } catch {}
 </script>
+

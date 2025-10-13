@@ -8,7 +8,7 @@ import CaseStudies from '../../components/Home/CaseStudies.astro'
 import LatestInsights from '../../components/Home/LatestInsights.astro'
 import Testimonials from '../../components/Home/Testimonials.astro'
 import Contact from '../../components/Home/Contact.astro'
-import { getCollection } from 'astro:content'
+import { getCollection, getEntry } from 'astro:content'
 import sl from '../../i18n/sl.json'
 
 // Dati per la pillar page - contenuti sloveni
@@ -38,39 +38,44 @@ const featuredCaseStudies = await getCollection('caseStudies', ({ id }) =>
 const recentCaseStudies = featuredCaseStudies
   .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
   .slice(0, 3)
+
+// MDX home (SL)
+const home = await getEntry('pages', 'sl-home')
+const H = (home?.data ?? sl.pages.home)
 ---
 
-<UnifiedLayout enableTransitions={true} title={sl.pages.home.title} description={sl.pages.home.description} useLocalizedMeta={true} pageKey="home">
-  <Hero eyebrow={sl.pages.home.hero.eyebrow} title={sl.pages.home.hero.title} subtitle={sl.pages.home.hero.subtitle} primary={{ href: '/sl/storitve/', label: sl.pages.home.hero.primaryLabel }} secondary={{ href: '/sl/case-studies/', label: sl.pages.home.hero.secondaryLabel }} />
+<UnifiedLayout enableTransitions={true} title={H.title ?? sl.pages.home.title} description={H.description ?? sl.pages.home.description} useLocalizedMeta={true} pageKey="home">
+  <Hero eyebrow={H.hero?.eyebrow ?? sl.pages.home.hero.eyebrow} title={H.hero?.title ?? sl.pages.home.hero.title} subtitle={H.hero?.subtitle ?? sl.pages.home.hero.subtitle} primary={{ href: '/sl/storitve/', label: H.hero?.primaryLabel ?? sl.pages.home.hero.primaryLabel }} secondary={{ href: '/sl/case-studies/', label: H.hero?.secondaryLabel ?? sl.pages.home.hero.secondaryLabel }} afterButtons={H.hero?.afterButtons} />
   <About 
-    title={sl.pages.home.about.title}
-    lead={sl.pages.home.about.lead}
-    paragraph={sl.pages.home.about.paragraph}
-    tags={sl.pages.home.about.tags}
-    linkHref={sl.pages.home.about.linkHref}
-    linkText={sl.pages.home.about.linkText}
-    photoLabel={sl.pages.home.about.photoLabel}
-    photoName={sl.pages.home.about.photoName}
-    yearsBadgeValue={sl.pages.home.about.yearsBadgeValue}
-    yearsBadgeSubtitle={sl.pages.home.about.yearsBadgeSubtitle}
-    imageSrc={sl.pages.home.about.imageSrc}
-    imageAlt={sl.pages.home.about.imageAlt}
-    imageAspectClass={sl.pages.home.about.imageAspectClass}
+    title={H.about?.title ?? sl.pages.home.about.title}
+    lead={H.about?.lead ?? sl.pages.home.about.lead}
+    paragraph={H.about?.paragraph ?? sl.pages.home.about.paragraph}
+    tags={H.about?.tags ?? sl.pages.home.about.tags}
+    linkHref={H.about?.linkHref ?? sl.pages.home.about.linkHref}
+    linkText={H.about?.linkText ?? sl.pages.home.about.linkText}
+    photoLabel={H.about?.photoLabel ?? sl.pages.home.about.photoLabel}
+    photoName={H.about?.photoName ?? sl.pages.home.about.photoName}
+    yearsBadgeValue={H.about?.yearsBadgeValue ?? sl.pages.home.about.yearsBadgeValue}
+    yearsBadgeSubtitle={H.about?.yearsBadgeSubtitle ?? sl.pages.home.about.yearsBadgeSubtitle}
+    imageSrc={H.about?.imageSrc ?? sl.pages.home.about.imageSrc}
+    imageAlt={H.about?.imageAlt ?? sl.pages.home.about.imageAlt}
+    imageAspectClass={H.about?.imageAspectClass ?? sl.pages.home.about.imageAspectClass}
   />
   <Services 
-    title={sl.pages.home.services.title}
-    subtitle={sl.pages.home.services.subtitle}
-    servicesLinkBase={sl.pages.home.services.servicesLinkBase}
-    bottomCtaText={sl.pages.home.services.bottomCtaText}
-    bottomCtaHref={sl.pages.home.services.bottomCtaHref}
-    services={sl.pages.home.services.items}
+    title={H.services?.title ?? sl.pages.home.services.title}
+    subtitle={H.services?.subtitle ?? sl.pages.home.services.subtitle}
+    servicesLinkBase={H.services?.servicesLinkBase ?? sl.pages.home.services.servicesLinkBase}
+    bottomCtaText={H.services?.bottomCtaText ?? sl.pages.home.services.bottomCtaText}
+    bottomCtaHref={H.services?.bottomCtaHref ?? sl.pages.home.services.bottomCtaHref}
+    services={H.services?.items ?? sl.pages.home.services.items}
+    afterCta={H.services?.afterCta}
   />
   <Expertise 
-    title={sl.pages.home.expertise.title}
-    subtitle={sl.pages.home.expertise.subtitle}
-    ctaText={sl.pages.home.expertise.ctaText}
-    ctaHref={sl.pages.home.expertise.ctaHref}
-    areas={sl.pages.home.expertise.areas}
+    title={H.expertise?.title ?? sl.pages.home.expertise.title}
+    subtitle={H.expertise?.subtitle ?? sl.pages.home.expertise.subtitle}
+    ctaText={H.expertise?.ctaText ?? sl.pages.home.expertise.ctaText}
+    ctaHref={H.expertise?.ctaHref ?? sl.pages.home.expertise.ctaHref}
+    areas={H.expertise?.areas ?? sl.pages.home.expertise.areas}
   />
   {seriesInsights.length > 0 && (
     <LatestInsights 
@@ -85,21 +90,21 @@ const recentCaseStudies = featuredCaseStudies
   <CaseStudies 
     items={recentCaseStudies} 
     baseUrl="/sl/case-studies" 
-    title={sl.pages.home.caseStudies.title} 
-    subtitle={sl.pages.home.caseStudies.subtitle}
-    allProjectsLabel={sl.pages.home.caseStudies.allProjectsLabel}
+    title={H.caseStudies?.title ?? sl.pages.home.caseStudies.title} 
+    subtitle={H.caseStudies?.subtitle ?? sl.pages.home.caseStudies.subtitle}
+    allProjectsLabel={H.caseStudies?.allProjectsLabel ?? sl.pages.home.caseStudies.allProjectsLabel}
   />
   <LatestInsights 
     items={recentInsights} 
     baseUrl="/sl/insights" 
-    title={sl.pages.home.latestInsights.title} 
-    subtitle={sl.pages.home.latestInsights.subtitle}
-    allArticlesLabel={sl.pages.home.latestInsights.allArticlesLabel}
-    locale={sl.pages.home.latestInsights.locale}
+    title={H.latestInsights?.title ?? sl.pages.home.latestInsights.title} 
+    subtitle={H.latestInsights?.subtitle ?? sl.pages.home.latestInsights.subtitle}
+    allArticlesLabel={H.latestInsights?.allArticlesLabel ?? sl.pages.home.latestInsights.allArticlesLabel}
+    locale={H.latestInsights?.locale ?? sl.pages.home.latestInsights.locale}
   />
   <Testimonials 
     title={sl.pages.home.testimonials.title}
     items={sl.pages.home.testimonials.items}
   />
   <Contact lang="sl" />
-</DefaultLayout>
+</UnifiedLayout>

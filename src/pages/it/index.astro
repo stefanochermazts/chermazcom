@@ -10,7 +10,7 @@ import LatestInsights from '../../components/Home/LatestInsights.astro'
 import AIDemos from '../../components/Home/AIDemos.astro'
 import Testimonials from '../../components/Home/Testimonials.astro'
 import Contact from '../../components/Home/Contact.astro'
-import { getCollection } from 'astro:content'
+import { getCollection, getEntry } from 'astro:content'
 import it from '../../i18n/it.json'
 
 // Dati per la pillar page
@@ -35,39 +35,44 @@ const featuredCaseStudies = await getCollection('caseStudies', ({ id }) =>
 const recentCaseStudies = featuredCaseStudies
   .sort((a, b) => new Date(b.data.date || 0).getTime() - new Date(a.data.date || 0).getTime())
   .slice(0, 3)
+
+// MDX home (IT)
+const home = await getEntry('pages', 'home')
+const H = (home?.data ?? it.pages.home)
 ---
 
-<UnifiedLayout enableTransitions={true} title={it.pages.home.title} description={it.pages.home.description} useLocalizedMeta={true} pageKey="home">
-  <Hero eyebrow={it.pages.home.hero.eyebrow} title={it.pages.home.hero.title} subtitle={it.pages.home.hero.subtitle} primary={{ href: '/it/servizi/', label: it.pages.home.hero.primaryLabel }} secondary={{ href: '/it/case-studies/', label: it.pages.home.hero.secondaryLabel }} />
+<UnifiedLayout enableTransitions={true} title={H.title ?? it.pages.home.title} description={H.description ?? it.pages.home.description} useLocalizedMeta={true} pageKey="home">
+  <Hero eyebrow={H.hero?.eyebrow ?? it.pages.home.hero.eyebrow} title={H.hero?.title ?? it.pages.home.hero.title} subtitle={H.hero?.subtitle ?? it.pages.home.hero.subtitle} primary={{ href: '/it/servizi/', label: H.hero?.primaryLabel ?? it.pages.home.hero.primaryLabel }} secondary={{ href: '/it/case-studies/', label: H.hero?.secondaryLabel ?? it.pages.home.hero.secondaryLabel }} afterButtons={H.hero?.afterButtons} />
   <About 
-    title={it.pages.home.about.title}
-    lead={it.pages.home.about.lead}
-    paragraph={it.pages.home.about.paragraph}
-    tags={it.pages.home.about.tags}
-    linkHref={it.pages.home.about.linkHref}
-    linkText={it.pages.home.about.linkText}
-    photoLabel={it.pages.home.about.photoLabel}
-    photoName={it.pages.home.about.photoName}
-    yearsBadgeValue={it.pages.home.about.yearsBadgeValue}
-    yearsBadgeSubtitle={it.pages.home.about.yearsBadgeSubtitle}
-    imageSrc={it.pages.home.about.imageSrc}
-    imageAlt={it.pages.home.about.imageAlt}
-    imageAspectClass={it.pages.home.about.imageAspectClass}
+    title={H.about?.title ?? it.pages.home.about.title}
+    lead={H.about?.lead ?? it.pages.home.about.lead}
+    paragraph={H.about?.paragraph ?? it.pages.home.about.paragraph}
+    tags={H.about?.tags ?? it.pages.home.about.tags}
+    linkHref={H.about?.linkHref ?? it.pages.home.about.linkHref}
+    linkText={H.about?.linkText ?? it.pages.home.about.linkText}
+    photoLabel={H.about?.photoLabel ?? it.pages.home.about.photoLabel}
+    photoName={H.about?.photoName ?? it.pages.home.about.photoName}
+    yearsBadgeValue={H.about?.yearsBadgeValue ?? it.pages.home.about.yearsBadgeValue}
+    yearsBadgeSubtitle={H.about?.yearsBadgeSubtitle ?? it.pages.home.about.yearsBadgeSubtitle}
+    imageSrc={H.about?.imageSrc ?? it.pages.home.about.imageSrc}
+    imageAlt={H.about?.imageAlt ?? it.pages.home.about.imageAlt}
+    imageAspectClass={H.about?.imageAspectClass ?? it.pages.home.about.imageAspectClass}
   />
   <Services 
-    title={it.pages.home.services.title}
-    subtitle={it.pages.home.services.subtitle}
-    servicesLinkBase={it.pages.home.services.servicesLinkBase}
-    bottomCtaText={it.pages.home.services.bottomCtaText}
-    bottomCtaHref={it.pages.home.services.bottomCtaHref}
-    services={it.pages.home.services.items}
+    title={H.services?.title ?? it.pages.home.services.title}
+    subtitle={H.services?.subtitle ?? it.pages.home.services.subtitle}
+    servicesLinkBase={H.services?.servicesLinkBase ?? it.pages.home.services.servicesLinkBase}
+    bottomCtaText={H.services?.bottomCtaText ?? it.pages.home.services.bottomCtaText}
+    bottomCtaHref={H.services?.bottomCtaHref ?? it.pages.home.services.bottomCtaHref}
+    services={H.services?.items ?? it.pages.home.services.items}
+    afterCta={H.services?.afterCta}
   />
   <Expertise 
-    title={it.pages.home.expertise.title}
-    subtitle={it.pages.home.expertise.subtitle}
-    ctaText={it.pages.home.expertise.ctaText}
-    ctaHref={it.pages.home.expertise.ctaHref}
-    areas={it.pages.home.expertise.areas}
+    title={H.expertise?.title ?? it.pages.home.expertise.title}
+    subtitle={H.expertise?.subtitle ?? it.pages.home.expertise.subtitle}
+    ctaText={H.expertise?.ctaText ?? it.pages.home.expertise.ctaText}
+    ctaHref={H.expertise?.ctaHref ?? it.pages.home.expertise.ctaHref}
+    areas={H.expertise?.areas ?? it.pages.home.expertise.areas}
   />
   <LatestInsights 
     items={seriesInsights} 
@@ -80,17 +85,17 @@ const recentCaseStudies = featuredCaseStudies
   <CaseStudies 
     items={recentCaseStudies} 
     baseUrl="/it/case-studies" 
-    title={it.pages.home.caseStudies.title} 
-    subtitle={it.pages.home.caseStudies.subtitle}
-    allProjectsLabel={it.pages.home.caseStudies.allProjectsLabel}
+    title={H.caseStudies?.title ?? it.pages.home.caseStudies.title} 
+    subtitle={H.caseStudies?.subtitle ?? it.pages.home.caseStudies.subtitle}
+    allProjectsLabel={H.caseStudies?.allProjectsLabel ?? it.pages.home.caseStudies.allProjectsLabel}
   />
   <LatestInsights 
     items={recentInsights} 
     baseUrl="/it/insights" 
-    title={it.pages.home.latestInsights.title} 
-    subtitle={it.pages.home.latestInsights.subtitle}
-    allArticlesLabel={it.pages.home.latestInsights.allArticlesLabel}
-    locale={it.pages.home.latestInsights.locale}
+    title={H.latestInsights?.title ?? it.pages.home.latestInsights.title} 
+    subtitle={H.latestInsights?.subtitle ?? it.pages.home.latestInsights.subtitle}
+    allArticlesLabel={H.latestInsights?.allArticlesLabel ?? it.pages.home.latestInsights.allArticlesLabel}
+    locale={H.latestInsights?.locale ?? it.pages.home.latestInsights.locale}
   />
   <AIDemos 
     title="Dimostrazioni AI"

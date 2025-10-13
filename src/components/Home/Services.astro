@@ -17,6 +17,7 @@ interface Props {
   servicesLinkBase?: string
   bottomCtaText?: string
   bottomCtaHref?: string
+  afterCta?: string
 }
 
 const {
@@ -54,8 +55,61 @@ const {
   ],
   servicesLinkBase = '/it/servizi/',
   bottomCtaText = 'Richiedi una consulenza',
-  bottomCtaHref = '/it/contatti/'
+  bottomCtaHref = '/it/contatti/',
+  afterCta
 } = Astro.props as Props
+ 
+function escapeHtml(input: string): string {
+  return input
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+}
+
+function inlineMd(s: string): string {
+  // Links [text](href)
+  let out = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_m, text, href) => `<a href="${href}">${escapeHtml(String(text))}</a>`)
+  // Bold **text**
+  out = out.replace(/\*\*([^*]+)\*\*/g, (_m, bold) => `<strong>${escapeHtml(String(bold))}</strong>`)
+  // Italic *text*
+  out = out.replace(/\*([^*]+)\*/g, (_m, em) => `<em>${escapeHtml(String(em))}</em>`)
+  return out
+}
+
+function renderSimpleMarkdown(md: string): string {
+  const text = (md || '').trim()
+  if (!text) return ''
+  const lines = text.split(/\r?\n/)
+  const htmlParts: string[] = []
+  let inList = false
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
+    if (/^\s*-\s+/.test(line)) {
+      if (!inList) {
+        inList = true
+        htmlParts.push('<ul>')
+      }
+      const item = line.replace(/^\s*-\s+/, '')
+      htmlParts.push(`<li>${inlineMd(item)}</li>`)
+      const next = lines[i + 1] || ''
+      if (!/^\s*-\s+/.test(next)) {
+        htmlParts.push('</ul>')
+        inList = false
+      }
+      continue
+    }
+    if (line.trim() === '') {
+      htmlParts.push('')
+      continue
+    }
+    htmlParts.push(`<p>${inlineMd(line)}</p>`) 
+  }
+  return htmlParts.filter(Boolean).join('\n')
+}
+
+const afterCtaHtml = typeof afterCta === 'string' && afterCta.trim().length > 0 
+  ? renderSimpleMarkdown(afterCta)
+  : ''
 ---
 
 <section class="pt-16 sm:pt-20">
@@ -151,6 +205,11 @@ const {
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
         </svg>
       </a>
+      {afterCtaHtml && (
+        <div class="mt-6 max-w-3xl mx-auto prose dark:prose-invert prose-zinc">
+          <div set:html={afterCtaHtml} />
+        </div>
+      )}
     </div>
   </div>
 </section>
