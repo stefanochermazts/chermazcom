@@ -15,7 +15,7 @@ if (!enable) {
 const locale = getLocaleFromUrl(Astro.url)
 const currentPath = Astro.url.pathname
 const canonical = Astro.url.toString()
-const alternateUrls = getAlternateUrls(currentPath, Astro.site?.toString())
+const alternateUrls = await getAlternateUrls(currentPath, Astro.site?.toString())
 ---
 
 {enable && (

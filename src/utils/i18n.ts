@@ -1,6 +1,7 @@
 import it from '../i18n/it.json'
 import en from '../i18n/en.json'
 import sl from '../i18n/sl.json'
+import { getCollection, type CollectionEntry } from 'astro:content'
 
 export type Locale = 'it' | 'en' | 'sl'
 
@@ -87,30 +88,84 @@ export function getLocalizedUrl(path: string, locale: Locale): string {
 /**
  * Get alternate URLs for all locales
  */
-export function getAlternateUrls(path: string, baseUrl: string = 'https://www.chermaz.com'): Record<Locale | 'x-default', string> {
+export async function getAlternateUrls(path: string, baseUrl: string = 'https://www.chermaz.com'): Promise<Record<Locale | 'x-default', string>> {
+  const base = (baseUrl || '').replace(/\/$/, '') || 'https://www.chermaz.com'
   const cleanPath = removeLocaleFromPath(path)
   const urls: Record<string, string> = {}
-  
-  // For each locale, generate the appropriate localized URL
-  for (const locale of locales) {
-    // For dynamic paths, just add the locale prefix
-    if (cleanPath.includes('[') || cleanPath.includes('/categoria/') || cleanPath.startsWith('/insights/') || cleanPath.startsWith('/case-studies/')) {
-      urls[locale] = `${baseUrl}${addLocaleToPath(cleanPath, locale)}`
-    } else {
-      // For static paths, try to map to localized route
-      const localizedPath = getLocalizedRoute(cleanPath, locale)
-      urls[locale] = `${baseUrl}${localizedPath}`
+
+  // Helpers per estrarre info dal path corrente
+  const segments = path.split('/').filter(Boolean)
+  const currentLocale: Locale = locales.includes(segments[0] as Locale) ? (segments[0] as Locale) : defaultLocale
+  const isInsightsDetail = /^\/insights\//.test(cleanPath)
+  const isCaseStudyDetail = /^\/case-studies\//.test(cleanPath)
+  const isCategory = /\/categoria\//.test(cleanPath)
+
+  // Recupera mapping slug localizzati per una collezione
+  async function buildEntryIndex(collectionName: 'insights' | 'caseStudies') {
+    const entries = await getCollection(collectionName)
+    type EntryInfo = {
+      locale: Locale
+      localSlug: string
+      sourceSlug?: string
     }
+    const list: EntryInfo[] = []
+    for (const e of entries) {
+      const id = e.id.replace(/\\/g, '/')
+      const isEn = id.startsWith('en-')
+      const isSl = id.startsWith('sl-')
+      const locale: Locale = isEn ? 'en' : isSl ? 'sl' : 'it'
+      const full = e.slug ?? id.replace(/\.mdx?$/, '')
+      const localSlug = locale === 'en' ? full.replace(/^en-/, '') : locale === 'sl' ? full.replace(/^sl-/, '') : full.replace(/^it\//, '')
+      const sourceSlug = (e.data as any)?.sourceSlug as string | undefined
+      list.push({ locale, localSlug, sourceSlug })
+    }
+    return list
   }
-  
-  // x-default points to the Italian version (default locale)
-  const defaultPath = cleanPath.includes('[') || cleanPath.includes('/categoria/') || cleanPath.startsWith('/insights/') || cleanPath.startsWith('/case-studies/')
-    ? addLocaleToPath(cleanPath, defaultLocale)
-    : getLocalizedRoute(cleanPath, defaultLocale)
-  
-  urls['x-default'] = `${baseUrl}${defaultPath}`
-  
-  return urls
+
+  if (isInsightsDetail || isCaseStudyDetail) {
+    const slugSegment = cleanPath.split('/').filter(Boolean).slice(-1)[0] || ''
+    const section = isInsightsDetail ? 'insights' : 'case-studies'
+    const entries = await buildEntryIndex(isInsightsDetail ? 'insights' : 'caseStudies')
+
+    // Trova l'entry corrente per dedurre l'eventuale sourceSlug IT
+    const currentEntry = entries.find(e => e.locale === currentLocale && e.localSlug === slugSegment)
+    const itBaseSlug = currentLocale === 'it' ? slugSegment : (currentEntry?.sourceSlug || slugSegment)
+
+    for (const locale of locales) {
+      let localizedSlug: string | undefined
+      if (locale === 'it') {
+        localizedSlug = entries.find(e => e.locale === 'it' && e.localSlug === itBaseSlug)?.localSlug
+      } else {
+        // Preferisci corrispondenza via sourceSlug
+        localizedSlug = entries.find(e => e.locale === locale && e.sourceSlug === itBaseSlug)?.localSlug
+        // Fallback: EN spesso mantiene lo stesso slug IT
+        if (!localizedSlug && locale === 'en') {
+          localizedSlug = entries.find(e => e.locale === 'en' && e.localSlug === itBaseSlug)?.localSlug
+        }
+      }
+      urls[locale] = `${base}/${locale}/${section}/${(localizedSlug || slugSegment)}/`
+    }
+    const itSlugForDefault = entries.find(e => e.locale === 'it' && e.localSlug === itBaseSlug)?.localSlug || slugSegment
+    urls['x-default'] = `${base}/it/${section}/${itSlugForDefault}/`
+    return urls as Record<Locale | 'x-default', string>
+  }
+
+  if (isCategory) {
+    for (const locale of locales) {
+      urls[locale] = `${base}${addLocaleToPath(cleanPath, locale)}`
+    }
+    urls['x-default'] = `${base}${addLocaleToPath(cleanPath, defaultLocale)}`
+    return urls as Record<Locale | 'x-default', string>
+  }
+
+  // Pagine statiche
+  for (const locale of locales) {
+    const localizedPath = getLocalizedRoute(cleanPath, locale)
+    urls[locale] = `${base}${localizedPath}`
+  }
+  const defaultPath = getLocalizedRoute(cleanPath, defaultLocale)
+  urls['x-default'] = `${base}${defaultPath}`
+  return urls as Record<Locale | 'x-default', string>
 }
 
 /**
