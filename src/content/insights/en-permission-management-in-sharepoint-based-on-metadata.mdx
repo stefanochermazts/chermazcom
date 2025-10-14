@@ -1,0 +1,176 @@
+---
+title: Permission management in SharePoint based on metadata
+slug: en-permission-management-in-sharepoint-based-on-metadata
+lang: en
+status: publish
+excerpt: A technical guide for configuring dynamic security in SharePoint Online leveraging metadata and Power Automate flows.
+description: >-
+  How to automate permission management in SharePoint based on document or list item metadata. Technical guide with
+  Power Automate and PnP PowerShell examples.
+date: 2025-10-14T00:00:00.000Z
+categories:
+  - office365-sharepoint
+tags:
+  - sharepoint
+  - microsoft 365
+  - sicurezza
+  - powerautomate
+  - metadati
+ogImage: /posts/gestione-permessi-sharepoint-metadati/og.webp
+image: /posts/gestione-permessi-sharepoint-metadati/card.webp
+sourceFile: insights/gestione-permessi-sharepoint-basati-sui-metadati.mdx
+sourceSlug: gestione-permessi-sharepoint-basati-sui-metadati
+sourceLang: it
+---
+
+# Metadata-based Permission Management in SharePoint
+
+## Introduction
+
+In many business scenarios, content security in **SharePoint Online** cannot be managed solely at the site or document library level. Some documents or list items require a differentiated level of protection — for example, based on **business division**, **document type**, or **confidentiality level**.
+
+In these cases, it is possible to implement a **dynamic permission management** based on **metadata**. SharePoint allows the use of custom columns (site columns or content type fields) as a logical trigger to automatically modify the permissions of a file or an item.
+
+This article outlines a technical approach based on:
+
+* **Managed metadata** to categorize documents.
+* **Power Automate flows** for dynamic permission removal and assignment.
+* **PnP PowerShell** and REST API for advanced automations.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## 1. Logical Architecture
+
+The basic principle is simple: every time a file is created or modified, SharePoint checks the value of one or more metadata and updates the permissions of the item based on predefined rules.
+
+**Practical example**:
+If the metadata `Department` = *Finance*, then the item will be accessible only to the group *Finance_Viewers*.
+
+### Involved Components
+
+1. **Document Library** with custom columns (e.g. `Confidentiality`, `Department`, `Project`).
+2. **Power Automate Flow** with trigger *When a file is created or modified (properties only)*.
+3. **SharePoint HTTP REST calls** or **dedicated Power Automate actions** for managing permissions.
+
+It seems that the text you wanted to translate is missing. Please provide the text you would like translated, and I'll be happy to assist you!
+
+## 2. Library Configuration
+
+Create a **document library** or a **custom list** with the following columns:
+
+| Column Name     | Type    | Example Values                 | Usage                        |
+| --------------- | ------- | ------------------------------ | ---------------------------- |
+| `Confidentiality` | Choice  | Public / Internal / Confidential | Determines access level      |
+| `Department`    | Choice  | HR / IT / Finance / Legal      | Assigns authorized group     |
+| `Manager`       | Person  | M365 Username                   | Grants specific permission    |
+
+These columns will become the **key metadata** for the security logic.
+
+It seems that there is no text provided for translation. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## 3. Power Automate: automatic management of permissions
+
+The most efficient way to manage dynamic security is to use a **Power Automate flow**.
+
+### a) Trigger
+
+Use the connector:
+
+**When a file is created or modified (properties only)**
+
+Add a **condition** to check if the key metadata (`Dipartimento`, `Riservatezza`) has been modified.
+
+### b) Removal of inherited permissions
+
+To avoid conflicts, you need to break the inheritance of permissions with a REST HTTP action:
+
+```http
+POST https://{tenant}.sharepoint.com/sites/{site}/_api/web/lists/getbytitle('Documenti')/items(@{triggerOutputs()?['body/ID']})/breakroleinheritance(copyRoleAssignments=false, clearSubscopes=true)
+```
+
+
+
+### c) Assignment of new permissions
+
+After breaking inheritance, assign permissions based on the value of the metadata:
+
+```http
+POST https://{tenant}.sharepoint.com/sites/{site}/_api/web/lists/getbytitle('Documenti')/items(@{triggerOutputs()?['body/ID']})/roleassignments/addroleassignment(principalid=@{variables('GroupID')}, roledefid=1073741826)
+```
+
+
+
+> Where `roledefid` represents the permission level (1073741826 = Contribute, 1073741827 = Read, etc.).
+
+You can map metadata values to M365 groups via a **configuration table** or a **support SharePoint list**.
+
+It seems that the text you wanted to translate is missing. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## 4. Example: dynamic permissions by department
+
+### Objective
+
+Every document uploaded to the library must be accessible only to the group corresponding to the department selected in the metadata `Dipartimento`.
+
+### Solution
+
+1. Column `Department` with values: *IT, HR, Finance, Legal*.
+2. List `AccessControl` with mapping:
+
+| Department    | Group           | ID |
+   | --------------| ----------------| -- |
+   | IT            | IT_Viewers      | 14 |
+   | HR            | HR_Viewers      | 22 |
+   | Finance       | Finance_Viewers | 28 |
+   | Legal         | Legal_Viewers   | 33 |
+3. Power Automate flow that:
+
+* Reads the value of `Department`.
+   * Searches for the group ID in the `AccessControl` list.
+   * Removes inherited permissions.
+   * Assigns read-only permission to the corresponding group.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you would like me to translate to English, and I'll be happy to assist you!
+
+## 5. Advanced Management with PnP PowerShell
+
+For complex or massive implementations, you can use **PnP PowerShell**.
+
+### Example script
+
+```powershell
+Connect-PnPOnline -Url "https://tenant.sharepoint.com/sites/Sicurezza" -Interactive
+
+$items = Get-PnPListItem -List "Documenti Riservati"
+
+foreach ($item in $items) {
+    $dip = $item["Dipartimento"]
+    $group = Get-PnPGroup -Identity "$dip-Viewers"
+    Set-PnPListItemPermission -List "Documenti Riservati" -Identity $item.Id -AddRole "Read" -Group $group.Title -BreakRoleInheritance
+}
+```
+
+
+
+This approach is ideal for:
+
+* Massive updates.
+* Periodic synchronizations from external systems.
+* Scheduled automations via Azure Automation.
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you'd like me to translate, and I'll be happy to assist you!
+
+## 6. Security and Performance Considerations
+
+* **Avoid too many items with unique permissions** → SharePoint has limits (~50,000 unique items per list).
+* **Centralize the rules** in a configuration list, so you can modify the criteria without rewriting the flows.
+* **Audit and logging**: always save a log of permission changes for compliance reasons.
+* **Use Site Scripts or PowerShell** to clone configurations between environments (UAT → Prod).
+
+It seems that the text you intended to provide for translation is missing. Please provide the text you would like to have translated, and I'll be happy to assist you!
+
+## 7. Conclusion
+
+Managing permissions in SharePoint based on **metadata** allows for an ideal balance between **flexibility** and **security**. By combining **Power Automate**, **REST API**, and **PnP PowerShell**, you can create an adaptive and scalable security system that can dynamically respond to organizational changes.
+
+👉 Do you want to implement dynamic security based on metadata in your Microsoft 365 environment? [Contact me](/contact) for a personalized consultation or discover other solutions in the [Office365 & SharePoint](/insights/office365-sharepoint) section.

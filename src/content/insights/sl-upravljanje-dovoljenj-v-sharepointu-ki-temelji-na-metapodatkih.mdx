@@ -1,0 +1,179 @@
+---
+title: Upravljanje dovoljenj v SharePointu, ki temelji na metapodatkih
+slug: sl-upravljanje-dovoljenj-v-sharepointu-ki-temelji-na-metapodatkih
+lang: sl
+status: publish
+excerpt: >-
+  Tehnični vodnik za konfiguracijo dinamične varnosti v SharePoint Online z izkoriščanjem metapodatkov in tokov Power
+  Automate.
+description: >-
+  Kako avtomatizirati upravljanje dovoljenj v SharePointu na podlagi metapodatkov dokumentov ali elementov seznama.
+  Tehnični vodnik z zgledi Power Automate in PnP PowerShell.
+date: 2025-10-14T00:00:00.000Z
+categories:
+  - office365-sharepoint
+tags:
+  - sharepoint
+  - microsoft 365
+  - sicurezza
+  - powerautomate
+  - metadati
+ogImage: /posts/gestione-permessi-sharepoint-metadati/og.webp
+image: /posts/gestione-permessi-sharepoint-metadati/card.webp
+sourceFile: insights/gestione-permessi-sharepoint-basati-sui-metadati.mdx
+sourceSlug: gestione-permessi-sharepoint-basati-sui-metadati
+sourceLang: it
+---
+
+# Upravljanje dovoljenj v SharePointu, temelječem na metapodatkih
+
+## Uvod
+
+V mnogih poslovnih scenarijih varnosti vsebine v **SharePoint Online** ni mogoče upravljati le na ravni spletnega mesta ali knjižnice dokumentov. Nekateri dokumenti ali elementi seznama zahtevajo različen nivo zaščite — na primer glede na **poslovno enoto**, **vrsto dokumenta** ali **nivo zaupnosti**.
+
+V teh primerih je mogoče implementirati **dinamično upravljanje dovoljenj** na podlagi **metapodatkov**. SharePoint namreč omogoča uporabo prilagojenih stolpcev (site columns ali content type fields) kot logični sprožilec za samodejno spremembo dovoljenj datoteke ali elementa.
+
+Ta članek prikazuje tehnični pristop, ki temelji na:
+
+* **Metapodatki** za kategorizacijo dokumentov.
+* **Power Automate** tokovi za dinamično odstranjevanje in dodeljevanje dovoljenj.
+* **PnP PowerShell** in REST API za napredne avtomatizacije.
+
+Please provide the text you would like to have translated to Slovenian.
+
+## 1. Logična arhitektura
+
+Osnovno načelo je preprosto: vsakič, ko je datoteka ustvarjena ali spremenjena, SharePoint preveri vrednost enega ali več metapodatkov in posodobi dovoljenja elementa na podlagi vnaprej določenih pravil.
+
+**Praktičen primer**:
+Če je metapodatka `Dipartimento` = *Finanza*, potem bo element dostopen samo skupini *Finanza_Viewers*.
+
+### Vključene komponente
+
+1. **Knjižnica dokumentov** s prilagojenimi stolpci (npr. `Zaupnost`, `Oddelek`, `Projekt`).
+2. **Power Automate tok** s sprožilcem *Ko je datoteka ustvarjena ali spremenjena (samo lastnosti)*.
+3. **HTTP REST SharePoint klici** ali **posebne Power Automate akcije** za upravljanje dovoljenj.
+
+Please provide the text you would like to have translated into Slovenian.
+
+## 2. Konfiguracija knjižnice
+
+Ustvari **document library** ali **prilagojeno listo** z naslednjimi stolpci:
+
+| Ime stolpca    | Tip     | Primer vrednosti               | Uporaba                     |
+| -------------- | ------- | ------------------------------ | --------------------------- |
+| `Zaupnost`     | Izbira  | Javno / Interno / Zaupno      | Določa raven dostopa       |
+| `Oddelek`      | Izbira  | HR / IT / Finance / Pravno     | Dodeli pooblaščeno skupino  |
+| `Odgovorna oseba` | Oseba | Ime uporabnika M365            | Dodeli specifično dovoljenje |
+
+Te stolpci bodo postali **ključni metapodatki** za logiko varnosti.
+
+I'm sorry, but it seems that the text you wanted to translate is missing. Could you please provide the text you would like to have translated into Slovenian?
+
+## 3. Power Automate: avtomatsko upravljanje dovoljenj
+
+Najučinkovitejši način za upravljanje dinamične varnosti je uporaba **flusa Power Automate**.
+
+### a) Trigger
+
+Uporabi povezovalnik:
+
+> **Ko je datoteka ustvarjena ali spremenjena (samo lastnosti)**
+
+Dodajte **pogoj** za preverjanje, ali so bili ključni metapodatki (`Dipartimento`, `Riservatezza`) spremenjeni.
+
+### b) Odstranitev dedovanih dovoljenj
+
+Da bi se izognili konfliktom, morate prekiniti dedovanje dovoljenj z akcijo HTTP REST:
+
+```http
+POST https://{tenant}.sharepoint.com/sites/{site}/_api/web/lists/getbytitle('Documenti')/items(@{triggerOutputs()?['body/ID']})/breakroleinheritance(copyRoleAssignments=false, clearSubscopes=true)
+```
+
+
+
+### c) Dodeljevanje novih dovoljenj
+
+Po pretrganju dedovanja dodelite dovoljenja na podlagi vrednosti metapodatkov:
+
+```http
+POST https://{tenant}.sharepoint.com/sites/{site}/_api/web/lists/getbytitle('Documenti')/items(@{triggerOutputs()?['body/ID']})/roleassignments/addroleassignment(principalid=@{variables('GroupID')}, roledefid=1073741826)
+```
+
+
+
+> Dove `roledefid` predstavlja raven dovoljenja (1073741826 = Contribute, 1073741827 = Read, itd.).
+
+Lahko mapirate vrednosti metapodatkov na M365 skupine preko **konfiguracijske tabele** ali **SharePoint seznama** za podporo.
+
+Please provide the text you would like to have translated to Slovenian.
+
+## 4. Primer: dinamična dovoljenja za oddelek
+
+### Obiettivo
+
+Vsak dokument, naložen v knjižnico, mora biti dostopen samo skupini, ki ustreza oddelku, izbranemu v metapodatku `Dipartimento`.
+
+### Rešitev
+
+1. Stolpec `Dipartimento` z vrednostmi: *IT, HR, Finance, Legal*.
+2. Seznam `AccessControl` z mapiranjem:
+
+| Oddelek      | Skupina         | ID |
+   | ------------ | --------------- | -- |
+   | IT           | IT_Viewers      | 14 |
+   | HR           | HR_Viewers      | 22 |
+   | Finance      | Finance_Viewers | 28 |
+   | Legal        | Legal_Viewers   | 33 |
+3. Power Automate tok, ki:
+
+* Nastavi vrednost `Dipartimento`.
+   * Poišči ID skupine na seznamu `AccessControl`.
+   * Odstrani dedovane pravice.
+   * Dodeli pravico samo za branje ustrezni skupini.
+
+I'm sorry, but it seems that the text you want to translate is missing. Could you please provide the text you'd like translated to Slovenian?
+
+## 5. Napredno upravljanje z PnP PowerShell
+
+Za kompleksne ali obsežne implementacije lahko uporabiš **PnP PowerShell**.
+
+### Primer skripta
+
+```powershell
+Connect-PnPOnline -Url "https://tenant.sharepoint.com/sites/Sicurezza" -Interactive
+
+$items = Get-PnPListItem -List "Documenti Riservati"
+
+foreach ($item in $items) {
+    $dip = $item["Dipartimento"]
+    $group = Get-PnPGroup -Identity "$dip-Viewers"
+    Set-PnPListItemPermission -List "Documenti Riservati" -Identity $item.Id -AddRole "Read" -Group $group.Title -BreakRoleInheritance
+}
+```
+
+
+
+Ta pristop je idealen za:
+
+* Masovni posodobitve.
+* Periodične sinhronizacije iz zunanjih sistemov.
+* Načrtovane avtomatizacije preko Azure Automation.
+
+I'm sorry, but it seems that the text you want to translate is missing. Could you please provide the text you would like to have translated into Slovenian?
+
+## 6. Varnostne in zmogljivostne razmisleke
+
+* **Izogibajte se prevelikemu številu elementov s posebnimi dovoljenji** → SharePoint ima omejitve (~50.000 edinstvenih elementov na seznam).
+* **Centralizirajte pravila** v konfiguracijski seznam, tako da lahko spremenite kriterije brez ponovnega pisanja tokov.
+* **Revizija in beleženje**: vedno shranite dnevnik sprememb dovoljenj iz razlogov skladnosti.
+* **Uporabite Site Scripts ali PowerShell** za kloniranje konfiguracij med okolji (UAT → Prod).
+
+I'm sorry, but it seems that the text you want to translate is missing. Could you please provide the text that you would like to have translated into Slovenian?
+
+## 7. Zaključek
+
+Upravljanje dovoljenji v SharePointu na podlagi **metapodatkov** omogoča dosego idealne ravnotežja med **fleksibilnostjo** in **varnostjo**. 
+S kombiniranjem **Power Automate**, **REST API** in **PnP PowerShell** lahko ustvarite prilagodljiv in razširljiv varnostni sistem, ki se dinamično prilagaja organizacijskim spremembam.
+
+👉 Želiš implementirati dinamično varnost, ki temelji na metapodatkih, v svojem okolju Microsoft 365? [Kontaktiraj me](/contact) za prilagojeno svetovanje ali odkrij druge rešitve v razdelku [Office365 & SharePoint](/insights/office365-sharepoint).

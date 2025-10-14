@@ -1,0 +1,157 @@
+---
+title: 'AI incident classification: AI, aplicirana na varnost in upravljanje incidentov'
+slug: sl-ai-incident-classification-ai-aplicirana-na-varnost-in-upravljanje-incidentov
+lang: sl
+status: publish
+excerpt: >-
+  L’AI revolucionira klasifikacijo incidentov in upravljanje varnostnih incidentov: odkrij, kako jo implementirati v
+  svojem SOC ali DevSecOps.
+description: >-
+  Odkrijte, kako AI preoblikuje klasifikacijo incidentov in upravljanje varnostnih incidentov, avtomatizira beleženje in
+  izboljšuje odziv.
+date: 2025-10-09T00:00:00.000Z
+categories:
+  - ai-development
+tags:
+  - ai
+  - sicurezza
+  - incidenti
+  - gestione
+  - analisi
+image: /posts/ai-incident-classification-l-ai-applicata-alla-sicurezza-e-alla-gestione-degli-incidenti/card.webp
+ogImage: /posts/ai-incident-classification-l-ai-applicata-alla-sicurezza-e-alla-gestione-degli-incidenti/og.webp
+sourceFile: insights/ai-incident-classification-l-ai-applicata-alla-sicurezza-e-alla-gestione-degli-incidenti.mdx
+sourceSlug: ai-incident-classification-l-ai-applicata-alla-sicurezza-e-alla-gestione-degli-incidenti
+sourceLang: it
+---
+
+import BreakoutImage from '../../components/BreakoutImage.astro'
+
+<BreakoutImage src="/images/covers/ai-incident-classification-l-ai-applicata-alla-sicurezza-e-alla-gestione-degli-incidenti-cover.jpg" alt="Cover — AI incident classification" />
+
+
+# AI incident classification: l’AI applicata alla sicurezza e alla gestione degli incidenti
+
+## Uvod
+
+Upravljanje **incidentov varnosti** je ena izmed najbolj zapletenih in kritičnih nalog za vsako IT organizacijo. Vsak dan sistemi in aplikacije generirajo ogromno količino dnevnikov, opozoril in obvestil. Uspešno razlikovanje med lažno pozitivnim rezultatom in pravo grožnjo je nenehna izziv. Tukaj pride v igro **AI incident classification**, torej uporaba umetne inteligence za samodejno klasifikacijo, korelacijo in prioritetizacijo incidentov.
+
+Zahvaljujoč tehnikam **machine learning** in **NLP (Natural Language Processing)** lahko AI bere, razume in kategorizira varnostne dogodke s hitrostjo in natančnostjo, kar izboljšuje sposobnost reakcije ekipe SOC (Security Operations Center). To je ena izmed najbolj naprednih aplikacij [sviluppo-AI](/sviluppo-ai) na področju kibernetske varnosti.
+
+I'm sorry, but it seems that you haven't provided the text you want to translate. Please share the text, and I'll be happy to assist you with the translation to Slovenian.
+
+## Kaj je klasifikacija incidentov in kako jo poganja AI
+
+L’**incident classification** je postopek, ki omogoča samodejno dodelitev kategorije, prednosti in ravni tveganja varnostnemu dogodku. Tradicionalno so to delo opravljali analitiki SOC, ki so ročno interpretirali dnevnike in odločali, ali je dogodek poskus nepooblaščenega dostopa, zlonamerna programska oprema, ranljivost konfiguracije ali omrežna anomalia.
+
+Z AI se ta proces **avtomatizira in prilagodi**. Algoritmi analizirajo vsebino dnevnikov, povezujejo dogodke s zgodovinskimi podatki in dinamično posodabljajo modele klasifikacije. Na ta način je mogoče:
+
+* Zmanjšati čas triage in analize.
+* Identificirati korelacije med na videz neodvisnimi dogodki.
+* Zmanjšati lažne pozitivne rezultate in izboljšati prioriteto odziva.
+
+Dobro usposobljen motor **AI incident classification** je sposoben nenehno učiti iz novih incidentov, pri čemer posodablja svoj model odločanja na podlagi poslovnega konteksta.
+
+I'm sorry, but it seems that the text you want to translate is missing. Please provide the text you'd like translated to Slovenian, and I'll be happy to assist you!
+
+## Pomembnost beleženja incidentov
+
+Il **register incidentov** je operativno srce upravljanja varnosti. Vsebuje informacije o vsakem dogodku: datum, vrsta incidenta, vključena sredstva, korektivni ukrepi. Avtomatizacija izpolnjevanja in posodabljanja tega registra s pomočjo AI pomeni imeti:
+
+* Popolna in ažurna sledljivost v realnem času.
+* Dosledna zgodovina s KPI-ji podjetne varnosti.
+* Usklajenost z regulativami, kot sta **DORA** in **NIS2**, ki zahtevata dokumentirane dokaze o **varnostnih incidentih**.
+
+Sistem **AI dokumentacije** (glej [AI za dokumentacijo](/ai-dokumentacija)) se lahko integrira za samodejno generiranje periodičnih poročil ali changelogov incidentov.
+
+I'm sorry, but it seems that there is no text provided for translation. Please provide the text you would like to have translated into Slovenian, and I'll be happy to assist you.
+
+## Praktičen primer: klasifikacija AI v SOC
+
+Imaginirajmo SOC, ki upravlja tisoče dnevnih dogodkov. S sistemom **incident classification** temelječim na AI:
+
+* I log se zbirajo z SIEM (npr. Splunk, Sentinel, QRadar).
+* Modul NLP izloči ključne entitete (IP, uporabniki, časovni žig, resnost).
+* Model ML ocenjuje podobnost s preteklimi incidenti in dodeli kategorijo (npr. phishing, brute force, data exfiltration).
+* Rezultati se pošljejo v **register incidentov** za avtomatski pregled.
+
+Evo poenostavljenega primera v Pythonu:
+
+```python
+from openai import OpenAI
+client = OpenAI(api_key="API_KEY")
+
+incident_log = "Suspicious login from unknown IP 185.123.44.2 detected by firewall at 03:42."
+
+prompt = f"Classifica il seguente evento di sicurezza: {incident_log}. Indica tipo di attacco, priorità e azione suggerita."
+
+response = client.chat.completions.create(
+    model="gpt-4.1",
+    messages=[{"role": "user", "content": prompt}]
+)
+
+print(response.choices[0].message.content)
+```
+
+
+
+Ta pristop je mogoče integrirati v pipeline **SIEM** ali **SOAR**, kar zagotavlja višjo raven avtomatizacije pri triiranju incidentov.
+
+I'm sorry, but it seems that you haven't provided any text to translate. Please provide the text you'd like me to translate to Slovenian, and I'll be happy to assist you!
+
+## Integracija z DevSecOps in upravljanje incidentov
+
+L’AI ne omejuje na SOC: lahko se integrira v tokove **DevSecOps**, kjer je **upravljanje incidentov** del življenjskega cikla programske opreme. V tem kontekstu:
+
+* Varnostni incidenti, povezani s kodo, se samodejno razvrstijo in povežejo s specifičnimi commit-i ali branch-i.
+* **Registro incidenti** se dosledno polni z informacijami iz CI/CD pipeline-ov.
+* Informacije se v realnem času delijo med razvojnimi, varnostnimi in skladnostnimi ekipami.
+
+To zagotavlja neprekinjeno sledljivost med izvorno kodo in ranljivostmi, ugotovljenimi v produkciji, ter izboljšuje **operativno odpornost** v smislu DORA/NIS2.
+
+I'm sorry, but it seems that you didn't provide any text to translate. Could you please share the text you would like me to translate into Slovenian?
+
+## Koristi in omejitve pristopa, temelječega na AI
+
+Prednosti AI pri **incident classification** so očitne:
+
+* **Hitrost**: zmanjšanje časa triage.
+* **Natančnost**: klasifikacija na podlagi konteksta in zgodovine.
+* **Skalabilnost**: samodejno upravljanje tisočih dogodkov na dan.
+* **Usklajenost**: podpora za regulativno dokumentacijo.
+
+Ma esistono anche limiti:
+
+* Potreba po **kvalitetnih označenih naborih podatkov** za usposabljanje.
+* **Algoritmična pristranskost**, če podatki ne predstavljajo vseh primerov.
+* Človeško nadzorovanje še vedno potrebno za kritične primere.
+
+Kot pri vsakem procesu [sviluppo-AI](/sviluppo-ai) uspeh temelji na upravljanju in stalnem spremljanju.
+
+I'm sorry, but it seems that you haven't provided the text that you would like to have translated. Please provide the text, and I'll be happy to assist you with the translation to Slovenian.
+
+## Svetovanje in implementacija
+
+Kot IT svetovalec pomagam podjetjem pri načrtovanju in implementaciji rešitev za **incident classification** na osnovi AI. Storitve vključujejo:
+
+* Integracija z obstoječimi platformami SIEM.
+* Ustvarjanje in vzdrževanje **registro incidentov** avtomatizirano.
+* Usposabljanje prilagojenih modelov za poslovni kontekst.
+* Validacija skladnosti v skladu z DORA/NIS2.
+
+Želiš razumeti, kako uvesti avtomatsko razvrščanje v svoj varnostni postopek? Odkrij [celovit vodnik za razvoj-AI](/sviluppo-ai) ali [kontaktiraj me](/contact) za prilagojeno svetovanje.
+
+I'm sorry, but it seems that you haven't provided the text you want to be translated. Please share the text, and I'll be happy to help with the translation to Slovenian.
+
+## FAQ
+
+**Kaj je klasifikacija incidentov?**  
+To je avtomatiziran postopek kategorizacije in prioritetizacije varnostnih dogodkov, ki temelji na AI in strojno učenje.
+
+**Kaj se razume pod registrom incidentov?**  
+To je strukturiran arhiv, ki dokumentira vse **incidenti varnosti**, z podrobnostmi o sprejetih ukrepih in rezultatih.
+
+**Kako implementirati upravljanje incidentov z AI?**
+S preko integracije NLP modelov v SIEM/SOAR tokove in DevSecOps pipeline, izboljšanje hitrosti in kakovosti odziva.
+
+I'm sorry, but it seems that the text you want to translate is missing. Could you please provide the text you would like me to translate into Slovenian?

@@ -1,0 +1,171 @@
+---
+title: Gestione dei permessi in SharePoint basata sui metadati
+slug: gestione-permessi-sharepoint-metadati
+lang: it
+status: publish
+excerpt: >-
+  Una guida tecnica per configurare la sicurezza dinamica in SharePoint Online
+  sfruttando i metadati e i flussi di Power Automate.
+description: >-
+  Come automatizzare la gestione dei permessi in SharePoint in base ai metadati
+  dei documenti o degli elementi di lista. Guida tecnica con esempi Power
+  Automate e PnP PowerShell.
+date: 2025-10-14T00:00:00.000Z
+categories:
+  - office365-sharepoint
+tags:
+  - sharepoint
+  - microsoft 365
+  - sicurezza
+  - powerautomate
+  - metadati
+ogImage: /posts/gestione-permessi-sharepoint-metadati/og.webp
+image: /posts/gestione-permessi-sharepoint-metadati/card.webp
+---
+
+# Gestione dei permessi in SharePoint basata sui metadati
+
+## Introduzione
+
+In molti scenari aziendali, la sicurezza dei contenuti in **SharePoint Online** non può essere gestita solo a livello di sito o di document library. Alcuni documenti o elementi di lista richiedono un livello di protezione differenziato — ad esempio in base alla **divisione aziendale**, alla **tipologia di documento** o al **livello di riservatezza**.
+
+In questi casi è possibile implementare una **gestione dei permessi dinamica** basata sui **metadati**. SharePoint consente infatti di utilizzare colonne personalizzate (site columns o content type fields) come trigger logico per modificare automaticamente i permessi di un file o di un elemento.
+
+Questo articolo illustra un approccio tecnico basato su:
+
+* **Metadati gestiti** per categorizzare i documenti.
+* **Flussi Power Automate** per la rimozione e assegnazione dinamica dei permessi.
+* **PnP PowerShell** e REST API per automazioni avanzate.
+
+---
+
+## 1. Architettura logica
+
+Il principio di base è semplice: ogni volta che un file viene creato o modificato, SharePoint verifica il valore di uno o più metadati e aggiorna i permessi dell’elemento in base a regole predefinite.
+
+**Esempio pratico**:
+Se il metadato `Dipartimento` = *Finanza*, allora l’elemento sarà accessibile solo al gruppo *Finanza_Viewers*.
+
+### Componenti coinvolti
+
+1. **Document Library** con colonne personalizzate (es. `Riservatezza`, `Dipartimento`, `Progetto`).
+2. **Flusso Power Automate** con trigger *When a file is created or modified (properties only)*.
+3. **Chiamate HTTP REST SharePoint** o **azioni Power Automate dedicate** per la gestione delle autorizzazioni.
+
+---
+
+## 2. Configurazione della libreria
+
+Crea una **document library** o una **lista personalizzata** con le seguenti colonne:
+
+| Nome colonna   | Tipo    | Esempio valori                 | Utilizzo                     |
+| -------------- | ------- | ------------------------------ | ---------------------------- |
+| `Riservatezza` | Scelta  | Pubblico / Interno / Riservato | Determina livello di accesso |
+| `Dipartimento` | Scelta  | HR / IT / Finance / Legal      | Assegna gruppo autorizzato   |
+| `Responsabile` | Persona | Nome utente M365               | Concede permesso specifico   |
+
+Queste colonne diventeranno i **metadati chiave** per la logica di sicurezza.
+
+---
+
+## 3. Power Automate: gestione automatica dei permessi
+
+Il modo più efficiente per gestire la sicurezza dinamica è utilizzare un **flusso Power Automate**.
+
+### a) Trigger
+
+Usa il connettore:
+
+> **When a file is created or modified (properties only)**
+
+Aggiungi una **condizione** per verificare se i metadati chiave (`Dipartimento`, `Riservatezza`) sono stati modificati.
+
+### b) Rimozione permessi ereditati
+
+Per evitare conflitti, devi interrompere l’ereditarietà dei permessi con un’azione HTTP REST:
+
+```http
+POST https://{tenant}.sharepoint.com/sites/{site}/_api/web/lists/getbytitle('Documenti')/items(@{triggerOutputs()?['body/ID']})/breakroleinheritance(copyRoleAssignments=false, clearSubscopes=true)
+```
+
+### c) Assegnazione nuovi permessi
+
+Dopo aver spezzato l’ereditarietà, assegna i permessi in base al valore dei metadati:
+
+```http
+POST https://{tenant}.sharepoint.com/sites/{site}/_api/web/lists/getbytitle('Documenti')/items(@{triggerOutputs()?['body/ID']})/roleassignments/addroleassignment(principalid=@{variables('GroupID')}, roledefid=1073741826)
+```
+
+> Dove `roledefid` rappresenta il livello di permesso (1073741826 = Contribute, 1073741827 = Read, ecc.).
+
+Puoi mappare i valori dei metadati a gruppi M365 tramite una **tabella di configurazione** o una **SharePoint list** di supporto.
+
+---
+
+## 4. Esempio: permessi dinamici per dipartimento
+
+### Obiettivo
+
+Ogni documento caricato nella libreria deve essere accessibile solo al gruppo corrispondente al dipartimento selezionato nel metadato `Dipartimento`.
+
+### Soluzione
+
+1. Colonna `Dipartimento` con valori: *IT, HR, Finance, Legal*.
+2. Lista `AccessControl` con mapping:
+
+   | Dipartimento | Gruppo          | ID |
+   | ------------ | --------------- | -- |
+   | IT           | IT_Viewers      | 14 |
+   | HR           | HR_Viewers      | 22 |
+   | Finance      | Finance_Viewers | 28 |
+   | Legal        | Legal_Viewers   | 33 |
+3. Flusso Power Automate che:
+
+   * Legge il valore di `Dipartimento`.
+   * Cerca l’ID gruppo nella lista `AccessControl`.
+   * Rimuove permessi ereditati.
+   * Assegna permesso di sola lettura al gruppo corrispondente.
+
+---
+
+## 5. Gestione avanzata con PnP PowerShell
+
+Per implementazioni complesse o massive, puoi usare **PnP PowerShell**.
+
+### Esempio script
+
+```powershell
+Connect-PnPOnline -Url "https://tenant.sharepoint.com/sites/Sicurezza" -Interactive
+
+$items = Get-PnPListItem -List "Documenti Riservati"
+
+foreach ($item in $items) {
+    $dip = $item["Dipartimento"]
+    $group = Get-PnPGroup -Identity "$dip-Viewers"
+    Set-PnPListItemPermission -List "Documenti Riservati" -Identity $item.Id -AddRole "Read" -Group $group.Title -BreakRoleInheritance
+}
+```
+
+Questo approccio è ideale per:
+
+* Aggiornamenti massivi.
+* Sincronizzazioni periodiche da sistemi esterni.
+* Automazioni pianificate tramite Azure Automation.
+
+---
+
+## 6. Considerazioni di sicurezza e performance
+
+* **Evitare troppi item con permessi unici** → SharePoint ha limiti (~50.000 item unici per lista).
+* **Centralizzare le regole** in una lista configurativa, così puoi modificare i criteri senza riscrivere i flussi.
+* **Audit e logging**: salva sempre un log delle modifiche ai permessi per motivi di compliance.
+* **Usa Site Scripts o PowerShell** per clonare configurazioni tra ambienti (UAT → Prod).
+
+---
+
+## 7. Conclusione
+
+Gestire i permessi in SharePoint in base ai **metadati** consente di raggiungere un equilibrio ideale tra **flessibilità** e **sicurezza**.
+Combinando **Power Automate**, **REST API** e **PnP PowerShell**, puoi creare un sistema di sicurezza adattivo e scalabile, capace di rispondere dinamicamente ai cambiamenti organizzativi.
+
+👉 Vuoi implementare la sicurezza dinamica basata sui metadati nel tuo ambiente Microsoft 365? [Contattami](/contact) per una consulenza personalizzata o scopri altre soluzioni nella sezione [Office365 & SharePoint](/insights/office365-sharepoint).

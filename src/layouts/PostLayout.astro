@@ -57,7 +57,7 @@ const formatDate = (iso?: string) => {
 
 <UnifiedLayout title={fm.title} description={metaDescription} useLocalizedMeta={true} pageKey={`post:${slug}`} image={fm.ogImage || fm.cover || fm.image}>
   <article itemScope itemType="https://schema.org/BlogPosting" class="mx-auto max-w-[1366px] px-4 sm:px-6 lg:px-8 my-10">
-    <div class="prose prose-lg dark:prose-invert mx-auto max-w-6xl">
+    <div class="prose prose-lg dark:prose-invert mx-auto max-w-[1366px]">
     <header class="not-prose mb-6">
       <div class="flex flex-wrap items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
         {Array.isArray(fm.categories) && fm.categories.length > 0 && (
@@ -242,6 +242,8 @@ const formatDate = (iso?: string) => {
   </script>
 
   <style is:global>
+    /* Larghezza piena della tipografia negli articoli */
+    article .prose { max-width: 100%; }
     /* Barra di progresso in alto (solo CSS) */
     #reading-progress { position: fixed; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, #263f78 0 var(--progress), transparent var(--progress) 100%); z-index: 60; }
 
